@@ -1,0 +1,84 @@
+/*
+   BNF: 19 bnf items
+   
+   toplevel: declarations "chp" "{" lang_chp "}"
+           ;
+   
+   declarations: "vars" "{" vardecl_list "}"
+               ;
+   
+   vardecl_list:
+                vardecl vardecl_list
+               | vardecl
+               ;
+   
+   vardecl:
+           "int" "<" INT ">" ID ";"
+          | "chan" "<" INT ">" ID ";"
+          ;
+   
+   lang_chp: { chp_body "||" }*
+           ;
+   
+   chp_body: { chp_comma_list ";" }*
+           ;
+   
+   chp_comma_list: { chp_body_item "," }*
+                 ;
+   
+   chp_body_item:
+                 base_stmt
+                | select_stmt
+                | loop_stmt
+                ;
+   
+   base_stmt: send_stmt
+            | recv_stmt
+            | assign_stmt
+            | "skip"
+            | "(" chp_body ")"
+            ;
+   
+   send_stmt: expr_id "!" send_data
+            ;
+   
+   send_data: 
+             expr
+            | "(" { expr "," }* ")"
+            ;
+   
+   recv_stmt: expr_id "?" recv_id
+            ;
+   
+   recv_id: 
+           expr_id
+          | "(" { expr_id "," }* ")"
+          ;
+   
+   assign_stmt: expr_id ":=" expr
+              | expr_id dir
+              ;
+   
+   dir:
+       "+"
+      | "-"
+      ;
+   
+   select_stmt: "[" { guarded_cmd "[]" }* "]"
+              | "[" bool_expr "]"
+              ;
+   
+   guarded_cmd: {excl}
+               bool_expr "->" chp_body
+              | "else" "->" chp_body
+              ;
+   
+   loop_stmt: "*[" chp_body "]"
+            | "*[" { guarded_cmd "[]" }* "]"
+            ;
+   
+   expr_id: ID
+          ;
+   
+   
+*/

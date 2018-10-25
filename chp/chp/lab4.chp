@@ -1,0 +1,31 @@
+/* variable declarations */
+vars {
+  int<1> b;
+  int<4> c;
+  int<8> x;
+  int<8> y;
+  chan<4> C;
+  chan<8> X;
+  chan<8> Y;
+  chan<8> S;
+  chan<8> F;
+
+   int<8> xx;
+   int<8> yy;
+}
+
+
+/* chp program */
+
+chp {
+*[ C?c,X?x,Y?y;
+   b:=cmp_1(c);
+   [b-> S!add_8(x,y) 
+   []~b-> F!fblock_8(c,x,y)
+   ]
+ ]
+||
+*[ S?xx ]
+||
+*[ F?yy ]
+}
