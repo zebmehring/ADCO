@@ -1,0 +1,12 @@
+/* variable declarations */
+vars {
+  int<32> x;
+  int<32> y;
+  int<32> z;
+}
+
+/* chp program */
+
+chp {
+  z := x + y
+}
