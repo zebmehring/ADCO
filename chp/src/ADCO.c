@@ -131,7 +131,7 @@ int _print_expr (Expr *e)
       {
         symbol *v = find_symbol (__chp, (char *)e->u.e.l);
         if (!v) {
-        	fprintf (stderr, "Symbol `%s' not found\n", (char *)e->u.e.l);
+        	fprintf (stderr, "Symbol '%s' not found\n", (char *)e->u.e.l);
         	exit (1);
         }
         if (v->bitwidth == 1) {
@@ -230,7 +230,7 @@ int _print_expr (Expr *e)
         tmp = e->u.fn.r;
         while (tmp) {
         	if (tmp->u.e.l->type != E_VAR) {
-        	  printf ("-- can't handle this case--\n");
+        	  printf ("-- can't handle this case --\n");
         	  break;
         	}
         	tmp = tmp->u.e.r;
@@ -244,7 +244,7 @@ int _print_expr (Expr *e)
         while (tmp) {
         	symbol *v = find_symbol (__chp, (char *)tmp->u.e.l->u.e.l);
         	if (!v) {
-        	  fprintf (stderr, "No such variable `%s'\n", (char *)tmp->u.e.l->u.e.l);
+        	  fprintf (stderr, "No such variable '%s'\n", (char *)tmp->u.e.l->u.e.l);
         	  exit (1);
         	}
         	if (v->bitwidth == 1) {
@@ -265,7 +265,7 @@ int _print_expr (Expr *e)
       }
       break;
     default:
-      printf ("ERR, type=%d\n", e->type);
+      fprintf (stderr, "Error: unknown type %d\n", e->type);
       break;
   }
   return ret;
@@ -525,11 +525,11 @@ int print_chp_stmt (chp_lang_t *c)
         printf (" c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
         v = find_symbol (__chp, c->u.comm.chan);
         if (!v) {
-  	       fprintf (stderr, "Channel `%s' not found\n", c->u.comm.chan);
+  	       fprintf (stderr, "Channel '%s' not found\n", c->u.comm.chan);
   	       exit (1);
         }
         if (v->bitwidth != func_bitwidth) {
-  	       fprintf (stderr, "Channel `%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, func_bitwidth);
+  	       fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, func_bitwidth);
   	       exit (1);
         }
         if (func_bitwidth == 1) {
@@ -551,7 +551,7 @@ int print_chp_stmt (chp_lang_t *c)
         printf (" a1of1 c_%d;\n", ret);
         v = find_symbol (__chp, c->u.comm.chan);
         if (!v) {
-        	fprintf (stderr, "Channel `%s' not found\n", c->u.comm.chan);
+        	fprintf (stderr, "Channel '%s' not found\n", c->u.comm.chan);
         	exit (1);
         }
         u = find_symbol (__chp, (char *)list_value (list_first (c->u.comm.rhs)));
@@ -560,7 +560,7 @@ int print_chp_stmt (chp_lang_t *c)
         	exit (1);
         }
         if (v->bitwidth != u->bitwidth) {
-        	fprintf (stderr, "Channel `%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, u->bitwidth);
+        	fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, u->bitwidth);
         	exit (1);
         }
         if (v->bitwidth == 1) {
@@ -624,7 +624,7 @@ int print_chp_stmt (chp_lang_t *c)
       break;
 
     default:
-      fprintf (stderr, "ERR\n");
+      fprintf (stderr, "Error, unsupported token: %d\n", c->type);
       exit (1);
       break;
   }
