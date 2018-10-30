@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include "chp.h"
 #include "list.h"
 #include "hash.h"
@@ -12,6 +13,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth);
 static int expr_count = 1;
 static int stmt_count = 0;
 static int chan_count = 0;
+static bool truncate = true;
 
 void print_vars (Chp *c)
 {
@@ -66,11 +68,38 @@ void emit_const_0 (void)
   emitted = 1;
 }
 
+int get_bitwidth (int n)
+{
+  int width = 0;
+  while (n > 0) {
+    n >>= 1;
+    width++;
+  }
+  return width;
+}
+
+int get_max_bits (char *s, int lbits, int rbits)
+{
+  if (!strcmp (s, "bin_add") || !strcmp (s, "bin_sub")) {
+    return (lbits > rbits) ? lbits + 1 : rbits + 1;
+  }
+  else if (!strcmp (s, "bin_mul")) {
+    return lbits + rbits;
+  }
+  else if (!strcmp (s, "bin_div")) {
+    return lbits > rbits ? lbits : rbits;
+  }
+  else {
+    fprintf(stderr, "Unsupported binary operation.\n");
+    return -1;
+  }
+}
+
 static int base_var = -1;
 
 int unop (char *s, Expr *e, int *bitwidth)
 {
-  int l, ret;
+  int l;
 
   l = _print_expr (e->u.e.l, bitwidth);
 
@@ -91,20 +120,38 @@ int binop (char *s, Expr *e, int *bitwidth)
 
 int arithmetic_binop (char *s, Expr *e, int *bitwidth)
 {
-  int l, r;
+  int l, r, abits, lbits, rbits, maxbits;
 
+  abits = *bitwidth;
   l = _print_expr (e->u.e.l, bitwidth);
+  lbits = *bitwidth;
   r = _print_expr (e->u.e.r, bitwidth);
+  rbits = *bitwidth;
+  maxbits = get_max_bits (s, lbits, rbits);
 
-  printf (" bundled_%s_%d e_%d;\n", s, *bitwidth, expr_count);
+  if (rbits == 0 && !strcmp (s, "bin_div")) {
+    fprintf(stderr, "Error: division by 0.\n");
+    return expr_count++;
+  }
 
-  if (*bitwidth == 1) {
+  if (truncate) {
+    printf (" bundled_%s_%d e_%d;\n", s, abits, expr_count);
+  }
+  else {
+    printf (" bundled_%s_%d e_%d;\n", s, maxbits, expr_count);
+  }
+
+  if (lbits == 1) {
     printf (" e_%d.lhs = e_%d.v;\n", expr_count, l);
+  }
+  else {
+    printf (" (i:%d: e_%d.lhs[i] = e_%d[i].v;)\n", lbits, expr_count, l);
+  }
+  if (rbits == 1) {
     printf (" e_%d.rhs = e_%d.v;\n", expr_count, r);
   }
   else {
-    printf (" (i:%d: e_%d.lhs[i] = e_%d[i].v;)\n", *bitwidth, expr_count, l);
-    printf (" (i:%d: e_%d.rhs[i] = e_%d[i].v;)\n", *bitwidth, expr_count, r);
+    printf (" (i:%d: e_%d.rhs[i] = e_%d[i].v;)\n", rbits, expr_count, r);
   }
 
   if (base_var == -1) {
@@ -117,6 +164,8 @@ int arithmetic_binop (char *s, Expr *e, int *bitwidth)
 }
 
 static Chp *__chp;
+
+static int func_bitwidth;
 
 int _print_expr (Expr *e, int *bitwidth)
 {
@@ -171,16 +220,14 @@ int _print_expr (Expr *e, int *bitwidth)
         else {
   	       printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
         }
-        if (*bitwidth == -1) {
-  	       *bitwidth = v->bitwidth;
-        }
-        else if (*bitwidth == v->bitwidth) {
-          *bitwidth = v->bitwidth;
-        }
-        else {
-        	fprintf (stderr, "Function/variable combinations not supported\n");
-        	exit (1);
-        }
+        // if (func_bitwidth == -1) {
+  	    //    func_bitwidth = v->bitwidth;
+        // }
+        // else {
+        // 	fprintf (stderr, "Function/variable combinations not supported\n");
+        // 	exit (1);
+        // }
+  	    *bitwidth = v->bitwidth;
         ret = expr_count++;
       }
       break;
@@ -199,6 +246,7 @@ int _print_expr (Expr *e, int *bitwidth)
       else {
         printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
       }
+      *bitwidth = get_bitwidth (e->u.v);
       ret = expr_count++;
       break;
     case E_TRUE:
@@ -230,7 +278,7 @@ int _print_expr (Expr *e, int *bitwidth)
         int bits;
         char *t;
 
-        if (*bitwidth != -1) {
+        if (func_bitwidth != -1) {
         	fprintf (stderr, "Only simple functions are supported!\n");
         	exit (1);
         }
@@ -252,6 +300,7 @@ int _print_expr (Expr *e, int *bitwidth)
         	fprintf (stderr, "Functions must be of the form name_<bitwidth>\n");
         	exit (1);
         }
+        func_bitwidth = bits;
         *bitwidth = bits;
         tmp = e->u.fn.r;
         while (tmp) {
@@ -300,7 +349,7 @@ int _print_expr (Expr *e, int *bitwidth)
 /*
   returns the expression # for e_<num>.out.{t,f}
                           or   e_<num>.out[i].{t,f} for multi-bit
-                          output (*bitwidth will be set to a value > 1)
+                          output (func_bitwidth will be set to a value > 1)
 
   base_var is a global (ick) for the expression # for e_<num>.go_r
 */
@@ -308,7 +357,7 @@ int _print_expr (Expr *e, int *bitwidth)
 int print_expr (Expr *e, int *bitwidth)
 {
   base_var = -1;
-  *bitwidth = -1;
+  func_bitwidth = -1;
   return _print_expr (e, bitwidth);
 }
 
@@ -503,17 +552,17 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
       printf (" a1of1 c_%d;\n", ret);
       sprintf (buf, "c_%d.r", ret);
       //printf (" e_%d.go_r = c_%d.r;\n", go_r, ret);
-      if (*bitwidth == -1) {
-        *bitwidth = 1;
+      if (func_bitwidth == -1) {
+        func_bitwidth = 1;
       }
-      a = print_expr_tmpvar (buf, go_r, a, *bitwidth);
+      a = print_expr_tmpvar (buf, go_r, a, func_bitwidth);
       v = find_symbol (__chp, c->u.assign.id);
       if (!v) {
         fprintf (stderr, "Variable %s not found\n", c->u.assign.id);
         exit (1);
       }
-      if (*bitwidth != v->bitwidth) {
-        fprintf (stderr, "Function bitwidth (%d) doesn't match variable bitwidth (%d)\n", *bitwidth, v->bitwidth);
+      if (func_bitwidth != v->bitwidth) {
+        fprintf (stderr, "Function bitwidth (%d) doesn't match variable bitwidth (%d)\n", func_bitwidth, v->bitwidth);
         exit (1);
       }
       if (v->bitwidth == 1) {
@@ -539,13 +588,13 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
         a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth);
         go_r = base_var;
         ret = chan_count++;
-        if (*bitwidth == -1) {
-  	       *bitwidth = 1;
+        if (func_bitwidth == -1) {
+  	       func_bitwidth = 1;
         }
         printf (" a1of1 c_%d;\n", ret);
 
         sprintf (buf, "c_%d.r", ret);
-        a = print_expr_tmpvar (buf, go_r, a, *bitwidth);
+        a = print_expr_tmpvar (buf, go_r, a, func_bitwidth);
 
         //printf (" c_%d.r = e_%d.go_r;\n", ret, base_var);
         printf (" c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
@@ -554,16 +603,16 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
   	       fprintf (stderr, "Channel '%s' not found\n", c->u.comm.chan);
   	       exit (1);
         }
-        if (v->bitwidth != *bitwidth) {
-  	       fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, *bitwidth);
+        if (v->bitwidth != func_bitwidth) {
+  	       fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, func_bitwidth);
   	       exit (1);
         }
-        if (*bitwidth == 1) {
+        if (func_bitwidth == 1) {
   	       printf (" chan_%s.t = e_%d.out.t;\n", c->u.comm.chan, a);
   	       printf (" chan_%s.f = e_%d.out.f;\n", c->u.comm.chan, a);
         }
         else {
-  	       printf (" (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", *bitwidth, v->name, a);
+  	       printf (" (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", func_bitwidth, v->name, a);
         }
       }
       printf ("\n");

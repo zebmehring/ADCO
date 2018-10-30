@@ -1,6 +1,7 @@
 /* variable declarations */
 vars {
-  int<32> x;
+  int<32> a;
+  int<16> x;
   int<32> y;
   int<32> z;
 }
