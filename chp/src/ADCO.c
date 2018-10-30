@@ -6,8 +6,8 @@
 #include "list.h"
 #include "hash.h"
 
-int _print_expr (Expr *e);
-int print_chp_stmt (chp_lang_t *c);
+int _print_expr (Expr *e, int *bitwidth);
+int print_chp_stmt (chp_lang_t *c, int *bitwidth);
 
 static int expr_count = 1;
 static int stmt_count = 0;
@@ -68,35 +68,35 @@ void emit_const_0 (void)
 
 static int base_var = -1;
 
-int unop (char *s, Expr *e)
+int unop (char *s, Expr *e, int *bitwidth)
 {
   int l, ret;
 
-  l = _print_expr (e->u.e.l);
+  l = _print_expr (e->u.e.l, bitwidth);
 
   printf (" %s e_%d(e_%d.out);\n", s, expr_count, l);
   return expr_count++;
 }
 
-int binop (char *s, Expr *e)
+int binop (char *s, Expr *e, int *bitwidth)
 {
   int l, r;
 
-  l = _print_expr (e->u.e.l);
-  r = _print_expr (e->u.e.r);
+  l = _print_expr (e->u.e.l, bitwidth);
+  r = _print_expr (e->u.e.r, bitwidth);
 
   printf (" %s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
   return expr_count++;
 }
 
-int arithmetic_binop (char *s, Expr *e)
+int arithmetic_binop (char *s, Expr *e, int *bitwidth)
 {
   int l, r;
 
-  l = _print_expr (e->u.e.l);
-  r = _print_expr (e->u.e.r);
+  l = _print_expr (e->u.e.l, bitwidth);
+  r = _print_expr (e->u.e.r, bitwidth);
 
-  printf (" bundled_%s_%d e_%d;\n", s, func_bitwidth, expr_count);
+  printf (" bundled_%s_%d e_%d;\n", s, *bitwidth, expr_count);
 
   if (l == 1) {
     printf (" e_%d.lhs = e_%d.v;\n", expr_count, l);
@@ -123,37 +123,35 @@ int arithmetic_binop (char *s, Expr *e)
 
 static Chp *__chp;
 
-static int func_bitwidth;
-
-int _print_expr (Expr *e)
+int _print_expr (Expr *e, int *bitwidth)
 {
   int ret;
   switch (e->type) {
     case E_AND:
-      ret = binop ("syn_expr_and", e);
+      ret = binop ("syn_expr_and", e, bitwidth);
       break;
     case E_OR:
-      ret = binop ("syn_expr_or", e);
+      ret = binop ("syn_expr_or", e, bitwidth);
       break;
     case E_PLUS:
-      ret = arithmetic_binop ("add", e);
+      ret = arithmetic_binop ("add", e, bitwidth);
       break;
     case E_MINUS:
-      ret = arithmetic_binop ("sub", e);
+      ret = arithmetic_binop ("sub", e, bitwidth);
       break;
     case E_MULT:
-      ret = arithmetic_binop ("mul", e);
+      ret = arithmetic_binop ("mul", e, bitwidth);
       break;
     case E_DIV:
-      ret = arithmetic_binop ("div", e);
+      ret = arithmetic_binop ("div", e, bitwidth);
       break;
     case E_NOT:
     case E_COMPLEMENT:
-      ret = unop ("syn_expr_not", e);
+      ret = unop ("syn_expr_not", e, bitwidth);
       break;
     case E_UMINUS:
       // TODO: need to discriminate single/multi-bit case
-      ret = unop ("syn_expr_uminus", e);
+      ret = unop ("syn_expr_uminus", e, bitwidth);
       break;
     case E_PROBE:
       ret = 0;
@@ -178,11 +176,11 @@ int _print_expr (Expr *e)
         else {
   	       printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
         }
-        if (func_bitwidth == -1) {
-  	       func_bitwidth = v->bitwidth;
+        if (*bitwidth == -1) {
+  	       *bitwidth = v->bitwidth;
         }
-        else if (func_bitwidth == v->bitwidth) {
-          func_bitwidth = v->bitwidth;
+        else if (*bitwidth == v->bitwidth) {
+          *bitwidth = v->bitwidth;
         }
         else {
         	fprintf (stderr, "Function/variable combinations not supported\n");
@@ -237,7 +235,7 @@ int _print_expr (Expr *e)
         int bits;
         char *t;
 
-        if (func_bitwidth != -1) {
+        if (*bitwidth != -1) {
         	fprintf (stderr, "Only simple functions are supported!\n");
         	exit (1);
         }
@@ -259,7 +257,7 @@ int _print_expr (Expr *e)
         	fprintf (stderr, "Functions must be of the form name_<bitwidth>\n");
         	exit (1);
         }
-        func_bitwidth = bits;
+        *bitwidth = bits;
         tmp = e->u.fn.r;
         while (tmp) {
         	if (tmp->u.e.l->type != E_VAR) {
@@ -307,16 +305,16 @@ int _print_expr (Expr *e)
 /*
   returns the expression # for e_<num>.out.{t,f}
                           or   e_<num>.out[i].{t,f} for multi-bit
-                          output (func_bitwidth will be set to a value > 1)
+                          output (*bitwidth will be set to a value > 1)
 
   base_var is a global (ick) for the expression # for e_<num>.go_r
 */
 
-int print_expr (Expr *e)
+int print_expr (Expr *e, int *bitwidth)
 {
   base_var = -1;
-  func_bitwidth = -1;
-  return _print_expr (e);
+  *bitwidth = -1;
+  return _print_expr (e, bitwidth);
 }
 
 /*
@@ -369,7 +367,7 @@ static int gc_chan_count = 0;
       t = guard evaluated to true and the statement was executed
       f = guard evaluated to false
 */
-int print_one_gc (chp_gc_t *gc)
+int print_one_gc (chp_gc_t *gc, int *bitwidth)
 {
   int a, b;
   int ret = gc_chan_count++;
@@ -380,7 +378,7 @@ int print_one_gc (chp_gc_t *gc)
     int seq;
     int go_r;
     char buf[1024];
-    a = print_expr (gc->g);
+    a = print_expr (gc->g, bitwidth);
     go_r = base_var;
 
     sprintf (buf, "gc_%d.r", ret);
@@ -388,7 +386,7 @@ int print_one_gc (chp_gc_t *gc)
     /* replace "a" with latched value */
     a = print_expr_tmpvar (buf, go_r, a, 1);
 
-    b = print_chp_stmt (gc->s);
+    b = print_chp_stmt (gc->s, bitwidth);
 
     if (b == -1) {
       /* empty */
@@ -401,7 +399,7 @@ int print_one_gc (chp_gc_t *gc)
     printf (" gc_%d.f = e_%d.out.f;\n", ret, a);
   }
   else {
-    b = print_chp_stmt (gc->s);
+    b = print_chp_stmt (gc->s, bitwidth);
     printf (" gc_%d.r = c_%d.r;\n", ret, b);
     printf (" gc_%d.t = c_%d.a;\n", ret, b);
     //printf (" prs { Reset|~Reset -> gc_%d.f- }\n", ret);
@@ -413,7 +411,7 @@ int print_one_gc (chp_gc_t *gc)
 /*
   prints loop/selection staetment, returns channel # for the "go" command.
 */
-int print_gc (int loop, chp_gc_t *gc)
+int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
 {
   int start_gc_chan = gc_chan_count;
   int end_gc_chan;
@@ -424,11 +422,11 @@ int print_gc (int loop, chp_gc_t *gc)
 
   mygc = gc_num++;
   printf ("\n /*--- emit individual gc (#%d) [%s] ---*/\n", mygc, loop ? "loop" : "selection");
-  start_gc_chan = print_one_gc (gc);
+  start_gc_chan = print_one_gc (gc, bitwidth);
   end_gc_chan = start_gc_chan;
   gc = gc->next;
   while (gc) {
-    end_gc_chan = print_one_gc (gc);
+    end_gc_chan = print_one_gc (gc, bitwidth);
     gc = gc->next;
   }
 
@@ -486,7 +484,7 @@ int print_gc (int loop, chp_gc_t *gc)
 /*
   Prints chp statement, returns channel # for "go" command
 */
-int print_chp_stmt (chp_lang_t *c)
+int print_chp_stmt (chp_lang_t *c, int *bitwidth)
 {
   int ret;
   int a, b, go_r;
@@ -503,24 +501,24 @@ int print_chp_stmt (chp_lang_t *c)
 
     case CHP_ASSIGN:
       printf (" /* assign */\n");
-      a = print_expr (c->u.assign.e);
+      a = print_expr (c->u.assign.e, bitwidth);
       go_r = base_var;
       ret = chan_count++;
       b = stmt_count++;
       printf (" a1of1 c_%d;\n", ret);
       sprintf (buf, "c_%d.r", ret);
       //printf (" e_%d.go_r = c_%d.r;\n", go_r, ret);
-      if (func_bitwidth == -1) {
-        func_bitwidth = 1;
+      if (*bitwidth == -1) {
+        *bitwidth = 1;
       }
-      a = print_expr_tmpvar (buf, go_r, a, func_bitwidth);
+      a = print_expr_tmpvar (buf, go_r, a, *bitwidth);
       v = find_symbol (__chp, c->u.assign.id);
       if (!v) {
         fprintf (stderr, "Variable %s not found\n", c->u.assign.id);
         exit (1);
       }
-      if (func_bitwidth != v->bitwidth) {
-        fprintf (stderr, "Function bitwidth (%d) doesn't match variable bitwidth (%d)\n", func_bitwidth, v->bitwidth);
+      if (*bitwidth != v->bitwidth) {
+        fprintf (stderr, "Function bitwidth (%d) doesn't match variable bitwidth (%d)\n", *bitwidth, v->bitwidth);
         exit (1);
       }
       if (v->bitwidth == 1) {
@@ -543,16 +541,16 @@ int print_chp_stmt (chp_lang_t *c)
     case CHP_SEND:
       printf (" /* send */\n");
       if (list_length (c->u.comm.rhs) == 1) {
-        a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)));
+        a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth);
         go_r = base_var;
         ret = chan_count++;
-        if (func_bitwidth == -1) {
-  	       func_bitwidth = 1;
+        if (*bitwidth == -1) {
+  	       *bitwidth = 1;
         }
         printf (" a1of1 c_%d;\n", ret);
 
         sprintf (buf, "c_%d.r", ret);
-        a = print_expr_tmpvar (buf, go_r, a, func_bitwidth);
+        a = print_expr_tmpvar (buf, go_r, a, *bitwidth);
 
         //printf (" c_%d.r = e_%d.go_r;\n", ret, base_var);
         printf (" c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
@@ -561,16 +559,16 @@ int print_chp_stmt (chp_lang_t *c)
   	       fprintf (stderr, "Channel '%s' not found\n", c->u.comm.chan);
   	       exit (1);
         }
-        if (v->bitwidth != func_bitwidth) {
-  	       fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, func_bitwidth);
+        if (v->bitwidth != *bitwidth) {
+  	       fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, *bitwidth);
   	       exit (1);
         }
-        if (func_bitwidth == 1) {
+        if (*bitwidth == 1) {
   	       printf (" chan_%s.t = e_%d.out.t;\n", c->u.comm.chan, a);
   	       printf (" chan_%s.f = e_%d.out.f;\n", c->u.comm.chan, a);
         }
         else {
-  	       printf (" (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", func_bitwidth, v->name, a);
+  	       printf (" (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", *bitwidth, v->name, a);
         }
       }
       printf ("\n");
@@ -618,7 +616,7 @@ int print_chp_stmt (chp_lang_t *c)
       {
         listitem_t *li;
         if (list_length (c->u.semi_comma.cmd) == 1) {
-          return print_chp_stmt ((chp_lang_t *)list_value (list_first (c->u.semi_comma.cmd)));
+          return print_chp_stmt ((chp_lang_t *)list_value (list_first (c->u.semi_comma.cmd)), bitwidth);
         }
 
         printf (" /* %s */\n", c->type == CHP_COMMA ? "comma" : "semicolon");
@@ -627,7 +625,7 @@ int print_chp_stmt (chp_lang_t *c)
         printf (" a1of1 c_%d;\n", ret);
         for (li = list_first (c->u.semi_comma.cmd); list_next (li); li = list_next (li)) {
           int s;
-  	      b = print_chp_stmt ((chp_lang_t *)list_value (li));
+  	      b = print_chp_stmt ((chp_lang_t *)list_value (li), bitwidth);
           s = stmt_count++;
           if (c->type == CHP_SEMI) {
              printf (" syn_seq s_%d(c_%d);\n", s, a);
@@ -638,7 +636,7 @@ int print_chp_stmt (chp_lang_t *c)
           printf (" s_%d.s1 = c_%d;\n", s, b);
           if (!list_next (list_next (li))) {
              /* if this is the last loop iteration */
-             b = print_chp_stmt ((chp_lang_t *)list_value (list_next (li)));
+             b = print_chp_stmt ((chp_lang_t *)list_value (list_next (li)), bitwidth);
              printf (" s_%d.s2 = c_%d;\n", s, b);
           }
           else {
@@ -653,7 +651,7 @@ int print_chp_stmt (chp_lang_t *c)
 
     case CHP_LOOP:
     case CHP_SELECT:
-      ret = print_gc ((c->type == CHP_LOOP) ? 1 : 0, c->u.gc);
+      ret = print_gc ((c->type == CHP_LOOP) ? 1 : 0, c->u.gc, bitwidth);
       break;
 
     default:
@@ -670,7 +668,9 @@ void print_chp_structure (Chp *c)
   printf ("import \"lab_syn.act\";\n\n");
   printf ("defproc toplevel (a1of1 go)\n{\n");
   print_vars (c);
-  i = print_chp_stmt (c->c);
+  int *bitwidth = calloc (1, sizeof(int));
+  i = print_chp_stmt (c->c, bitwidth);
+  free (bitwidth);
   printf (" go = c_%d;\n", i);
   printf ("}\n");
 }
