@@ -98,18 +98,13 @@ int arithmetic_binop (char *s, Expr *e, int *bitwidth)
 
   printf (" bundled_%s_%d e_%d;\n", s, *bitwidth, expr_count);
 
-  if (l == 1) {
+  if (*bitwidth == 1) {
     printf (" e_%d.lhs = e_%d.v;\n", expr_count, l);
-  }
-  else {
-    printf (" (i:%d: e_%d.lhs[i] = e_%d[i].v;)\n", l, expr_count, l);
-  }
-
-  if (r == 1) {
     printf (" e_%d.rhs = e_%d.v;\n", expr_count, r);
   }
   else {
-    printf (" (i:%d: e_%d.rhs[i] = e_%d[i].v;)\n", r, expr_count, r);
+    printf (" (i:%d: e_%d.lhs[i] = e_%d[i].v;)\n", *bitwidth, expr_count, l);
+    printf (" (i:%d: e_%d.rhs[i] = e_%d[i].v;)\n", *bitwidth, expr_count, r);
   }
 
   if (base_var == -1) {
