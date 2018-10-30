@@ -152,17 +152,13 @@ int _print_expr (Expr *e)
       ret = unop ("syn_expr_not", e);
       break;
     case E_UMINUS:
-      ret = 0;
-      //printf ("~(");
-      //print_expr (e->u.e.l);
-      //printf (")");
+      // need to discriminate single/multi-bit case
+      ret = unop ("syn_expr_uminus", e);
       break;
     case E_PROBE:
       ret = 0;
-      //printf ("#%s", (char *)e->u.e.l);
       break;
     case E_VAR:
-      //printf ("%s", (char *)e->u.e.l);
       {
         symbol *v = find_symbol (__chp, (char *)e->u.e.l);
         if (!v) {
@@ -193,7 +189,6 @@ int _print_expr (Expr *e)
       }
       break;
     case E_INT:
-      //printf ("%d", (int)e->u.v);
       if (e->u.v == 1) {
         emit_const_1 ();
         printf (" syn_expr_var e_%d(,const_1.v);\n", expr_count);
@@ -497,14 +492,14 @@ int print_chp_stmt (chp_lang_t *c)
   if (!c) return -1;
   switch (c->type) {
     case CHP_SKIP:
-      printf ("/* skip */  ");
+      printf (" /* skip */");
       printf (" syn_skip s_%d(c_%d);\n", stmt_count, chan_count);
       stmt_count++;
       ret = chan_count++;
       break;
 
     case CHP_ASSIGN:
-      printf ("/* assign */\n");
+      printf (" /* assign */\n");
       a = print_expr (c->u.assign.e);
       go_r = base_var;
       ret = chan_count++;
@@ -543,7 +538,7 @@ int print_chp_stmt (chp_lang_t *c)
       break;
 
     case CHP_SEND:
-      printf ("/* send */\n");
+      printf (" /* send */\n");
       if (list_length (c->u.comm.rhs) == 1) {
         a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)));
         go_r = base_var;
@@ -579,7 +574,7 @@ int print_chp_stmt (chp_lang_t *c)
       break;
 
     case CHP_RECV:
-      printf ("/* recv */\n");
+      printf (" /* recv */\n");
       if (list_length (c->u.comm.rhs) == 1) {
         ret = chan_count++;
         a = stmt_count++;
@@ -623,7 +618,7 @@ int print_chp_stmt (chp_lang_t *c)
           return print_chp_stmt ((chp_lang_t *)list_value (list_first (c->u.semi_comma.cmd)));
         }
 
-        printf ("/* %s */\n", c->type == CHP_COMMA ? "comma" : "semicolon");
+        printf (" /* %s */\n", c->type == CHP_COMMA ? "comma" : "semicolon");
         a = chan_count++;
         ret = a;
         printf (" a1of1 c_%d;\n", ret);
