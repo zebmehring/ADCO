@@ -37,8 +37,7 @@ void print_vars (Chp *c)
       }
       else {
       	if (sym->bitwidth > 1) {
-      	  printf (" syn_var_init_false var_%s[%d];\n", sym->name,
-      		  sym->bitwidth);
+      	  printf (" syn_var_init_false var_%s[%d];\n", sym->name, sym->bitwidth);
       	}
       	else {
       	  printf (" syn_var_init_false var_%s;\n", sym->name);
@@ -81,12 +80,44 @@ int unop (char *s, Expr *e)
 
 int binop (char *s, Expr *e)
 {
-  int l, r, ret;
+  int l, r;
 
   l = _print_expr (e->u.e.l);
   r = _print_expr (e->u.e.r);
 
   printf (" %s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
+  return expr_count++;
+}
+
+int arithmetic_binop (char *s, Expr *e, int bits)
+{
+  int l, r;
+
+  l = _print_expr (e->u.e.l);
+  r = _print_expr (e->u.e.r);
+
+  printf (" bundled_%s_%d e_%d;\n", s, bits, expr_count);
+
+  if (l == 1) {
+    printf (" e_%d.lhs = e_%d.v;\n", expr_count, l);
+  }
+  else {
+    printf (" (i:%d: e_%d.lhs[i] = e_%d[i].v;)\n", l, expr_count, l);
+  }
+
+  if (r == 1) {
+    printf (" e_%d.rhs = e_%d.v;\n", expr_count, r);
+  }
+  else {
+    printf (" (i:%d: e_%d.rhs[i] = e_%d[i].v;)\n", r, expr_count, r);
+  }
+
+  if (base_var == -1) {
+     base_var = expr_count;
+  }
+  else {
+     printf(" e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
+  }
   return expr_count++;
 }
 
@@ -105,12 +136,16 @@ int _print_expr (Expr *e)
       ret = binop ("syn_expr_or", e);
       break;
     case E_PLUS:
-      ret = 0;
-      //binop ("+", e);
+      ret = arithmetic_binop ("add", e, func_bitwidth);
       break;
     case E_MINUS:
-      ret = 0;
-      //binop ("-", e);
+      ret = arithmetic_binop ("sub", e, func_bitwidth);
+      break;
+    case E_MULT:
+      ret = arithmetic_binop ("mul", e, func_bitwidth);
+      break;
+    case E_DIV:
+      ret = arithmetic_binop ("div", e, func_bitwidth);
       break;
     case E_NOT:
     case E_COMPLEMENT:
@@ -139,7 +174,7 @@ int _print_expr (Expr *e)
         }
         else {
         	printf (" syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
-        	printf (" (i:%d: e_%d.v[i] = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
+        	printf (" (i:%d: e_%d[i].v = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
         }
         if (base_var == -1) {
   	       base_var = expr_count;
@@ -315,7 +350,7 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
     printf (" syn_recv rtv_%d[%d];\n", seq, bits);
     printf (" syn_expr_vararray<%d> e_%d;\n", bits, evar);
     printf (" syn_var_init_false tv_%d[%d];\n", seq, bits);
-    printf (" (i:%d: e_%d.v[i] = tv_%d[i].v; e_%d.v[i]=rtv_%d[i].v;)\n", bits, evar, seq, evar, seq);
+    printf (" (i:%d: e_%d[i].v = tv_%d[i].v; e_%d[i].v=rtv_%d[i].v;)\n", bits, evar, seq, evar, seq);
     printf (" s_%d.r.r = e_%d.go_r;\n", seq, ego);
     printf (" (i:%d: s_%d.r.r = rtv_%d[i].go.r;)\n", bits, seq, seq);
     printf (" syn_ctree<%d> ct_%d;\n", bits, seq);
