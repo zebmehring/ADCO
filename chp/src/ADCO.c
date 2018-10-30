@@ -89,14 +89,14 @@ int binop (char *s, Expr *e)
   return expr_count++;
 }
 
-int arithmetic_binop (char *s, Expr *e, int bits)
+int arithmetic_binop (char *s, Expr *e)
 {
   int l, r;
 
   l = _print_expr (e->u.e.l);
   r = _print_expr (e->u.e.r);
 
-  printf (" bundled_%s_%d e_%d;\n", s, bits, expr_count);
+  printf (" bundled_%s_%d e_%d;\n", s, func_bitwidth, expr_count);
 
   if (l == 1) {
     printf (" e_%d.lhs = e_%d.v;\n", expr_count, l);
@@ -136,23 +136,23 @@ int _print_expr (Expr *e)
       ret = binop ("syn_expr_or", e);
       break;
     case E_PLUS:
-      ret = arithmetic_binop ("add", e, func_bitwidth);
+      ret = arithmetic_binop ("add", e);
       break;
     case E_MINUS:
-      ret = arithmetic_binop ("sub", e, func_bitwidth);
+      ret = arithmetic_binop ("sub", e);
       break;
     case E_MULT:
-      ret = arithmetic_binop ("mul", e, func_bitwidth);
+      ret = arithmetic_binop ("mul", e);
       break;
     case E_DIV:
-      ret = arithmetic_binop ("div", e, func_bitwidth);
+      ret = arithmetic_binop ("div", e);
       break;
     case E_NOT:
     case E_COMPLEMENT:
       ret = unop ("syn_expr_not", e);
       break;
     case E_UMINUS:
-      // need to discriminate single/multi-bit case
+      // TODO: need to discriminate single/multi-bit case
       ret = unop ("syn_expr_uminus", e);
       break;
     case E_PROBE:
@@ -180,6 +180,9 @@ int _print_expr (Expr *e)
         }
         if (func_bitwidth == -1) {
   	       func_bitwidth = v->bitwidth;
+        }
+        else if (func_bitwidth == v->bitwidth) {
+          func_bitwidth = v->bitwidth;
         }
         else {
         	fprintf (stderr, "Function/variable combinations not supported\n");
