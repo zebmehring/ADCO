@@ -129,16 +129,16 @@ int _print_expr (Expr *e, int *bitwidth)
       ret = binop ("syn_expr_or", e, bitwidth);
       break;
     case E_PLUS:
-      ret = arithmetic_binop ("add", e, bitwidth);
+      ret = arithmetic_binop ("bin_add", e, bitwidth);
       break;
     case E_MINUS:
-      ret = arithmetic_binop ("sub", e, bitwidth);
+      ret = arithmetic_binop ("bin_sub", e, bitwidth);
       break;
     case E_MULT:
-      ret = arithmetic_binop ("mul", e, bitwidth);
+      ret = arithmetic_binop ("bin_mul", e, bitwidth);
       break;
     case E_DIV:
-      ret = arithmetic_binop ("div", e, bitwidth);
+      ret = arithmetic_binop ("bin_div", e, bitwidth);
       break;
     case E_NOT:
     case E_COMPLEMENT:
@@ -341,11 +341,11 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
     printf (" syn_recv rtv_%d[%d];\n", seq, bits);
     printf (" syn_expr_vararray<%d> e_%d;\n", bits, evar);
     printf (" syn_var_init_false tv_%d[%d];\n", seq, bits);
-    printf (" (i:%d: e_%d[i].v = tv_%d[i].v; e_%d[i].v=rtv_%d[i].v;)\n", bits, evar, seq, evar, seq);
+    printf (" (i:%d: e_%d[i].v = tv_%d[i].v; e_%d[i].v = rtv_%d[i].v;)\n", bits, evar, seq, evar, seq);
     printf (" s_%d.r.r = e_%d.go_r;\n", seq, ego);
     printf (" (i:%d: s_%d.r.r = rtv_%d[i].go.r;)\n", bits, seq, seq);
     printf (" syn_ctree<%d> ct_%d;\n", bits, seq);
-    printf (" (i:%d: ct_%d.in[i]=rtv_%d[i].go.a;)\n", bits, seq, seq);
+    printf (" (i:%d: ct_%d.in[i] = rtv_%d[i].go.a;)\n", bits, seq, seq);
     printf (" s_%d.r.a = ct_%d.out;\n", seq, seq);
     printf (" (i:%d: e_%d.out[i].t = rtv_%d[i].in.t; e_%d.out[i].f = rtv_%d[i].in.f;)\n", bits, eout, seq, eout, seq);
   }
@@ -428,9 +428,9 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
   ret = chan_count++;
   printf (" a1of1 c_%d;\n", ret);
 
-  printf (" /* gc cascade, start=%d, end=%d */\n", start_gc_chan, end_gc_chan);
+  printf (" /* gc cascade, start = %d, end = %d */\n", start_gc_chan, end_gc_chan);
 
-  for (i=start_gc_chan; i < end_gc_chan; i++) {
+  for (i = start_gc_chan; i < end_gc_chan; i++) {
     /* gc cascade */
     printf (" gc_%d.f = gc_%d.r;\n", i, i+1);
   }
@@ -459,7 +459,7 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
     /* multi-stage or gate */
     a = stmt_count++;
     printf (" syn_or2 or_%d(gc_%d.t,gc_%d.t);\n", a, start_gc_chan, start_gc_chan+1);
-    for (i=start_gc_chan+2; i < end_gc_chan; i++) {
+    for (i = start_gc_chan+2; i < end_gc_chan; i++) {
       b = stmt_count++;
       printf (" syn_or2 or_%d(or_%d.out,gc_%d.t);\n", b, a, i);
       a = b;
@@ -526,8 +526,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
         printf (" syn_recv s_%d[%d];\n", b, v->bitwidth);
         printf (" (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, b, ret);
         printf (" syn_ctree<%d> ct_%d;\n", v->bitwidth, b);
-        printf (" (i:%d: ct_%d.in[i]=s_%d[i].go.a;)\n", v->bitwidth, b, b);
-        printf (" ct_%d.out=c_%d.a;\n", b, ret);
+        printf (" (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, b, b);
+        printf (" ct_%d.out = c_%d.a;\n", b, ret);
         printf (" (i:%d: s_%d[i].in.t = e_%d.out[i].t;\n          s_%d[i].in.f = e_%d.out[i].f;\n          s_%d[i].v = var_%s[i].v; )\n", v->bitwidth, b, a, b, a, b, c->u.assign.id);
       }
       printf ("\n");
@@ -598,8 +598,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
         	printf (" syn_recv s_%d[%d];\n", a, v->bitwidth);
         	printf (" (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, a, ret);
         	printf (" syn_ctree<%d> ct_%d;\n", v->bitwidth, a);
-        	printf (" (i:%d: ct_%d.in[i]=s_%d[i].go.a;)\n", v->bitwidth, a, a);
-        	printf (" ct_%d.out=c_%d.a; c_%d.a=chan_%s.a;\n", a, ret, ret, v->name);
+        	printf (" (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, a, a);
+        	printf (" ct_%d.out = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
         	printf (" (i:%d: s_%d[i].in.t = chan_%s.d[i].t;\n          s_%d[i].in.f = chan_%s.d[i].f;\n          s_%d[i].v = var_%s[i].v; )\n", v->bitwidth, a, v->name, a, v->name, a, u->name);
         }
       }
