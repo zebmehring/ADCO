@@ -15,15 +15,15 @@ int get_bitwidth_expr (Expr *e)
     case E_DIV:
       left_bitwidth = get_bitwidth_expr (e->u.e.l);
       right_bitwidth = get_bitwidth_expr (e->u.e.r);
-      if (b1 == 0)
+      if (left_bitwidth == 0)
       {
-        return b2;
+        return right_bitwidth;
       }
-      else if (b2 == 0)
+      else if (right_bitwidth == 0)
       {
-        return b1;
+        return left_bitwidth;
       }
-      else if ((e->type == E_DIV) && (e->u.e.r->type == E_INT) && (e->u.e.r->v == 0))
+      else if ((e->type == E_DIV) && (e->u.e.r->type == E_INT) && (e->u.e.r->u.v == 0))
       {
         fprintf (stderr, "Attempted division by 0\n");
         exit (-1);
@@ -41,7 +41,7 @@ int get_bitwidth_expr (Expr *e)
       return 0;
 
     case E_VAR:
-      s = find_symbol (c, (char *) e->u.e.l);
+      s = find_symbol (__chp, (char *) e->u.e.l);
       if (!s)
       {
         fprintf (stderr, "Symbol not found: %s\n", (char *) e->u.e.l);
@@ -56,11 +56,11 @@ int get_bitwidth_expr (Expr *e)
 
     case E_TRUE:
     case E_FALSE:
-      bw = get_bitwidth_expr (e->u.e.l);
-      return bw == 1 ? 1 : -1;
+      left_bitwidth = get_bitwidth_expr (e->u.e.l);
+      return left_bitwidth == 1 ? 1 : -1;
 
     case E_PROBE:
-      s = find_symbol (c, (char *) e->u.e.l);
+      s = find_symbol (__chp, (char *) e->u.e.l);
       if (!s)
       {
         fprintf (stderr, "Symbol not found: %s\n", (char *) e->u.e.l);
@@ -105,6 +105,7 @@ void check_types_cmd (chp_lang_t *c)
         fprintf (stderr, "Assignment variable (%s) and expression have incompatible bit widths\n", c->u.assign.id);
         exit (-1);
       }
+      break;
 
     case CHP_SEND:
     case CHP_RECV:
@@ -142,7 +143,7 @@ void check_types_cmd (chp_lang_t *c)
           else
           {
             char *name = list_value (li);
-            symbol *ls = find_symbol (__chp, name;
+            symbol *ls = find_symbol (__chp, name);
             if (ls->bitwidth != s->bitwidth)
             {
               fprintf (stderr, "Receiving variable has insufficient width: %s\n", name);
@@ -151,37 +152,39 @@ void check_types_cmd (chp_lang_t *c)
           }
         }
       }
+      break;
 
     case CHP_SEMI:
     case CHP_COMMA:
-    {
-      listitem_t *li;
-      for (li = list_first (c->u.semi_comma.cmd); li; li = list_next (li))
       {
-        chp_lang_t *cmd = list_value (li);
-        check_types_cmd (cmd, chp);
+        listitem_t *li;
+        for (li = list_first (c->u.semi_comma.cmd); li; li = list_next (li))
+        {
+          chp_lang_t *cmd = list_value (li);
+          check_types_cmd (cmd);
+        }
       }
-    }
+      break;
     case CHP_SELECT:
     case CHP_LOOP:
-    {
-      chp_gc_t *gc = c->u.gc;
-      while (gc)
       {
-        if (gc->g && (get_bitwidth_expr (gc->g, chp) != 1))
+        chp_gc_t *gc = c->u.gc;
+        while (gc)
         {
-          fprintf (stderr, "Boolean expression expected: ");
-          print_chp_expr (gc->g);
-          exit (-1);
+          if (gc->g && (get_bitwidth_expr (gc->g) != 1))
+          {
+            fprintf (stderr, "Boolean guard expected\n");
+            exit (-1);
+          }
+          if (gc->s)
+          {
+            check_types_cmd (gc->s);
+          }
+          gc = gc->next;
         }
-        if (gc->s)
-        {
-          check_types_cmd (gc->s, chp);
-        }
-        gc = gc->next;
       }
+      break;
     }
-}
 }
 
 void check_types (Chp *c)

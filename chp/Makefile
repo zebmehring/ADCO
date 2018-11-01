@@ -4,13 +4,19 @@ OBJDIR  = ~/Documents/ADCO/chp/bin/obj
 SRCDIR  = ~/Documents/ADCO/chp/src
 EXECDIR = ~/Documents/ADCO/chp/bin
 
-all: ADCO zcc
+all: cartographer check_types main zcc
 
-ADCO: $(SRCDIR)/ADCO.c $(SRCDIR)/check_types.c
+cartographer: $(SRCDIR)/cartographer.c
 	$(CC) -c -o $(OBJDIR)/$@.o $(CFLAGS) $^
 
-zcc: $(OBJDIR)/chp.o $(OBJDIR)/ADCO.o
+check_types: $(SRCDIR)/check_types.c
+	$(CC) -c -o $(OBJDIR)/$@.o $(CFLAGS) $^
+
+main: $(SRCDIR)/main.c
+	$(CC) -c -o $(OBJDIR)/$@.o $(CFLAGS) $^
+
+zcc: $(OBJDIR)/chp.o $(OBJDIR)/cartographer.o $(OBJDIR)/check_types.o $(OBJDIR)/main.o
 	$(CC) -o $(EXECDIR)/$@ $(CFLAGS) $^
 
 clean:
-	rm -f $(EXECDIR)/zcc $(OBJDIR)/ADCO.o $(SRCDIR)/*~
+	rm -f $(EXECDIR)/zcc $(OBJDIR)/cartographer.o $(SRCDIR)/*~

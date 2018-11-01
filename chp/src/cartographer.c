@@ -1,19 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdbool.h>
-#include "chp.h"
-#include "list.h"
-#include "hash.h"
-#include "check_types.h"
+#include "cartographer.h"
 
-int _print_expr (Expr *e, int *bitwidth);
-int print_chp_stmt (chp_lang_t *c, int *bitwidth);
-
-static int expr_count = 1;
-static int stmt_count = 0;
-static int chan_count = 0;
+int expr_count = 1;
+int stmt_count = 0;
+int chan_count = 0;
 
 void print_vars (Chp *c)
 {
@@ -110,7 +99,7 @@ int get_max_bits (char *s, int lbits, int rbits)
   }
 }
 
-static int base_var = -1;
+int base_var = -1;
 
 int unop (char *s, Expr *e, int *bitwidth)
 {
@@ -179,9 +168,9 @@ int arithmetic_binop (char *s, Expr *e, int *bitwidth)
   return expr_count++;
 }
 
-static Chp *__chp;
+Chp *__chp;
 
-static int func_bitwidth;
+int func_bitwidth;
 
 int _print_expr (Expr *e, int *bitwidth)
 {
@@ -448,7 +437,7 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
   return evar;
 }
 
-static int gc_chan_count = 0;
+int gc_chan_count = 0;
 
 /*
   Returns integer that corresponds to r1of2 channel that is used to
@@ -465,7 +454,6 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth)
   printf (" r1of2 gc_%d;\n", ret);
   if (gc->g)
   {
-    int seq;
     int go_r;
     char buf[1024];
     a = print_expr (gc->g, bitwidth);
@@ -813,25 +801,4 @@ void print_chp_structure (Chp *c)
   free (bitwidth);
   printf (" go = c_%d;\n", i);
   printf ("}\n");
-}
-
-int main (int argc, char **argv)
-{
-  Chp *c;
-
-  if (argc != 2)
-  {
-    fprintf (stderr, "Usage: %s <chp>\n", argv[0]);
-    return 1;
-  }
-
-  c = read_chp (argv[1]);
-
-  /* check that variables are used properly */
-  __chp = c;
-  check_types (c);
-  /* print the CHP program */
-  print_chp_structure (c);
-
-  return 0;
 }
