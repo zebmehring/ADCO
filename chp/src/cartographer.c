@@ -13,7 +13,7 @@ void print_vars (Chp *c)
   if (!c || !c->sym) return;
   if (c->sym->n == 0) return;
 
-  printf (" /* --- declaring all variables and channels --- */\n");
+  printf ("  /* --- declaring all variables and channels --- */\n");
 
   for (i = 0; i < c->sym->size; i++)
   {
@@ -24,27 +24,27 @@ void print_vars (Chp *c)
       {
       	if (sym->bitwidth > 1)
         {
-      	  printf (" aN1of2<%d> chan_%s;\n", sym->bitwidth, sym->name);
+      	  printf ("  aN1of2<%d> chan_%s;\n", sym->bitwidth, sym->name);
       	}
       	else
         {
-      	  printf (" a1of2 chan_%s;\n", sym->name);
+      	  printf ("  a1of2 chan_%s;\n", sym->name);
       	}
       }
       else
       {
       	if (sym->bitwidth > 1)
         {
-      	  printf (" syn_var_init_false var_%s[%d];\n", sym->name, sym->bitwidth);
+      	  printf ("  syn_var_init_false var_%s[%d];\n", sym->name, sym->bitwidth);
       	}
       	else
         {
-      	  printf (" syn_var_init_false var_%s;\n", sym->name);
+      	  printf ("  syn_var_init_false var_%s;\n", sym->name);
       	}
       }
     }
   }
-  printf (" /* --- end of declarations --- */\n\n");
+  printf ("  /* --- end of declarations --- */\n\n");
 }
 
 void emit_const_1 (void)
@@ -52,7 +52,7 @@ void emit_const_1 (void)
   static int emitted = 0;
   if (!emitted)
   {
-    printf (" syn_var_init_true const_1;\n");
+    printf ("  syn_var_init_true const_1;\n");
   }
   emitted = 1;
 }
@@ -62,7 +62,7 @@ void emit_const_0 (void)
   static int emitted = 0;
   if (!emitted)
   {
-    printf (" syn_var_init_false const_0;\n");
+    printf ("  syn_var_init_false const_0;\n");
   }
   emitted = 1;
 }
@@ -94,7 +94,7 @@ int get_max_bits (char *s, int lbits, int rbits)
   }
   else
   {
-    fprintf (stderr, "Unsupported binary operation.\n");
+    fprintf (stderr, "Error: unsupported binary operation\n");
     return -1;
   }
 }
@@ -107,7 +107,7 @@ int unop (char *s, Expr *e, int *bitwidth)
 
   l = _print_expr (e->u.e.l, bitwidth);
 
-  printf (" %s e_%d(e_%d.out);\n", s, expr_count, l);
+  printf ("  %s e_%d(e_%d.out);\n", s, expr_count, l);
   return expr_count++;
 }
 
@@ -118,43 +118,38 @@ int binop (char *s, Expr *e, int *bitwidth)
   l = _print_expr (e->u.e.l, bitwidth);
   r = _print_expr (e->u.e.r, bitwidth);
 
-  printf (" %s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
+  printf ("  %s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
   return expr_count++;
 }
 
 int arithmetic_binop (char *s, Expr *e, int *bitwidth)
 {
-  int l, r, lbits, rbits, maxbits;
+  int l, r, lbits, rbits, abits, maxbits;
 
+  abits = *bitwidth;
   l = _print_expr (e->u.e.l, bitwidth);
   lbits = *bitwidth;
   r = _print_expr (e->u.e.r, bitwidth);
   rbits = *bitwidth;
   maxbits = get_max_bits (s, lbits, rbits);
 
-  if (rbits == 0 && !strcmp (s, "bin_div"))
-  {
-    fprintf (stderr, "Error: division by 0.\n");
-    return expr_count++;
-  }
-
-  printf (" bundled_%s_%d e_%d;\n", s, maxbits, expr_count);
+  printf ("  bundled_%s_%d e_%d;\n", s, abits, expr_count);
 
   if (lbits == 1)
   {
-    printf (" e_%d.lhs = e_%d.v;\n", expr_count, l);
+    printf ("  e_%d.lhs = e_%d.v;\n", expr_count, l);
   }
   else
   {
-    printf (" (i:%d: e_%d.lhs[i] = e_%d[i].v;)\n", lbits, expr_count, l);
+    printf ("  (i:%d: e_%d.lhs[i] = e_%d[i].v;)\n", lbits, expr_count, l);
   }
   if (rbits == 1)
   {
-    printf (" e_%d.rhs = e_%d.v;\n", expr_count, r);
+    printf ("  e_%d.rhs = e_%d.v;\n", expr_count, r);
   }
   else
   {
-    printf (" (i:%d: e_%d.rhs[i] = e_%d[i].v;)\n", rbits, expr_count, r);
+    printf ("  (i:%d: e_%d.rhs[i] = e_%d[i].v;)\n", rbits, expr_count, r);
   }
 
   if (base_var == -1)
@@ -163,7 +158,7 @@ int arithmetic_binop (char *s, Expr *e, int *bitwidth)
   }
   else
   {
-     printf (" e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
+     printf ("  e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
   }
   return expr_count++;
 }
@@ -211,17 +206,17 @@ int _print_expr (Expr *e, int *bitwidth)
         symbol *v = find_symbol (__chp, (char *)e->u.e.l);
         if (!v)
         {
-        	fprintf (stderr, "Symbol '%s' not found\n", (char *)e->u.e.l);
+        	fprintf (stderr, "Error: symbol '%s' not found\n", (char *)e->u.e.l);
         	exit (1);
         }
         if (v->bitwidth == 1)
         {
-  	       printf (" syn_expr_var e_%d(,var_%s.v);\n", expr_count, (char *)e->u.e.l);
+  	       printf ("  syn_expr_var e_%d(,var_%s.v);\n", expr_count, (char *)e->u.e.l);
         }
         else
         {
-        	printf (" syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
-        	printf (" (i:%d: e_%d[i].v = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
+        	printf ("  syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
+        	printf ("  (i:%d: e_%d[i].v = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
         }
         if (base_var == -1)
         {
@@ -229,7 +224,7 @@ int _print_expr (Expr *e, int *bitwidth)
         }
         else
         {
-  	       printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
+  	       printf ("  e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
         }
   	    *bitwidth = v->bitwidth;
         ret = expr_count++;
@@ -240,19 +235,20 @@ int _print_expr (Expr *e, int *bitwidth)
       if (e->u.v == 1)
       {
         emit_const_1 ();
-        printf (" syn_expr_var e_%d(,const_1.v);\n", expr_count);
+        printf ("  syn_expr_var e_%d(,const_1.v);\n", expr_count);
       }
       else if (e->u.v == 0)
       {
         emit_const_0 ();
-        printf (" syn_expr_var e_%d(,const_0.v);\n", expr_count);
+        printf ("  syn_expr_var e_%d(,const_0.v);\n", expr_count);
       }
+      // TODO: figure out how to initialize arbitrary integers
       else
       {
-        printf (" /* multi-bit integers still in progress\n");
-        printf ("  * syn_expr_vararray<%d> e_%d;\n", *bitwidth, expr_count);
-        printf ("  * (i:%d: e_%d[i].v = );\n", *bitwidth, expr_count);
-        printf ("  */\n");
+        printf ("  /* multi-bit integers still in progress\n");
+        printf ("   * syn_expr_vararray<%d> e_%d;\n", *bitwidth, expr_count);
+        printf ("   * (i:%d: e_%d[i].v = );\n", *bitwidth, expr_count);
+        printf ("   */\n");
       }
       if (base_var == -1)
       {
@@ -260,33 +256,33 @@ int _print_expr (Expr *e, int *bitwidth)
       }
       else
       {
-        printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
+        printf ("  e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
       }
       ret = expr_count++;
       break;
     case E_TRUE:
       emit_const_1 ();
-      printf (" syn_expr_var e_%d(,const_1.v);\n", expr_count);
+      printf ("  syn_expr_var e_%d(,const_1.v);\n", expr_count);
       if (base_var == -1)
       {
         base_var = expr_count;
       }
       else
       {
-        printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
+        printf ("  e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
       }
       ret = expr_count++;
       break;
     case E_FALSE:
       emit_const_0 ();
-      printf (" syn_expr_var e_%d(,const_0.v);\n", expr_count);
+      printf ("  syn_expr_var e_%d(,const_0.v);\n", expr_count);
       if (base_var == -1)
       {
         base_var = expr_count;
       }
       else
       {
-        printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
+        printf ("  e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
       }
       ret = expr_count++;
       break;
@@ -299,7 +295,7 @@ int _print_expr (Expr *e, int *bitwidth)
 
         if (func_bitwidth != -1)
         {
-        	fprintf (stderr, "Only simple functions are supported!\n");
+        	fprintf (stderr, "Error: only simple functions are supported!\n");
         	exit (1);
         }
 
@@ -310,7 +306,7 @@ int _print_expr (Expr *e, int *bitwidth)
           {
         	  if (*t != '_')
             {
-        	    fprintf (stderr, "Functions must be of the form name_<bitwidth>\n");
+        	    fprintf (stderr, "Error: functions must be of the form name_<bitwidth>\n");
         	    exit (1);
         	  }
         	  bits = atoi (t+1);
@@ -320,7 +316,7 @@ int _print_expr (Expr *e, int *bitwidth)
         }
         if (t == e->u.fn.s)
         {
-        	fprintf (stderr, "Functions must be of the form name_<bitwidth>\n");
+        	fprintf (stderr, "Error: functions must be of the form name_<bitwidth>\n");
         	exit (1);
         }
         func_bitwidth = bits;
@@ -340,23 +336,23 @@ int _print_expr (Expr *e, int *bitwidth)
   	       return -1;
         }
         /* we have a bundled-data function */
-        printf (" bundled_%s e_%d;\n", e->u.fn.s, expr_count);
+        printf ("  bundled_%s e_%d;\n", e->u.fn.s, expr_count);
         tmp = e->u.fn.r;
         while (tmp)
         {
         	symbol *v = find_symbol (__chp, (char *)tmp->u.e.l->u.e.l);
         	if (!v)
           {
-        	  fprintf (stderr, "No such variable '%s'\n", (char *)tmp->u.e.l->u.e.l);
+        	  fprintf (stderr, "Error: no such variable '%s'\n", (char *)tmp->u.e.l->u.e.l);
         	  exit (1);
         	}
         	if (v->bitwidth == 1)
           {
-        	  printf (" e_%d.%s = var_%s.v;\n", expr_count, v->name, v->name);
+        	  printf ("  e_%d.%s = var_%s.v;\n", expr_count, v->name, v->name);
         	}
         	else
           {
-        	  printf (" (i:%d: e_%d.%s[i] = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name, v->name);
+        	  printf ("  (i:%d: e_%d.%s[i] = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name, v->name);
         	}
         	tmp = tmp->u.e.r;
         }
@@ -366,7 +362,7 @@ int _print_expr (Expr *e, int *bitwidth)
         }
         else
         {
-  	       printf (" e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
+  	       printf ("  e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
         }
         ret = expr_count++;
       }
@@ -405,34 +401,34 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
   int seq = stmt_count++;
   int evar = expr_count++;
 
-  printf (" syn_fullseq s_%d;\n", seq);
-  printf (" %s = s_%d.go.r;\n", req, seq);
+  printf ("  syn_fullseq s_%d;\n", seq);
+  printf ("  %s = s_%d.go.r;\n", req, seq);
 
   if (bits == 1)
   {
-    printf (" syn_recv rtv_%d;\n", seq);
-    printf (" syn_expr_var e_%d;\n", evar);
-    printf (" syn_var_init_false tv_%d(rtv_%d.v);\n", seq, seq);
-    printf (" e_%d.v = tv_%d.v;\n", evar, seq);
-    printf (" s_%d.r.r = e_%d.go_r;\n", seq, ego);
-    printf (" s_%d.r = rtv_%d.go;\n", seq, seq);
-    printf (" e_%d.out.t = rtv_%d.in.t;\n", eout, seq);
-    printf (" e_%d.out.f = rtv_%d.in.f;\n", eout, seq);
+    printf ("  syn_recv rtv_%d;\n", seq);
+    printf ("  syn_expr_var e_%d;\n", evar);
+    printf ("  syn_var_init_false tv_%d(rtv_%d.v);\n", seq, seq);
+    printf ("  e_%d.v = tv_%d.v;\n", evar, seq);
+    printf ("  s_%d.r.r = e_%d.go_r;\n", seq, ego);
+    printf ("  s_%d.r = rtv_%d.go;\n", seq, seq);
+    printf ("  e_%d.out.t = rtv_%d.in.t;\n", eout, seq);
+    printf ("  e_%d.out.f = rtv_%d.in.f;\n", eout, seq);
   }
   else
   {
-    printf (" syn_recv rtv_%d[%d];\n", seq, bits);
-    printf (" syn_expr_vararray<%d> e_%d;\n", bits, evar);
-    printf (" syn_var_init_false tv_%d[%d];\n", seq, bits);
-    printf (" (i:%d: e_%d[i].v = tv_%d[i].v; e_%d[i].v = rtv_%d[i].v;)\n", bits, evar, seq, evar, seq);
-    printf (" s_%d.r.r = e_%d.go_r;\n", seq, ego);
-    printf (" (i:%d: s_%d.r.r = rtv_%d[i].go.r;)\n", bits, seq, seq);
-    printf (" syn_ctree<%d> ct_%d;\n", bits, seq);
-    printf (" (i:%d: ct_%d.in[i] = rtv_%d[i].go.a;)\n", bits, seq, seq);
-    printf (" s_%d.r.a = ct_%d.out;\n", seq, seq);
-    printf (" (i:%d: e_%d.out[i].t = rtv_%d[i].in.t; e_%d.out[i].f = rtv_%d[i].in.f;)\n", bits, eout, seq, eout, seq);
+    printf ("  syn_recv rtv_%d[%d];\n", seq, bits);
+    printf ("  syn_expr_vararray<%d> e_%d;\n", bits, evar);
+    printf ("  syn_var_init_false tv_%d[%d];\n", seq, bits);
+    printf ("  (i:%d: e_%d[i].v = tv_%d[i].v; e_%d[i].v = rtv_%d[i].v;)\n", bits, evar, seq, evar, seq);
+    printf ("  s_%d.r.r = e_%d.go_r;\n", seq, ego);
+    printf ("  (i:%d: s_%d.r.r = rtv_%d[i].go.r;)\n", bits, seq, seq);
+    printf ("  syn_ctree<%d> ct_%d;\n", bits, seq);
+    printf ("  (i:%d: ct_%d.in[i] = rtv_%d[i].go.a;)\n", bits, seq, seq);
+    printf ("  s_%d.r.a = ct_%d.out;\n", seq, seq);
+    printf ("  (i:%d: e_%d.out[i].t = rtv_%d[i].in.t; e_%d.out[i].f = rtv_%d[i].in.f;)\n", bits, eout, seq, eout, seq);
   }
-  printf (" s_%d.go.a = e_%d.go_r;\n", seq, evar);
+  printf ("  s_%d.go.a = e_%d.go_r;\n", seq, evar);
 
   return evar;
 }
@@ -451,7 +447,7 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth)
   int ret = gc_chan_count++;
   if (!gc) return -1;
 
-  printf (" r1of2 gc_%d;\n", ret);
+  printf ("  r1of2 gc_%d;\n", ret);
   if (gc->g)
   {
     int go_r;
@@ -461,7 +457,7 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth)
 
     sprintf (buf, "gc_%d.r", ret);
 
-    /* replace "a" with latched value */
+    /* replace "a"  with latched value */
     a = print_expr_tmpvar (buf, go_r, a, 1);
 
     b = print_chp_stmt (gc->s, bitwidth);
@@ -469,28 +465,28 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth)
     if (b == -1)
     {
       /* empty */
-      printf (" gc_%d.t = e_%d.out.t;\n", ret, a);
+      printf ("  gc_%d.t = e_%d.out.t;\n", ret, a);
     }
     else
     {
-      printf (" e_%d.out.t = c_%d.r;\n", a, b);
-      printf (" gc_%d.t = c_%d.a;\n", ret, b);
+      printf ("  e_%d.out.t = c_%d.r;\n", a, b);
+      printf ("  gc_%d.t = c_%d.a;\n", ret, b);
     }
-    printf (" gc_%d.f = e_%d.out.f;\n", ret, a);
+    printf ("  gc_%d.f = e_%d.out.f;\n", ret, a);
   }
   else
   {
     b = print_chp_stmt (gc->s, bitwidth);
-    printf (" gc_%d.r = c_%d.r;\n", ret, b);
-    printf (" gc_%d.t = c_%d.a;\n", ret, b);
-    //printf (" prs { Reset|~Reset -> gc_%d.f- }\n", ret);
-    printf (" gc_%d.f = GND;\n", ret);
+    printf ("  gc_%d.r = c_%d.r;\n", ret, b);
+    printf ("  gc_%d.t = c_%d.a;\n", ret, b);
+    //printf ("  prs { Reset|~Reset -> gc_%d.f- }\n", ret);
+    printf ("  gc_%d.f = GND;\n", ret);
   }
   return ret;
 }
 
 /*
-  prints loop/selection staetment, returns channel # for the "go" command.
+  prints loop/selection staetment, returns channel # for the "go"  command.
 */
 int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
 {
@@ -502,7 +498,7 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
   int mygc;
 
   mygc = gc_num++;
-  printf ("\n /*--- emit individual gc (#%d) [%s] ---*/\n", mygc, loop ? "loop" : "selection");
+  printf ("\n /*--- emit individual gc (#%d) [%s] ---*/\n", mygc, loop ? "loop"  : "selection");
   start_gc_chan = print_one_gc (gc, bitwidth);
   end_gc_chan = start_gc_chan;
   gc = gc->next;
@@ -513,25 +509,25 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
   }
 
   ret = chan_count++;
-  printf (" a1of1 c_%d;\n", ret);
+  printf ("  a1of1 c_%d;\n", ret);
 
-  printf (" /* gc cascade, start = %d, end = %d */\n", start_gc_chan, end_gc_chan);
+  printf ("  /* gc cascade, start = %d, end = %d */\n", start_gc_chan, end_gc_chan);
 
   for (i = start_gc_chan; i < end_gc_chan; i++)
   {
     /* gc cascade */
-    printf (" gc_%d.f = gc_%d.r;\n", i, i+1);
+    printf ("  gc_%d.f = gc_%d.r;\n", i, i+1);
   }
   if (!loop)
   {
-    printf (" gc_%d.r = c_%d.r;\n", start_gc_chan, ret);
+    printf ("  gc_%d.r = c_%d.r;\n", start_gc_chan, ret);
   }
   else
   {
     na = stmt_count++;
-    printf (" syn_notand na_%d;\n", na);
-    printf (" na_%d.x = c_%d.r;\n", na, ret);
-    printf (" na_%d.out = gc_%d.r;\n", na, start_gc_chan);
+    printf ("  syn_notand na_%d;\n", na);
+    printf ("  na_%d.x = c_%d.r;\n", na, ret);
+    printf ("  na_%d.out = gc_%d.r;\n", na, start_gc_chan);
   }
 
   if (start_gc_chan == end_gc_chan)
@@ -539,12 +535,12 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
     /* only one guard */
     if (!loop)
     {
-      printf (" gc_%d.t = c_%d.a;\n", start_gc_chan, ret);
+      printf ("  gc_%d.t = c_%d.a;\n", start_gc_chan, ret);
     }
     else
     {
-      printf (" gc_%d.t = na_%d.y;\n", start_gc_chan, na);
-      printf (" gc_%d.f = c_%d.a;\n", start_gc_chan, ret);
+      printf ("  gc_%d.t = na_%d.y;\n", start_gc_chan, na);
+      printf ("  gc_%d.f = c_%d.a;\n", start_gc_chan, ret);
     }
   }
   else
@@ -552,29 +548,29 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
     int a, b;
     /* multi-stage or gate */
     a = stmt_count++;
-    printf (" syn_or2 or_%d(gc_%d.t,gc_%d.t);\n", a, start_gc_chan, start_gc_chan+1);
+    printf ("  syn_or2 or_%d(gc_%d.t,gc_%d.t);\n", a, start_gc_chan, start_gc_chan+1);
     for (i = start_gc_chan+2; i < end_gc_chan; i++)
     {
       b = stmt_count++;
-      printf (" syn_or2 or_%d(or_%d.out,gc_%d.t);\n", b, a, i);
+      printf ("  syn_or2 or_%d(or_%d.out,gc_%d.t);\n", b, a, i);
       a = b;
     }
     if (!loop)
     {
-      printf (" or_%d.out = c_%d.a;\n", a, ret);
+      printf ("  or_%d.out = c_%d.a;\n", a, ret);
     }
     else
     {
-      printf (" or_%d.out = na_%d.y;\n", a, na);
-      printf (" gc_%d.f = c_%d.a;\n", end_gc_chan, ret);
+      printf ("  or_%d.out = na_%d.y;\n", a, na);
+      printf ("  gc_%d.f = c_%d.a;\n", end_gc_chan, ret);
     }
   }
-  printf (" /* ----- end of gc (#%d) ----- */\n\n", mygc);
+  printf ("  /* ----- end of gc (#%d) ----- */\n\n", mygc);
   return ret;
 }
 
 /*
-  Prints chp statement, returns channel # for "go" command
+  Prints chp statement, returns channel # for "go"  command
 */
 int print_chp_stmt (chp_lang_t *c, int *bitwidth)
 {
@@ -586,18 +582,18 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
   switch (c->type)
   {
     case CHP_SKIP:
-      printf (" /* skip */");
-      printf (" syn_skip s_%d(c_%d);\n", stmt_count, chan_count);
+      printf ("  /* skip */");
+      printf ("  syn_skip s_%d(c_%d);\n", stmt_count, chan_count);
       stmt_count++;
       ret = chan_count++;
       break;
 
     case CHP_ASSIGN:
-      printf (" /* assign */\n");
+      printf ("  /* assign */\n");
       v = find_symbol (__chp, c->u.assign.id);
       if (!v)
       {
-        fprintf (stderr, "Variable %s not found\n", c->u.assign.id);
+        fprintf (stderr, "Error: variable %s not found\n", c->u.assign.id);
         exit (1);
       }
       *bitwidth = v->bitwidth;
@@ -605,9 +601,9 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
       go_r = base_var;
       ret = chan_count++;
       b = stmt_count++;
-      printf (" a1of1 c_%d;\n", ret);
+      printf ("  a1of1 c_%d;\n", ret);
       sprintf (buf, "c_%d.r", ret);
-      //printf (" e_%d.go_r = c_%d.r;\n", go_r, ret);
+      //printf ("  e_%d.go_r = c_%d.r;\n", go_r, ret);
       if (func_bitwidth == -1)
       {
         a = print_expr_tmpvar (buf, go_r, a, *bitwidth);
@@ -618,37 +614,37 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
       }
       if (func_bitwidth != v->bitwidth && func_bitwidth != -1)
       {
-        fprintf (stderr, "Function bitwidth (%d) doesn't match variable bitwidth (%d)\n", func_bitwidth, v->bitwidth);
+        fprintf (stderr, "Error: function bitwidth (%d) doesn't match variable bitwidth (%d)\n", func_bitwidth, v->bitwidth);
         exit (1);
       }
       if (v->bitwidth == 1)
       {
-        printf (" syn_recv s_%d(c_%d);\n", b, ret);
-        printf (" s_%d.in.t = e_%d.out.t;\n", b, a);
-        printf (" s_%d.in.f = e_%d.out.f;\n", b, a);
-        printf (" s_%d.v = var_%s.v;\n", b, c->u.assign.id);
+        printf ("  syn_recv s_%d(c_%d);\n", b, ret);
+        printf ("  s_%d.in.t = e_%d.out.t;\n", b, a);
+        printf ("  s_%d.in.f = e_%d.out.f;\n", b, a);
+        printf ("  s_%d.v = var_%s.v;\n", b, c->u.assign.id);
       }
       else
       {
-        printf (" syn_recv s_%d[%d];\n", b, v->bitwidth);
-        printf (" (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, b, ret);
-        printf (" syn_ctree<%d> ct_%d;\n", v->bitwidth, b);
-        printf (" (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, b, b);
-        printf (" ct_%d.out = c_%d.a;\n", b, ret);
-        printf (" (i:%d: s_%d[i].in.t = e_%d.out[i].t;\n          s_%d[i].in.f = e_%d.out[i].f;\n          s_%d[i].v = var_%s[i].v; )\n", v->bitwidth, b, a, b, a, b, c->u.assign.id);
+        printf ("  syn_recv s_%d[%d];\n", b, v->bitwidth);
+        printf ("  (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, b, ret);
+        printf ("  syn_ctree<%d> ct_%d;\n", v->bitwidth, b);
+        printf ("  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, b, b);
+        printf ("  ct_%d.out = c_%d.a;\n", b, ret);
+        printf ("  (i:%d: s_%d[i].in.t = e_%d.out[i].t;\n          s_%d[i].in.f = e_%d.out[i].f;\n          s_%d[i].v = var_%s[i].v; )\n", v->bitwidth, b, a, b, a, b, c->u.assign.id);
       }
       printf ("\n");
       break;
 
     case CHP_SEND:
-      printf (" /* send */\n");
+      printf ("  /* send */\n");
       if (list_length (c->u.comm.rhs) == 1)
       {
         a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth);
         go_r = base_var;
         ret = chan_count++;
 
-        printf (" a1of1 c_%d;\n", ret);
+        printf ("  a1of1 c_%d;\n", ret);
 
         sprintf (buf, "c_%d.r", ret);
         if (func_bitwidth == -1)
@@ -660,74 +656,74 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
           a = print_expr_tmpvar (buf, go_r, a, func_bitwidth);
         }
 
-        //printf (" c_%d.r = e_%d.go_r;\n", ret, base_var);
-        printf (" c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
+        //printf ("  c_%d.r = e_%d.go_r;\n", ret, base_var);
+        printf ("  c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
         v = find_symbol (__chp, c->u.comm.chan);
         if (!v)
         {
-  	       fprintf (stderr, "Channel '%s' not found\n", c->u.comm.chan);
+  	       fprintf (stderr, "Error: channel '%s' not found\n", c->u.comm.chan);
   	       exit (1);
         }
         if (v->bitwidth != func_bitwidth && func_bitwidth != -1)
         {
-  	       fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, func_bitwidth);
+  	       fprintf (stderr, "Error: channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, func_bitwidth);
   	       exit (1);
         }
         if (func_bitwidth == 1 || *bitwidth == 1)
         {
-  	       printf (" chan_%s.t = e_%d.out.t;\n", c->u.comm.chan, a);
-  	       printf (" chan_%s.f = e_%d.out.f;\n", c->u.comm.chan, a);
+  	       printf ("  chan_%s.t = e_%d.out.t;\n", c->u.comm.chan, a);
+  	       printf ("  chan_%s.f = e_%d.out.f;\n", c->u.comm.chan, a);
         }
         else if (func_bitwidth != -1)
         {
-          printf (" (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", func_bitwidth, v->name, a);
+          printf ("  (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", func_bitwidth, v->name, a);
         }
         else
         {
-  	       printf (" (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", *bitwidth, v->name, a);
+  	       printf ("  (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", *bitwidth, v->name, a);
         }
       }
       printf ("\n");
       break;
 
     case CHP_RECV:
-      printf (" /* recv */\n");
+      printf ("  /* recv */\n");
       if (list_length (c->u.comm.rhs) == 1)
       {
         ret = chan_count++;
         a = stmt_count++;
-        printf (" a1of1 c_%d;\n", ret);
+        printf ("  a1of1 c_%d;\n", ret);
         v = find_symbol (__chp, c->u.comm.chan);
         if (!v)
         {
-        	fprintf (stderr, "Channel '%s' not found\n", c->u.comm.chan);
+        	fprintf (stderr, "Error: channel '%s' not found\n", c->u.comm.chan);
         	exit (1);
         }
         u = find_symbol (__chp, (char *)list_value (list_first (c->u.comm.rhs)));
         if (!u)
         {
-        	fprintf (stderr, "Variable %s not found\n", (char *)list_value (list_first (c->u.comm.rhs)));
+        	fprintf (stderr, "Error: variable %s not found\n", (char *)list_value (list_first (c->u.comm.rhs)));
         	exit (1);
         }
         if (v->bitwidth != u->bitwidth)
         {
-        	fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, u->bitwidth);
+        	fprintf (stderr, "Error: channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, u->bitwidth);
         	exit (1);
         }
         if (v->bitwidth == 1)
         {
-        	printf (" syn_recv s_%d(c_%d);\n", a, ret);
-        	printf (" s_%d.in = chan_%s;\n", a, c->u.comm.chan);
-        	printf (" s_%d.v = var_%s.v;\n", a, u->name);
+        	printf ("  syn_recv s_%d(c_%d);\n", a, ret);
+        	printf ("  s_%d.in = chan_%s;\n", a, c->u.comm.chan);
+        	printf ("  s_%d.v = var_%s.v;\n", a, u->name);
         }
         else
         {
-        	printf (" syn_recv s_%d[%d];\n", a, v->bitwidth);
-        	printf (" (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, a, ret);
-        	printf (" syn_ctree<%d> ct_%d;\n", v->bitwidth, a);
-        	printf (" (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, a, a);
-        	printf (" ct_%d.out = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
-        	printf (" (i:%d: s_%d[i].in.t = chan_%s.d[i].t;\n          s_%d[i].in.f = chan_%s.d[i].f;\n          s_%d[i].v = var_%s[i].v; )\n", v->bitwidth, a, v->name, a, v->name, a, u->name);
+        	printf ("  syn_recv s_%d[%d];\n", a, v->bitwidth);
+        	printf ("  (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, a, ret);
+        	printf ("  syn_ctree<%d> ct_%d;\n", v->bitwidth, a);
+        	printf ("  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, a, a);
+        	printf ("  ct_%d.out = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
+        	printf ("  (i:%d: s_%d[i].in.t = chan_%s.d[i].t;\n          s_%d[i].in.f = chan_%s.d[i].f;\n          s_%d[i].v = var_%s[i].v; )\n", v->bitwidth, a, v->name, a, v->name, a, u->name);
         }
       }
       printf ("\n");
@@ -742,10 +738,10 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
           return print_chp_stmt ((chp_lang_t *)list_value (list_first (c->u.semi_comma.cmd)), bitwidth);
         }
 
-        printf (" /* %s */\n", c->type == CHP_COMMA ? "comma" : "semicolon");
+        printf ("  /* %s */\n", c->type == CHP_COMMA ? "comma"  : "semicolon");
         a = chan_count++;
         ret = a;
-        printf (" a1of1 c_%d;\n", ret);
+        printf ("  a1of1 c_%d;\n", ret);
         for (li = list_first (c->u.semi_comma.cmd); list_next (li); li = list_next (li))
         {
           int s;
@@ -753,23 +749,23 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
           s = stmt_count++;
           if (c->type == CHP_SEMI)
           {
-             printf (" syn_seq s_%d(c_%d);\n", s, a);
+             printf ("  syn_seq s_%d(c_%d);\n", s, a);
           }
           else
           {
-             printf (" syn_par s_%d(c_%d);\n", s, a);
+             printf ("  syn_par s_%d(c_%d);\n", s, a);
           }
-          printf (" s_%d.s1 = c_%d;\n", s, b);
+          printf ("  s_%d.s1 = c_%d;\n", s, b);
           if (!list_next (list_next (li)))
           {
              /* if this is the last loop iteration */
              b = print_chp_stmt ((chp_lang_t *)list_value (list_next (li)), bitwidth);
-             printf (" s_%d.s2 = c_%d;\n", s, b);
+             printf ("  s_%d.s2 = c_%d;\n", s, b);
           }
           else
           {
-             printf (" a1of1 c_%d;\n", chan_count);
-             printf (" s_%d.s2 = c_%d;\n", s, chan_count);
+             printf ("  a1of1 c_%d;\n", chan_count);
+             printf ("  s_%d.s2 = c_%d;\n", s, chan_count);
              a = chan_count++;
           }
         }
@@ -783,7 +779,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
       break;
 
     default:
-      fprintf (stderr, "Error, unsupported token: %d\n", c->type);
+      fprintf (stderr, "Error: unsupported token: %d\n", c->type);
       exit (1);
       break;
   }
@@ -799,6 +795,6 @@ void print_chp_structure (Chp *c)
   int *bitwidth = calloc (1, sizeof(int));
   i = print_chp_stmt (c->c, bitwidth);
   free (bitwidth);
-  printf (" go = c_%d;\n", i);
+  printf ("  go = c_%d;\n", i);
   printf ("}\n");
 }
