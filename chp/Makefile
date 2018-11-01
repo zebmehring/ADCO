@@ -6,7 +6,7 @@ EXECDIR = ~/Documents/ADCO/chp/bin
 
 all: ADCO zcc
 
-ADCO: $(SRCDIR)/ADCO.c
+ADCO: $(SRCDIR)/ADCO.c $(SRCDIR)/check_types.c
 	$(CC) -c -o $(OBJDIR)/$@.o $(CFLAGS) $^
 
 zcc: $(OBJDIR)/chp.o $(OBJDIR)/ADCO.o

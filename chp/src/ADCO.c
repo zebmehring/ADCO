@@ -6,6 +6,7 @@
 #include "chp.h"
 #include "list.h"
 #include "hash.h"
+#include "check_types.h"
 
 int _print_expr (Expr *e, int *bitwidth);
 int print_chp_stmt (chp_lang_t *c, int *bitwidth);
@@ -13,7 +14,6 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth);
 static int expr_count = 1;
 static int stmt_count = 0;
 static int chan_count = 0;
-static bool truncate = true;
 
 void print_vars (Chp *c)
 {
@@ -26,22 +26,30 @@ void print_vars (Chp *c)
 
   printf (" /* --- declaring all variables and channels --- */\n");
 
-  for (i = 0; i < c->sym->size; i++) {
-    for (b = c->sym->head[i]; b; b = b->next) {
+  for (i = 0; i < c->sym->size; i++)
+  {
+    for (b = c->sym->head[i]; b; b = b->next)
+    {
       sym = (symbol *) b->v;
-      if (sym->ischan) {
-      	if (sym->bitwidth > 1) {
+      if (sym->ischan)
+      {
+      	if (sym->bitwidth > 1)
+        {
       	  printf (" aN1of2<%d> chan_%s;\n", sym->bitwidth, sym->name);
       	}
-      	else {
+      	else
+        {
       	  printf (" a1of2 chan_%s;\n", sym->name);
       	}
       }
-      else {
-      	if (sym->bitwidth > 1) {
+      else
+      {
+      	if (sym->bitwidth > 1)
+        {
       	  printf (" syn_var_init_false var_%s[%d];\n", sym->name, sym->bitwidth);
       	}
-      	else {
+      	else
+        {
       	  printf (" syn_var_init_false var_%s;\n", sym->name);
       	}
       }
@@ -53,7 +61,8 @@ void print_vars (Chp *c)
 void emit_const_1 (void)
 {
   static int emitted = 0;
-  if (!emitted) {
+  if (!emitted)
+  {
     printf (" syn_var_init_true const_1;\n");
   }
   emitted = 1;
@@ -62,7 +71,8 @@ void emit_const_1 (void)
 void emit_const_0 (void)
 {
   static int emitted = 0;
-  if (!emitted) {
+  if (!emitted)
+  {
     printf (" syn_var_init_false const_0;\n");
   }
   emitted = 1;
@@ -71,7 +81,8 @@ void emit_const_0 (void)
 int get_bitwidth (int n)
 {
   int width = n == 0 ? 1 : 0;
-  while (n > 0) {
+  while (n > 0)
+  {
     n >>= 1;
     width++;
   }
@@ -80,17 +91,21 @@ int get_bitwidth (int n)
 
 int get_max_bits (char *s, int lbits, int rbits)
 {
-  if (!strcmp (s, "bin_add") || !strcmp (s, "bin_sub")) {
+  if (!strcmp (s, "bin_add") || !strcmp (s, "bin_sub"))
+  {
     return (lbits > rbits) ? lbits + 1 : rbits + 1;
   }
-  else if (!strcmp (s, "bin_mul")) {
+  else if (!strcmp (s, "bin_mul"))
+  {
     return lbits + rbits;
   }
-  else if (!strcmp (s, "bin_div")) {
+  else if (!strcmp (s, "bin_div"))
+  {
     return lbits > rbits ? lbits : rbits;
   }
-  else {
-    fprintf(stderr, "Unsupported binary operation.\n");
+  else
+  {
+    fprintf (stderr, "Unsupported binary operation.\n");
     return -1;
   }
 }
@@ -120,45 +135,46 @@ int binop (char *s, Expr *e, int *bitwidth)
 
 int arithmetic_binop (char *s, Expr *e, int *bitwidth)
 {
-  int l, r, abits, lbits, rbits, maxbits;
+  int l, r, lbits, rbits, maxbits;
 
-  abits = *bitwidth;
   l = _print_expr (e->u.e.l, bitwidth);
   lbits = *bitwidth;
   r = _print_expr (e->u.e.r, bitwidth);
   rbits = *bitwidth;
   maxbits = get_max_bits (s, lbits, rbits);
 
-  if (rbits == 0 && !strcmp (s, "bin_div")) {
-    fprintf(stderr, "Error: division by 0.\n");
+  if (rbits == 0 && !strcmp (s, "bin_div"))
+  {
+    fprintf (stderr, "Error: division by 0.\n");
     return expr_count++;
   }
 
-  if (truncate) {
-    printf (" bundled_%s_%d e_%d;\n", s, abits, expr_count);
-  }
-  else {
-    printf (" bundled_%s_%d e_%d;\n", s, maxbits, expr_count);
-  }
+  printf (" bundled_%s_%d e_%d;\n", s, maxbits, expr_count);
 
-  if (lbits == 1) {
+  if (lbits == 1)
+  {
     printf (" e_%d.lhs = e_%d.v;\n", expr_count, l);
   }
-  else {
+  else
+  {
     printf (" (i:%d: e_%d.lhs[i] = e_%d[i].v;)\n", lbits, expr_count, l);
   }
-  if (rbits == 1) {
+  if (rbits == 1)
+  {
     printf (" e_%d.rhs = e_%d.v;\n", expr_count, r);
   }
-  else {
+  else
+  {
     printf (" (i:%d: e_%d.rhs[i] = e_%d[i].v;)\n", rbits, expr_count, r);
   }
 
-  if (base_var == -1) {
+  if (base_var == -1)
+  {
      base_var = expr_count;
   }
-  else {
-     printf(" e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
+  else
+  {
+     printf (" e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
   }
   return expr_count++;
 }
@@ -170,7 +186,8 @@ static int func_bitwidth;
 int _print_expr (Expr *e, int *bitwidth)
 {
   int ret;
-  switch (e->type) {
+  switch (e->type)
+  {
     case E_AND:
       ret = binop ("syn_expr_and", e, bitwidth);
       break;
@@ -203,21 +220,26 @@ int _print_expr (Expr *e, int *bitwidth)
     case E_VAR:
       {
         symbol *v = find_symbol (__chp, (char *)e->u.e.l);
-        if (!v) {
+        if (!v)
+        {
         	fprintf (stderr, "Symbol '%s' not found\n", (char *)e->u.e.l);
         	exit (1);
         }
-        if (v->bitwidth == 1) {
+        if (v->bitwidth == 1)
+        {
   	       printf (" syn_expr_var e_%d(,var_%s.v);\n", expr_count, (char *)e->u.e.l);
         }
-        else {
+        else
+        {
         	printf (" syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
         	printf (" (i:%d: e_%d[i].v = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
         }
-        if (base_var == -1) {
+        if (base_var == -1)
+        {
   	       base_var = expr_count;
         }
-        else {
+        else
+        {
   	       printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
         }
   	    *bitwidth = v->bitwidth;
@@ -226,24 +248,29 @@ int _print_expr (Expr *e, int *bitwidth)
       break;
     case E_INT:
       *bitwidth = get_bitwidth (e->u.v);
-      if (e->u.v == 1) {
+      if (e->u.v == 1)
+      {
         emit_const_1 ();
         printf (" syn_expr_var e_%d(,const_1.v);\n", expr_count);
       }
-      else if (e->u.v == 0) {
+      else if (e->u.v == 0)
+      {
         emit_const_0 ();
         printf (" syn_expr_var e_%d(,const_0.v);\n", expr_count);
       }
-      else {
+      else
+      {
         printf (" /* multi-bit integers still in progress\n");
         printf ("  * syn_expr_vararray<%d> e_%d;\n", *bitwidth, expr_count);
         printf ("  * (i:%d: e_%d[i].v = );\n", *bitwidth, expr_count);
         printf ("  */\n");
       }
-      if (base_var == -1) {
+      if (base_var == -1)
+      {
         base_var = expr_count;
       }
-      else {
+      else
+      {
         printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
       }
       ret = expr_count++;
@@ -251,10 +278,12 @@ int _print_expr (Expr *e, int *bitwidth)
     case E_TRUE:
       emit_const_1 ();
       printf (" syn_expr_var e_%d(,const_1.v);\n", expr_count);
-      if (base_var == -1) {
+      if (base_var == -1)
+      {
         base_var = expr_count;
       }
-      else {
+      else
+      {
         printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
       }
       ret = expr_count++;
@@ -262,31 +291,36 @@ int _print_expr (Expr *e, int *bitwidth)
     case E_FALSE:
       emit_const_0 ();
       printf (" syn_expr_var e_%d(,const_0.v);\n", expr_count);
-      if (base_var == -1) {
+      if (base_var == -1)
+      {
         base_var = expr_count;
       }
-      else {
+      else
+      {
         printf (" e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
       }
       ret = expr_count++;
       break;
+
     case E_FUNCTION:
-      /* functions are special cases */
       {
         Expr *tmp;
         int bits;
         char *t;
 
-        if (func_bitwidth != -1) {
+        if (func_bitwidth != -1)
+        {
         	fprintf (stderr, "Only simple functions are supported!\n");
         	exit (1);
         }
 
         t = e->u.fn.s + strlen (e->u.fn.s) - 1;
-        while (t > e->u.fn.s) {
-        	/* has to be an integer */
-        	if (!isdigit (*t)) {
-        	  if (*t != '_') {
+        while (t > e->u.fn.s)
+        {
+        	if (!isdigit (*t))
+          {
+        	  if (*t != '_')
+            {
         	    fprintf (stderr, "Functions must be of the form name_<bitwidth>\n");
         	    exit (1);
         	  }
@@ -295,45 +329,55 @@ int _print_expr (Expr *e, int *bitwidth)
         	}
         	t--;
         }
-        if (t == e->u.fn.s) {
+        if (t == e->u.fn.s)
+        {
         	fprintf (stderr, "Functions must be of the form name_<bitwidth>\n");
         	exit (1);
         }
         func_bitwidth = bits;
         *bitwidth = bits;
         tmp = e->u.fn.r;
-        while (tmp) {
-        	if (tmp->u.e.l->type != E_VAR) {
+        while (tmp)
+        {
+        	if (tmp->u.e.l->type != E_VAR)
+          {
         	  printf ("-- can't handle this case --\n");
         	  break;
         	}
         	tmp = tmp->u.e.r;
         }
-        if (tmp) {
+        if (tmp)
+        {
   	       return -1;
         }
         /* we have a bundled-data function */
         printf (" bundled_%s e_%d;\n", e->u.fn.s, expr_count);
         tmp = e->u.fn.r;
-        while (tmp) {
+        while (tmp)
+        {
         	symbol *v = find_symbol (__chp, (char *)tmp->u.e.l->u.e.l);
-        	if (!v) {
+        	if (!v)
+          {
         	  fprintf (stderr, "No such variable '%s'\n", (char *)tmp->u.e.l->u.e.l);
         	  exit (1);
         	}
-        	if (v->bitwidth == 1) {
+        	if (v->bitwidth == 1)
+          {
         	  printf (" e_%d.%s = var_%s.v;\n", expr_count, v->name, v->name);
         	}
-        	else {
+        	else
+          {
         	  printf (" (i:%d: e_%d.%s[i] = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name, v->name);
         	}
         	tmp = tmp->u.e.r;
         }
-        if (base_var == -1) {
+        if (base_var == -1)
+        {
   	       base_var = expr_count;
         }
-        else {
-  	       printf(" e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
+        else
+        {
+  	       printf (" e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
         }
         ret = expr_count++;
       }
@@ -375,7 +419,8 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
   printf (" syn_fullseq s_%d;\n", seq);
   printf (" %s = s_%d.go.r;\n", req, seq);
 
-  if (bits == 1) {
+  if (bits == 1)
+  {
     printf (" syn_recv rtv_%d;\n", seq);
     printf (" syn_expr_var e_%d;\n", evar);
     printf (" syn_var_init_false tv_%d(rtv_%d.v);\n", seq, seq);
@@ -385,7 +430,8 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
     printf (" e_%d.out.t = rtv_%d.in.t;\n", eout, seq);
     printf (" e_%d.out.f = rtv_%d.in.f;\n", eout, seq);
   }
-  else {
+  else
+  {
     printf (" syn_recv rtv_%d[%d];\n", seq, bits);
     printf (" syn_expr_vararray<%d> e_%d;\n", bits, evar);
     printf (" syn_var_init_false tv_%d[%d];\n", seq, bits);
@@ -417,7 +463,8 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth)
   if (!gc) return -1;
 
   printf (" r1of2 gc_%d;\n", ret);
-  if (gc->g) {
+  if (gc->g)
+  {
     int seq;
     int go_r;
     char buf[1024];
@@ -431,17 +478,20 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth)
 
     b = print_chp_stmt (gc->s, bitwidth);
 
-    if (b == -1) {
+    if (b == -1)
+    {
       /* empty */
       printf (" gc_%d.t = e_%d.out.t;\n", ret, a);
     }
-    else {
+    else
+    {
       printf (" e_%d.out.t = c_%d.r;\n", a, b);
       printf (" gc_%d.t = c_%d.a;\n", ret, b);
     }
     printf (" gc_%d.f = e_%d.out.f;\n", ret, a);
   }
-  else {
+  else
+  {
     b = print_chp_stmt (gc->s, bitwidth);
     printf (" gc_%d.r = c_%d.r;\n", ret, b);
     printf (" gc_%d.t = c_%d.a;\n", ret, b);
@@ -468,7 +518,8 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
   start_gc_chan = print_one_gc (gc, bitwidth);
   end_gc_chan = start_gc_chan;
   gc = gc->next;
-  while (gc) {
+  while (gc)
+  {
     end_gc_chan = print_one_gc (gc, bitwidth);
     gc = gc->next;
   }
@@ -478,44 +529,54 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth)
 
   printf (" /* gc cascade, start = %d, end = %d */\n", start_gc_chan, end_gc_chan);
 
-  for (i = start_gc_chan; i < end_gc_chan; i++) {
+  for (i = start_gc_chan; i < end_gc_chan; i++)
+  {
     /* gc cascade */
     printf (" gc_%d.f = gc_%d.r;\n", i, i+1);
   }
-  if (!loop) {
+  if (!loop)
+  {
     printf (" gc_%d.r = c_%d.r;\n", start_gc_chan, ret);
   }
-  else {
+  else
+  {
     na = stmt_count++;
     printf (" syn_notand na_%d;\n", na);
     printf (" na_%d.x = c_%d.r;\n", na, ret);
     printf (" na_%d.out = gc_%d.r;\n", na, start_gc_chan);
   }
 
-  if (start_gc_chan == end_gc_chan) {
+  if (start_gc_chan == end_gc_chan)
+  {
     /* only one guard */
-    if (!loop) {
+    if (!loop)
+    {
       printf (" gc_%d.t = c_%d.a;\n", start_gc_chan, ret);
     }
-    else {
+    else
+    {
       printf (" gc_%d.t = na_%d.y;\n", start_gc_chan, na);
       printf (" gc_%d.f = c_%d.a;\n", start_gc_chan, ret);
     }
   }
-  else {
+  else
+  {
     int a, b;
     /* multi-stage or gate */
     a = stmt_count++;
     printf (" syn_or2 or_%d(gc_%d.t,gc_%d.t);\n", a, start_gc_chan, start_gc_chan+1);
-    for (i = start_gc_chan+2; i < end_gc_chan; i++) {
+    for (i = start_gc_chan+2; i < end_gc_chan; i++)
+    {
       b = stmt_count++;
       printf (" syn_or2 or_%d(or_%d.out,gc_%d.t);\n", b, a, i);
       a = b;
     }
-    if (!loop) {
+    if (!loop)
+    {
       printf (" or_%d.out = c_%d.a;\n", a, ret);
     }
-    else {
+    else
+    {
       printf (" or_%d.out = na_%d.y;\n", a, na);
       printf (" gc_%d.f = c_%d.a;\n", end_gc_chan, ret);
     }
@@ -534,7 +595,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
   symbol *v, *u;
   char buf[100];
   if (!c) return -1;
-  switch (c->type) {
+  switch (c->type)
+  {
     case CHP_SKIP:
       printf (" /* skip */");
       printf (" syn_skip s_%d(c_%d);\n", stmt_count, chan_count);
@@ -545,7 +607,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
     case CHP_ASSIGN:
       printf (" /* assign */\n");
       v = find_symbol (__chp, c->u.assign.id);
-      if (!v) {
+      if (!v)
+      {
         fprintf (stderr, "Variable %s not found\n", c->u.assign.id);
         exit (1);
       }
@@ -557,23 +620,28 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
       printf (" a1of1 c_%d;\n", ret);
       sprintf (buf, "c_%d.r", ret);
       //printf (" e_%d.go_r = c_%d.r;\n", go_r, ret);
-      if (func_bitwidth == -1) {
+      if (func_bitwidth == -1)
+      {
         a = print_expr_tmpvar (buf, go_r, a, *bitwidth);
       }
-      else {
+      else
+      {
         a = print_expr_tmpvar (buf, go_r, a, func_bitwidth);
       }
-      if (func_bitwidth != v->bitwidth && func_bitwidth != -1) {
+      if (func_bitwidth != v->bitwidth && func_bitwidth != -1)
+      {
         fprintf (stderr, "Function bitwidth (%d) doesn't match variable bitwidth (%d)\n", func_bitwidth, v->bitwidth);
         exit (1);
       }
-      if (v->bitwidth == 1) {
+      if (v->bitwidth == 1)
+      {
         printf (" syn_recv s_%d(c_%d);\n", b, ret);
         printf (" s_%d.in.t = e_%d.out.t;\n", b, a);
         printf (" s_%d.in.f = e_%d.out.f;\n", b, a);
         printf (" s_%d.v = var_%s.v;\n", b, c->u.assign.id);
       }
-      else {
+      else
+      {
         printf (" syn_recv s_%d[%d];\n", b, v->bitwidth);
         printf (" (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, b, ret);
         printf (" syn_ctree<%d> ct_%d;\n", v->bitwidth, b);
@@ -586,7 +654,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
 
     case CHP_SEND:
       printf (" /* send */\n");
-      if (list_length (c->u.comm.rhs) == 1) {
+      if (list_length (c->u.comm.rhs) == 1)
+      {
         a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth);
         go_r = base_var;
         ret = chan_count++;
@@ -594,32 +663,39 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
         printf (" a1of1 c_%d;\n", ret);
 
         sprintf (buf, "c_%d.r", ret);
-        if (func_bitwidth == -1) {
+        if (func_bitwidth == -1)
+        {
   	       a = print_expr_tmpvar (buf, go_r, a, *bitwidth);
         }
-        else {
+        else
+        {
           a = print_expr_tmpvar (buf, go_r, a, func_bitwidth);
         }
 
         //printf (" c_%d.r = e_%d.go_r;\n", ret, base_var);
         printf (" c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
         v = find_symbol (__chp, c->u.comm.chan);
-        if (!v) {
+        if (!v)
+        {
   	       fprintf (stderr, "Channel '%s' not found\n", c->u.comm.chan);
   	       exit (1);
         }
-        if (v->bitwidth != func_bitwidth && func_bitwidth != -1) {
+        if (v->bitwidth != func_bitwidth && func_bitwidth != -1)
+        {
   	       fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, func_bitwidth);
   	       exit (1);
         }
-        if (func_bitwidth == 1 || *bitwidth == 1) {
+        if (func_bitwidth == 1 || *bitwidth == 1)
+        {
   	       printf (" chan_%s.t = e_%d.out.t;\n", c->u.comm.chan, a);
   	       printf (" chan_%s.f = e_%d.out.f;\n", c->u.comm.chan, a);
         }
-        else if (func_bitwidth != -1) {
+        else if (func_bitwidth != -1)
+        {
           printf (" (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", func_bitwidth, v->name, a);
         }
-        else {
+        else
+        {
   	       printf (" (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", *bitwidth, v->name, a);
         }
       }
@@ -628,30 +704,36 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
 
     case CHP_RECV:
       printf (" /* recv */\n");
-      if (list_length (c->u.comm.rhs) == 1) {
+      if (list_length (c->u.comm.rhs) == 1)
+      {
         ret = chan_count++;
         a = stmt_count++;
         printf (" a1of1 c_%d;\n", ret);
         v = find_symbol (__chp, c->u.comm.chan);
-        if (!v) {
+        if (!v)
+        {
         	fprintf (stderr, "Channel '%s' not found\n", c->u.comm.chan);
         	exit (1);
         }
         u = find_symbol (__chp, (char *)list_value (list_first (c->u.comm.rhs)));
-        if (!u) {
+        if (!u)
+        {
         	fprintf (stderr, "Variable %s not found\n", (char *)list_value (list_first (c->u.comm.rhs)));
         	exit (1);
         }
-        if (v->bitwidth != u->bitwidth) {
+        if (v->bitwidth != u->bitwidth)
+        {
         	fprintf (stderr, "Channel '%s' bitwidth (%d) doesn't match expression (%d)\n", c->u.comm.chan, v->bitwidth, u->bitwidth);
         	exit (1);
         }
-        if (v->bitwidth == 1) {
+        if (v->bitwidth == 1)
+        {
         	printf (" syn_recv s_%d(c_%d);\n", a, ret);
         	printf (" s_%d.in = chan_%s;\n", a, c->u.comm.chan);
         	printf (" s_%d.v = var_%s.v;\n", a, u->name);
         }
-        else {
+        else
+        {
         	printf (" syn_recv s_%d[%d];\n", a, v->bitwidth);
         	printf (" (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, a, ret);
         	printf (" syn_ctree<%d> ct_%d;\n", v->bitwidth, a);
@@ -667,7 +749,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
     case CHP_SEMI:
       {
         listitem_t *li;
-        if (list_length (c->u.semi_comma.cmd) == 1) {
+        if (list_length (c->u.semi_comma.cmd) == 1)
+        {
           return print_chp_stmt ((chp_lang_t *)list_value (list_first (c->u.semi_comma.cmd)), bitwidth);
         }
 
@@ -675,23 +758,28 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
         a = chan_count++;
         ret = a;
         printf (" a1of1 c_%d;\n", ret);
-        for (li = list_first (c->u.semi_comma.cmd); list_next (li); li = list_next (li)) {
+        for (li = list_first (c->u.semi_comma.cmd); list_next (li); li = list_next (li))
+        {
           int s;
   	      b = print_chp_stmt ((chp_lang_t *)list_value (li), bitwidth);
           s = stmt_count++;
-          if (c->type == CHP_SEMI) {
+          if (c->type == CHP_SEMI)
+          {
              printf (" syn_seq s_%d(c_%d);\n", s, a);
           }
-          else {
+          else
+          {
              printf (" syn_par s_%d(c_%d);\n", s, a);
           }
           printf (" s_%d.s1 = c_%d;\n", s, b);
-          if (!list_next (list_next (li))) {
+          if (!list_next (list_next (li)))
+          {
              /* if this is the last loop iteration */
              b = print_chp_stmt ((chp_lang_t *)list_value (list_next (li)), bitwidth);
              printf (" s_%d.s2 = c_%d;\n", s, b);
           }
-          else {
+          else
+          {
              printf (" a1of1 c_%d;\n", chan_count);
              printf (" s_%d.s2 = c_%d;\n", s, chan_count);
              a = chan_count++;
@@ -727,17 +815,12 @@ void print_chp_structure (Chp *c)
   printf ("}\n");
 }
 
-void check_types (Chp *c)
-{
-  /* -- your code here -- */
-
-}
-
 int main (int argc, char **argv)
 {
   Chp *c;
 
-  if (argc != 2) {
+  if (argc != 2)
+  {
     fprintf (stderr, "Usage: %s <chp>\n", argv[0]);
     return 1;
   }
@@ -745,10 +828,9 @@ int main (int argc, char **argv)
   c = read_chp (argv[1]);
 
   /* check that variables are used properly */
-  check_types (c);
-
-  /* print the CHP program */
   __chp = c;
+  check_types (c);
+  /* print the CHP program */
   print_chp_structure (c);
 
   return 0;
