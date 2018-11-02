@@ -68,6 +68,9 @@ int get_bitwidth_expr (Expr *e)
       }
       return s->ischan ? 1 : -1;
 
+    case E_FUNCTION:
+      return 0;
+
     default:
       fprintf (stderr, "Error: Unknown token: %d\n", e->type);
       exit (-1);
