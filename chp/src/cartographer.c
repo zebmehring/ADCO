@@ -141,7 +141,7 @@ int arithmetic_binop (char *s, Expr *e, int *bitwidth)
   }
   else
   {
-    printf ("  (i:%d: e_%d.lhs[i] = e_%d[i].v;)\n", lbits, expr_count, l);
+    printf ("  (i:%d: e_%d.lhs[i] = e_%d.v[i];)\n", lbits, expr_count, l);
   }
   if (rbits == 1)
   {
@@ -149,7 +149,7 @@ int arithmetic_binop (char *s, Expr *e, int *bitwidth)
   }
   else
   {
-    printf ("  (i:%d: e_%d.rhs[i] = e_%d[i].v;)\n", rbits, expr_count, r);
+    printf ("  (i:%d: e_%d.rhs[i] = e_%d.v[i];)\n", rbits, expr_count, r);
   }
 
   if (base_var == -1)
@@ -216,7 +216,7 @@ int _print_expr (Expr *e, int *bitwidth)
         else
         {
         	printf ("  syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
-        	printf ("  (i:%d: e_%d[i].v = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
+        	printf ("  (i:%d: e_%d.v[i] = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
         }
         if (base_var == -1)
         {
@@ -247,7 +247,7 @@ int _print_expr (Expr *e, int *bitwidth)
       {
         printf ("  /* multi-bit integers still in progress\n");
         printf ("   * syn_expr_vararray<%d> e_%d;\n", *bitwidth, expr_count);
-        printf ("   * (i:%d: e_%d[i].v = );\n", *bitwidth, expr_count);
+        printf ("   * (i:%d: e_%d.v[i] = );\n", *bitwidth, expr_count);
         printf ("   */\n");
       }
       if (base_var == -1)
@@ -420,7 +420,7 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
     printf ("  syn_recv rtv_%d[%d];\n", seq, bits);
     printf ("  syn_expr_vararray<%d> e_%d;\n", bits, evar);
     printf ("  syn_var_init_false tv_%d[%d];\n", seq, bits);
-    printf ("  (i:%d: e_%d[i].v = tv_%d[i].v; e_%d[i].v = rtv_%d[i].v;)\n", bits, evar, seq, evar, seq);
+    printf ("  (i:%d: e_%d.v[i] = tv_%d[i].v; e_%d.v[i] = rtv_%d[i].v;)\n", bits, evar, seq, evar, seq);
     printf ("  s_%d.r.r = e_%d.go_r;\n", seq, ego);
     printf ("  (i:%d: s_%d.r.r = rtv_%d[i].go.r;)\n", bits, seq, seq);
     printf ("  syn_ctree<%d> ct_%d;\n", bits, seq);
