@@ -39,7 +39,7 @@ defproc bundled_add_8 (bool go_r; dualrail x[8]; dualrail y[8]; dualrail out[8])
 
    prs {
       (i:8: d.out & x[i].t => out[i].t+
-            d.out & y[i].f => out[i].f+
+            d.out & x[i].f => out[i].f+
       )
    }
 }
