@@ -31,6 +31,18 @@ defproc bundled_cmp_1 (bool go_r; dualrail c[4]; dualrail out)
    }
 }
 
+defproc bundled_add_8 (bool go_r; dualrail x[8]; dualrail y[8]; dualrail out[8])
+{
+   /* combinational logic */
+   delay<4> d;
+   d.in = go_r;
+
+   prs {
+      (i:8: d.out & x[i].t => out[i].t+
+            d.out & y[i].f => out[i].f+
+      )
+   }
+}
 
 defproc bundled_bin_add_8 (bool go_r; dualrail lhs[8]; dualrail rhs[8]; dualrail out[8])
 {
