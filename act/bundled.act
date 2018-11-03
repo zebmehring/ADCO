@@ -1,5 +1,5 @@
-import "globals.act";
-import "channel.act";
+import "~/Documents/ADCO/act/globals.act";
+import "~/Documents/ADCO/act/channel.act";
 
 defproc delaybuf(bool in, out)
 {
@@ -24,38 +24,37 @@ defproc bundled_cmp_1 (bool go_r; dualrail c[4]; dualrail out)
    /* combinational logic */
    delay<4> d;
    d.in = go_r;
-   
+
    prs {
       d.out & c[0].t => out.t+
       d.out & c[0].f => out.f+
    }
 }
-     
 
-defproc bundled_add_8 (bool go_r; dualrail x[8]; dualrail y[8]; dualrail out[8])
+
+defproc bundled_bin_add_8 (bool go_r; dualrail lhs[8]; dualrail rhs[8]; dualrail out[8])
 {
    /* combinational logic */
    delay<4> d;
    d.in = go_r;
-   
+
    prs {
-      (i:8: d.out & x[i].t => out[i].t+
-            d.out & x[i].f => out[i].f+
+      (i:8: d.out & lhs[i].t => out[i].t+
+            d.out & rhs[i].f => out[i].f+
       )
    }
 }
-     
+
 
 defproc bundled_fblock_8 (bool go_r; dualrail c[4]; dualrail x[8], y[8]; dualrail out[8])
 {
    /* combinational logic */
    delay<4> d;
    d.in = go_r;
-      
+
    prs {
       (i:8: d.out & x[i].t => out[i].t+
             d.out & x[i].f => out[i].f+
       )
    }
 }
-     

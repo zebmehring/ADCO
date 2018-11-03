@@ -158,7 +158,7 @@ int arithmetic_binop (char *s, Expr *e, int *bitwidth)
   }
   else
   {
-     printf ("  e_%d.go_r = e_%d.go.r;\n", expr_count, base_var);
+     printf ("  e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
   }
   return expr_count++;
 }
@@ -789,7 +789,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
 void print_chp_structure (Chp *c)
 {
   int i;
-  printf ("import \"syn.act\";\nimport \"bundled.act\";\n\n");
+  printf ("import \"~/Documents/ADCO/act/syn.act\";\n");
+  printf ("import \"~/Documents/ADCO/act/bundled.act\";\n\n");
   printf ("defproc toplevel (a1of1 go)\n{\n");
   print_vars (c);
   int *bitwidth = calloc (1, sizeof(int));

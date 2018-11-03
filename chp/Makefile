@@ -19,4 +19,4 @@ zcc: $(OBJDIR)/chp.o $(OBJDIR)/cartographer.o $(OBJDIR)/check_types.o $(OBJDIR)/
 	$(CC) -o $(EXECDIR)/$@ $(CFLAGS) $^
 
 clean:
-	rm -f $(EXECDIR)/zcc $(OBJDIR)/cartographer.o $(SRCDIR)/*~
+	rm -f $(EXECDIR)/zcc $(OBJDIR)/cartographer.o $(OBJDIR)/check_types.o $(OBJDIR)/main.o $(SRCDIR)/*~
