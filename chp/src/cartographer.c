@@ -789,7 +789,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth)
 void print_chp_structure (Chp *c)
 {
   int i;
-  printf ("import \"lab_syn.act\";\n\n");
+  printf ("import \"syn.act\";\nimport \"bundled.act\";\n\n");
   printf ("defproc toplevel (a1of1 go)\n{\n");
   print_vars (c);
   int *bitwidth = calloc (1, sizeof(int));
