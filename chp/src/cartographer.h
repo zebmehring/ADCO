@@ -7,6 +7,7 @@ extern int base_var;
 extern Chp *__chp;
 extern int func_bitwidth;
 extern int gc_chan_count;
+extern bool bundle_data;
 
 void print_vars (Chp *c);
 
@@ -21,8 +22,6 @@ int get_max_bits (char *s, int lbits, int rbits);
 int unop (char *s, Expr *e, int *bitwidth);
 
 int binop (char *s, Expr *e, int *bitwidth);
-
-int arithmetic_binop (char *s, Expr *e, int *bitwidth);
 
 int _print_expr (Expr *e, int *bitwidth);
 

@@ -3,6 +3,7 @@
 int expr_count = 1;
 int stmt_count = 0;
 int chan_count = 0;
+bool bundle_data = false;
 
 void print_vars (Chp *c)
 {
@@ -80,15 +81,15 @@ int get_bitwidth (int n)
 
 int get_max_bits (char *s, int lbits, int rbits)
 {
-  if (!strcmp (s, "bin_add") || !strcmp (s, "bin_sub"))
+  if (!strcmp (s, "add") || !strcmp (s, "sub"))
   {
     return (lbits > rbits) ? lbits + 1 : rbits + 1;
   }
-  else if (!strcmp (s, "bin_mul"))
+  else if (!strcmp (s, "mul"))
   {
     return lbits + rbits;
   }
-  else if (!strcmp (s, "bin_div"))
+  else if (!strcmp (s, "div"))
   {
     return lbits > rbits ? lbits : rbits;
   }
@@ -113,54 +114,55 @@ int unop (char *s, Expr *e, int *bitwidth)
 
 int binop (char *s, Expr *e, int *bitwidth)
 {
-  int l, r;
+  int l, r, ret;
 
   l = _print_expr (e->u.e.l, bitwidth);
   r = _print_expr (e->u.e.r, bitwidth);
 
-  printf ("  %s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
-  return expr_count++;
-}
-
-int arithmetic_binop (char *s, Expr *e, int *bitwidth)
-{
-  int l, r, lbits, rbits, abits, maxbits;
-
-  abits = *bitwidth;
-  l = _print_expr (e->u.e.l, bitwidth);
-  lbits = *bitwidth;
-  r = _print_expr (e->u.e.r, bitwidth);
-  rbits = *bitwidth;
-  maxbits = get_max_bits (s, lbits, rbits);
-
-  printf ("  bundled_%s_%d e_%d;\n", s, abits, expr_count);
-
-  if (lbits == 1)
+  if (*bitwidth == 1)
   {
-    printf ("  e_%d.lhs = e_%d.v;\n", expr_count, l);
+    printf ("  %s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
+    ret = expr_count++;
+  }
+  else if (bundle_data)
+  {
+    // TODO: do I need to assign inputs individually?
+    printf ("  bundled_%s_%d e_%d;\n", s, *bitwidth, expr_count);
+    printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
+    printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
+    ret = expr_count++;
+    if (base_var == -1)
+    {
+       base_var = ret;
+    }
+    else
+    {
+       printf ("  e_%d.go_r = e_%d.go_r;\n", ret, base_var);
+    }
   }
   else
   {
-    printf ("  (i:%d: e_%d.lhs[i] = e_%d.v[i];)\n", lbits, expr_count, l);
-  }
-  if (rbits == 1)
-  {
-    printf ("  e_%d.rhs = e_%d.v;\n", expr_count, r);
-  }
-  else
-  {
-    printf ("  (i:%d: e_%d.rhs[i] = e_%d.v[i];)\n", rbits, expr_count, r);
+    printf ("  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
+    printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
+    printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
+    char buf[100];
+    printf ("  a1of1 c_%d;\n", chan_count);
+    sprintf (buf, "c_%d.r", chan_count);
+    chan_count++;
+    ret = expr_count++;
+    print_expr_tmpvar (buf, base_var, ret, *bitwidth);
+    if (base_var == -1)
+    {
+       base_var = ret;
+    }
+    else
+    {
+       printf ("  %s = e_%d.go_r;\n", buf, base_var);
+    }
   }
 
-  if (base_var == -1)
-  {
-     base_var = expr_count;
-  }
-  else
-  {
-     printf ("  e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
-  }
-  return expr_count++;
+  // TODO: fix this
+  return ret;
 }
 
 Chp *__chp;
@@ -173,29 +175,28 @@ int _print_expr (Expr *e, int *bitwidth)
   switch (e->type)
   {
     case E_AND:
-      ret = binop ("syn_expr_and", e, bitwidth);
+      ret = (*bitwidth == 1) ? binop ("syn_expr_and", e, bitwidth) : binop ("syn_and", e, bitwidth);
       break;
     case E_OR:
-      ret = binop ("syn_expr_or", e, bitwidth);
+      ret = (*bitwidth == 1) ? binop ("syn_expr_or", e, bitwidth) : binop ("syn_or", e, bitwidth);
       break;
     case E_PLUS:
-      ret = arithmetic_binop ("bin_add", e, bitwidth);
+      ret = binop ("add", e, bitwidth);
       break;
     case E_MINUS:
-      ret = arithmetic_binop ("bin_sub", e, bitwidth);
+      ret = binop ("sub", e, bitwidth);
       break;
     case E_MULT:
-      ret = arithmetic_binop ("bin_mul", e, bitwidth);
+      ret = binop ("mul", e, bitwidth);
       break;
     case E_DIV:
-      ret = arithmetic_binop ("bin_div", e, bitwidth);
+      ret = binop ("div", e, bitwidth);
       break;
     case E_NOT:
     case E_COMPLEMENT:
       ret = unop ("syn_expr_not", e, bitwidth);
       break;
     case E_UMINUS:
-      // TODO: need to discriminate single/multi-bit case
       ret = unop ("syn_expr_uminus", e, bitwidth);
       break;
     case E_PROBE:
