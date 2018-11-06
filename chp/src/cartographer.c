@@ -114,7 +114,7 @@ int unop (char *s, Expr *e, int *bitwidth)
 
 int binop (char *s, Expr *e, int *bitwidth)
 {
-  int l, r, ret;
+  int l, r, chan, st, ret;
 
   l = _print_expr (e->u.e.l, bitwidth);
   r = _print_expr (e->u.e.r, bitwidth);
@@ -129,15 +129,15 @@ int binop (char *s, Expr *e, int *bitwidth)
     printf ("  bundled_%s_N<%d> e_%d;\n", s, *bitwidth, expr_count);
     printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
-    ret = expr_count++;
     if (base_var == -1)
     {
-       base_var = ret;
+       base_var = expr_count;
     }
     else
     {
-       printf ("  e_%d.go_r = e_%d.go_r;\n", ret, base_var);
+       printf ("  e_%d.go_r = e_%d.go_r;\n", expr_count, base_var);
     }
+    ret = expr_count++;
   }
   else
   {
@@ -145,13 +145,13 @@ int binop (char *s, Expr *e, int *bitwidth)
     printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
     ret = expr_count++;
-    int go_r = base_var;
+    chan = chan_count++;
+    st = stmt_count;
     char buf[100];
-    printf ("  a1of1 c_%d;\n", chan_count);
-    sprintf (buf, "c_%d.r", chan_count);
-    chan_count++;
-    print_expr_tmpvar (buf, go_r, ret, *bitwidth);
-    printf ("  ct_%d.out = c_%d.a;\n", stmt_count-1, chan_count-1);
+    printf ("  a1of1 c_%d;\n", chan);
+    sprintf (buf, "c_%d.r", chan);
+    ret = print_expr_tmpvar (buf, base_var, ret, *bitwidth);
+    printf ("  ct_%d.out = c_%d.a;\n", st, chan);
     if (base_var == -1)
     {
        base_var = ret;
@@ -161,8 +161,6 @@ int binop (char *s, Expr *e, int *bitwidth)
        printf ("  %s = e_%d.go_r;\n", buf, base_var);
     }
   }
-
-  // TODO: fix this
   return ret;
 }
 
@@ -173,13 +171,16 @@ int func_bitwidth;
 int _print_expr (Expr *e, int *bitwidth)
 {
   int ret;
+  char *s;
   switch (e->type)
   {
     case E_AND:
-      ret = (*bitwidth == 1) ? binop ("syn_expr_and", e, bitwidth) : binop ("and", e, bitwidth);
+      s = (*bitwidth == 1) ? "syn_expr_and" : "and";
+      ret = binop (s, e, bitwidth);
       break;
     case E_OR:
-      ret = (*bitwidth == 1) ? binop ("syn_expr_or", e, bitwidth) : binop ("or", e, bitwidth);
+      s = (*bitwidth == 1) ? "syn_expr_or" : "or";
+      ret = binop (s, e, bitwidth);
       break;
     case E_PLUS:
       ret = binop ("add", e, bitwidth);
@@ -383,7 +384,6 @@ int _print_expr (Expr *e, int *bitwidth)
 
   base_var is a global (ick) for the expression # for e_<num>.go_r
 */
-
 int print_expr (Expr *e, int *bitwidth)
 {
   base_var = -1;
@@ -799,5 +799,6 @@ void print_chp_structure (Chp *c)
   i = print_chp_stmt (c->c, bitwidth);
   free (bitwidth);
   printf ("  go = c_%d;\n", i);
-  printf ("}\n");
+  printf ("}\n\n");
+  printf("toplevel t;\n");
 }
