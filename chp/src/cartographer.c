@@ -126,8 +126,7 @@ int binop (char *s, Expr *e, int *bitwidth)
   }
   else if (bundle_data)
   {
-    // TODO: do I need to assign inputs individually?
-    printf ("  bundled_%s_%d e_%d;\n", s, *bitwidth, expr_count);
+    printf ("  bundled_%s_N<%d> e_%d;\n", s, *bitwidth, expr_count);
     printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
     ret = expr_count++;
@@ -145,12 +144,14 @@ int binop (char *s, Expr *e, int *bitwidth)
     printf ("  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
+    ret = expr_count++;
+    int go_r = base_var;
     char buf[100];
     printf ("  a1of1 c_%d;\n", chan_count);
     sprintf (buf, "c_%d.r", chan_count);
     chan_count++;
-    ret = expr_count++;
-    print_expr_tmpvar (buf, base_var, ret, *bitwidth);
+    print_expr_tmpvar (buf, go_r, ret, *bitwidth);
+    printf ("  ct_%d.out = c_%d.a;\n", stmt_count-1, chan_count-1);
     if (base_var == -1)
     {
        base_var = ret;
@@ -175,10 +176,10 @@ int _print_expr (Expr *e, int *bitwidth)
   switch (e->type)
   {
     case E_AND:
-      ret = (*bitwidth == 1) ? binop ("syn_expr_and", e, bitwidth) : binop ("syn_and", e, bitwidth);
+      ret = (*bitwidth == 1) ? binop ("syn_expr_and", e, bitwidth) : binop ("and", e, bitwidth);
       break;
     case E_OR:
-      ret = (*bitwidth == 1) ? binop ("syn_expr_or", e, bitwidth) : binop ("syn_or", e, bitwidth);
+      ret = (*bitwidth == 1) ? binop ("syn_expr_or", e, bitwidth) : binop ("or", e, bitwidth);
       break;
     case E_PLUS:
       ret = binop ("add", e, bitwidth);

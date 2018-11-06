@@ -170,7 +170,7 @@ defproc syn_full_adder (bool a, b, c_in; bool s, c_out)
 */
 
 template <pint N>
-defproc syn_add (dualrail in1[N], in2[N], c_in; dualrail out[N], dualrail c_out)
+defproc syn_add (dualrail in1[N], in2[N], c_in; dualrail out[N], c_out)
 {
   syn_full_adder add[N];
 
@@ -191,12 +191,11 @@ defproc syn_expr_uminus (dualrail v[N]; dualrail out[N])
   (i:N: v[N].t = inv[N].f;
         v[N].f = inv[N].t;)
   dualrail c_out;
-  dualrail one[N];
   syn_var_init_true t;
-  syn_var_init_false f;
-  one[0] = t;
-  (i:N-1: one[i+1] = f;)
-  syn_add r (inv, one, out, c_out);
+  syn_var_init_false f[N];
+  dualrail zero[N];
+  (i:N: zero[i] = f[i].v;)
+  syn_add<N> r (inv, zero, t.v, out, c_out);
 }
 
 template <pint N>
@@ -205,7 +204,8 @@ defproc syn_sub (dualrail in1[N], in2[N]; dualrail out[N])
   dualrail _in2[N];
   syn_expr_uminus u (in2, _in2);
   dualrail c_out;
-  syn_add (in1, _in2, out, c_out);
+  syn_var_init_false f;
+  syn_add<N> s (in1, _in2, f.v, out, c_out);
 }
 
 /* AND */
@@ -224,7 +224,7 @@ defproc syn_expr_and (dualrail in1, in2; dualrail out)
 }
 
 template <pint N>
-defproc syn_and (dualrail in1[N], dualrial in2[N], dualrail out[N])
+defproc syn_and (dualrail in1[N], in2[N]; dualrail out[N])
 {
   syn_expr_and and[N];
   (i:N: and[i].in1 = in1[N];
@@ -248,7 +248,7 @@ defproc syn_expr_or (dualrail in1, in2; dualrail out)
 }
 
 template <pint N>
-defproc syn_or (dualrail in1[N], dualrial in2[N], dualrail out[N])
+defproc syn_or (dualrail in1[N], in2[N]; dualrail out[N])
 {
   syn_expr_or or[N];
   (i:N: or[i].in1 = in1[N];
@@ -263,7 +263,7 @@ defproc syn_expr_not (dualrail in; dualrail out)
   out.f = in.t;
 }
 
-<template pint N>
+template <pint N>
 defproc syn_not (dualrail in[N]; dualrail out[N])
 {
   syn_expr_not not[N];

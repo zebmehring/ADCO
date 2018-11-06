@@ -47,7 +47,7 @@ defproc bundled_add_N (bool go_r; dualrail in1[N]; dualrail in2[N]; dualrail out
    (i:N: in2[i] = add_N.in2[i];)
 
    prs {
-      (i:N: d.out & _s[i].t => _out[i].f-
+      (i:N: d.out & _s[i] => _out[i].f-
             d.out & add_N.out[i].t => _out[i].t-
       )
       (i:N: _out[i].t => out[i].t-
@@ -56,35 +56,6 @@ defproc bundled_add_N (bool go_r; dualrail in1[N]; dualrail in2[N]; dualrail out
       (i:N: add_N.out[i].t => _s[i]-)
    }
 }
-
-/*
-template<pint N>
-defproc bundled_add_N (bool go_r; dualrail in1[N]; dualrail in2[N]; dualrail out[N])
-{
-   /* combinational logic */
-   delay<N-1> d;
-   d.in = go_r;
-
-   bool _s[N];
-   dualrail _out[N];
-
-   syn_add<N> add_N;
-
-   (i:N: in1[i].t = add_N.in1[i];)
-   (i:N: in2[i].t = add_N.in2[i];)
-
-   prs {
-      (i:N: d.out & _s[i].t => _out[i].f-
-            d.out & add_N.out[i] => _out[i].t-
-      )
-      (i:N: _out[i].t => out[i].t-
-            _out[i].f => out[i].f-
-      )
-      (i:N: add_N.out[i] => _s[i]-)
-   }
-}
-*/
-
 
 defproc bundled_fblock_8 (bool go_r; dualrail c[4]; dualrail x[8], y[8]; dualrail out[8])
 {
