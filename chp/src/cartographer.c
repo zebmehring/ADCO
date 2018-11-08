@@ -539,9 +539,9 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       b = stmt_count++;
       printf ("  a1of1 c_%d;\n", ret);
       sprintf (buf, "c_%d.r", ret);
+      a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
       // TODO: check this
       printf ("  e_%d.go_r = c_%d.r;\n", go_r, ret);
-      a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
       if (v->bitwidth == 1)
       {
         printf ("  syn_recv s_%d(c_%d);\n", b, ret);
@@ -575,7 +575,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         sprintf (buf, "c_%d.r", ret);
         //TODO: check base_var here
         a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
-        printf ("  c_%d.r = e_%d.go_r;\n", ret, *base_var);
+        printf ("  e_%d.go_r = c_%d.r;\n", go_r, ret);
         printf ("  c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
         v = find_symbol (__chp, c->u.comm.chan);
         if (*bitwidth == 1)
