@@ -2,8 +2,10 @@
 
 int get_bitwidth_expr (Expr *e)
 {
-  int left_bitwidth, right_bitwidth;
+  int left_bitwidth, right_bitwidth, ret;
   symbol *s;
+  Expr *tmp;
+  char *t;
 
   switch (e->type)
   {
@@ -69,7 +71,43 @@ int get_bitwidth_expr (Expr *e)
       return s->ischan ? 1 : -1;
 
     case E_FUNCTION:
-      return 0;
+      t = e->u.fn.s + strlen (e->u.fn.s) - 1;
+      while (t > e->u.fn.s)
+      {
+        if (!isdigit (*t))
+        {
+          if (*t != '_')
+          {
+            fprintf (stderr, "Error: functions must be of the form name_<bitwidth>\n");
+            exit (1);
+          }
+          ret = atoi (t+1);
+          break;
+        }
+        t--;
+      }
+      if (t == e->u.fn.s)
+      {
+        fprintf (stderr, "Error: functions must be of the form name_<bitwidth>\n");
+        exit (1);
+      }
+      tmp = e->u.fn.r;
+      while (tmp)
+      {
+        if (tmp->u.e.l->type != E_VAR)
+        {
+          fprintf (stderr, "Error: functions must take variable parameters\n");
+          exit (-1);
+        }
+        symbol *v = find_symbol (__chp, (char *)tmp->u.e.l->u.e.l);
+        if (!v)
+        {
+          fprintf (stderr, "Error: no such variable '%s'\n", (char *)tmp->u.e.l->u.e.l);
+          exit (1);
+        }
+        tmp = tmp->u.e.r;
+      }
+      return ret;
 
     default:
       fprintf (stderr, "Error: Unknown token: %d\n", e->type);
@@ -115,7 +153,7 @@ void check_types_cmd (chp_lang_t *c)
       s = find_symbol (__chp, c->u.comm.chan);
       if (s == NULL)
       {
-        fprintf (stderr, "Error: Symbol not found: %s\n", c->u.comm.chan);
+        fprintf (stderr, "Error: Channel not found: %s\n", c->u.comm.chan);
         exit (-1);
       }
       else if (!s->ischan)
@@ -147,6 +185,11 @@ void check_types_cmd (chp_lang_t *c)
           {
             char *name = list_value (li);
             symbol *ls = find_symbol (__chp, name);
+            if (!ls)
+            {
+            	fprintf (stderr, "Error: variable %s not found\n", name);
+            	exit (1);
+            }
             if (ls->bitwidth != s->bitwidth)
             {
               fprintf (stderr, "Error: Receiving variable has insufficient width: %s\n", name);
@@ -168,6 +211,7 @@ void check_types_cmd (chp_lang_t *c)
         }
       }
       break;
+      
     case CHP_SELECT:
     case CHP_LOOP:
       {
