@@ -1,0 +1,12 @@
+/* variable declarations */
+vars {
+  int<1> x;
+  chan<1> z;
+}
+
+/* chp program */
+
+chp {
+  z!x
+}
+
