@@ -32,7 +32,7 @@ defproc bundled_cmp_1 (bool go_r; dualrail c[4]; dualrail out)
 }
 
 template<pint N>
-defproc bundled_add_N (bool go_r; dualrail in1[N]; dualrail in2[N]; dualrail out[N])
+defproc bundled_add_N (bool go_r; dualrail in1[N], in2[N], c_in; dualrail out[N])
 {
   /* combinational logic */
   delay<N-1> d;
@@ -45,6 +45,7 @@ defproc bundled_add_N (bool go_r; dualrail in1[N]; dualrail in2[N]; dualrail out
 
   (i:N: in1[i] = add_N.in1[i];)
   (i:N: in2[i] = add_N.in2[i];)
+  add_N.c_in = c_in;
 
   prs {
     (i:N: d.out & _s[i] => _out[i].f-
