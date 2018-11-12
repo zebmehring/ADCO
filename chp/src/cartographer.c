@@ -155,9 +155,8 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var)
     char buf[100];
     printf ("  a1of1 c_%d;\n", chan);
     sprintf (buf, "c_%d.r", chan);
-    printf ("  c_%d.r = e_%d.go_r;\n", chan, *base_var);
     ret = print_expr_tmpvar (buf, *base_var, ret, *bitwidth);
-    // printf ("  %s = e_%d.go_r;\n", buf, base_var);
+    // printf ("  e_%d.go_r = c_%d.r;\n", *base_var, chan);
   }
   return ret;
 }
@@ -541,7 +540,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       sprintf (buf, "c_%d.r", ret);
       a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
       // TODO: check this
-      printf ("  e_%d.go_r = c_%d.r;\n", go_r, ret);
+      // printf ("  e_%d.go_r = c_%d.r;\n", go_r, ret);
       if (v->bitwidth == 1)
       {
         printf ("  syn_recv s_%d(c_%d);\n", b, ret);
@@ -575,7 +574,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         sprintf (buf, "c_%d.r", ret);
         //TODO: check base_var here
         a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
-        printf ("  e_%d.go_r = c_%d.r;\n", go_r, ret);
+        // printf ("  e_%d.go_r = c_%d.r;\n", go_r, ret);
         printf ("  c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
         v = find_symbol (__chp, c->u.comm.chan);
         if (*bitwidth == 1)
