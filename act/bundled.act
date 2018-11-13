@@ -38,8 +38,8 @@ defproc bundled_add_N (bool go_r; dualrail in1[N], in2[N], c_in; dualrail out[N]
   delay<N-1> d;
   d.in = go_r;
 
-  bool _s[N];
-  dualrail _out[N];
+  _dualrail _s[N];
+  _dualrail _out[N];
 
   syn_add<N> add_N;
 
@@ -48,13 +48,14 @@ defproc bundled_add_N (bool go_r; dualrail in1[N], in2[N], c_in; dualrail out[N]
   add_N.c_in = c_in;
 
   prs {
-    (i:N: d.out & _s[i] => _out[i].f-
-          d.out & add_N.out[i].t => _out[i].t-)
+    (i:N: add_N.out[i].t => _s[i].t-
+          add_N.out[i].f => _s[i].f-)
+
+    (i:N: d.out & _s[i].t => _out[i].f-
+          d.out & _s[i].f => _out[i].t-)
 
     (i:N: _out[i].t => out[i].t-
           _out[i].f => out[i].f-)
-
-    (i:N: add_N.out[i].t => _s[i]-)
   }
 }
 

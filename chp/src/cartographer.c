@@ -133,11 +133,6 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var)
     printf ("  bundled_%s_N<%d> e_%d;\n", s, *bitwidth, expr_count);
     printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
-    if (!strcmp (s, "add"))
-    {
-      emit_const_0 ();
-      printf("  e_%d.c_in = const_0.v;\n", expr_count);
-    }
     if (*base_var == -1)
     {
        *base_var = expr_count;
@@ -181,6 +176,8 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       break;
     case E_PLUS:
       ret = binop ("add", e, bitwidth, base_var);
+      emit_const_0 ();
+      printf("  e_%d.c_in = const_0.v;\n", ret);
       break;
     case E_MINUS:
       ret = binop ("sub", e, bitwidth, base_var);

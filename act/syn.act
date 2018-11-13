@@ -143,8 +143,8 @@ defproc syn_full_adder (dualrail a, b, c_in; dualrail s, c_out)
     (a.t & b.t & c_in.t) | (a.t & b.f & c_in.f) | (a.f & b.t & c_in.f) | (a.f & b.f & c_in.t) => _s.t-
   	(a.f & b.f & c_in.f) | (a.t & b.t & c_in.f) | (a.f & b.t & c_in.t) | (a.t & b.f & c_in.t) => _s.f-
 
-  	(a.t & b.t) | (a.t & c_in.t) | (b.t & c_in.t) => _c_out.f-
-  	(a.f & b.f) | (a.f & c_in.f) | (b.f & c_in.f) => _c_out.t-
+  	(a.t & b.t) | (a.t & c_in.t) | (b.t & c_in.t) => _c_out.t-
+  	(a.f & b.f) | (a.f & c_in.f) | (b.f & c_in.f) => _c_out.f-
 
   	_s.t => s.t-
   	_s.f => s.f-
