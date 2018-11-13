@@ -223,24 +223,36 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       }
       break;
     case E_INT:
-      *bitwidth = get_bitwidth (e->u.v);
-      if (e->u.v == 1)
+      if (*bitwidth == 1)
       {
-        emit_const_1 ();
-        printf ("  syn_expr_var e_%d(,const_1.v);\n", expr_count);
+        if (e->u.v == 0)
+        {
+          emit_const_0 ();
+          printf ("  syn_expr_var e_%d(,const_0.v);\n", expr_count);
+        }
+        else
+        {
+          emit_const_1 ();
+          printf ("  syn_expr_var e_%d(,const_1.v);\n", expr_count);
+        }
       }
-      else if (e->u.v == 0)
-      {
-        emit_const_0 ();
-        printf ("  syn_expr_var e_%d(,const_0.v);\n", expr_count);
-      }
-      // TODO: figure out how to initialize arbitrary integers
       else
       {
-        printf ("  /* multi-bit integers still in progress\n");
-        printf ("   * syn_expr_vararray<%d> e_%d;\n", *bitwidth, expr_count);
-        printf ("   * (i:%d: e_%d.v[i] = );\n", *bitwidth, expr_count);
-        printf ("   */\n");
+        emit_const_0 ();
+        emit_const_1 ();
+        printf ("  syn_expr_vararray<%d> e_%d;\n", *bitwidth, expr_count);
+        int t = e->u.v;
+        for (int i = *bitwidth; i > 0; i--, t >>= 1)
+        {
+          if (t & 1)
+          {
+            printf("  e_%d.v[%d] = const_1.v;\n", expr_count, *bitwidth - i);
+          }
+          else
+          {
+            printf("  e_%d.v[%d] = const_0.v;\n", expr_count, *bitwidth - i);
+          }
+        }
       }
       if (*base_var == -1)
       {
@@ -541,7 +553,6 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       printf ("  a1of1 c_%d;\n", ret);
       sprintf (buf, "c_%d.r", ret);
       a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
-      // TODO: check this
       // printf ("  e_%d.go_r = c_%d.r;\n", go_r, ret);
       if (v->bitwidth == 1)
       {
@@ -568,17 +579,16 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       printf ("  /* send */\n");
       if (list_length (c->u.comm.rhs) == 1)
       {
+        v = find_symbol (__chp, c->u.comm.chan);
+        *bitwidth = v->bitwidth;
         a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth, base_var);
         go_r = *base_var;
         ret = chan_count++;
-
         printf ("  a1of1 c_%d;\n", ret);
         sprintf (buf, "c_%d.r", ret);
-        //TODO: check base_var here
         a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
         // printf ("  e_%d.go_r = c_%d.r;\n", go_r, ret);
         printf ("  c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
-        v = find_symbol (__chp, c->u.comm.chan);
         if (*bitwidth == 1)
         {
   	       printf ("  chan_%s.t = e_%d.out.t;\n", c->u.comm.chan, a);
@@ -596,11 +606,12 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       printf ("  /* recv */\n");
       if (list_length (c->u.comm.rhs) == 1)
       {
+        v = find_symbol (__chp, c->u.comm.chan);
+        u = find_symbol (__chp, (char *)list_value (list_first (c->u.comm.rhs)));
+        *bitwidth = v->bitwidth;
         ret = chan_count++;
         a = stmt_count++;
         printf ("  a1of1 c_%d;\n", ret);
-        v = find_symbol (__chp, c->u.comm.chan);
-        u = find_symbol (__chp, (char *)list_value (list_first (c->u.comm.rhs)));
         if (v->bitwidth == 1)
         {
         	printf ("  syn_recv s_%d(c_%d);\n", a, ret);
