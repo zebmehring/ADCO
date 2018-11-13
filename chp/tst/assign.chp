@@ -1,0 +1,11 @@
+/* variable declarations */
+vars {
+  int<8> x;
+}
+
+/* chp program */
+
+chp {
+  x := 2
+}
+
