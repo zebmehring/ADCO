@@ -8,5 +8,7 @@ vars {
 /* chp program */
 
 chp {
-  z := 8 + y
+  x := 1 ;
+  y := 2 ;
+  z := x + y
 }
