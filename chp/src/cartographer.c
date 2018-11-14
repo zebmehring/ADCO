@@ -112,7 +112,16 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
 
   l = _print_expr (e->u.e.l, bitwidth, base_var);
 
-  printf ("  %s e_%d(e_%d.out);\n", s, expr_count, l);
+  if (*bitwidth == 1)
+  {
+    printf ("  %s e_%d(e_%d.out);\n", s, expr_count, l);
+  }
+  else
+  {
+    printf ("  %s e_%d;\n", s, expr_count);
+    printf ("  (i:%d: e_%d.v[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
+  }
+
   return expr_count++;
 }
 
@@ -165,6 +174,7 @@ Chp *__chp;
 int _print_expr (Expr *e, int *bitwidth, int *base_var)
 {
   int ret;
+  char buf[100];
   switch (e->type)
   {
     case E_AND:
@@ -175,8 +185,6 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       break;
     case E_PLUS:
       ret = binop ("add", e, bitwidth, base_var);
-      emit_const_0 ();
-      printf("  e_%d.c_in = const_0.v;\n", bundle_data ? ret : ret - 1);
       break;
     case E_MINUS:
       ret = binop ("sub", e, bitwidth, base_var);
@@ -192,7 +200,8 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       ret = unop ("syn_expr_not", e, bitwidth, base_var);
       break;
     case E_UMINUS:
-      ret = unop ("syn_expr_uminus", e, bitwidth, base_var);
+      sprintf (buf, "syn_expr_uminus<%d>", *bitwidth);
+      ret = unop (buf, e, bitwidth, base_var);
       break;
     case E_PROBE:
       ret = 0;
@@ -567,8 +576,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         printf ("  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, b, b);
         printf ("  ct_%d.out = c_%d.a;\n", b, ret);
         printf ("  (i:%d: s_%d[i].in.t = e_%d.out[i].t;\n", v->bitwidth, b, a);
-        printf ("         s_%d[i].in.f = e_%d.out[i].f;\n", b, a);
-        printf ("         s_%d[i].v = var_%s[i].v;)\n", b, c->u.assign.id);
+        printf ("        s_%d[i].in.f = e_%d.out[i].f;\n", b, a);
+        printf ("        s_%d[i].v = var_%s[i].v;)\n", b, c->u.assign.id);
       }
       printf ("\n");
       break;
@@ -623,8 +632,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         	printf ("  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, a, a);
         	printf ("  ct_%d.out = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
         	printf ("  (i:%d: s_%d[i].in.t = chan_%s.d[i].t;\n", v->bitwidth, a, v->name);
-          printf ("         s_%d[i].in.f = chan_%s.d[i].f;\n", a, v->name);
-          printf ("         s_%d[i].v = var_%s[i].v;)\n", a, u->name);
+          printf ("        s_%d[i].in.f = chan_%s.d[i].f;\n", a, v->name);
+          printf ("        s_%d[i].v = var_%s[i].v;)\n", a, u->name);
         }
       }
       printf ("\n");
@@ -642,6 +651,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         a = chan_count++;
         ret = a;
         printf ("  a1of1 c_%d;\n", ret);
+        printf("\n");
         for (li = list_first (c->u.semi_comma.cmd); list_next (li); li = list_next (li))
         {
           int s;
@@ -659,6 +669,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
           if (!list_next (list_next (li)))
           {
              /* if this is the last loop iteration */
+             printf("\n");
              b = print_chp_stmt ((chp_lang_t *)list_value (list_next (li)), bitwidth, base_var);
              printf ("  s_%d.s2 = c_%d;\n", s, b);
           }
@@ -667,6 +678,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
              printf ("  a1of1 c_%d;\n", chan_count);
              printf ("  s_%d.s2 = c_%d;\n", s, chan_count);
              a = chan_count++;
+             printf("\n");
           }
         }
         printf ("\n");

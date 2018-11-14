@@ -32,7 +32,7 @@ defproc bundled_cmp_1 (bool go_r; dualrail c[4]; dualrail out)
 }
 
 template<pint N>
-defproc bundled_add_N (bool go_r; dualrail in1[N], in2[N], c_in; dualrail out[N])
+defproc bundled_add_N (bool go_r; dualrail in1[N], in2[N]; dualrail out[N])
 {
   /* combinational logic */
   delay<N-1> d;
@@ -41,10 +41,11 @@ defproc bundled_add_N (bool go_r; dualrail in1[N], in2[N], c_in; dualrail out[N]
   bool _d_out;
   _dualrail _s[N];
 
+  syn_var_init_false const_0;
   syn_add<N> add_N;
   (i:N: in1[i] = add_N.in1[i];)
   (i:N: in2[i] = add_N.in2[i];)
-  add_N.c_in = c_in;
+  add_N.c_in = const_0.v;
 
   prs {
     (i:N: add_N.out[i].t => _s[i].t-
@@ -52,6 +53,31 @@ defproc bundled_add_N (bool go_r; dualrail in1[N], in2[N], c_in; dualrail out[N]
 
     (i:N: _d_out | _s[i].t => out[i].t-
           _d_out | _s[i].f => out[i].f-)
+
+    d.out => _d_out-
+  }
+}
+
+template<pint N>
+defproc bundled_sub_N (bool go_r; dualrail in1[N], in2[N]; dualrail out[N])
+{
+  /* combinational logic */
+  delay<N-1> d;
+  d.in = go_r;
+
+  bool _d_out;
+  _dualrail _diff[N];
+
+  syn_sub<N> sub_N;
+  (i:N: in1[i] = sub_N.in1[i];)
+  (i:N: in2[i] = sub_N.in2[i];)
+
+  prs {
+    (i:N: sub_N.out[i].t => _diff[i].t-
+          sub_N.out[i].f => _diff[i].f-)
+
+    (i:N: _d_out | _diff[i].t => out[i].t-
+          _d_out | _diff[i].f => out[i].f-)
 
     d.out => _d_out-
   }
