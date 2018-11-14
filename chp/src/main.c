@@ -10,18 +10,43 @@ int main (int argc, char **argv)
 
   if (argc > 3)
   {
-    fprintf (stderr, "Usage: %s [-b] <chp>\n", argv[0]);
+    fprintf (stderr, "Usage: %s [-b|--bundle_data] <chp>\n", argv[0]);
     return 1;
   }
   else if (argc == 3)
   {
-    chp = 2;
-    if (strcmp(argv[1], "-b"))
+    if (!strcmp (argv[1], "-h") || !strcmp (argv[1], "--help"))
     {
-      fprintf (stderr, "Usage: %s [-b] <chp>\n", argv[0]);
+      printf("Usage: %s [-b|--bundle_data] <chp>\n\n", argv[0]);
+      printf("Options:\n");
+      printf("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
+      return 0;
+    }
+    else if (strcmp (argv[1], "-b") && strcmp (argv[1], "--bundle_data"))
+    {
+      fprintf (stderr, "Usage: %s [-b|--bundle_data] <chp>\n", argv[0]);
       return 1;
     }
-    bundle_data = true;
+    else
+    {
+      chp = 2;
+      bundle_data = true;
+    }
+  }
+  else if (argc == 2)
+  {
+    if (!strcmp (argv[1], "-h") || !strcmp (argv[1], "--help"))
+    {
+      printf("Usage: %s [-b|--bundle_data] <chp>\n\n", argv[0]);
+      printf("Options:\n");
+      printf("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
+      return 0;
+    }
+  }
+  else
+  {
+    fprintf (stderr, "Usage: %s [-b|--bundle_data] <chp>\n", argv[0]);
+    return 1;
   }
 
   c = read_chp (argv[chp]);

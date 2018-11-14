@@ -702,7 +702,8 @@ void print_chp_structure (Chp *c)
 {
   int i;
   printf ("import \"~/Documents/ADCO/act/syn.act\";\n");
-  printf ("import \"~/Documents/ADCO/act/bundled.act\";\n\n");
+  if (bundle_data) printf ("import \"~/Documents/ADCO/act/bundled.act\";\n");
+  printf ("\n");
   printf ("defproc toplevel (a1of1 go)\n{\n");
   print_vars (c);
   int *bitwidth = calloc (1, sizeof (int));
