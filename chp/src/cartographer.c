@@ -118,7 +118,7 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
 
 int binop (char *s, Expr *e, int *bitwidth, int *base_var)
 {
-  int l, r, chan, st, ret;
+  int l, r, chan, ret;
 
   l = _print_expr (e->u.e.l, bitwidth, base_var);
   r = _print_expr (e->u.e.r, bitwidth, base_var);
@@ -151,12 +151,11 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var)
     printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
     ret = expr_count++;
     chan = chan_count++;
-    st = stmt_count;
     char buf[100];
     printf ("  a1of1 c_%d;\n", chan);
     sprintf (buf, "c_%d.r", chan);
     ret = print_expr_tmpvar (buf, *base_var, ret, *bitwidth);
-    // printf ("  e_%d.go_r = c_%d.r;\n", *base_var, chan);
+    printf ("  e_%d.go_r = c_%d.r;\n", *base_var, chan);
   }
   return ret;
 }
@@ -177,7 +176,7 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
     case E_PLUS:
       ret = binop ("add", e, bitwidth, base_var);
       emit_const_0 ();
-      printf("  e_%d.c_in = const_0.v;\n", ret);
+      printf("  e_%d.c_in = const_0.v;\n", bundle_data ? ret : ret - 1);
       break;
     case E_MINUS:
       ret = binop ("sub", e, bitwidth, base_var);
@@ -529,7 +528,7 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth, int *base_var)
 int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
 {
   int ret;
-  int a, b, go_r;
+  int a, b;
   symbol *v, *u;
   char buf[100];
   if (!c) return -1;
@@ -547,7 +546,6 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       v = find_symbol (__chp, c->u.assign.id);
       *bitwidth = v->bitwidth;
       a = print_expr (c->u.assign.e, bitwidth, base_var);
-      go_r = *base_var;
       ret = chan_count++;
       b = stmt_count++;
       printf ("  a1of1 c_%d;\n", ret);
@@ -570,7 +568,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         printf ("  ct_%d.out = c_%d.a;\n", b, ret);
         printf ("  (i:%d: s_%d[i].in.t = e_%d.out[i].t;\n", v->bitwidth, b, a);
         printf ("         s_%d[i].in.f = e_%d.out[i].f;\n", b, a);
-        printf ("         s_%d[i].v = var_%s[i].v; )\n", b, c->u.assign.id);
+        printf ("         s_%d[i].v = var_%s[i].v;)\n", b, c->u.assign.id);
       }
       printf ("\n");
       break;
@@ -582,7 +580,6 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         v = find_symbol (__chp, c->u.comm.chan);
         *bitwidth = v->bitwidth;
         a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth, base_var);
-        go_r = *base_var;
         ret = chan_count++;
         printf ("  a1of1 c_%d;\n", ret);
         sprintf (buf, "c_%d.r", ret);
@@ -627,7 +624,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         	printf ("  ct_%d.out = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
         	printf ("  (i:%d: s_%d[i].in.t = chan_%s.d[i].t;\n", v->bitwidth, a, v->name);
           printf ("         s_%d[i].in.f = chan_%s.d[i].f;\n", a, v->name);
-          printf ("         s_%d[i].v = var_%s[i].v; )\n", a, u->name);
+          printf ("         s_%d[i].v = var_%s[i].v;)\n", a, u->name);
         }
       }
       printf ("\n");
