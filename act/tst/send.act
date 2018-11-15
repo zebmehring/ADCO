@@ -22,7 +22,6 @@ defproc toplevel (a1of1 go)
   e_1.out.t = rtv_0.in.t;
   e_1.out.f = rtv_0.in.f;
   s_0.go.a = e_2.go_r;
-  c_0.r = e_1.go_r;
   c_0.a = chan_z.a;
   chan_z.t = e_2.out.t;
   chan_z.f = e_2.out.f;

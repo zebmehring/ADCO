@@ -460,7 +460,7 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth, int *base_var)
   int mygc;
 
   mygc = gc_num++;
-  printf ("\n /*--- emit individual gc (#%d) [%s] ---*/\n", mygc, loop ? "loop"  : "selection");
+  printf ("\n  /*--- emit individual gc (#%d) [%s] ---*/\n", mygc, loop ? "loop"  : "selection");
   start_gc_chan = print_one_gc (gc, bitwidth, base_var);
   end_gc_chan = start_gc_chan;
   gc = gc->next;

@@ -39,8 +39,8 @@ defproc toplevel (a1of1 go)
   (i:8: ct_0.in[i] = s_0[i].go.a;)
   ct_0.out = c_0.a;
   (i:8: s_0[i].in.t = e_2.out[i].t;
-         s_0[i].in.f = e_2.out[i].f;
-         s_0[i].v = var_x[i].v; )
+        s_0[i].in.f = e_2.out[i].f;
+        s_0[i].v = var_x[i].v;)
 
   go = c_0;
 }

@@ -37,6 +37,7 @@
 = "t.e_1.out.d[1]" "t.e_1.out.t"
 = "t.e_1.v.d[0]" "t.e_1.v.f"
 = "t.e_1.v.d[1]" "t.e_1.v.t"
+= "t.e_1.go_r" "t.s_0.r.r"
 = "t.e_1.v.f" "t.var_x.v.f"
 = "t.e_1.v.d[0]" "t.var_x.v.d[0]"
 = "t.e_1.v.d[1]" "t.var_x.v.d[1]"
@@ -45,8 +46,6 @@
 = "t.e_1.out.d[1]" "t.rtv_0.in.d[1]"
 = "t.go.a" "t.c_0.a"
 = "t.go.r" "t.c_0.r"
-= "t.go.r" "t.s_0.r.r"
-= "t.go.r" "t.e_1.go_r"
 = "t.go.r" "t.s_0.go.r"
 = "t.go.a" "t.chan_z.a"
 "Reset"->"t.tv_0.v.t"-
