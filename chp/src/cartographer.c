@@ -114,11 +114,11 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
 
   if (*bitwidth == 1)
   {
-    printf ("  %s e_%d(e_%d.out);\n", s, expr_count, l);
+    printf ("  syn_expr_%s e_%d(e_%d.out);\n", s, expr_count, l);
   }
   else
   {
-    printf ("  %s e_%d;\n", s, expr_count);
+    printf ("  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     printf ("  (i:%d: e_%d.v[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
   }
 
@@ -174,7 +174,6 @@ Chp *__chp;
 int _print_expr (Expr *e, int *bitwidth, int *base_var)
 {
   int ret;
-  char buf[100];
   switch (e->type)
   {
     case E_AND:
@@ -197,11 +196,10 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       break;
     case E_NOT:
     case E_COMPLEMENT:
-      ret = unop ("syn_expr_not", e, bitwidth, base_var);
+      ret = unop ("not", e, bitwidth, base_var);
       break;
     case E_UMINUS:
-      sprintf (buf, "syn_expr_uminus<%d>", *bitwidth);
-      ret = unop (buf, e, bitwidth, base_var);
+      ret = unop ("uminus", e, bitwidth, base_var);
       break;
     case E_PROBE:
       ret = 0;

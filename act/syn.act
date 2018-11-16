@@ -162,7 +162,7 @@ defproc syn_add (dualrail in1[N], in2[N], c_in; dualrail out[N], c_out)
 
 /* UNITARY MINUS */
 template <pint N>
-defproc syn_expr_uminus (dualrail v[N]; dualrail out[N])
+defproc syn_uminus (dualrail v[N]; dualrail out[N])
 {
   dualrail inv[N];
   (i:N: v[i].t = inv[i].f;
@@ -186,11 +186,18 @@ defproc syn_sub (dualrail in1[N], in2[N]; dualrail out[N], c_out)
   syn_add<N> s (in1, _in2, const_0.v, out, c_out);
 }
 
+/* CARRY-SAVE ADDER */
+template <pint N>
+defproc syn_carry_save (dualrail in1[N], in2[N]; dualrail out[N])
+{
+
+}
+
 /* MULTIPLICATION */
 template <pint N>
 defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N])
 {
-
+  syn_carry_save cs[N];
 }
 
 /* =========================== BOOLEAN OPERATIONS =========================== */
