@@ -1,0 +1,14 @@
+/* variable declarations */
+vars {
+  int<8> x;
+  int<8> y;
+  int<8> z;
+}
+
+/* chp program */
+
+chp {
+  x := 3 ;
+  y := 2 ;
+  z := x * y
+}

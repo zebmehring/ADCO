@@ -359,7 +359,7 @@ defproc syn_sub (dualrail in1[N], in2[N]; dualrail out[N], c_out)
 
 /* UNSIGNED MULTIPLICATION */
 template<pint N>
-defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
+defproc syn_unsigned_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 {
   syn_var_init_false const_0;
   dualrail partial_products[N][N];
@@ -400,7 +400,6 @@ defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 }
 */
 
-/*
 template<pint N>
 defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 {
@@ -432,10 +431,13 @@ defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
     in2[N-1].t -> s2.f-
     in2[N-1].t -> _s2.t-
 
-    ~in1[N-1].f & ~in1[N-1].t -> _s1+
-    ~in2[N-1].f & ~in2[N-1].t -> _s2+
+    ~in1[N-1].f & ~in1[N-1].t -> _s1.t+
+    ~in1[N-1].f & ~in1[N-1].t -> _s1.f+
+    ~in2[N-1].f & ~in2[N-1].t -> _s2.t+
+    ~in2[N-1].f & ~in2[N-1].t -> _s2.f+
 
-    s1 & s2 => _so-
+    (s1.f & s2.f) | (s1.t & s2.t) => so.t-
+    (s1.f & s2.f) | (s1.t & s2.t) => _so.f-
 
     _s1.t => s1.t-
     _s1.f => s1.f-
@@ -445,7 +447,6 @@ defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
     _so.f => so.f-
   }
 }
-*/
 
 /* LEFT-SHIFT */
 template<pint S, N>
