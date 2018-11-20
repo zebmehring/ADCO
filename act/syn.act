@@ -36,7 +36,7 @@ defproc syn_var_init_false (dualrail v)
   }
 }
 
-/* ============================ COMPLETION TREE ============================ */
+/* ================================= TREES ================================= */
 
 template<pint N> defproc syn_invctree (bool in[N]; bool _out);
 template<pint N> defproc syn_ctree (bool in[N]; bool out);
@@ -78,6 +78,27 @@ defproc syn_ctree (bool in[N]; bool out)
       	(&i:N:~in[i]) -> _out+
         _out => out-
       }
+  ]
+}
+
+template <pint M, N>
+defproc syn_wallace_tree (dualrail in[M][N]; dualrail out1[N], out2[N])
+{
+  [  M > 3 ->
+      dualrail next[M-1][N];
+      syn_carry_save_adder cs (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], next[0][0..N-1], next[1][0..N-1]);
+      (i:M-3: next[i+2][0..N-1] = in[i+3][0..N-1];)
+      syn_wallace_tree wt (next, out1, out2);
+  [] M = 1 ->
+      syn_var_init_false const_0;
+      out1 = in[0][0..N-1];
+      (i:N: out2[i] = const_0.v;)
+  [] M = 2 ->
+      dualrail in2[N];
+      (i:N: in2[i] = const_0.v;)
+      syn_carry_save_adder cs_2 (in[0][0..N-1], in[1][0..N-1], in2, out1, out2);
+  [] else ->
+      syn_carry_save_adder cs_3 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], out1, out2);
   ]
 }
 
@@ -188,16 +209,74 @@ defproc syn_sub (dualrail in1[N], in2[N]; dualrail out[N], c_out)
 
 /* CARRY-SAVE ADDER */
 template <pint N>
-defproc syn_carry_save (dualrail in1[N], in2[N]; dualrail out[N])
+defproc syn_carry_save_adder (dualrail in1[N], in2[N], in3[N]; dualrail out1[N], out2[N])
 {
-
+  syn_full_adder add[N];
+  (i:N: add[i].a = in1[i];
+        add[i].b = in2[i];
+        add[i].c_in = in3[i];
+        add[i].s = out1[i];
+        add[i].c_out = out2[i];)
 }
 
-/* MULTIPLICATION */
-template <pint N>
-defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N])
+/* LEFT-SHIFT BLOCK */
+template <pint S, N>
+defproc syn_shift_left (dualrail in[N]; dualrail out[N])
 {
-  syn_carry_save cs[N];
+  syn_var_init_false const_0;
+  (i:S: out[S] = const_0.v;)
+  (i:N: out[i+S] = in[i];)
+}
+
+/* MULTIPLICATION CELL */
+template <pint N>
+defproc syn_mul_cell (dualrail in1[N], in2; dualrail out[N])
+{
+  syn_expr_and and[N];
+  (i:N: and[i].in1 = in1[i];
+        and[i].in2 = in2;
+        and[i].out = out[i];)
+}
+
+/* UNSIGNED MULTIPLICATION */
+template <pint N>
+defproc syn_unsigned_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
+{
+  syn_mul_cell<N> mul[N];
+  (i:N: mul[i].in1 = in1;
+        mul[i].in2 = in2[i];)
+
+  dualrail partial_products[N][N];
+  (i:N: syn_shift_left<i, N> sh (mul[i].out, partial_products[i][0..N-1]);)
+
+  syn_wallace_tree<N, N> wal (partial_products);
+
+  syn_var_init_false const_0;
+  syn_add<N> add (wal.out1, wal.out2, const_0.v, out, overflow);
+}
+
+/* SIGNED MULTIPLICATION */
+template <pint N>
+defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
+{
+  [  in1[N-1].t & in2[N-1].t ->
+      dualrail _in1[N], _in2[N];
+      syn_uminus<N> u1 (in1, _in1);
+      syn_uminus<N> u2 (in2, _in2);
+      syn_unsigned_mul<N> mul (_in1, _in2, out, overflow);
+  [] in1[N-1].t ->
+      dualrail _in1[N], _out[N];
+      syn_uminus<N> u1 (in1, _in1);
+      syn_unsigned_mul<N> mul (_in1, in2, _out, overflow);
+      syn_uminus<N> u2 (_out, out);
+  [] in2[N-1].t ->
+      dualrail _in2[N], _out[N];
+      syn_uminus<N> u1 (in2, _in2);
+      syn_unsigned_mul<N> mul (in1, _in2, _out, overflow);
+      syn_uminus<N> u2 (_out, out);
+  [] else ->
+      syn_unsigned_mul<N> mul (in1, in2, out, overflow);
+  ]
 }
 
 /* =========================== BOOLEAN OPERATIONS =========================== */
