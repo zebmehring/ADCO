@@ -99,24 +99,22 @@ defproc syn_mul_cell (dualrail in1[N], in2; dualrail out[N])
 }
 
 /* MUX CELL */
-defproc syn_mux (dualrail a, b, s; dualrail o)
+defproc syn_mux (dualrail a, b; bool s; dualrail o)
 {
-  _dualrail _s, _o;
+  _dualrail _o;
+  bool _s;
   prs {
-    s.f & a.t -> _o.t-
-    s.f & a.f -> _o.f-
-    s.t & b.t -> _o.t-
-    s.t & b.f -> _o.f-
+    _s & a.t & (b.t | b.f) -> _o.t-
+    _s & a.f & (b.t | b.f) -> _o.f-
+    s & b.t & (a.t | a.f) -> _o.t-
+    s & b.f & (a.t | a.f) -> _o.f-
 
-    ~_s.f & ~a.t & ~a.f -> _o.t+
-    ~_s.f & ~a.t & ~a.f -> _o.f+
-    ~_s.t & ~b.t & ~b.f -> _o.t+
-    ~_s.t & ~b.t & ~b.f -> _o.f+
-    ~s.t & ~s.f -> o.t-
-    ~s.t & ~s.f -> o.f-
+    ~a.t & ~a.f -> _o.t+
+    ~a.t & ~a.f -> _o.f+
+    ~b.t & ~b.f -> _o.t+
+    ~b.t & ~b.f -> _o.f+
 
-    _s.t => s.t-
-    _s.f => s.f-
+    s => _s-
     _o.t => o.t-
     _o.f => o.f-
   }
@@ -124,7 +122,7 @@ defproc syn_mux (dualrail a, b, s; dualrail o)
 
 /* 2:1 MUX */
 template<pint N>
-defproc syn_2_to_1_mux (dualrail a[N], b[N], s; dualrail o[N])
+defproc syn_2_to_1_mux (dualrail a[N], b[N]; bool s; dualrail o[N])
 {
   syn_mux mux[N];
   (i:N: mux[i].a = a[i];
@@ -404,8 +402,8 @@ template<pint N>
 defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 {
   dualrail _in1[N], _in2[N], _out[N];
-  dualrail s1, s2, so;
-  _dualrail _s1, _s2, _so;
+  bool s1, s2, so;
+  bool _s1, _s2;
 
   syn_uminus<N> u1 (in1, _in1);
   syn_uminus<N> u2 (in2, _in2);
@@ -421,30 +419,12 @@ defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
   syn_2_to_1_mux<N> muxo (mul.out, _out, so, out);
 
   prs {
-    in1[N-1].f -> s1.t-
-    in1[N-1].f -> _s1.f-
-    in1[N-1].t -> s1.f-
-    in1[N-1].t -> _s1.t-
+    in1[N-1].t => _s1-
+    in2[N-1].t => _s2-
+    (in1[N-1].t & in2[N-1].t) | (in1[N-1].f & in2[N-1].f) => so-
 
-    in2[N-1].f -> s2.t-
-    in2[N-1].f -> _s2.f-
-    in2[N-1].t -> s2.f-
-    in2[N-1].t -> _s2.t-
-
-    ~in1[N-1].f & ~in1[N-1].t -> _s1.t+
-    ~in1[N-1].f & ~in1[N-1].t -> _s1.f+
-    ~in2[N-1].f & ~in2[N-1].t -> _s2.t+
-    ~in2[N-1].f & ~in2[N-1].t -> _s2.f+
-
-    (s1.f & s2.f) | (s1.t & s2.t) => so.t-
-    (s1.f & s2.f) | (s1.t & s2.t) => _so.f-
-
-    _s1.t => s1.t-
-    _s1.f => s1.f-
-    _s2.t => s2.t-
-    _s2.f => s2.f-
-    _so.t => so.t-
-    _so.f => so.f-
+    _s1 => s1-
+    _s2 => s2-
   }
 }
 
