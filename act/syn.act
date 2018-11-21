@@ -76,10 +76,10 @@ defproc syn_full_adder (dualrail a, b, c_in; dualrail s, c_out)
   _dualrail _c_out;
   prs {
     (a.t & b.t & c_in.t) | (a.t & b.f & c_in.f) | (a.f & b.t & c_in.f) | (a.f & b.f & c_in.t) => _s.t-
-  	(a.f & b.f & c_in.f) | (a.t & b.t & c_in.f) | (a.f & b.t & c_in.t) | (a.t & b.f & c_in.t) => _s.f-
+    (a.f & b.f & c_in.f) | (a.t & b.t & c_in.f) | (a.f & b.t & c_in.t) | (a.t & b.f & c_in.t) => _s.f-
 
-  	(a.t & b.t) | (a.t & c_in.t) | (b.t & c_in.t) => _c_out.t-
-  	(a.f & b.f) | (a.f & c_in.f) | (b.f & c_in.f) => _c_out.f-
+  	(a.t & b.t & (c_in.t | c_in.f)) | (a.t & c_in.t & (b.t | b.f)) | (b.t & c_in.t & (a.t | a.f)) => _c_out.t-
+  	(a.f & b.f & (c_in.t | c_in.f)) | (a.f & c_in.f & (b.t | b.f)) | (b.f & c_in.f & (a.t | a.f)) => _c_out.f-
 
   	_s.t => s.t-
   	_s.f => s.f-
@@ -99,22 +99,13 @@ defproc syn_mul_cell (dualrail in1[N], in2; dualrail out[N])
 }
 
 /* MUX CELL */
-defproc syn_mux (dualrail a, b; bool s; dualrail o)
+defproc syn_mux (dualrail a, b, s; dualrail o)
 {
   _dualrail _o;
-  bool _s;
   prs {
-    _s & a.t & (b.t | b.f) -> _o.t-
-    _s & a.f & (b.t | b.f) -> _o.f-
-    s & b.t & (a.t | a.f) -> _o.t-
-    s & b.f & (a.t | a.f) -> _o.f-
+    (a.t & b.f & s.f) | (a.f & b.t & s.t) | (a.t & b.t & (s.t | s.f)) => _o.t-
+    (a.f & b.t & s.f) | (a.t & b.f & s.t) | (a.f & b.f & (s.t | s.f)) => _o.f-
 
-    ~a.t & ~a.f -> _o.t+
-    ~a.t & ~a.f -> _o.f+
-    ~b.t & ~b.f -> _o.t+
-    ~b.t & ~b.f -> _o.f+
-
-    s => _s-
     _o.t => o.t-
     _o.f => o.f-
   }
@@ -122,7 +113,7 @@ defproc syn_mux (dualrail a, b; bool s; dualrail o)
 
 /* 2:1 MUX */
 template<pint N>
-defproc syn_2_to_1_mux (dualrail a[N], b[N]; bool s; dualrail o[N])
+defproc syn_2_to_1_mux (dualrail a[N], b[N], s; dualrail o[N])
 {
   syn_mux mux[N];
   (i:N: mux[i].a = a[i];
@@ -402,8 +393,8 @@ template<pint N>
 defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 {
   dualrail _in1[N], _in2[N], _out[N];
-  bool s1, s2, so;
-  bool _s1, _s2;
+  dualrail s1, s2, so;
+  _dualrail _s1, _s2;
 
   syn_uminus<N> u1 (in1, _in1);
   syn_uminus<N> u2 (in2, _in2);
@@ -419,12 +410,17 @@ defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
   syn_2_to_1_mux<N> muxo (mul.out, _out, so, out);
 
   prs {
-    in1[N-1].t => _s1-
-    in2[N-1].t => _s2-
-    (in1[N-1].t & in2[N-1].t) | (in1[N-1].f & in2[N-1].f) => so-
+    in1[N-1].t => _s1.t-
+    in1[N-1].f => _s1.f-
+    in2[N-1].t => _s2.t-
+    in2[N-1].f => _s2.f-
+    (in1[N-1].t & in2[N-1].t) | (in1[N-1].f & in2[N-1].f) => so.t-
+    (in1[N-1].t & in2[N-1].f) | (in1[N-1].f & in2[N-1].t) => so.f-
 
-    _s1 => s1-
-    _s2 => s2-
+    _s1.t => s1.t-
+    _s1.f => s1.f-
+    _s2.t => s2.t-
+    _s2.f => s2.f-
   }
 }
 

@@ -17,9 +17,9 @@ defproc toplevel (a1of1 go)
   syn_var_init_true const_1;
   syn_expr_vararray<8> e_1;
   e_1.v[0] = const_1.v;
-  e_1.v[1] = const_1.v;
-  e_1.v[2] = const_0.v;
-  e_1.v[3] = const_0.v;
+  e_1.v[1] = const_0.v;
+  e_1.v[2] = const_1.v;
+  e_1.v[3] = const_1.v;
   e_1.v[4] = const_0.v;
   e_1.v[5] = const_0.v;
   e_1.v[6] = const_0.v;
@@ -54,10 +54,10 @@ defproc toplevel (a1of1 go)
 
   /* assign */
   syn_expr_vararray<8> e_3;
-  e_3.v[0] = const_0.v;
+  e_3.v[0] = const_1.v;
   e_3.v[1] = const_1.v;
-  e_3.v[2] = const_0.v;
-  e_3.v[3] = const_0.v;
+  e_3.v[2] = const_1.v;
+  e_3.v[3] = const_1.v;
   e_3.v[4] = const_0.v;
   e_3.v[5] = const_0.v;
   e_3.v[6] = const_0.v;

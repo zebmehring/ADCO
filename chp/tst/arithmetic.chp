@@ -1,0 +1,19 @@
+/* variable declarations */
+vars {
+  int<8> x;
+  int<8> y;
+  int<8> z;
+  int<8> a;
+  chan<8> A;
+}
+
+/* chp program */
+
+chp {
+  x := (3 + 4) * 2 ;     // x = 00001110
+  y := -1 + 0 * 4 + 3 ;  // y = 00000010
+  z := 1 * x - x * y ;   // z = 11110010
+  z := (y - x) * 3 + 1 ; // z = 11011101
+  A ! (x * y) ;
+  A ? a                  // a = 00011100
+}
