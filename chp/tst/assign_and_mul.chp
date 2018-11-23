@@ -3,6 +3,7 @@ vars {
   int<8> x;
   int<8> y;
   int<8> z;
+  int<8> a;
 }
 
 /* chp program */
@@ -10,5 +11,5 @@ vars {
 chp {
   x := 13 ;
   y := 15 ;
-  z := x * y
+  (z := x * y , a := y * x)
 }

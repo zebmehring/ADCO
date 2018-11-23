@@ -296,7 +296,6 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       }
       ret = expr_count++;
       break;
-
     case E_FUNCTION:
       {
         Expr *tmp;

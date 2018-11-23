@@ -10,6 +10,32 @@
 import "~/Documents/ADCO/act/globals.act";
 import "~/Documents/ADCO/act/channel.act";
 
+/* ======================== VARIABLE INITIALIZATION ======================== */
+
+/* TRUE */
+defproc syn_var_init_true (dualrail v)
+{
+  prs {
+    Reset -> v.f-
+    v.f<8> -> v.t-
+    v.t<8> -> v.f-
+    [weak=1] ~v.t<4,4> -> v.f+
+    [weak=1] ~v.f<4,4> -> v.t+
+  }
+}
+
+/* FALSE */
+defproc syn_var_init_false (dualrail v)
+{
+  prs {
+    Reset -> v.t-
+    v.f<8> -> v.t-
+    v.t<8> -> v.f-
+    [weak=1] ~v.t<4,4> -> v.f+
+    [weak=1] ~v.f<4,4> -> v.t+
+  }
+}
+
 /* ============================ CIRCUIT ELEMENTS ============================ */
 
 /* DUALRAIL AND GATE */
@@ -128,12 +154,14 @@ defproc syn_2_to_1_mux (dualrail a[N], b[N], s; dualrail o[N])
 template<pint N>
 defproc syn_carry_save_adder (dualrail in1[N], in2[N], in3[N]; dualrail out1[N], out2[N])
 {
+  syn_var_init_false const_0;
   syn_full_adder add[N];
   (i:N: add[i].a = in1[i];
         add[i].b = in2[i];
         add[i].c_in = in3[i];
-        add[i].s = out1[i];
-        add[i].c_out = out2[i];)
+        add[i].s = out1[i];)
+  out2[0] = const_0.v;
+  (i:N-1: add[i].c_out = out2[i+1];)
 }
 
 /* 4:2 COMPRESSOR */
@@ -143,32 +171,6 @@ defproc syn_4_to_2_compressor (dualrail in1[N], in2[N], in3[N], in4[N]; dualrail
   dualrail csa_out1[N], csa_out2[N];
   syn_carry_save_adder<N> csa1 (in1, in2, in3, csa_out1, csa_out2);
   syn_carry_save_adder<N> csa2 (in4, csa_out1, csa_out2, out1, out2);
-}
-
-/* ======================== VARIABLE INITIALIZATION ======================== */
-
-/* TRUE */
-defproc syn_var_init_true (dualrail v)
-{
-  prs {
-    Reset -> v.f-
-    v.f<8> -> v.t-
-    v.t<8> -> v.f-
-    [weak=1] ~v.t<4,4> -> v.f+
-    [weak=1] ~v.f<4,4> -> v.t+
-  }
-}
-
-/* FALSE */
-defproc syn_var_init_false (dualrail v)
-{
-  prs {
-    Reset -> v.t-
-    v.f<8> -> v.t-
-    v.t<8> -> v.f-
-    [weak=1] ~v.t<4,4> -> v.f+
-    [weak=1] ~v.f<4,4> -> v.t+
-  }
 }
 
 /* ================================= TREES ================================= */
@@ -246,8 +248,11 @@ defproc syn_wallace_tree (dualrail in[M][N]; dualrail out1[N], out2[N])
       syn_wallace_tree<M/2, N> l(in[0..M/2-1][0..N-1]);
       syn_wallace_tree<M-M/2, N> r(in[M/2..M-1][0..N-1]);
       syn_4_to_2_compressor<N> comp (l.out1, l.out2, r.out1, r.out2, out1, out2);
-  [] M = 1 ->
+  [] M = 0 ->
       syn_var_init_false const_0;
+      (i:N: out1[i] = const_0.v;
+            out2[i] = const_0.v;)
+  [] M = 1 ->
       out1 = in[0][0..N-1];
       (i:N: out2[i] = const_0.v;)
   [] M = 2 ->
@@ -364,31 +369,7 @@ defproc syn_unsigned_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
   syn_add<N> add (wal.out1, wal.out2, const_0.v, out, overflow);
 }
 
-/* SIGNED MULTIPLICATION
-template<pint N>
-defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
-{
-  [  in1[N-1].t & in2[N-1].t ->
-      dualrail _in1[N], _in2[N];
-      syn_uminus<N> um_1 (in1, _in1);
-      syn_uminus<N> um_2 (in2, _in2);
-      syn_unsigned_mul<N> mul_1 (_in1, _in2, out, overflow);
-  [] in1[N-1].t ->
-      dualrail _in1[N], _out[N];
-      syn_uminus<N> um_3 (in1, _in1);
-      syn_unsigned_mul<N> mul_2 (_in1, in2, _out, overflow);
-      syn_uminus<N> um_4 (_out, out);
-  [] in2[N-1].t ->
-      dualrail _in2[N], _out[N];
-      syn_uminus<N> um_5 (in2, _in2);
-      syn_unsigned_mul<N> mul_3 (in1, _in2, _out, overflow);
-      syn_uminus<N> um_6 (_out, out);
-  [] else ->
-      syn_unsigned_mul<N> mul_4 (in1, in2, out, overflow);
-  ]
-}
-*/
-
+/* SIGNED MULTIPLICATION*/
 template<pint N>
 defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 {
