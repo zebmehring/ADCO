@@ -11,6 +11,7 @@ int get_bitwidth_expr (Expr *e)
   {
     case E_AND:
     case E_OR:
+    case E_XOR:
     case E_PLUS:
     case E_MINUS:
     case E_MULT:
@@ -211,7 +212,7 @@ void check_types_cmd (chp_lang_t *c)
         }
       }
       break;
-      
+
     case CHP_SELECT:
     case CHP_LOOP:
       {

@@ -68,6 +68,19 @@ defproc syn_expr_or (dualrail in1, in2; dualrail out)
   }
 }
 
+/* DUALRAIL XOR GATE */
+defproc syn_expr_xor (dualrail in1, in2; dualrail out)
+{
+  _dualrail _out;
+  prs {
+    (in1.t & in2.f) | (in1.f & in2.t) => _out.t-
+    (in1.t & in2.t) | (in1.f & in2.f) => _out.f-
+
+    _out.t => out.t-
+    _out.f => out.f-
+  }
+}
+
 /* BOOLEAN OR GATE */
 defproc syn_or2 (bool x, y, out)
 {
@@ -406,30 +419,20 @@ defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 }
 
 /* LEFT-SHIFT */
-template<pint S, N>
-defproc syn_shift_left (dualrail in[N]; dualrail out[N])
-{
-  syn_var_init_false const_0;
-  (i:S: out[S] = const_0.v;)
-  (i:N-S: out[i+S] = in[i];)
-}
-
-/*
 template<pint M, N>
 defproc syn_shift_left (dualrail in[N], sa[M]; dualrail out[N])
 {
   syn_var_init_false const_0;
   syn_mux muxes[M][N];
-  (i:M: (j:N: muxes[i][j].s = sa[i].t;))
+  (i:M: (j:N: muxes[i][j].s = sa[i];))
   (j:N: muxes[0][j].a = in[j];)
-  (i:M-1: (j:N: muxes[i+1][j].in = muxes[i][j].out;))
-  (j:N: muxes[M-1][j].out = out[j];)
+  (i:M-1: (j:N: muxes[i+1][j].a = muxes[i][j].o;))
+  (j:N: muxes[M-1][j].o = out[j];)
 
-  muxes[0][0] = const_0.v;
   (j:N-1: muxes[0][j+1].b = in[j];)
-  (i:M-1: (j:N: muxes[i+1][j].b = muxes[i][j].out;))
+  (i:M: (j:(1<<i): muxes[i][j].b = const_0.v;))
+  (i:M-1: (j:(N-(1<<i)): muxes[i+1][j+(1<<i)].b = muxes[i][j].o;))
 }
-*/
 
 /* =========================== BOOLEAN OPERATIONS =========================== */
 
@@ -438,9 +441,9 @@ template<pint N>
 defproc syn_and (dualrail in1[N], in2[N]; dualrail out[N])
 {
   syn_expr_and and[N];
-  (i:N: and[i].in1 = in1[N];
-        and[i].in2 = in2[N];
-        and[i].out = out[N];)
+  (i:N: and[i].in1 = in1[i];
+        and[i].in2 = in2[i];
+        and[i].out = out[i];)
 }
 
 /* BITWISE OR */
@@ -448,9 +451,9 @@ template<pint N>
 defproc syn_or (dualrail in1[N], in2[N]; dualrail out[N])
 {
   syn_expr_or or[N];
-  (i:N: or[i].in1 = in1[N];
-        or[i].in2 = in2[N];
-        or[i].out = out[N];)
+  (i:N: or[i].in1 = in1[i];
+        or[i].in2 = in2[i];
+        or[i].out = out[i];)
 }
 
 /* BITWISE COMPLEMENT */
@@ -458,7 +461,93 @@ template<pint N>
 defproc syn_not (dualrail in[N]; dualrail out[N])
 {
   syn_expr_not not[N];
-  (i:N: not[i].in = in[i]; not[i].out = out[i];)
+  (i:N: not[i].in = in[i];
+        not[i].out = out[i];)
+}
+
+/* BITWISE XOR */
+template<pint N>
+defproc syn_xor (dualrail in1[N], in2[N]; dualrail out[N])
+{
+  syn_expr_xor xor[N];
+  (i:N: xor[i].in1 = in1[i];
+        xor[i].in2 = in2[i];
+        xor[i].out = out[i];)
+}
+
+/* ========================== COMPARISON OPERATORS ========================== */
+
+/* EQUALITY */
+template<pint N>
+defproc syn_eq (dualrail in1[N], in2[N]; dualrail out)
+{
+  _dualrail _out;
+  prs {
+    (&i:N: (in1[i].t & in2[i].f) | (in1[i].f & in2[i].t)) => _out.f-
+    (&i:N: (in1[i].t & in2[i].t) | (in1[i].f & in2[i].f)) => _out.t-
+
+    _out.t => out.t-
+    _out.f => out.f-
+  }
+}
+
+/* INEQUALITY */
+template<pint N>
+defproc syn_ne (dualrail in1[N], in2[N]; dualrail out)
+{
+  dualrail _out;
+  syn_eq<N> eq (in1, in2, _out);
+  syn_expr_not inv (_out, out);
+}
+
+/* LESS THAN */
+template<pint N>
+defproc syn_lt (dualrail in1[N], in2[N]; dualrail out)
+{
+  dualrail sub_out[N];
+  _dualrail _out;
+  syn_sub<N> sub (in1, in2, sub_out);
+  prs {
+    sub_out[N-1].t => _out.t-
+    sub_out[N-1].f => _out.f-
+
+    _out.t => out.t-
+    _out.f => out.f-
+  }
+}
+
+/* GREATER THAN */
+template<pint N>
+defproc syn_gt (dualrail in1[N], in2[N]; dualrail out)
+{
+  dualrail sub_out[N];
+  _dualrail _out;
+  syn_sub<N> sub (in1, in2, sub_out);
+  prs {
+    sub_out[N-1].t => _out.f-
+    sub_out[N-1].f => _out.t-
+
+    _out.t => out.t-
+    _out.f => out.f-
+  }
+}
+
+/* LESS THAN OR EQUALS */
+template<pint N>
+defproc syn_le (dualrail in1[N], in2[N]; dualrail out)
+{
+  dualrail _out;
+  syn_gt<N> gt (in1, in2, _out);
+  syn_expr_not inv (_out, out);
+}
+
+/* GREATER THAN OR EQUALS */
+template<pint N>
+defproc syn_ge (dualrail in1[N], in2[N]; dualrail out)
+{
+  dualrail _out;
+  syn_lt<N> lt (in1, in2, _out);
+  syn_expr_not inv (_out, out);
 }
 
 /* ============================ CHP CONSTRUCTS ============================ */

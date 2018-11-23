@@ -116,30 +116,42 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
   {
     printf ("  syn_expr_%s e_%d(e_%d.out);\n", s, expr_count, l);
   }
+  else if (bundle_data)
+  {
+    printf ("  bundled_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
+    printf ("  (i:%d: e_%d.in[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
+  }
   else
   {
     printf ("  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
-    printf ("  (i:%d: e_%d.v[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
+    printf ("  (i:%d: e_%d[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
   }
 
   return expr_count++;
 }
 
-int binop (char *s, Expr *e, int *bitwidth, int *base_var)
+int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op)
 {
   int l, r, chan, ret;
 
   l = _print_expr (e->u.e.l, bitwidth, base_var);
   r = _print_expr (e->u.e.r, bitwidth, base_var);
 
-  if (*bitwidth == 1)
+  if (comp_op)
+  {
+    printf ("  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
+    printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
+    printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
+    ret = expr_count++;
+  }
+  else if (*bitwidth == 1)
   {
     printf ("  syn_expr_%s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
     ret = expr_count++;
   }
   else if (bundle_data)
   {
-    printf ("  bundled_%s_N<%d> e_%d;\n", s, *bitwidth, expr_count);
+    printf ("  bundled_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
     if (*base_var == -1)
@@ -177,22 +189,22 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
   switch (e->type)
   {
     case E_AND:
-      ret = binop ("and", e, bitwidth, base_var);
+      ret = binop ("and", e, bitwidth, base_var, false);
       break;
     case E_OR:
-      ret = binop ("or", e, bitwidth, base_var);
+      ret = binop ("or", e, bitwidth, base_var, false);
+      break;
+    case E_XOR:
+      ret = binop ("xor", e, bitwidth, base_var, false);
       break;
     case E_PLUS:
-      ret = binop ("add", e, bitwidth, base_var);
+      ret = binop ("add", e, bitwidth, base_var, false);
       break;
     case E_MINUS:
-      ret = binop ("sub", e, bitwidth, base_var);
+      ret = binop ("sub", e, bitwidth, base_var, false);
       break;
     case E_MULT:
-      ret = binop ("mul", e, bitwidth, base_var);
-      break;
-    case E_DIV:
-      ret = binop ("div", e, bitwidth, base_var);
+      ret = binop ("mul", e, bitwidth, base_var, false);
       break;
     case E_NOT:
     case E_COMPLEMENT:
@@ -203,6 +215,21 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       break;
     case E_PROBE:
       ret = 0;
+      break;
+    case E_EQ:
+      ret = binop ("eq", e, bitwidth, base_var, true);
+      break;
+    case E_LT:
+      ret = binop ("lt", e, bitwidth, base_var, true);
+      break;
+    case E_GT:
+      ret = binop ("gt", e, bitwidth, base_var, true);
+      break;
+    case E_LE:
+      ret = binop ("le", e, bitwidth, base_var, true);
+      break;
+    case E_GE:
+      ret = binop ("ge", e, bitwidth, base_var, true);
       break;
     case E_VAR:
       {

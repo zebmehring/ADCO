@@ -21,7 +21,7 @@ int get_max_bits (char *s, int lbits, int rbits);
 
 int unop (char *s, Expr *e, int *bitwidth, int *base_var);
 
-int binop (char *s, Expr *e, int *bitwidth, int *base_var);
+int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op);
 
 int _print_expr (Expr *e, int *bitwidth, int *base_var);
 
