@@ -346,9 +346,9 @@ defproc syn_uminus (dualrail v[N]; dualrail out[N])
   (i:N: v[i].t = inv[i].f;
         v[i].f = inv[i].t;)
 
-  syn_var_init_false f[N];
+  syn_var_init_false const_0;
   dualrail zero[N];
-  (i:N: zero[i] = f[i].v;)
+  (i:N: zero[i] = const_0.v;)
 
   syn_var_init_true const_1;
   syn_add<N> r (inv, zero, const_1.v, out);
@@ -483,8 +483,8 @@ defproc syn_eq (dualrail in1[N], in2[N]; dualrail out)
 {
   _dualrail _out;
   prs {
-    (&i:N: (in1[i].t & in2[i].f) | (in1[i].f & in2[i].t)) => _out.f-
-    (&i:N: (in1[i].t & in2[i].t) | (in1[i].f & in2[i].f)) => _out.t-
+    (|i:N: ((in1[i].t & in2[i].f) | (in1[i].f & in2[i].t))) => _out.f-
+    (&i:N: ((in1[i].t & in2[i].t) | (in1[i].f & in2[i].f))) => _out.t-
 
     _out.t => out.t-
     _out.f => out.f-
@@ -500,29 +500,36 @@ defproc syn_ne (dualrail in1[N], in2[N]; dualrail out)
   syn_expr_not inv (_out, out);
 }
 
-/* LESS THAN */
+/* LESS THAN OR EQUALS */
 template<pint N>
-defproc syn_lt (dualrail in1[N], in2[N]; dualrail out)
+defproc syn_le (dualrail in1[N], in2[N]; dualrail out)
 {
-  dualrail sub_out[N];
   _dualrail _out;
+
+  dualrail sub_out[N];
   syn_sub<N> sub (in1, in2, sub_out);
+
+  dualrail equals;
+  syn_eq<N> eq (in1, in2, equals);
+
   prs {
-    sub_out[N-1].t => _out.t-
-    sub_out[N-1].f => _out.f-
+    sub_out[N-1].t | equals.t => _out.t-
+    sub_out[N-1].f & equals.f => _out.f-
 
     _out.t => out.t-
     _out.f => out.f-
   }
 }
 
-/* GREATER THAN */
+/* GREATER THAN OR EQUALS */
 template<pint N>
-defproc syn_gt (dualrail in1[N], in2[N]; dualrail out)
+defproc syn_ge (dualrail in1[N], in2[N]; dualrail out)
 {
-  dualrail sub_out[N];
   _dualrail _out;
+
+  dualrail sub_out[N];
   syn_sub<N> sub (in1, in2, sub_out);
+
   prs {
     sub_out[N-1].t => _out.f-
     sub_out[N-1].f => _out.t-
@@ -532,21 +539,21 @@ defproc syn_gt (dualrail in1[N], in2[N]; dualrail out)
   }
 }
 
-/* LESS THAN OR EQUALS */
+/* LESS THAN */
 template<pint N>
-defproc syn_le (dualrail in1[N], in2[N]; dualrail out)
+defproc syn_lt (dualrail in1[N], in2[N]; dualrail out)
 {
   dualrail _out;
-  syn_gt<N> gt (in1, in2, _out);
+  syn_ge<N> ge (in1, in2, _out);
   syn_expr_not inv (_out, out);
 }
 
-/* GREATER THAN OR EQUALS */
+/* GREATER THAN */
 template<pint N>
-defproc syn_ge (dualrail in1[N], in2[N]; dualrail out)
+defproc syn_gt (dualrail in1[N], in2[N]; dualrail out)
 {
   dualrail _out;
-  syn_lt<N> lt (in1, in2, _out);
+  syn_le<N> le (in1, in2, _out);
   syn_expr_not inv (_out, out);
 }
 

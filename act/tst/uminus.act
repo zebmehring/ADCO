@@ -53,8 +53,8 @@ defproc toplevel (a1of1 go)
   /* assign */
   syn_expr_vararray<8> e_3;
   (i:8: e_3.v[i] = var_x[i].v;)
-  syn_uminus<8> e_4;
-  (i:8: e_4.v[i] = e_3.out[i];)
+  bundled_uminus<8> e_4;
+  (i:8: e_4.in[i] = e_3.out[i];)
   a1of1 c_2;
   syn_fullseq s_4;
   c_2.r = s_4.go.r;

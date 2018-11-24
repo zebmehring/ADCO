@@ -96,7 +96,7 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_6;
   (i:8: e_6.v[i] = var_y[i].v;)
   e_6.go_r = e_5.go_r;
-  bundled_mul_N<8> e_7;
+  bundled_mul<8> e_7;
   (i:8: e_7.in1[i] = e_5.out[i];)
   (i:8: e_7.in2[i] = e_6.out[i];)
   e_7.go_r = e_5.go_r;
@@ -170,7 +170,7 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_12;
   (i:8: e_12.v[i] = var_y[i].v;)
   e_12.go_r = e_11.go_r;
-  bundled_mul_N<8> e_13;
+  bundled_mul<8> e_13;
   (i:8: e_13.in1[i] = e_11.out[i];)
   (i:8: e_13.in2[i] = e_12.out[i];)
   e_13.go_r = e_11.go_r;

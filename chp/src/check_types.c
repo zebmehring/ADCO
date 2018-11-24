@@ -40,6 +40,14 @@ int get_bitwidth_expr (Expr *e)
     case E_UMINUS:
       return get_bitwidth_expr (e->u.e.l);
 
+    case E_EQ:
+    case E_GT:
+    case E_LT:
+    case E_NE:
+    case E_LE:
+    case E_GE:
+      return 1;
+
     case E_INT:
       return 0;
 

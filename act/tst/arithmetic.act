@@ -36,7 +36,7 @@ defproc toplevel (a1of1 go)
   e_2.v[6] = const_0.v;
   e_2.v[7] = const_0.v;
   e_2.go_r = e_1.go_r;
-  bundled_add_N<8> e_3;
+  bundled_add<8> e_3;
   (i:8: e_3.in1[i] = e_1.out[i];)
   (i:8: e_3.in2[i] = e_2.out[i];)
   e_3.go_r = e_1.go_r;
@@ -50,7 +50,7 @@ defproc toplevel (a1of1 go)
   e_4.v[6] = const_0.v;
   e_4.v[7] = const_0.v;
   e_4.go_r = e_1.go_r;
-  bundled_mul_N<8> e_5;
+  bundled_mul<8> e_5;
   (i:8: e_5.in1[i] = e_3.out[i];)
   (i:8: e_5.in2[i] = e_4.out[i];)
   e_5.go_r = e_1.go_r;
@@ -112,11 +112,11 @@ defproc toplevel (a1of1 go)
   e_9.v[6] = const_0.v;
   e_9.v[7] = const_0.v;
   e_9.go_r = e_7.go_r;
-  bundled_mul_N<8> e_10;
+  bundled_mul<8> e_10;
   (i:8: e_10.in1[i] = e_8.out[i];)
   (i:8: e_10.in2[i] = e_9.out[i];)
   e_10.go_r = e_7.go_r;
-  bundled_add_N<8> e_11;
+  bundled_add<8> e_11;
   (i:8: e_11.in1[i] = e_7.out[i];)
   (i:8: e_11.in2[i] = e_10.out[i];)
   e_11.go_r = e_7.go_r;
@@ -130,7 +130,7 @@ defproc toplevel (a1of1 go)
   e_12.v[6] = const_0.v;
   e_12.v[7] = const_0.v;
   e_12.go_r = e_7.go_r;
-  bundled_add_N<8> e_13;
+  bundled_add<8> e_13;
   (i:8: e_13.in1[i] = e_11.out[i];)
   (i:8: e_13.in2[i] = e_12.out[i];)
   e_13.go_r = e_7.go_r;
@@ -175,7 +175,7 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_16;
   (i:8: e_16.v[i] = var_x[i].v;)
   e_16.go_r = e_15.go_r;
-  bundled_mul_N<8> e_17;
+  bundled_mul<8> e_17;
   (i:8: e_17.in1[i] = e_15.out[i];)
   (i:8: e_17.in2[i] = e_16.out[i];)
   e_17.go_r = e_15.go_r;
@@ -185,11 +185,11 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_19;
   (i:8: e_19.v[i] = var_y[i].v;)
   e_19.go_r = e_15.go_r;
-  bundled_mul_N<8> e_20;
+  bundled_mul<8> e_20;
   (i:8: e_20.in1[i] = e_18.out[i];)
   (i:8: e_20.in2[i] = e_19.out[i];)
   e_20.go_r = e_15.go_r;
-  bundled_sub_N<8> e_21;
+  bundled_sub<8> e_21;
   (i:8: e_21.in1[i] = e_17.out[i];)
   (i:8: e_21.in2[i] = e_20.out[i];)
   e_21.go_r = e_15.go_r;
@@ -237,14 +237,14 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_24;
   (i:8: e_24.v[i] = var_y[i].v;)
   e_24.go_r = e_23.go_r;
-  bundled_mul_N<8> e_25;
+  bundled_mul<8> e_25;
   (i:8: e_25.in1[i] = e_23.out[i];)
   (i:8: e_25.in2[i] = e_24.out[i];)
   e_25.go_r = e_23.go_r;
   syn_expr_vararray<8> e_26;
   (i:8: e_26.v[i] = var_x[i].v;)
   e_26.go_r = e_23.go_r;
-  bundled_sub_N<8> e_27;
+  bundled_sub<8> e_27;
   (i:8: e_27.in1[i] = e_25.out[i];)
   (i:8: e_27.in2[i] = e_26.out[i];)
   e_27.go_r = e_23.go_r;
@@ -258,7 +258,7 @@ defproc toplevel (a1of1 go)
   e_28.v[6] = const_0.v;
   e_28.v[7] = const_0.v;
   e_28.go_r = e_23.go_r;
-  bundled_add_N<8> e_29;
+  bundled_add<8> e_29;
   (i:8: e_29.in1[i] = e_27.out[i];)
   (i:8: e_29.in2[i] = e_28.out[i];)
   e_29.go_r = e_23.go_r;
@@ -294,7 +294,7 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_32;
   (i:8: e_32.v[i] = var_x[i].v;)
   e_32.go_r = e_31.go_r;
-  bundled_sub_N<8> e_33;
+  bundled_sub<8> e_33;
   (i:8: e_33.in1[i] = e_31.out[i];)
   (i:8: e_33.in2[i] = e_32.out[i];)
   e_33.go_r = e_31.go_r;
@@ -308,7 +308,7 @@ defproc toplevel (a1of1 go)
   e_34.v[6] = const_0.v;
   e_34.v[7] = const_0.v;
   e_34.go_r = e_31.go_r;
-  bundled_mul_N<8> e_35;
+  bundled_mul<8> e_35;
   (i:8: e_35.in1[i] = e_33.out[i];)
   (i:8: e_35.in2[i] = e_34.out[i];)
   e_35.go_r = e_31.go_r;
@@ -322,7 +322,7 @@ defproc toplevel (a1of1 go)
   e_36.v[6] = const_0.v;
   e_36.v[7] = const_0.v;
   e_36.go_r = e_31.go_r;
-  bundled_add_N<8> e_37;
+  bundled_add<8> e_37;
   (i:8: e_37.in1[i] = e_35.out[i];)
   (i:8: e_37.in2[i] = e_36.out[i];)
   e_37.go_r = e_31.go_r;
@@ -362,7 +362,7 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_40;
   (i:8: e_40.v[i] = var_y[i].v;)
   e_40.go_r = e_39.go_r;
-  bundled_mul_N<8> e_41;
+  bundled_mul<8> e_41;
   (i:8: e_41.in1[i] = e_39.out[i];)
   (i:8: e_41.in2[i] = e_40.out[i];)
   e_41.go_r = e_39.go_r;
