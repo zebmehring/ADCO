@@ -506,15 +506,12 @@ defproc syn_le (dualrail in1[N], in2[N]; dualrail out)
 {
   _dualrail _out;
 
-  dualrail sub_out[N];
-  syn_sub<N> sub (in1, in2, sub_out);
-
-  dualrail equals;
-  syn_eq<N> eq (in1, in2, equals);
+  syn_sub<N> sub (in1, in2);
+  syn_eq<N> eq (in1, in2);
 
   prs {
-    sub_out[N-1].t | equals.t => _out.t-
-    sub_out[N-1].f & equals.f => _out.f-
+    sub.out[N-1].t | eq.out.t => _out.t-
+    sub.out[N-1].f & eq.out.f => _out.f-
 
     _out.t => out.t-
     _out.f => out.f-
@@ -527,12 +524,11 @@ defproc syn_ge (dualrail in1[N], in2[N]; dualrail out)
 {
   _dualrail _out;
 
-  dualrail sub_out[N];
-  syn_sub<N> sub (in1, in2, sub_out);
+  syn_sub<N> sub (in1, in2);
 
   prs {
-    sub_out[N-1].t => _out.f-
-    sub_out[N-1].f => _out.t-
+    sub.out[N-1].t => _out.f-
+    sub.out[N-1].f => _out.t-
 
     _out.t => out.t-
     _out.f => out.f-
