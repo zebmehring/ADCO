@@ -1,5 +1,4 @@
 import "~/Documents/ADCO/act/syn.act";
-import "~/Documents/ADCO/act/bundled.act";
 
 defproc toplevel (a1of1 go)
 {
