@@ -120,11 +120,19 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
   {
     printf ("  bundled_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     printf ("  (i:%d: e_%d.in[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
+    if (*base_var == -1)
+    {
+       *base_var = expr_count;
+    }
+    else
+    {
+       printf ("  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
+    }
   }
   else
   {
     printf ("  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
-    printf ("  (i:%d: e_%d[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
+    printf ("  (i:%d: e_%d.in[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
   }
 
   return expr_count++;
@@ -132,7 +140,7 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
 
 int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op)
 {
-  int l, r, chan, ret;
+  int l, r;
 
   l = _print_expr (e->u.e.l, bitwidth, base_var);
   r = _print_expr (e->u.e.r, bitwidth, base_var);
@@ -142,12 +150,10 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op)
     printf ("  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
-    ret = expr_count++;
   }
   else if (*bitwidth == 1)
   {
     printf ("  syn_expr_%s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
-    ret = expr_count++;
   }
   else if (bundle_data)
   {
@@ -162,23 +168,14 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op)
     {
        printf ("  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
     }
-    ret = expr_count++;
   }
   else
   {
-    //TODO: this piece -- figure out how to deal with base_var
     printf ("  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     printf ("  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     printf ("  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
-    ret = expr_count++;
-    chan = chan_count++;
-    char buf[100];
-    printf ("  a1of1 c_%d;\n", chan);
-    sprintf (buf, "c_%d.r", chan);
-    ret = print_expr_tmpvar (buf, *base_var, ret, *bitwidth);
-    printf ("  e_%d.go_r = c_%d.r;\n", *base_var, chan);
   }
-  return ret;
+  return expr_count++;
 }
 
 Chp *__chp;
@@ -326,10 +323,7 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
     case E_FUNCTION:
       {
         Expr *tmp;
-
         *bitwidth = get_func_bitwidth (e->u.fn.s + strlen (e->u.fn.s) - 1);
-
-        /* we have a bundled-data function */
         printf ("  bundled_%s e_%d;\n", e->u.fn.s, expr_count);
         tmp = e->u.fn.r;
         while (tmp)

@@ -42,11 +42,6 @@ int main (int argc, char **argv)
       printf("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
       return 0;
     }
-    else
-    {
-      fprintf (stderr, "Usage: %s [-b|--bundle_data] <chp>\n", argv[0]);
-      return 1;
-    }
   }
   else
   {

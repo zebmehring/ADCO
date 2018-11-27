@@ -340,11 +340,11 @@ defproc syn_add (dualrail in1[N], in2[N], c_in; dualrail out[N], c_out)
 
 /* UNARY MINUS */
 template<pint N>
-defproc syn_uminus (dualrail v[N]; dualrail out[N])
+defproc syn_uminus (dualrail in[N]; dualrail out[N])
 {
   dualrail inv[N];
-  (i:N: v[i].t = inv[i].f;
-        v[i].f = inv[i].t;)
+  (i:N: in[i].t = inv[i].f;
+        in[i].f = inv[i].t;)
 
   syn_var_init_false const_0;
   dualrail zero[N];

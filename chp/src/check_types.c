@@ -48,18 +48,7 @@ int get_bitwidth_expr (Expr *e)
     case E_GE:
       left_bitwidth = get_bitwidth_expr (e->u.e.l);
       right_bitwidth = get_bitwidth_expr (e->u.e.r);
-      if (left_bitwidth == 0)
-      {
-        return 1;
-      }
-      else if (right_bitwidth == 0)
-      {
-        return 1;
-      }
-      else
-      {
-        return left_bitwidth == right_bitwidth ? 1 : -1;
-      }
+      return (left_bitwidth == 0) || (right_bitwidth == 0) || (left_bitwidth == right_bitwidth) ? 1 : -1;
 
     case E_INT:
       return 0;
