@@ -15,7 +15,6 @@ int get_bitwidth_expr (Expr *e)
     case E_PLUS:
     case E_MINUS:
     case E_MULT:
-    case E_DIV:
       left_bitwidth = get_bitwidth_expr (e->u.e.l);
       right_bitwidth = get_bitwidth_expr (e->u.e.r);
       if (left_bitwidth == 0)
@@ -121,7 +120,7 @@ int get_bitwidth_expr (Expr *e)
       return ret;
 
     default:
-      fprintf (stderr, "Error: Unknown token: %d\n", e->type);
+      fprintf (stderr, "Error: Unsupported token: %d\n", e->type);
       exit (-1);
   }
   return -1;

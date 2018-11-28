@@ -322,6 +322,20 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       }
       ret = expr_count++;
       break;
+    case E_PROBE:
+      {
+        symbol *s = find_symbol (__chp, (char *) e->u.e.l);
+        *bitwidth = sym->bitwidth;
+        if (sym->bitwidth > 1)
+        {
+      	  printf ("  syn_aN1of2_probe<%d> e_%d(chan_%s);\n", sym->bitwidth, expr_count, sym->name);
+      	}
+      	else
+        {
+      	  printf ("  syn_a1of2_probe e_%d(chan_%s.t, chan_%s.f, chan_%s.a);\n", expr_count, sym->name, sym->name, sym->name);
+      	}
+        ret = expr_count++;
+      }
     case E_FUNCTION:
       {
         Expr *tmp;

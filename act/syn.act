@@ -294,6 +294,39 @@ defproc syn_recv (a1of1 go; dualrail v; a1of2 in)
   }
 }
 
+/* A1OF2 PROBE */
+defproc syn_a1of2_probe (bool ct, cf, ca; dualrail out)
+{
+  bool _ct, _cf, _ca;
+  _dualrail _out;
+  prs {
+    (ct | cf) & _ca => _out.t-
+    (_ct & _cf) | ca => _out.f-
+    ct => _ct-
+    cf => _cf-
+    ca => _ca-
+    _out.t => out.t-
+    _out.f => out.f-
+  }
+}
+
+/* AN1OF2 PROBE */
+template<pint N>
+defproc syn_aN1of2_probe (aN1of2 c; dualrail out)
+{
+  _dualrail _out;
+  syn_a1of2_probe probe[N];
+  (i:N: probe[i].t = c.d[i].t;
+        probe[i].f = c.d[i].f;
+        probe[i].a = c.a;)
+  prs {
+    (&i:N: probe[i].out.t) => _out.t-
+    (|i:N: probe[i].out.f) => _out.f-
+    _out.t => out.t-
+    _out.f => out.f-
+  }
+}
+
 /* ========================= EXPRESSION EVALUATION ========================= */
 
 /* SINGLE-BIT VARIABLE */
@@ -336,6 +369,42 @@ defproc syn_add (dualrail in1[N], in2[N], c_in; dualrail out[N], c_out)
   add[0].c_in = c_in;
   c_out = add[N-1].c_out;
   (i:N-1: add[i+1].c_in = add[i].c_out;)
+}
+
+template<pint N>
+defproc syn_cla_add (dualrail in1[N], in2[N]; dualrail out[N], overflow)
+{
+  syn_full_adder add[N];
+  overflow = add[N-1].c_out;
+
+  syn_or<N> p (in1, in2);
+  syn_and<N> g (in1, in2);
+
+  dualrail carry[N];
+  _dualrail _carry[N];
+  syn_var_init_false const_0;
+  /* add[0].c_in = const_0.v; */
+  carry[0] = const_0.v;
+
+  (i:N: add[i].a = in1[i];
+        add[i].b = in2[i];
+        add[i].s = out[i];
+        add[i].c_in = carry[i];)
+
+  prs {
+    (i:N-1: g.out[i].t | (p.out[i].t & carry[i].t) => _carry[i+1].t-
+            g.out[i].f & (p.out[i].f | carry[i].f) => _carry[i+1].f-
+            _carry[i].t => carry[i].t-
+            _carry[i].f => carry[i].f-)
+
+    /*
+    (i:N: (|j:i: (g.out[j].t & (&k:i-j-1: p.out[k+j+1].t))) => _c_in[i].t-
+          (&j:i: (g.out[j].f | (|k:i-j-1: p.out[k+j+1].f))) => _c_in[i].f-)
+
+    (i:N-1: _c_in[i+1].t => c_in[i+1].t-
+            _c_in[i+1].f => c_in[i+1].f-)
+    */
+  }
 }
 
 /* UNARY MINUS */
