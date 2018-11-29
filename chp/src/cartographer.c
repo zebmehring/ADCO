@@ -212,9 +212,6 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
     case E_UMINUS:
       ret = unop ("uminus", e, bitwidth, base_var);
       break;
-    case E_PROBE:
-      ret = 0;
-      break;
     case E_EQ:
       ret = binop ("eq", e, bitwidth, base_var, true);
       break;
@@ -325,14 +322,14 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
     case E_PROBE:
       {
         symbol *s = find_symbol (__chp, (char *) e->u.e.l);
-        *bitwidth = sym->bitwidth;
-        if (sym->bitwidth > 1)
+        *bitwidth = s->bitwidth;
+        if (s->bitwidth > 1)
         {
-      	  printf ("  syn_aN1of2_probe<%d> e_%d(chan_%s);\n", sym->bitwidth, expr_count, sym->name);
+      	  printf ("  syn_aN1of2_probe<%d> e_%d(chan_%s);\n", s->bitwidth, expr_count, s->name);
       	}
       	else
         {
-      	  printf ("  syn_a1of2_probe e_%d(chan_%s.t, chan_%s.f, chan_%s.a);\n", expr_count, sym->name, sym->name, sym->name);
+      	  printf ("  syn_a1of2_probe e_%d(chan_%s.t, chan_%s.f, chan_%s.a);\n", expr_count, s->name, s->name, s->name);
       	}
         ret = expr_count++;
       }

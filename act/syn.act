@@ -295,16 +295,16 @@ defproc syn_recv (a1of1 go; dualrail v; a1of2 in)
 }
 
 /* A1OF2 PROBE */
-defproc syn_a1of2_probe (bool ct, cf, ca; dualrail out)
+defproc syn_a1of2_probe (bool t, f, a; dualrail out)
 {
-  bool _ct, _cf, _ca;
+  bool _t, _f, _a;
   _dualrail _out;
   prs {
-    (ct | cf) & _ca => _out.t-
-    (_ct & _cf) | ca => _out.f-
-    ct => _ct-
-    cf => _cf-
-    ca => _ca-
+    (t | f) & _a => _out.t-
+    (_t & _f) | a => _out.f-
+    t => _t-
+    f => _f-
+    a => _a-
     _out.t => out.t-
     _out.f => out.f-
   }
@@ -354,6 +354,47 @@ defproc syn_expr_vararray (bool go_r; dualrail v[N]; dualrail out[N])
         ev[i].out = out[i];)
 }
 
+/* =========================== BOOLEAN OPERATIONS =========================== */
+
+/* BITWISE AND */
+template<pint N>
+defproc syn_and (dualrail in1[N], in2[N]; dualrail out[N])
+{
+  syn_expr_and and[N];
+  (i:N: and[i].in1 = in1[i];
+        and[i].in2 = in2[i];
+        and[i].out = out[i];)
+}
+
+/* BITWISE OR */
+template<pint N>
+defproc syn_or (dualrail in1[N], in2[N]; dualrail out[N])
+{
+  syn_expr_or or[N];
+  (i:N: or[i].in1 = in1[i];
+        or[i].in2 = in2[i];
+        or[i].out = out[i];)
+}
+
+/* BITWISE COMPLEMENT */
+template<pint N>
+defproc syn_not (dualrail in[N]; dualrail out[N])
+{
+  syn_expr_not not[N];
+  (i:N: not[i].in = in[i];
+        not[i].out = out[i];)
+}
+
+/* BITWISE XOR */
+template<pint N>
+defproc syn_xor (dualrail in1[N], in2[N]; dualrail out[N])
+{
+  syn_expr_xor xor[N];
+  (i:N: xor[i].in1 = in1[i];
+        xor[i].in2 = in2[i];
+        xor[i].out = out[i];)
+}
+
 /* ========================= ARITHMETIC OPERATIONS ========================= */
 
 /* ADDITION */
@@ -394,8 +435,10 @@ defproc syn_cla_add (dualrail in1[N], in2[N]; dualrail out[N], overflow)
   prs {
     (i:N-1: g.out[i].t | (p.out[i].t & carry[i].t) => _carry[i+1].t-
             g.out[i].f & (p.out[i].f | carry[i].f) => _carry[i+1].f-
-            _carry[i].t => carry[i].t-
-            _carry[i].f => carry[i].f-)
+            _carry[i+1].t => carry[i+1].t-
+            _carry[i+1].f => carry[i+1].f-)
+    carry[0].t => _carry[0].t-
+    carry[0].f => _carry[0].f-
 
     /*
     (i:N: (|j:i: (g.out[j].t & (&k:i-j-1: p.out[k+j+1].t))) => _c_in[i].t-
@@ -501,47 +544,6 @@ defproc syn_shift_left (dualrail in[N], sa[M]; dualrail out[N])
   (j:N-1: muxes[0][j+1].b = in[j];)
   (i:M: (j:(1<<i): muxes[i][j].b = const_0.v;))
   (i:M-1: (j:(N-(1<<i)): muxes[i+1][j+(1<<i)].b = muxes[i][j].o;))
-}
-
-/* =========================== BOOLEAN OPERATIONS =========================== */
-
-/* BITWISE AND */
-template<pint N>
-defproc syn_and (dualrail in1[N], in2[N]; dualrail out[N])
-{
-  syn_expr_and and[N];
-  (i:N: and[i].in1 = in1[i];
-        and[i].in2 = in2[i];
-        and[i].out = out[i];)
-}
-
-/* BITWISE OR */
-template<pint N>
-defproc syn_or (dualrail in1[N], in2[N]; dualrail out[N])
-{
-  syn_expr_or or[N];
-  (i:N: or[i].in1 = in1[i];
-        or[i].in2 = in2[i];
-        or[i].out = out[i];)
-}
-
-/* BITWISE COMPLEMENT */
-template<pint N>
-defproc syn_not (dualrail in[N]; dualrail out[N])
-{
-  syn_expr_not not[N];
-  (i:N: not[i].in = in[i];
-        not[i].out = out[i];)
-}
-
-/* BITWISE XOR */
-template<pint N>
-defproc syn_xor (dualrail in1[N], in2[N]; dualrail out[N])
-{
-  syn_expr_xor xor[N];
-  (i:N: xor[i].in1 = in1[i];
-        xor[i].in2 = in2[i];
-        xor[i].out = out[i];)
 }
 
 /* ========================== COMPARISON OPERATORS ========================== */
