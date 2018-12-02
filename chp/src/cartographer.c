@@ -112,6 +112,21 @@ int get_max_bits (char *s, int lbits, int rbits)
   }
 }
 
+void hash_add_expr (struct Hashtable *t, const char *k, const char *_k, bool commutative)
+{
+  hash_bucket_t *h = hash_add (t, k);
+  int *count = calloc (1, sizeof(int));
+  *count = expr_count;
+  h->v = count;
+  if (commutative)
+  {
+    h = hash_add (t, _k);
+    count = calloc (1, sizeof(int));
+    *count = expr_count;
+    h->v = count;
+  }
+}
+
 void hash_remove_expr (struct Hashtable *h, const char *expr)
 {
   hash_bucket_t *b;
@@ -138,7 +153,6 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
 {
   int l;
   hash_bucket_t *h;
-  int *count;
   char *left_expr, *k;
 
   l = _print_expr (e->u.e.l, bitwidth, base_var);
@@ -163,10 +177,7 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
       }
       else
       {
-        h = hash_add (evaluated_exprs, k);
-        count = calloc (1, sizeof(int));
-        *count = expr_count;
-        h->v = count;
+        hash_add_expr (evaluated_exprs, k, NULL, false);
       }
     }
     fprintf (output_stream, "  syn_expr_%s e_%d(e_%d.out);\n", s, expr_count, l);
@@ -195,10 +206,7 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
       }
       else
       {
-        h = hash_add (evaluated_exprs, k);
-        count = calloc (1, sizeof(int));
-        *count = expr_count;
-        h->v = count;
+        hash_add_expr (evaluated_exprs, k, NULL, false);
       }
     }
     fprintf (output_stream, "  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
@@ -212,7 +220,6 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op, bool co
 {
   int l, r;
   hash_bucket_t *h;
-  int *count;
   char *left_expr, *right_expr, *k, *_k;
 
   l = _print_expr (e->u.e.l, bitwidth, base_var);
@@ -226,6 +233,11 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op, bool co
     get_expr (e->u.e.l, l, &left_expr);
     get_expr (e->u.e.r, r, &right_expr);
     sprintf (k, "%s(%s,%s)", s, left_expr, right_expr);
+    if (commutative)
+    {
+      _k = calloc (100, sizeof(char));
+      sprintf (_k, "%s(%s,%s)", s, right_expr, left_expr);
+    }
     free (left_expr);
     free (right_expr);
   }
@@ -237,23 +249,12 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op, bool co
       if ((h = hash_lookup (evaluated_exprs, k)))
       {
         free (k);
+        if (commutative) free (_k);
         return *((int *) h->v);
       }
       else
       {
-        h = hash_add (evaluated_exprs, k);
-        count = calloc (1, sizeof(int));
-        *count = expr_count;
-        h->v = count;
-        if (commutative)
-        {
-          _k = calloc (100, sizeof(char));
-          sprintf (_k, "%s(%s,%s)", s, right_expr, left_expr);
-          h = hash_add (evaluated_exprs, _k);
-          count = calloc (1, sizeof(int));
-          *count = expr_count;
-          h->v = count;
-        }
+        hash_add_expr (evaluated_exprs, k, _k, commutative);
       }
     }
     fprintf (output_stream, "  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
@@ -267,23 +268,12 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op, bool co
       if ((h = hash_lookup (evaluated_exprs, k)))
       {
         free (k);
+        if (commutative) free (_k);
         return *((int *) h->v);
       }
       else
       {
-        h = hash_add (evaluated_exprs, k);
-        count = calloc (1, sizeof(int));
-        *count = expr_count;
-        h->v = count;
-        if (commutative)
-        {
-          _k = calloc (100, sizeof(char));
-          sprintf (_k, "%s(%s,%s)", s, right_expr, left_expr);
-          h = hash_add (evaluated_exprs, _k);
-          count = calloc (1, sizeof(int));
-          *count = expr_count;
-          h->v = count;
-        }
+        hash_add_expr (evaluated_exprs, k, _k, commutative);
       }
     }
     fprintf (output_stream, "  syn_expr_%s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
@@ -309,23 +299,12 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op, bool co
       if ((h = hash_lookup (evaluated_exprs, k)))
       {
         free (k);
+        if (commutative) free (_k);
         return *((int *) h->v);
       }
       else
       {
-        h = hash_add (evaluated_exprs, k);
-        count = calloc (1, sizeof(int));
-        *count = expr_count;
-        h->v = count;
-        if (commutative)
-        {
-          _k = calloc (100, sizeof(char));
-          sprintf (_k, "%s(%s,%s)", s, right_expr, left_expr);
-          h = hash_add (evaluated_exprs, _k);
-          count = calloc (1, sizeof(int));
-          *count = expr_count;
-          h->v = count;
-        }
+        hash_add_expr (evaluated_exprs, k, _k, commutative);
       }
     }
     fprintf (output_stream, "  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);

@@ -22,6 +22,8 @@ int get_func_bitwidth (char *s);
 
 int get_max_bits (char *s, int lbits, int rbits);
 
+void hash_add_expr (struct Hashtable *h, const char *k, const char *_k, bool commmutative);
+
 void hash_remove_expr (struct Hashtable *h, const char *expr);
 
 int unop (char *s, Expr *e, int *bitwidth, int *base_var);
