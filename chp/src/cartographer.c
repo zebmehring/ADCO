@@ -365,8 +365,6 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       break;
     case E_PLUS:
       ret = binop ("add", e, bitwidth, base_var, false, true);
-      emit_const_0 ();
-      fprintf (output_stream, "  e_%d.c_in = const_0.v;\n", ret);
       break;
     case E_MINUS:
       ret = binop ("sub", e, bitwidth, base_var, false, false);

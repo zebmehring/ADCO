@@ -130,7 +130,6 @@ defproc toplevel (a1of1 go)
   syn_add<8> e_11;
   (i:8: e_11.in1[i] = e_9.out[i];)
   (i:8: e_11.in2[i] = e_10.out[i];)
-  e_11.c_in = const_0.v;
   a1of1 c_6;
   syn_fullseq s_8;
   c_6.r = s_8.go.r;
@@ -173,7 +172,6 @@ defproc toplevel (a1of1 go)
   syn_add<8> e_15;
   (i:8: e_15.in1[i] = e_13.out[i];)
   (i:8: e_15.in2[i] = e_14.out[i];)
-  e_15.c_in = const_0.v;
   a1of1 c_7;
   syn_fullseq s_11;
   c_7.r = s_11.go.r;

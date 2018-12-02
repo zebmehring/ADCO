@@ -397,9 +397,9 @@ defproc syn_xor (dualrail in1[N], in2[N]; dualrail out[N])
 
 /* ========================= ARITHMETIC OPERATIONS ========================= */
 
-/* ADDITION */
+/* RIPPLE-CARRY ADDITION */
 template<pint N>
-defproc syn_add (dualrail in1[N], in2[N], c_in; dualrail out[N], c_out)
+defproc syn_ripple_carry_add (dualrail in1[N], in2[N], c_in; dualrail out[N], overflow)
 {
   syn_full_adder add[N];
 
@@ -408,12 +408,13 @@ defproc syn_add (dualrail in1[N], in2[N], c_in; dualrail out[N], c_out)
         add[i].s = out[i];)
 
   add[0].c_in = c_in;
-  c_out = add[N-1].c_out;
+  overflow = add[N-1].c_out;
   (i:N-1: add[i+1].c_in = add[i].c_out;)
 }
 
+/* CARRY-LOOKAHEAD ADDITION */
 template<pint N>
-defproc syn_cla_add (dualrail in1[N], in2[N]; dualrail out[N], overflow)
+defproc syn_cla_add (dualrail in1[N], in2[N], c_in; dualrail out[N], overflow)
 {
   syn_full_adder add[N];
   overflow = add[N-1].c_out;
@@ -423,9 +424,7 @@ defproc syn_cla_add (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 
   dualrail carry[N];
   _dualrail _carry[N];
-  syn_var_init_false const_0;
-  /* add[0].c_in = const_0.v; */
-  carry[0] = const_0.v;
+  /* _dualrail _c_in[N]; */
 
   (i:N: add[i].a = in1[i];
         add[i].b = in2[i];
@@ -434,20 +433,36 @@ defproc syn_cla_add (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 
   prs {
     (i:N-1: g.out[i].t | (p.out[i].t & carry[i].t) => _carry[i+1].t-
-            g.out[i].f & (p.out[i].f | carry[i].f) => _carry[i+1].f-
-            _carry[i+1].t => carry[i+1].t-
-            _carry[i+1].f => carry[i+1].f-)
-    carry[0].t => _carry[0].t-
-    carry[0].f => _carry[0].f-
+            g.out[i].f & (p.out[i].f | carry[i].f) => _carry[i+1].f-)
+
+    (i:N: _carry[i].t => carry[i].t-
+          _carry[i].f => carry[i].f-)
+
+    c_in.t => _carry[0].t-
+    c_in.f => _carry[0].f-
 
     /*
+    add[0].c_in.t => _c_in[0].t-
+    add[0].c_in.f => _c_in[0].f-
+
     (i:N: (|j:i: (g.out[j].t & (&k:i-j-1: p.out[k+j+1].t))) => _c_in[i].t-
           (&j:i: (g.out[j].f | (|k:i-j-1: p.out[k+j+1].f))) => _c_in[i].f-)
 
-    (i:N-1: _c_in[i+1].t => c_in[i+1].t-
-            _c_in[i+1].f => c_in[i+1].f-)
+    (i:N: _c_in[i].t => add[i].c_in.t-
+          _c_in[i].f => add[i].c_in.f-)
+
+    c_in.t => _c_in[0].t-
+    c_in.f => _c_in[0].f-
     */
   }
+}
+
+/* ADDITION */
+template<pint N>
+defproc syn_add (dualrail in1[N], in2[N]; dualrail out[N], overflow)
+{
+  syn_var_init_false const_0;
+  syn_ripple_carry_add<N> s (in1, in2, const_0.v, out, overflow);
 }
 
 /* UNARY MINUS */
@@ -463,17 +478,17 @@ defproc syn_uminus (dualrail in[N]; dualrail out[N])
   (i:N: zero[i] = const_0.v;)
 
   syn_var_init_true const_1;
-  syn_add<N> r (inv, zero, const_1.v, out);
+  syn_ripple_carry_add<N> r (inv, zero, const_1.v, out);
 }
 
 /* SUBTRACTION */
 template<pint N>
-defproc syn_sub (dualrail in1[N], in2[N]; dualrail out[N], c_out)
+defproc syn_sub (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 {
   dualrail _in2[N];
   syn_uminus<N> u (in2, _in2);
   syn_var_init_false const_0;
-  syn_add<N> s (in1, _in2, const_0.v, out, c_out);
+  syn_add<N> s (in1, _in2, out, overflow);
 }
 
 /* UNSIGNED MULTIPLICATION */
@@ -491,7 +506,7 @@ defproc syn_unsigned_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 
   syn_wallace_tree<N, N> wal (partial_products);
 
-  syn_add<N> add (wal.out1, wal.out2, const_0.v, out, overflow);
+  syn_add<N> add (wal.out1, wal.out2, out, overflow);
 }
 
 /* SIGNED MULTIPLICATION*/
