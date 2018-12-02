@@ -6,7 +6,7 @@ int chan_count = 0;
 bool bundle_data = false;
 int optimization = 0;
 char *output_file = NULL;
-FILE *output_stream = stdout;
+FILE *output_stream;
 struct Hashtable *evaluated_exprs;
 
 #define INITIAL_SIZE 10
@@ -107,19 +107,69 @@ int get_max_bits (char *s, int lbits, int rbits)
   }
   else
   {
-    fprintf (output_stream, stderr, "Error: unsupported binary operation\n");
+    fprintf (stderr, "Error: unsupported binary operation\n");
     return -1;
+  }
+}
+
+void hash_remove_expr (struct Hashtable *h, const char *expr)
+{
+  hash_bucket_t *b;
+  char *r;
+
+  for (int i = 0; i < h->size; i++)
+  {
+    for (b = h->head[i]; b; b = b->next)
+    {
+      if (strstr (b->key, expr))
+      {
+        r = calloc (10, sizeof(char));
+        sprintf (r, "e_%d", *((int*) b->v));
+        hash_remove_expr (h, r);
+        free (r);
+        free (b->v);
+        hash_delete (h, b->key);
+      }
+    }
   }
 }
 
 int unop (char *s, Expr *e, int *bitwidth, int *base_var)
 {
   int l;
+  hash_bucket_t *h;
+  int *count;
+  char *left_expr, *k;
 
   l = _print_expr (e->u.e.l, bitwidth, base_var);
 
+  if (optimization > 0)
+  {
+    left_expr = calloc (100, sizeof(char));
+    k = calloc (100, sizeof(char));
+    get_expr (e->u.e.l, l, &left_expr);
+    sprintf (k, "%s(%s)", s, left_expr);
+    free (left_expr);
+  }
+
   if (*bitwidth == 1)
   {
+    if (optimization > 0)
+    {
+      if ((h = hash_lookup (evaluated_exprs, k)))
+      {
+        free (k);
+        return *((int *) h->v);
+      }
+      else
+      {
+        h = hash_add (evaluated_exprs, k);
+        count = calloc (1, sizeof(int));
+        *count = expr_count;
+        h->v = count;
+        free (k);
+      }
+    }
     fprintf (output_stream, "  syn_expr_%s e_%d(e_%d.out);\n", s, expr_count, l);
   }
   else if (bundle_data)
@@ -137,6 +187,22 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
   }
   else
   {
+    if (optimization > 0)
+    {
+      if ((h = hash_lookup (evaluated_exprs, k)))
+      {
+        free (k);
+        return *((int *) h->v);
+      }
+      else
+      {
+        h = hash_add (evaluated_exprs, k);
+        count = calloc (1, sizeof(int));
+        *count = expr_count;
+        h->v = count;
+        free (k);
+      }
+    }
     fprintf (output_stream, "  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     fprintf (output_stream, "  (i:%d: e_%d.in[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
   }
@@ -147,9 +213,24 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
 int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op)
 {
   int l, r;
+  hash_bucket_t *h;
+  int *count;
+  char *left_expr, *right_expr, *k;
 
   l = _print_expr (e->u.e.l, bitwidth, base_var);
   r = _print_expr (e->u.e.r, bitwidth, base_var);
+
+  if (optimization > 0)
+  {
+    left_expr = calloc (100, sizeof(char));
+    right_expr = calloc (100, sizeof(char));
+    k = calloc (100, sizeof(char));
+    get_expr (e->u.e.l, l, &left_expr);
+    get_expr (e->u.e.r, r, &right_expr);
+    sprintf (k, "%s(%s,%s)", s, left_expr, right_expr);
+    free (left_expr);
+    free (right_expr);
+  }
 
   if (comp_op)
   {
@@ -159,6 +240,22 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op)
   }
   else if (*bitwidth == 1)
   {
+    if (optimization > 0)
+    {
+      if ((h = hash_lookup (evaluated_exprs, k)))
+      {
+        free (k);
+        return *((int *) h->v);
+      }
+      else
+      {
+        h = hash_add (evaluated_exprs, k);
+        count = calloc (1, sizeof(int));
+        *count = expr_count;
+        h->v = count;
+        free (k);
+      }
+    }
     fprintf (output_stream, "  syn_expr_%s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
   }
   else if (bundle_data)
@@ -177,11 +274,60 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op)
   }
   else
   {
+    if (optimization > 0)
+    {
+      if ((h = hash_lookup (evaluated_exprs, k)))
+      {
+        free (k);
+        return *((int *) h->v);
+      }
+      else
+      {
+        h = hash_add (evaluated_exprs, k);
+        count = calloc (1, sizeof(int));
+        *count = expr_count;
+        h->v = count;
+        free (k);
+      }
+    }
     fprintf (output_stream, "  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     fprintf (output_stream, "  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     fprintf (output_stream, "  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
   }
   return expr_count++;
+}
+
+void get_expr (Expr *e, int v, char **buf)
+{
+  symbol *s;
+  switch (e->type)
+  {
+    case E_AND:
+    case E_OR:
+    case E_XOR:
+    case E_NOT:
+    case E_COMPLEMENT:
+    case E_PLUS:
+    case E_MINUS:
+    case E_MULT:
+    case E_EQ:
+    case E_LT:
+    case E_GT:
+    case E_LE:
+    case E_GE:
+    case E_NE:
+      sprintf (*buf, "e_%d", v);
+      break;
+    case E_VAR:
+      s = find_symbol (__chp, (char *)e->u.e.l);
+      sprintf (*buf, "%s", s->name);
+      break;
+    case E_INT:
+      sprintf (*buf, "%d", e->u.v);
+      break;
+    default:
+      return;
+  }
 }
 
 Chp *__chp;
@@ -220,6 +366,9 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       break;
     case E_EQ:
       ret = binop ("eq", e, bitwidth, base_var, true);
+      break;
+    case E_NE:
+      ret = binop ("ne", e, bitwidth, base_var, true);
       break;
     case E_LT:
       ret = binop ("lt", e, bitwidth, base_var, true);
@@ -370,7 +519,7 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       }
       break;
     default:
-      fprintf (output_stream, stderr, "Error: unknown type %d\n", e->type);
+      fprintf (stderr, "Error: unknown type %d\n", e->type);
       break;
   }
   return ret;
@@ -617,6 +766,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         fprintf (output_stream, "        s_%d[i].v = var_%s[i].v;)\n", b, c->u.assign.id);
       }
       fprintf (output_stream, "\n");
+      if (optimization > 0) hash_remove_expr (evaluated_exprs, c->u.assign.id);
       break;
 
     case CHP_SEND:
@@ -672,6 +822,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
           fprintf (output_stream, "        s_%d[i].in.f = chan_%s.d[i].f;\n", a, v->name);
           fprintf (output_stream, "        s_%d[i].v = var_%s[i].v;)\n", a, u->name);
         }
+        if (optimization > 0) hash_remove_expr (evaluated_exprs, u->name);
       }
       fprintf (output_stream, "\n");
       break;
@@ -728,7 +879,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       break;
 
     default:
-      fprintf (output_stream, stderr, "Error: unsupported token: %d\n", c->type);
+      fprintf (stderr, "Error: unsupported token: %d\n", c->type);
       exit (1);
       break;
   }
@@ -740,10 +891,15 @@ void print_chp_structure (Chp *c)
   int i;
   if (output_file)
   {
-    char output_path[100];
-    sprintf (output_path, "~/Documents/ADCO/act/tst/");
+    char *output_path = calloc (200, sizeof(char));
+    sprintf (output_path, "/home/user/Documents/ADCO/act/tst/");
     strcat (output_path, output_file);
     output_stream = fopen (output_path, "w");
+    free (output_path);
+  }
+  else
+  {
+    output_stream = stdout;
   }
   fprintf (output_stream, "import \"~/Documents/ADCO/act/syn.act\";\n");
   if (bundle_data) fprintf (output_stream, "import \"~/Documents/ADCO/act/bundled.act\";\n");
@@ -756,6 +912,18 @@ void print_chp_structure (Chp *c)
   i = print_chp_stmt (c->c, bitwidth, base_var);
   free (bitwidth);
   free(base_var);
+  if (optimization > 0)
+  {
+    hash_bucket_t *b;
+    for (int i = 0; i < evaluated_exprs->size; i++)
+    {
+      for (b = evaluated_exprs->head[i]; b; b = b->next)
+      {
+        free (b->v);
+      }
+    }
+    hash_free (evaluated_exprs);
+  }
   fprintf (output_stream, "  go = c_%d;\n", i);
   fprintf (output_stream, "}\n\n");
   fprintf (output_stream, "toplevel t;\n");

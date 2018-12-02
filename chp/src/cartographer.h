@@ -8,7 +8,7 @@ extern int gc_chan_count;
 extern bool bundle_data;
 extern int optimization;
 extern char *output_file;
-extern Hashtable *evaluated_exprs;
+extern struct Hashtable *evaluated_exprs;
 
 void print_vars (Chp *c);
 
@@ -22,9 +22,13 @@ int get_func_bitwidth (char *s);
 
 int get_max_bits (char *s, int lbits, int rbits);
 
+void hash_remove_expr (struct Hashtable *h, const char *expr);
+
 int unop (char *s, Expr *e, int *bitwidth, int *base_var);
 
 int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op);
+
+void get_expr (Expr *e, int v, char **buf);
 
 int _print_expr (Expr *e, int *bitwidth, int *base_var);
 
