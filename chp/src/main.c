@@ -2,50 +2,69 @@
 
 extern Chp *__chp;
 extern bool bundle_data;
+extern char *output_file;
+extern int optimization;
 
 int main (int argc, char **argv)
 {
   Chp *c;
   int chp = 1;
 
-  if (argc > 3)
+  if (argc > 5)
   {
-    fprintf (stderr, "Usage: %s [-b|--bundle_data] <chp>\n", argv[0]);
+    fprintf (stderr, "Usage: %s [-h|--help] [-b|--bundle_data] [-O[1]] [-o|--output <flie>] <chp>\n", argv[0]);
     return 1;
   }
-  else if (argc == 3)
+  else if (argc > 2)
   {
-    if (!strcmp (argv[1], "-h") || !strcmp (argv[1], "--help"))
+    chp = argc - 1;
+    for (int i = 1; i < chp; i++)
     {
-      printf("Usage: %s [-b|--bundle_data] <chp>\n\n", argv[0]);
-      printf("Options:\n");
-      printf("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
-      return 0;
-    }
-    else if (strcmp (argv[1], "-b") && strcmp (argv[1], "--bundle_data"))
-    {
-      fprintf (stderr, "Usage: %s [-b|--bundle_data] <chp>\n", argv[0]);
-      return 1;
-    }
-    else
-    {
-      chp = 2;
-      bundle_data = true;
+      if (!strcmp (argv[i], "-h") || !strcmp (argv[i], "--help"))
+      {
+        printf ("Usage: %s [-h|--help] [-b|--bundle_data] [-O[1]] [-o|--output <flie>] <chp>\n\n", argv[0]);
+        printf ("Options:\n");
+        printf ("  -h, --help\tdisplay this message\n");
+        printf ("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
+        printf ("  -o, --output <file>\toutput the results to <file>");
+        printf ("  -O1\tenable level 1 optimizations\n");
+        return 0;
+      }
+      else if (!strcmp (argv[i], "-b") || !strcmp (argv[i], "--bundle_data"))
+      {
+        bundle_data = true;
+      }
+      else if (!strcmp (argv[i], "-o") || !strcmp (argv[i], "--output"))
+      {
+        output_file = argv[++i];
+      }
+      else if (!strcmp (argv[i], "-O1"))
+      {
+        optimization = 1;
+      }
+      else
+      {
+        fprintf (stderr, "Usage: %s [-h|--help] [-b|--bundle_data] [-O[1]] [-o|--output <flie>] <chp>\n", argv[0]);
+        return 1;
+      }
     }
   }
   else if (argc == 2)
   {
     if (!strcmp (argv[1], "-h") || !strcmp (argv[1], "--help"))
     {
-      printf("Usage: %s [-b|--bundle_data] <chp>\n\n", argv[0]);
-      printf("Options:\n");
-      printf("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
+      printf ("Usage: %s [-h|--help] [-b|--bundle_data] [-O[1]] [-o|--output <flie>] <chp>\n\n", argv[0]);
+      printf ("Options:\n");
+      printf ("  -h, --help\tdisplay this message\n");
+      printf ("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
+      printf ("  -o, --output <file>\toutput the results to <file>");
+      printf ("  -O1\tenable level 1 optimizations\n");
       return 0;
     }
   }
   else
   {
-    fprintf (stderr, "Usage: %s [-b|--bundle_data] <chp>\n", argv[0]);
+    fprintf (stderr, "Usage: %s [-h|--help] [-b|--bundle_data] [-O[1]] [-o|--output <flie>] <chp>\n", argv[0]);
     return 1;
   }
 

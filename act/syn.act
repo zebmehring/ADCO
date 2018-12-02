@@ -81,6 +81,13 @@ defproc syn_expr_xor (dualrail in1, in2; dualrail out)
   }
 }
 
+/* DUALRAIL NOT GATE */
+defproc syn_expr_not (dualrail in; dualrail out)
+{
+  out.t = in.f;
+  out.f = in.t;
+}
+
 /* BOOLEAN OR GATE */
 defproc syn_or2 (bool x, y, out)
 {
@@ -99,13 +106,6 @@ defproc syn_notand (bool x, y, out)
     x => _inv-
     _inv | y => out-
   }
-}
-
-/* DUALRAIL NOT GATE */
-defproc syn_expr_not (dualrail in; dualrail out)
-{
-  out.t = in.f;
-  out.f = in.t;
 }
 
 /* FULL ADDER */

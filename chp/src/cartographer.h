@@ -6,6 +6,9 @@ extern int chan_count;
 extern Chp *__chp;
 extern int gc_chan_count;
 extern bool bundle_data;
+extern int optimization;
+extern char *output_file;
+extern Hashtable *evaluated_exprs;
 
 void print_vars (Chp *c);
 
