@@ -26,7 +26,7 @@ void hash_remove_expr (struct Hashtable *h, const char *expr);
 
 int unop (char *s, Expr *e, int *bitwidth, int *base_var);
 
-int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op);
+int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op, bool commmutative);
 
 void get_expr (Expr *e, int v, char **buf);
 
