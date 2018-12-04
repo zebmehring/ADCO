@@ -9,7 +9,10 @@ char *output_file = NULL;
 FILE *output_stream;
 struct Hashtable *evaluated_exprs;
 
-#define INITIAL_SIZE 10
+#define INITIAL_HASH_SIZE 10
+#define MAX_EXPR_SIZE 1024
+#define MAX_KEY_SIZE 2048
+#define MAX_PATH_SIZE 4096
 
 void print_vars (Chp *c)
 {
@@ -91,7 +94,7 @@ int get_func_bitwidth (char *s)
   return atoi (s+1);
 }
 
-int get_max_bits (char *s, int lbits, int rbits)
+int get_max_bits (const char *s, int lbits, int rbits)
 {
   if (!strcmp (s, "add") || !strcmp (s, "sub"))
   {
@@ -112,73 +115,74 @@ int get_max_bits (char *s, int lbits, int rbits)
   }
 }
 
-void hash_add_expr (struct Hashtable *t, const char *k, const char *_k, bool commutative)
+void hash_add_expr (struct Hashtable *h, const char *expr)
 {
-  hash_bucket_t *h = hash_add (t, k);
-  int *count = calloc (1, sizeof(int));
-  *count = expr_count;
-  h->v = count;
-  if (commutative)
-  {
-    h = hash_add (t, _k);
-    count = calloc (1, sizeof(int));
-    *count = expr_count;
-    h->v = count;
-  }
+  hash_bucket_t *b = hash_add (h, expr);
+  b->v = calloc (MAX_EXPR_SIZE, sizeof(char));
+  snprintf (b->v, MAX_EXPR_SIZE, "e_%d", expr_count);
 }
 
 void hash_remove_expr (struct Hashtable *h, const char *expr)
 {
   hash_bucket_t *b;
-  char *r;
-
   for (int i = 0; i < h->size; i++)
   {
     for (b = h->head[i]; b; b = b->next)
     {
       if (strstr (b->key, expr))
       {
-        r = calloc (10, sizeof(char));
-        sprintf (r, "e_%d", *((int*) b->v));
-        hash_remove_expr (h, r);
-        free (r);
+        hash_remove_expr (h, (char *) b->v);
         free (b->v);
+        char *temp = b->key;
         hash_delete (h, b->key);
+        free (temp);
       }
     }
   }
 }
 
-int unop (char *s, Expr *e, int *bitwidth, int *base_var)
+int hash_get_or_add (struct Hashtable *h, const char* s, Expr *l, Expr *r, int nl, int nr, bool commutative)
 {
-  int l;
-  hash_bucket_t *h;
-  char *left_expr, *k;
+  hash_bucket_t *b;
+  char *left_expr, *right_expr, *k, *_k;
 
-  l = _print_expr (e->u.e.l, bitwidth, base_var);
+  left_expr = calloc (MAX_EXPR_SIZE, sizeof(char));
+  if (r) right_expr = calloc (MAX_EXPR_SIZE, sizeof(char));
+  get_expr (l, nl, left_expr);
+  if (r) get_expr (r, nr, right_expr);
+  k = calloc (MAX_KEY_SIZE, sizeof(char));
+  if (commutative) _k = calloc (MAX_KEY_SIZE, sizeof(char));
+  snprintf (k, MAX_KEY_SIZE, "%s(%s,%s)", s, left_expr, right_expr);
+  if (commutative) snprintf (_k, MAX_KEY_SIZE, "%s(%s,%s)", s, right_expr, left_expr);
+  free (left_expr);
+  if (r) free (right_expr);
 
-  if (optimization > 0)
+  if ((b = hash_lookup (h, k)))
   {
-    left_expr = calloc (100, sizeof(char));
-    k = calloc (100, sizeof(char));
-    get_expr (e->u.e.l, l, &left_expr);
-    sprintf (k, "%s(%s)", s, left_expr);
-    free (left_expr);
+    free (k);
+    if (commutative) free (_k);
+    char *t = (char *) b->v + strlen ((char *) b->v) - 1;
+    while (isdigit (*t)) t--;
+    return atoi (++t);
   }
+  else
+  {
+    hash_add_expr (h, k);
+    if (commutative) hash_add_expr (h, _k);
+    return -1;
+  }
+}
+
+int unop (const char *s, Expr *e, int *bitwidth, int *base_var)
+{
+  int l = _print_expr (e->u.e.l, bitwidth, base_var);
 
   if (*bitwidth == 1)
   {
     if (optimization > 0)
     {
-      if ((h = hash_lookup (evaluated_exprs, k)))
-      {
-        free (k);
-        return *((int *) h->v);
-      }
-      else
-      {
-        hash_add_expr (evaluated_exprs, k, NULL, false);
-      }
+      int ret = hash_get_or_add (evaluated_exprs, s, e->u.e.l, NULL, l, -1, false);
+      if (ret > 0) return ret;
     }
     fprintf (output_stream, "  syn_expr_%s e_%d(e_%d.out);\n", s, expr_count, l);
   }
@@ -199,15 +203,8 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
   {
     if (optimization > 0)
     {
-      if ((h = hash_lookup (evaluated_exprs, k)))
-      {
-        free (k);
-        return *((int *) h->v);
-      }
-      else
-      {
-        hash_add_expr (evaluated_exprs, k, NULL, false);
-      }
+      int ret = hash_get_or_add (evaluated_exprs, s, e->u.e.l, NULL, l, -1, false);
+      if (ret > 0) return ret;
     }
     fprintf (output_stream, "  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     fprintf (output_stream, "  (i:%d: e_%d.in[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
@@ -216,65 +213,17 @@ int unop (char *s, Expr *e, int *bitwidth, int *base_var)
   return expr_count++;
 }
 
-int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op, bool commutative)
+int binop (const char *s, Expr *e, int *bitwidth, int *base_var, bool commutative)
 {
-  int l, r;
-  hash_bucket_t *h;
-  char *left_expr, *right_expr, *k, *_k;
+  int l = _print_expr (e->u.e.l, bitwidth, base_var);
+  int r = _print_expr (e->u.e.r, bitwidth, base_var);
 
-  l = _print_expr (e->u.e.l, bitwidth, base_var);
-  r = _print_expr (e->u.e.r, bitwidth, base_var);
-
-  if (optimization > 0)
-  {
-    left_expr = calloc (100, sizeof(char));
-    right_expr = calloc (100, sizeof(char));
-    k = calloc (100, sizeof(char));
-    get_expr (e->u.e.l, l, &left_expr);
-    get_expr (e->u.e.r, r, &right_expr);
-    sprintf (k, "%s(%s,%s)", s, left_expr, right_expr);
-    if (commutative)
-    {
-      _k = calloc (100, sizeof(char));
-      sprintf (_k, "%s(%s,%s)", s, right_expr, left_expr);
-    }
-    free (left_expr);
-    free (right_expr);
-  }
-
-  if (comp_op)
+  if (*bitwidth == 1)
   {
     if (optimization > 0)
     {
-      if ((h = hash_lookup (evaluated_exprs, k)))
-      {
-        free (k);
-        if (commutative) free (_k);
-        return *((int *) h->v);
-      }
-      else
-      {
-        hash_add_expr (evaluated_exprs, k, _k, commutative);
-      }
-    }
-    fprintf (output_stream, "  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
-    fprintf (output_stream, "  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
-    fprintf (output_stream, "  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
-  }
-  else if (*bitwidth == 1)
-  {
-    if (optimization > 0)
-    {
-      if ((h = hash_lookup (evaluated_exprs, k)))
-      {
-        free (k);
-        if (commutative) free (_k);
-        return *((int *) h->v);
-      }
-      else
-      {
-        hash_add_expr (evaluated_exprs, k, _k, commutative);
-      }
+      int ret = hash_get_or_add (evaluated_exprs, s, e->u.e.l, e->u.e.r, l, r, commutative);
+      if (ret > 0) return ret;
     }
     fprintf (output_stream, "  syn_expr_%s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
   }
@@ -296,25 +245,18 @@ int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op, bool co
   {
     if (optimization > 0)
     {
-      if ((h = hash_lookup (evaluated_exprs, k)))
-      {
-        free (k);
-        if (commutative) free (_k);
-        return *((int *) h->v);
-      }
-      else
-      {
-        hash_add_expr (evaluated_exprs, k, _k, commutative);
-      }
+      int ret = hash_get_or_add (evaluated_exprs, s, e->u.e.l, e->u.e.r, l, r, commutative);
+      if (ret > 0) return ret;
     }
     fprintf (output_stream, "  syn_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
     fprintf (output_stream, "  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
     fprintf (output_stream, "  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
   }
+
   return expr_count++;
 }
 
-void get_expr (Expr *e, int v, char **buf)
+void get_expr (Expr *e, int v, char *buf)
 {
   symbol *s;
   switch (e->type)
@@ -333,14 +275,14 @@ void get_expr (Expr *e, int v, char **buf)
     case E_LE:
     case E_GE:
     case E_NE:
-      sprintf (*buf, "e_%d", v);
+      snprintf (buf, MAX_EXPR_SIZE, "e_%d", v);
       break;
     case E_VAR:
       s = find_symbol (__chp, (char *)e->u.e.l);
-      sprintf (*buf, "%s", s->name);
+      snprintf (buf, MAX_EXPR_SIZE, "%s", s->name);
       break;
     case E_INT:
-      sprintf (*buf, "%d", e->u.v);
+      snprintf (buf, MAX_EXPR_SIZE, "%d", e->u.v);
       break;
     default:
       return;
@@ -355,22 +297,22 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
   switch (e->type)
   {
     case E_AND:
-      ret = binop ("and", e, bitwidth, base_var, false, true);
+      ret = binop ("and", e, bitwidth, base_var, true);
       break;
     case E_OR:
-      ret = binop ("or", e, bitwidth, base_var, false, true);
+      ret = binop ("or", e, bitwidth, base_var, true);
       break;
     case E_XOR:
-      ret = binop ("xor", e, bitwidth, base_var, false, true);
+      ret = binop ("xor", e, bitwidth, base_var, true);
       break;
     case E_PLUS:
-      ret = binop ("add", e, bitwidth, base_var, false, true);
+      ret = binop ("add", e, bitwidth, base_var, true);
       break;
     case E_MINUS:
-      ret = binop ("sub", e, bitwidth, base_var, false, false);
+      ret = binop ("sub", e, bitwidth, base_var, false);
       break;
     case E_MULT:
-      ret = binop ("mul", e, bitwidth, base_var, false, true);
+      ret = binop ("mul", e, bitwidth, base_var, true);
       break;
     case E_NOT:
     case E_COMPLEMENT:
@@ -380,49 +322,49 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       ret = unop ("uminus", e, bitwidth, base_var);
       break;
     case E_EQ:
-      ret = binop ("eq", e, bitwidth, base_var, true, true);
+      ret = binop ("eq", e, bitwidth, base_var, true);
       break;
     case E_NE:
-      ret = binop ("ne", e, bitwidth, base_var, true, true);
+      ret = binop ("ne", e, bitwidth, base_var, true);
       break;
     case E_LT:
-      ret = binop ("lt", e, bitwidth, base_var, true, false);
+      ret = binop ("lt", e, bitwidth, base_var, false);
       break;
     case E_GT:
-      ret = binop ("gt", e, bitwidth, base_var, true, false);
+      ret = binop ("gt", e, bitwidth, base_var, false);
       break;
     case E_LE:
-      ret = binop ("le", e, bitwidth, base_var, true, false);
+      ret = binop ("le", e, bitwidth, base_var, false);
       break;
     case E_GE:
-      ret = binop ("ge", e, bitwidth, base_var, true, false);
+      ret = binop ("ge", e, bitwidth, base_var, false);
       break;
     case E_VAR:
       {
         symbol *v = find_symbol (__chp, (char *)e->u.e.l);
-        if (optimization > 0)
-        {
-          char *k = calloc (100, sizeof(char));
-          sprintf (k, "var(%s)", v->name);
-          hash_bucket_t *h;
-          if ((h = hash_lookup (evaluated_exprs, k)))
-          {
-            free (k);
-            // TODO: fix this
-            if (*base_var == -1)
-            {
-      	       *base_var = *((int *) h->v);
-            }
-            return *((int *) h->v);
-          }
-          else
-          {
-            h = hash_add (evaluated_exprs, k);
-            int *count = calloc (1, sizeof(int));
-            *count = expr_count;
-            h->v = count;
-          }
-        }
+        // if (optimization > 0)
+        // {
+        //   char *k = calloc (100, sizeof(char));
+        //   sprintf (k, "var(%s)", v->name);
+        //   hash_bucket_t *h;
+        //   if ((h = hash_lookup (evaluated_exprs, k)))
+        //   {
+        //     free (k);
+        //     // TODO: fix this
+        //     if (*base_var == -1)
+        //     {
+      	//        *base_var = *((int *) h->v);
+        //     }
+        //     return *((int *) h->v);
+        //   }
+        //   else
+        //   {
+        //     h = hash_add (evaluated_exprs, k);
+        //     int *count = calloc (1, sizeof(int));
+        //     *count = expr_count;
+        //     h->v = count;
+        //   }
+        // }
         if (v->bitwidth == 1)
         {
   	       fprintf (output_stream, "  syn_expr_var e_%d(,var_%s.v);\n", expr_count, (char *)e->u.e.l);
@@ -445,28 +387,28 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var)
       }
       break;
     case E_INT:
-      if (optimization > 0)
-      {
-        char *k = calloc (100, sizeof(char));
-        sprintf (k, "int(%d)", e->u.v);
-        hash_bucket_t *h;
-        if ((h = hash_lookup (evaluated_exprs, k)))
-        {
-          free (k);
-          if (*base_var == -1)
-          {
-             *base_var = *((int *) h->v);
-          }
-          return *((int *) h->v);
-        }
-        else
-        {
-          h = hash_add (evaluated_exprs, k);
-          int *count = calloc (1, sizeof(int));
-          *count = expr_count;
-          h->v = count;
-        }
-      }
+      // if (optimization > 0)
+      // {
+      //   char *k = calloc (100, sizeof(char));
+      //   sprintf (k, "int(%d)", e->u.v);
+      //   hash_bucket_t *h;
+      //   if ((h = hash_lookup (evaluated_exprs, k)))
+      //   {
+      //     free (k);
+      //     if (*base_var == -1)
+      //     {
+      //        *base_var = *((int *) h->v);
+      //     }
+      //     return *((int *) h->v);
+      //   }
+      //   else
+      //   {
+      //     h = hash_add (evaluated_exprs, k);
+      //     int *count = calloc (1, sizeof(int));
+      //     *count = expr_count;
+      //     h->v = count;
+      //   }
+      // }
       if (*bitwidth == 1)
       {
         if (e->u.v == 0)
@@ -659,11 +601,11 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
   if (gc->g)
   {
     int go_r;
-    char buf[1024];
+    char buf[MAX_EXPR_SIZE];
     a = print_expr (gc->g, bitwidth, base_var);
     go_r = *base_var;
 
-    sprintf (buf, "gc_%d.r", ret);
+    snprintf (buf, MAX_EXPR_SIZE, "gc_%d.r", ret);
 
     /* replace "a"  with latched value */
     a = print_expr_tmpvar (buf, go_r, a, 1);
@@ -785,7 +727,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
   int ret;
   int a, b;
   symbol *v, *u;
-  char buf[100];
+  char buf[MAX_EXPR_SIZE];
   if (!c) return -1;
   switch (c->type)
   {
@@ -804,7 +746,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       ret = chan_count++;
       b = stmt_count++;
       fprintf (output_stream, "  a1of1 c_%d;\n", ret);
-      sprintf (buf, "c_%d.r", ret);
+      snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
       a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
       // fprintf (output_stream, "  e_%d.go_r = c_%d.r;\n", go_r, ret);
       if (v->bitwidth == 1)
@@ -838,7 +780,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth, base_var);
         ret = chan_count++;
         fprintf (output_stream, "  a1of1 c_%d;\n", ret);
-        sprintf (buf, "c_%d.r", ret);
+        snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
         a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
         // fprintf (output_stream, "  e_%d.go_r = c_%d.r;\n", go_r, ret);
         fprintf (output_stream, "  c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
@@ -951,9 +893,8 @@ void print_chp_structure (Chp *c)
   int i;
   if (output_file)
   {
-    char *output_path = calloc (200, sizeof(char));
-    sprintf (output_path, "/home/user/Documents/ADCO/act/tst/");
-    strcat (output_path, output_file);
+    char *output_path = calloc (MAX_PATH_SIZE, sizeof(char));
+    snprintf (output_path, MAX_PATH_SIZE, "/home/user/Documents/ADCO/act/tst/%s", output_file);
     output_stream = fopen (output_path, "w");
     free (output_path);
   }
@@ -968,7 +909,7 @@ void print_chp_structure (Chp *c)
   print_vars (c);
   int *bitwidth = calloc (1, sizeof (int));
   int *base_var = calloc (1, sizeof (int));
-  if (optimization > 0) evaluated_exprs = hash_new (INITIAL_SIZE);
+  if (optimization > 0) evaluated_exprs = hash_new (INITIAL_HASH_SIZE);
   i = print_chp_stmt (c->c, bitwidth, base_var);
   free (bitwidth);
   free(base_var);
@@ -979,6 +920,7 @@ void print_chp_structure (Chp *c)
     {
       for (b = evaluated_exprs->head[i]; b; b = b->next)
       {
+        free (b->key);
         free (b->v);
       }
     }

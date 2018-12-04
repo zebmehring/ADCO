@@ -20,17 +20,19 @@ int get_bitwidth (int n);
 
 int get_func_bitwidth (char *s);
 
-int get_max_bits (char *s, int lbits, int rbits);
+int get_max_bits (const char *s, int lbits, int rbits);
 
-void hash_add_expr (struct Hashtable *h, const char *k, const char *_k, bool commmutative);
+void hash_add_expr (struct Hashtable *h, const char *expr);
 
 void hash_remove_expr (struct Hashtable *h, const char *expr);
 
-int unop (char *s, Expr *e, int *bitwidth, int *base_var);
+int hash_get_or_add (struct Hashtable *h, const char *s, Expr *l, Expr *r, int nl, int nr, bool commutative);
 
-int binop (char *s, Expr *e, int *bitwidth, int *base_var, bool comp_op, bool commmutative);
+int unop (const char *s, Expr *e, int *bitwidth, int *base_var);
 
-void get_expr (Expr *e, int v, char **buf);
+int binop (const char *s, Expr *e, int *bitwidth, int *base_var, bool commutative);
+
+void get_expr (Expr *e, int v, char *buf);
 
 int _print_expr (Expr *e, int *bitwidth, int *base_var);
 
