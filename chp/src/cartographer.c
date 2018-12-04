@@ -124,20 +124,18 @@ void hash_add_expr (struct Hashtable *h, const char *expr)
 
 void hash_remove_expr (struct Hashtable *h, const char *expr)
 {
-  hash_bucket_t *b;
-  for (int i = 0; i < h->size; i++)
+  for (int i = 0; i < h->size; i++) hash_remove_expr_rec (h, expr, h->head[i]);
+}
+
+void _hash_remove_expr (struct Hashtable *h, const char *expr, hash_bucket_t *b)
+{
+  if (!b) return;
+  _hash_remove_expr (h, expr, b->next);
+  if (strstr (b->key, expr))
   {
-    for (b = h->head[i]; b; b = b->next)
-    {
-      if (strstr (b->key, expr))
-      {
-        hash_remove_expr (h, (char *) b->v);
-        free (b->v);
-        char *temp = b->key;
-        hash_delete (h, b->key);
-        free (temp);
-      }
-    }
+    hash_remove_expr (h, (char *) b->v);
+    free (b->v);
+    hash_delete (h, b->key);
   }
 }
 
@@ -169,6 +167,8 @@ int hash_get_or_add (struct Hashtable *h, const char* s, Expr *l, Expr *r, int n
   {
     hash_add_expr (h, k);
     if (commutative) hash_add_expr (h, _k);
+    free (k);
+    if (commutative) free (_k);
     return -1;
   }
 }
@@ -915,15 +915,6 @@ void print_chp_structure (Chp *c)
   free(base_var);
   if (optimization > 0)
   {
-    hash_bucket_t *b;
-    for (int i = 0; i < evaluated_exprs->size; i++)
-    {
-      for (b = evaluated_exprs->head[i]; b; b = b->next)
-      {
-        free (b->key);
-        free (b->v);
-      }
-    }
     hash_free (evaluated_exprs);
   }
   fprintf (output_stream, "  go = c_%d;\n", i);
