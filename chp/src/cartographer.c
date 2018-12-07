@@ -3,6 +3,7 @@
 int expr_count = 1;
 int stmt_count = 0;
 int chan_count = 0;
+int gc_chan_count = 0;
 
 Chp *__chp;
 
@@ -14,7 +15,10 @@ struct Hashtable *evaluated_exprs;
 
 #define ACT_PATH "/home/user/Documents/ADCO/act"
 
+#define max(a,b) (((a) > (b)) ? (a) : (b))
+
 #define INITIAL_HASH_SIZE 10
+
 #define MAX_EXPR_SIZE 1024
 #define MAX_KEY_SIZE 2048
 #define MAX_PATH_SIZE 4096
@@ -188,6 +192,42 @@ int get_max_bits (const char *s, int lbits, int rbits)
   {
     fprintf (stderr, "Error: unsupported binary operation\n");
     return -1;
+  }
+}
+
+int get_bundle_delay (int n, int type)
+{
+  switch (type)
+  {
+    case E_AND:
+    case E_OR:
+    case E_XOR:
+    case E_NOT:
+    case E_COMPLEMENT:
+      return n;
+    case E_PLUS:
+      return n;
+    case E_MINUS:
+      return 2*n;
+    case E_MULT:
+      return n*n;
+    case E_UMINUS:
+      return 2*n;
+    case E_LT:
+    case E_GE:
+      return 2*n;
+    case E_LE:
+    case E_GT:
+      return 3*n;
+    case E_NE:
+    case E_EQ:
+      return 2*n;
+    case E_VAR:
+    case E_INT:
+      return 0;
+    default:
+      fprintf (stderr, "Error: unsupported bundled operation: %d\n", type);
+      return -1;
   }
 }
 
@@ -392,9 +432,9 @@ int hash_get_or_add (struct Hashtable *h, const char* s, Expr *l, Expr *r, int n
  *
  * Return Value: the value of expr_count for the expression
  */
-int unop (const char *s, Expr *e, int *bitwidth, int *base_var, int *last_bundle)
+int unop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay)
 {
-  int l = _print_expr (e->u.e.l, bitwidth, base_var, last_bundle);
+  int l = _print_expr (e->u.e.l, bitwidth, base_var, delay);
 
   // print ACT module for boolean unary operations
   if (*bitwidth == 1)
@@ -409,18 +449,9 @@ int unop (const char *s, Expr *e, int *bitwidth, int *base_var, int *last_bundle
   // print ACT module for multi-bit unary operations with the bundle data protocol
   else if (bundle_data)
   {
-    fprintf (output_stream, "  bundled_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
-    fprintf (output_stream, "  (i:%d: e_%d.in[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
-    if (*base_var == -1)
-    {
-       *base_var = expr_count;
-    }
-    // otherwise, the current expression is signalled by the last bundled expression
-    else
-    {
-       fprintf (output_stream, "  e_%d.go.r = e_%d.go.a;\n", expr_count, *last_bundle);
-    }
-    *last_bundle = expr_count;
+    *delay += get_bundle_delay (*bitwidth, e->u.e.l->type);
+    fprintf (output_stream, "  bundled_%s<%d> be_%d;\n", s, *bitwidth, expr_count);
+    fprintf (output_stream, "  (i:%d: be_%d.in[i] = be_%d.out[i];)\n", *bitwidth, expr_count, l);
   }
   // print delay-insensitive ACT module for multi-bit unary operations
   else
@@ -456,10 +487,10 @@ int unop (const char *s, Expr *e, int *bitwidth, int *base_var, int *last_bundle
  *
  * Return Value: the value of expr_count for the expression
  */
-int binop (const char *s, Expr *e, int *bitwidth, int *base_var, int *last_bundle, bool commutative)
+int binop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay, bool commutative)
 {
-  int l = _print_expr (e->u.e.l, bitwidth, base_var, last_bundle);
-  int r = _print_expr (e->u.e.r, bitwidth, base_var, last_bundle);
+  int l = _print_expr (e->u.e.l, bitwidth, base_var, delay);
+  int r = _print_expr (e->u.e.r, bitwidth, base_var, delay);
 
   // print ACT module for boolean binary operations
   if (*bitwidth == 1)
@@ -474,20 +505,12 @@ int binop (const char *s, Expr *e, int *bitwidth, int *base_var, int *last_bundl
   // print ACT module for multi-bit binary operations with the bundle data protocol
   else if (bundle_data)
   {
-    fprintf (output_stream, "  bundled_%s<%d> e_%d;\n", s, *bitwidth, expr_count);
-    fprintf (output_stream, "  (i:%d: e_%d.in1[i] = e_%d.out[i];)\n", *bitwidth, expr_count, l);
-    fprintf (output_stream, "  (i:%d: e_%d.in2[i] = e_%d.out[i];)\n", *bitwidth, expr_count, r);
-    // the current expression becomes the base go signal, if none is set
-    if (*base_var == -1)
-    {
-       *base_var = expr_count;
-    }
-    // otherwise, the current expression is signalled by the last bundled expression
-    else
-    {
-       fprintf (output_stream, "  e_%d.go.r = e_%d.go.a;\n", expr_count, *last_bundle);
-    }
-    *last_bundle = expr_count;
+    int dl = get_bundle_delay (*bitwidth, e->u.e.l->type);
+    int dr = get_bundle_delay (*bitwidth, e->u.e.r->type);
+    *delay += max (dl, dr);
+    fprintf (output_stream, "  bundled_%s<%d> be_%d;\n", s, *bitwidth, expr_count);
+    fprintf (output_stream, "  (i:%d: be_%d.in1[i] = be_%d.out[i];)\n", *bitwidth, expr_count, l);
+    fprintf (output_stream, "  (i:%d: be_%d.in2[i] = be_%d.out[i];)\n", *bitwidth, expr_count, r);
   }
   // print delay-insensitive ACT module for multi-bit binary operations
   else
@@ -519,58 +542,56 @@ int binop (const char *s, Expr *e, int *bitwidth, int *base_var, int *last_bundl
  *                        current expression, as defined by its variables
  *             base_var - reference to the expr_count value to connect the go
  *                        signal to
- *             last_bundle - reference to the expr_count value to connect the
- *                           go signal to for bundle_data
  *
  * Return Value: the value of expr_count for the root expression
  */
-int _print_expr (Expr *e, int *bitwidth, int *base_var, int *last_bundle)
+int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
 {
   int ret;
   switch (e->type)
   {
     case E_AND:
-      ret = binop ("and", e, bitwidth, base_var, last_bundle, true);
+      ret = binop ("and", e, bitwidth, base_var, delay, true);
       break;
     case E_OR:
-      ret = binop ("or", e, bitwidth, base_var, last_bundle, true);
+      ret = binop ("or", e, bitwidth, base_var, delay, true);
       break;
     case E_XOR:
-      ret = binop ("xor", e, bitwidth, base_var, last_bundle, true);
+      ret = binop ("xor", e, bitwidth, base_var, delay, true);
       break;
     case E_PLUS:
-      ret = binop ("add", e, bitwidth, base_var, last_bundle, true);
+      ret = binop ("add", e, bitwidth, base_var, delay, true);
       break;
     case E_MINUS:
-      ret = binop ("sub", e, bitwidth, base_var, last_bundle, false);
+      ret = binop ("sub", e, bitwidth, base_var, delay, false);
       break;
     case E_MULT:
-      ret = binop ("mul", e, bitwidth, base_var, last_bundle, true);
+      ret = binop ("mul", e, bitwidth, base_var, delay, true);
       break;
     case E_NOT:
     case E_COMPLEMENT:
-      ret = unop ("not", e, bitwidth, base_var, last_bundle);
+      ret = unop ("not", e, bitwidth, base_var, delay);
       break;
     case E_UMINUS:
-      ret = unop ("uminus", e, bitwidth, base_var, last_bundle);
+      ret = unop ("uminus", e, bitwidth, base_var, delay);
       break;
     case E_EQ:
-      ret = binop ("eq", e, bitwidth, base_var, last_bundle, true);
+      ret = binop ("eq", e, bitwidth, base_var, delay, true);
       break;
     case E_NE:
-      ret = binop ("ne", e, bitwidth, base_var, last_bundle, true);
+      ret = binop ("ne", e, bitwidth, base_var, delay, true);
       break;
     case E_LT:
-      ret = binop ("lt", e, bitwidth, base_var, last_bundle, false);
+      ret = binop ("lt", e, bitwidth, base_var, delay, false);
       break;
     case E_GT:
-      ret = binop ("gt", e, bitwidth, base_var, last_bundle, false);
+      ret = binop ("gt", e, bitwidth, base_var, delay, false);
       break;
     case E_LE:
-      ret = binop ("le", e, bitwidth, base_var, last_bundle, false);
+      ret = binop ("le", e, bitwidth, base_var, delay, false);
       break;
     case E_GE:
-      ret = binop ("ge", e, bitwidth, base_var, last_bundle, false);
+      ret = binop ("ge", e, bitwidth, base_var, delay, false);
       break;
     case E_VAR:
       {
@@ -600,22 +621,35 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *last_bundle)
         // }
         if (v->bitwidth == 1)
         {
-  	       fprintf (output_stream, "  syn_expr_var e_%d(,var_%s.v);\n", expr_count, (char *)e->u.e.l);
+          fprintf (output_stream, "  syn_expr_var e_%d(,var_%s.v);\n", expr_count, (char *)e->u.e.l);
+          if (*base_var == -1)
+          {
+    	       *base_var = expr_count;
+          }
+          else
+          {
+    	       fprintf (output_stream, "  e_%d.go_r = e_%d.go.r;\n", expr_count, *base_var);
+          }
+        }
+        else if (bundle_data)
+        {
+          fprintf (output_stream, "  bundled_expr_vararray<%d> be_%d;\n", v->bitwidth, expr_count);
+        	fprintf (output_stream, "  (i:%d: be_%d.v[i] = var_%s[i].v.t;)\n", v->bitwidth, expr_count, v->name);
         }
         else
         {
         	fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
         	fprintf (output_stream, "  (i:%d: e_%d.v[i] = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
-        }
-        // the current expression becomes the base go signal, if none is set
-        if (*base_var == -1)
-        {
-  	       *base_var = expr_count;
-        }
-        // otherwise, the current expression is connected to the base go signal
-        else
-        {
-  	       fprintf (output_stream, "  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
+          // the current expression becomes the base go signal, if none is set
+          if (*base_var == -1)
+          {
+    	       *base_var = expr_count;
+          }
+          // otherwise, the current expression is connected to the base go signal
+          else
+          {
+    	       fprintf (output_stream, "  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
+          }
         }
   	    *bitwidth = v->bitwidth;
         ret = expr_count++;
@@ -656,6 +690,31 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *last_bundle)
           emit_const_1 ();
           fprintf (output_stream, "  syn_expr_var e_%d(,const_1.v);\n", expr_count);
         }
+        if (*base_var == -1)
+        {
+  	       *base_var = expr_count;
+        }
+        else
+        {
+  	       fprintf (output_stream, "  e_%d.go_r = e_%d.go.r;\n", expr_count, *base_var);
+        }
+      }
+      else if (bundle_data)
+      {
+        emit_const_0 ();
+        fprintf (output_stream, "  bundled_expr_vararray<%d> be_%d;\n", *bitwidth, expr_count);
+        int t = e->u.v;
+        for (int i = *bitwidth; i > 0; i--, t >>= 1)
+        {
+          if (t & 1)
+          {
+            fprintf (output_stream, "  be_%d.v[%d] = const_0.v.f;\n", expr_count, *bitwidth - i);
+          }
+          else
+          {
+            fprintf (output_stream, "  be_%d.v[%d] = const_0.v.t;\n", expr_count, *bitwidth - i);
+          }
+        }
       }
       else
       {
@@ -671,19 +730,19 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *last_bundle)
           }
           else
           {
-            fprintf(output_stream, "  e_%d.v[%d] = const_0.v;\n", expr_count, *bitwidth - i);
+            fprintf (output_stream, "  e_%d.v[%d] = const_0.v;\n", expr_count, *bitwidth - i);
           }
         }
-      }
-      // the current expression becomes the base go signal, if none is set
-      if (*base_var == -1)
-      {
-        *base_var = expr_count;
-      }
-      // otherwise, the current expression is connected to the base go signal
-      else
-      {
-        fprintf (output_stream, "  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
+        // the current expression becomes the base go signal, if none is set
+        if (*base_var == -1)
+        {
+          *base_var = expr_count;
+        }
+        // otherwise, the current expression is connected to the base go signal
+        else
+        {
+          fprintf (output_stream, "  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
+        }
       }
       ret = expr_count++;
       break;
@@ -720,15 +779,15 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *last_bundle)
     case E_PROBE:
       {
         symbol *s = find_symbol (__chp, (char *) e->u.e.l);
-        *bitwidth = s->bitwidth;
-        if (s->bitwidth > 1)
-        {
-      	  fprintf (output_stream, "  syn_aN1of2_probe<%d> e_%d(chan_%s);\n", s->bitwidth, expr_count, s->name);
-      	}
-      	else
+      	if (s->bitwidth == 1)
         {
       	  fprintf (output_stream, "  syn_a1of2_probe e_%d(chan_%s.t, chan_%s.f, chan_%s.a);\n", expr_count, s->name, s->name, s->name);
       	}
+        else
+        {
+      	  fprintf (output_stream, "  syn_aN1of2_probe<%d> e_%d(chan_%s);\n", s->bitwidth, expr_count, s->name);
+      	}
+        *bitwidth = s->bitwidth;
         ret = expr_count++;
       }
     case E_FUNCTION:
@@ -786,13 +845,11 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *last_bundle)
  *
  * Return Value: the value of expr_count for the root expression
  */
-int print_expr (Expr *e, int *bitwidth, int *base_var)
+int print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
 {
   *base_var = -1;
-  int *last_bundle = calloc (1, sizeof(int));
-  int ret = _print_expr (e, bitwidth, base_var, last_bundle);
-  free (last_bundle);
-  return ret;
+  *delay = 0;
+  return _print_expr (e, bitwidth, base_var, delay);
 }
 
 /*
@@ -826,17 +883,7 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
   fprintf (output_stream, "  syn_fullseq s_%d;\n", seq);
   fprintf (output_stream, "  %s = s_%d.go.r;\n", req, seq);
 
-  if (bits == 1 && bundle_data)
-  {
-    fprintf (output_stream, "  syn_recv brtv_%d;\n", seq);
-    fprintf (output_stream, "  syn_expr_var e_%d;\n", evar);
-    fprintf (output_stream, "  syn_var_init_false tv_%d(rtv_%d.v);\n", seq, seq);
-    fprintf (output_stream, "  e_%d.v = tv_%d.v;\n", evar, seq);
-    fprintf (output_stream, "  s_%d.r = brtv_%d.go;\n", seq, seq);
-    fprintf (output_stream, "  e_%d.out.t = brtv_%d.in.t;\n", eout, seq);
-    fprintf (output_stream, "  e_%d.out.f = brtv_%d.in.f;\n", eout, seq);
-  }
-  else if (bits == 1)
+  if (bits == 1)
   {
     fprintf (output_stream, "  syn_recv rtv_%d;\n", seq);
     fprintf (output_stream, "  syn_expr_var e_%d;\n", evar);
@@ -849,13 +896,13 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
   }
   else if (bundle_data)
   {
-    fprintf (output_stream, "  bundled_recv<%d> brtv_%d;\n", seq, bits);
+    fprintf (output_stream, "  bundled_recv<%d> brtv_%d;\n", bits, seq);
     fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", bits, evar);
     fprintf (output_stream, "  syn_var_init_false tv_%d[%d];\n", seq, bits);
     fprintf (output_stream, "  (i:%d: e_%d.v[i] = tv_%d[i].v; e_%d.v[i] = brtv_%d.v[i];)\n", bits, evar, seq, evar, seq);
     fprintf (output_stream, "  s_%d.r.r = brtv_%d.go.r;\n", seq, seq);
     fprintf (output_stream, "  s_%d.r.a = brtv_%d.go.a;\n", seq, seq);
-    fprintf (output_stream, "  (i:%d: e_%d.out[i].t = brtv_%d.in[i].t; e_%d.out[i].f = brtv_%d.in[i].f;)\n", bits, eout, seq, eout, seq);
+    fprintf (output_stream, "  (i:%d: e_%d.out[i].t = brtv_%d[i].in.t; e_%d.out[i].f = brtv_%d[i].in.f;)\n", bits, eout, seq, eout, seq);
   }
   else
   {
@@ -874,8 +921,6 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
 
   return evar;
 }
-
-int gc_chan_count = 0;
 
 /*
  * int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
@@ -903,20 +948,13 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
   fprintf (output_stream, "  r1of2 gc_%d;\n", ret);
   if (gc->g)
   {
+    int delay;
     char buf[MAX_EXPR_SIZE];
-    a = print_expr (gc->g, bitwidth, base_var);
+    a = print_expr (gc->g, bitwidth, base_var, &delay);
 
-    if (bundle_data)
-    {
-      fprintf (output_stream, "  gc_%d.r = e_%d.go.r;\n", ret, *base_var);
-      snprintf (buf, MAX_EXPR_SIZE, "e_%d.go.a", a);
-    }
-    else
-    {
-      snprintf (buf, MAX_EXPR_SIZE, "gc_%d.r", ret);
-    }
+    snprintf (buf, MAX_EXPR_SIZE, "gc_%d.r", ret);
 
-    // replace a with latched value
+    /* replace "a"  with latched value */
     a = print_expr_tmpvar (buf, *base_var, a, 1);
 
     b = print_chp_stmt (gc->s, bitwidth, base_var);
@@ -1072,6 +1110,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
 {
   int ret;
   int a, b;
+  int delay;
   symbol *v, *u;
   char buf[MAX_EXPR_SIZE];
   if (!c) return -1;
@@ -1088,21 +1127,25 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       fprintf (output_stream, "  /* assign */\n");
       v = find_symbol (__chp, c->u.assign.id);
       *bitwidth = v->bitwidth;
-      a = print_expr (c->u.assign.e, bitwidth, base_var);
+      a = print_expr (c->u.assign.e, bitwidth, base_var, &delay);
       ret = chan_count++;
       b = stmt_count++;
       fprintf (output_stream, "  a1of1 c_%d;\n", ret);
       if (bundle_data)
       {
-        fprintf (output_stream, "  c_%d.r = e_%d.go.r;\n", ret, *base_var);
-        snprintf (buf, MAX_EXPR_SIZE, "e_%d.go.a", a);
-        a = print_expr_tmpvar (buf, a, a, *bitwidth);
+        delay += get_bundle_delay (*bitwidth, c->u.assign.e->type);
+        fprintf (output_stream, "  delay<%d> de_%d(c_%d.r);\n", delay, expr_count, ret);
+        fprintf (output_stream, "  bundled_to_dualrail<%d> e_%d (de_%d.out, be_%d.out);\n", v->bitwidth, expr_count, expr_count, a);
+        delay = get_bundle_delay (*bitwidth, E_NOT);
+        fprintf (output_stream, "  delay<%d> dn_%d(de_%d.out);\n", delay, expr_count, expr_count);
+        snprintf (buf, MAX_EXPR_SIZE, "dn_%d.out", expr_count);
+        a = expr_count++;
       }
       else
       {
         snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
-        a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
       }
+      a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
       // fprintf (output_stream, "  e_%d.go_r = c_%d.r;\n", go_r, ret);
       if (v->bitwidth == 1)
       {
@@ -1114,10 +1157,10 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       else if (bundle_data)
       {
         fprintf (output_stream, "  bundled_recv<%d> s_%d;\n", v->bitwidth, b);
-        fprintf (output_stream, "  s_%d.go.r = c_%d.r;\n", b, ret);
+        fprintf (output_stream, "  s_%d.go.r = e_%d.go_r;\n", b, a);
         fprintf (output_stream, "  s_%d.go.a = c_%d.a;\n", b, ret);
-        fprintf (output_stream, "  (i:%d: s_%d[i].in.t = e_%d.out[i].t;\n", v->bitwidth, b, a);
-        fprintf (output_stream, "        s_%d[i].in.f = e_%d.out[i].f;\n", b, a);
+        fprintf (output_stream, "  (i:%d: s_%d.in.d[i].t = e_%d.out[i].t;\n", v->bitwidth, b, a);
+        fprintf (output_stream, "        s_%d.in.d[i].f = e_%d.out[i].f;\n", b, a);
         fprintf (output_stream, "        s_%d[i].v = var_%s[i].v;)\n", b, c->u.assign.id);
       }
       else
@@ -1141,26 +1184,35 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       {
         v = find_symbol (__chp, c->u.comm.chan);
         *bitwidth = v->bitwidth;
-        a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth, base_var);
+        a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth, base_var, &delay);
         ret = chan_count++;
         fprintf (output_stream, "  a1of1 c_%d;\n", ret);
         if (bundle_data)
         {
-          fprintf (output_stream, "  c_%d.r = e_%d.go.r;\n", ret, *base_var);
-          snprintf (buf, MAX_EXPR_SIZE, "e_%d.go.a", a);
-          a = print_expr_tmpvar (buf, a, a, *bitwidth);
+          delay += get_bundle_delay (*bitwidth, c->u.assign.e->type);
+          fprintf (output_stream, "  delay<%d> de_%d(c_%d.r);\n", delay, expr_count, ret);
+          fprintf (output_stream, "  bundled_to_dualrail<%d> e_%d (de_%d.out, be_%d.out);\n", v->bitwidth, expr_count, expr_count, a);
+          delay = get_bundle_delay (*bitwidth, E_NOT);
+          fprintf (output_stream, "  delay<%d> dn_%d(de_%d.out);\n", delay, expr_count, expr_count);
+          snprintf (buf, MAX_EXPR_SIZE, "dn_%d.out", expr_count);
+          a = expr_count++;
         }
         else
         {
           snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
-          a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
         }
+        a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
         // fprintf (output_stream, "  e_%d.go_r = c_%d.r;\n", go_r, ret);
         fprintf (output_stream, "  c_%d.a = chan_%s.a;\n", ret, c->u.comm.chan);
         if (*bitwidth == 1)
         {
   	       fprintf (output_stream, "  chan_%s.t = e_%d.out.t;\n", c->u.comm.chan, a);
   	       fprintf (output_stream, "  chan_%s.f = e_%d.out.f;\n", c->u.comm.chan, a);
+        }
+        else if (bundle_data)
+        {
+          ret = a;
+          fprintf (output_stream, "  (i:%d: chan_%s.d[i] = e_%d.out[i];)\n", v->bitwidth, v->name, a);
         }
         else
         {
@@ -1190,9 +1242,9 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         {
           fprintf (output_stream, "  bundled_recv<%d> s_%d;\n", v->bitwidth, a);
           fprintf (output_stream, "  s_%d.go.r = c_%d.r;\n", a, ret);
-          fprintf (output_stream, "  s_%d.go.a = c_%d.a;\n", a, ret);
-          fprintf (output_stream, "  (i:%d: s_%d[i].in.t = chan_%s.d[i].t;\n", v->bitwidth, a, v->name);
-          fprintf (output_stream, "        s_%d[i].in.f = chan_%s.d[i].f;\n", a, v->name);
+          fprintf (output_stream, "  s_%d.go.a = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
+          fprintf (output_stream, "  (i:%d: s_%d.in.d[i].t = chan_%s.d[i].t;\n", v->bitwidth, a, v->name);
+          fprintf (output_stream, "        s_%d.in.d[i].f = chan_%s.d[i].f;\n", a, v->name);
           fprintf (output_stream, "        s_%d[i].v = var_%s[i].v;)\n", a, u->name);
         }
         else
@@ -1287,7 +1339,8 @@ void print_chp_structure (Chp *c)
   if (output_file)
   {
     char *output_path = calloc (MAX_PATH_SIZE, sizeof(char));
-    snprintf (output_path, MAX_PATH_SIZE, "%s/tst/%s", ACT_PATH, output_file);
+    char *bundled = bundle_data ? "bundled_" : "";
+    snprintf (output_path, MAX_PATH_SIZE, "%s/tst/%s%s", ACT_PATH, bundled, output_file);
     output_stream = fopen (output_path, "w");
     free (output_path);
   }

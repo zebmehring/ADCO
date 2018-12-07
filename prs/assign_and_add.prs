@@ -162,13 +162,45 @@
 = "t.s_6[7].go.a" "t.s_6[7].in.a"
 = "t.s_6[7].v.d[0]" "t.s_6[7].v.f"
 = "t.s_6[7].v.d[1]" "t.s_6[7].v.t"
+= "t.s_6[7].v.f" "t.var_z[7].v.f"
+= "t.s_6[7].v.d[0]" "t.var_z[7].v.d[0]"
+= "t.s_6[7].v.d[1]" "t.var_z[7].v.d[1]"
+= "t.s_6[7].v.t" "t.var_z[7].v.t"
 = "t.s_6[7].go.a" "t.ct_6.in[7]"
+= "t.s_6[6].v.f" "t.var_z[6].v.f"
+= "t.s_6[6].v.d[0]" "t.var_z[6].v.d[0]"
+= "t.s_6[6].v.d[1]" "t.var_z[6].v.d[1]"
+= "t.s_6[6].v.t" "t.var_z[6].v.t"
 = "t.s_6[6].go.a" "t.ct_6.in[6]"
+= "t.s_6[5].v.f" "t.var_z[5].v.f"
+= "t.s_6[5].v.d[0]" "t.var_z[5].v.d[0]"
+= "t.s_6[5].v.d[1]" "t.var_z[5].v.d[1]"
+= "t.s_6[5].v.t" "t.var_z[5].v.t"
 = "t.s_6[5].go.a" "t.ct_6.in[5]"
+= "t.s_6[4].v.f" "t.var_z[4].v.f"
+= "t.s_6[4].v.d[0]" "t.var_z[4].v.d[0]"
+= "t.s_6[4].v.d[1]" "t.var_z[4].v.d[1]"
+= "t.s_6[4].v.t" "t.var_z[4].v.t"
 = "t.s_6[4].go.a" "t.ct_6.in[4]"
+= "t.s_6[3].v.f" "t.var_z[3].v.f"
+= "t.s_6[3].v.d[0]" "t.var_z[3].v.d[0]"
+= "t.s_6[3].v.d[1]" "t.var_z[3].v.d[1]"
+= "t.s_6[3].v.t" "t.var_z[3].v.t"
 = "t.s_6[3].go.a" "t.ct_6.in[3]"
+= "t.s_6[2].v.f" "t.var_z[2].v.f"
+= "t.s_6[2].v.d[0]" "t.var_z[2].v.d[0]"
+= "t.s_6[2].v.d[1]" "t.var_z[2].v.d[1]"
+= "t.s_6[2].v.t" "t.var_z[2].v.t"
 = "t.s_6[2].go.a" "t.ct_6.in[2]"
+= "t.s_6[1].v.f" "t.var_z[1].v.f"
+= "t.s_6[1].v.d[0]" "t.var_z[1].v.d[0]"
+= "t.s_6[1].v.d[1]" "t.var_z[1].v.d[1]"
+= "t.s_6[1].v.t" "t.var_z[1].v.t"
 = "t.s_6[1].go.a" "t.ct_6.in[1]"
+= "t.s_6[0].v.f" "t.var_z[0].v.f"
+= "t.s_6[0].v.d[0]" "t.var_z[0].v.d[0]"
+= "t.s_6[0].v.d[1]" "t.var_z[0].v.d[1]"
+= "t.s_6[0].v.t" "t.var_z[0].v.t"
 = "t.s_6[0].go.a" "t.ct_6.in[0]"
 "Reset"->"t.var_z[0].v.t"-
 "t.var_z[0].v.f"->"t.var_z[0].v.t"-
@@ -699,6 +731,18 @@ weak ~"t.var_z[7].v.f"->"t.var_z[7].v.t"+
 = "t.e_8.v[7].d[0]" "t.tv_7[7].v.d[0]"
 = "t.e_8.v[7].d[1]" "t.tv_7[7].v.d[1]"
 = "t.e_8.v[7].t" "t.tv_7[7].v.t"
+= "t.c_5.a" "t.s_8.s1.a"
+= "t.c_5.r" "t.s_8.s1.r"
+= "t.c_5.r" "t.s_6[7].go.r"
+= "t.c_5.r" "t.s_6[6].go.r"
+= "t.c_5.r" "t.s_6[5].go.r"
+= "t.c_5.r" "t.s_6[4].go.r"
+= "t.c_5.r" "t.s_6[3].go.r"
+= "t.c_5.r" "t.s_6[2].go.r"
+= "t.c_5.r" "t.s_6[1].go.r"
+= "t.c_5.r" "t.s_6[0].go.r"
+= "t.c_5.r" "t.s_7.go.r"
+= "t.c_5.a" "t.ct_6.out"
 ~"t.s_4.x"&~"t.s_4._gor"->"t.s_4.r.r"+
 ~"t.s_4._ra"->"t.s_4.x"+
 "Reset"|"t.s_4.x"->"t.s_4.r.r"-
@@ -712,18 +756,6 @@ weak ~"t.var_z[7].v.f"->"t.var_z[7].v.t"+
 "t.s_4.r.a"->"t.s_4._ra"-
 ~("t.s_4.r.a")->"t.s_4._ra"+
 = "t.s_4.r.a" "t.ct_4.out"
-= "t.c_5.a" "t.s_8.s1.a"
-= "t.c_5.r" "t.s_8.s1.r"
-= "t.c_5.r" "t.s_6[7].go.r"
-= "t.c_5.r" "t.s_6[6].go.r"
-= "t.c_5.r" "t.s_6[5].go.r"
-= "t.c_5.r" "t.s_6[4].go.r"
-= "t.c_5.r" "t.s_6[3].go.r"
-= "t.c_5.r" "t.s_6[2].go.r"
-= "t.c_5.r" "t.s_6[1].go.r"
-= "t.c_5.r" "t.s_6[0].go.r"
-= "t.c_5.r" "t.s_7.go.r"
-= "t.c_5.a" "t.ct_6.out"
 "t.ct_10.l._out"&"t.ct_10.r._out"->"t.ct_10.out"-
 ~"t.ct_10.l._out"&~"t.ct_10.r._out"->"t.ct_10.out"+
 = "t.ct_10.in[0]" "t.ct_10.l.in[0]"
@@ -2553,91 +2585,59 @@ weak ~"t.tv_4[7].v.f"->"t.tv_4[7].v.t"+
 = "t.s_9[7].go.a" "t.s_9[7].in.a"
 = "t.s_9[7].v.d[0]" "t.s_9[7].v.f"
 = "t.s_9[7].v.d[1]" "t.s_9[7].v.t"
-= "t.s_9[7].v.f" "t.var_z[7].v.f"
-= "t.s_9[7].v.d[0]" "t.var_z[7].v.d[0]"
-= "t.s_9[7].v.d[1]" "t.var_z[7].v.d[1]"
-= "t.s_9[7].v.t" "t.var_z[7].v.t"
-= "t.s_9[7].v.f" "t.s_6[7].v.f"
-= "t.s_9[7].v.d[0]" "t.s_6[7].v.d[0]"
-= "t.s_9[7].v.d[1]" "t.s_6[7].v.d[1]"
-= "t.s_9[7].v.t" "t.s_6[7].v.t"
+= "t.s_9[7].v.f" "t.var_a[7].v.f"
+= "t.s_9[7].v.d[0]" "t.var_a[7].v.d[0]"
+= "t.s_9[7].v.d[1]" "t.var_a[7].v.d[1]"
+= "t.s_9[7].v.t" "t.var_a[7].v.t"
 = "t.s_9[7].in.d[0]" "t.e_12.out[7].d[0]"
 = "t.s_9[7].in.d[1]" "t.e_12.out[7].d[1]"
 = "t.s_9[7].go.a" "t.ct_9.in[7]"
-= "t.s_9[6].v.f" "t.var_z[6].v.f"
-= "t.s_9[6].v.d[0]" "t.var_z[6].v.d[0]"
-= "t.s_9[6].v.d[1]" "t.var_z[6].v.d[1]"
-= "t.s_9[6].v.t" "t.var_z[6].v.t"
-= "t.s_9[6].v.f" "t.s_6[6].v.f"
-= "t.s_9[6].v.d[0]" "t.s_6[6].v.d[0]"
-= "t.s_9[6].v.d[1]" "t.s_6[6].v.d[1]"
-= "t.s_9[6].v.t" "t.s_6[6].v.t"
+= "t.s_9[6].v.f" "t.var_a[6].v.f"
+= "t.s_9[6].v.d[0]" "t.var_a[6].v.d[0]"
+= "t.s_9[6].v.d[1]" "t.var_a[6].v.d[1]"
+= "t.s_9[6].v.t" "t.var_a[6].v.t"
 = "t.s_9[6].in.d[0]" "t.e_12.out[6].d[0]"
 = "t.s_9[6].in.d[1]" "t.e_12.out[6].d[1]"
 = "t.s_9[6].go.a" "t.ct_9.in[6]"
-= "t.s_9[5].v.f" "t.var_z[5].v.f"
-= "t.s_9[5].v.d[0]" "t.var_z[5].v.d[0]"
-= "t.s_9[5].v.d[1]" "t.var_z[5].v.d[1]"
-= "t.s_9[5].v.t" "t.var_z[5].v.t"
-= "t.s_9[5].v.f" "t.s_6[5].v.f"
-= "t.s_9[5].v.d[0]" "t.s_6[5].v.d[0]"
-= "t.s_9[5].v.d[1]" "t.s_6[5].v.d[1]"
-= "t.s_9[5].v.t" "t.s_6[5].v.t"
+= "t.s_9[5].v.f" "t.var_a[5].v.f"
+= "t.s_9[5].v.d[0]" "t.var_a[5].v.d[0]"
+= "t.s_9[5].v.d[1]" "t.var_a[5].v.d[1]"
+= "t.s_9[5].v.t" "t.var_a[5].v.t"
 = "t.s_9[5].in.d[0]" "t.e_12.out[5].d[0]"
 = "t.s_9[5].in.d[1]" "t.e_12.out[5].d[1]"
 = "t.s_9[5].go.a" "t.ct_9.in[5]"
-= "t.s_9[4].v.f" "t.var_z[4].v.f"
-= "t.s_9[4].v.d[0]" "t.var_z[4].v.d[0]"
-= "t.s_9[4].v.d[1]" "t.var_z[4].v.d[1]"
-= "t.s_9[4].v.t" "t.var_z[4].v.t"
-= "t.s_9[4].v.f" "t.s_6[4].v.f"
-= "t.s_9[4].v.d[0]" "t.s_6[4].v.d[0]"
-= "t.s_9[4].v.d[1]" "t.s_6[4].v.d[1]"
-= "t.s_9[4].v.t" "t.s_6[4].v.t"
+= "t.s_9[4].v.f" "t.var_a[4].v.f"
+= "t.s_9[4].v.d[0]" "t.var_a[4].v.d[0]"
+= "t.s_9[4].v.d[1]" "t.var_a[4].v.d[1]"
+= "t.s_9[4].v.t" "t.var_a[4].v.t"
 = "t.s_9[4].in.d[0]" "t.e_12.out[4].d[0]"
 = "t.s_9[4].in.d[1]" "t.e_12.out[4].d[1]"
 = "t.s_9[4].go.a" "t.ct_9.in[4]"
-= "t.s_9[3].v.f" "t.var_z[3].v.f"
-= "t.s_9[3].v.d[0]" "t.var_z[3].v.d[0]"
-= "t.s_9[3].v.d[1]" "t.var_z[3].v.d[1]"
-= "t.s_9[3].v.t" "t.var_z[3].v.t"
-= "t.s_9[3].v.f" "t.s_6[3].v.f"
-= "t.s_9[3].v.d[0]" "t.s_6[3].v.d[0]"
-= "t.s_9[3].v.d[1]" "t.s_6[3].v.d[1]"
-= "t.s_9[3].v.t" "t.s_6[3].v.t"
+= "t.s_9[3].v.f" "t.var_a[3].v.f"
+= "t.s_9[3].v.d[0]" "t.var_a[3].v.d[0]"
+= "t.s_9[3].v.d[1]" "t.var_a[3].v.d[1]"
+= "t.s_9[3].v.t" "t.var_a[3].v.t"
 = "t.s_9[3].in.d[0]" "t.e_12.out[3].d[0]"
 = "t.s_9[3].in.d[1]" "t.e_12.out[3].d[1]"
 = "t.s_9[3].go.a" "t.ct_9.in[3]"
-= "t.s_9[2].v.f" "t.var_z[2].v.f"
-= "t.s_9[2].v.d[0]" "t.var_z[2].v.d[0]"
-= "t.s_9[2].v.d[1]" "t.var_z[2].v.d[1]"
-= "t.s_9[2].v.t" "t.var_z[2].v.t"
-= "t.s_9[2].v.f" "t.s_6[2].v.f"
-= "t.s_9[2].v.d[0]" "t.s_6[2].v.d[0]"
-= "t.s_9[2].v.d[1]" "t.s_6[2].v.d[1]"
-= "t.s_9[2].v.t" "t.s_6[2].v.t"
+= "t.s_9[2].v.f" "t.var_a[2].v.f"
+= "t.s_9[2].v.d[0]" "t.var_a[2].v.d[0]"
+= "t.s_9[2].v.d[1]" "t.var_a[2].v.d[1]"
+= "t.s_9[2].v.t" "t.var_a[2].v.t"
 = "t.s_9[2].in.d[0]" "t.e_12.out[2].d[0]"
 = "t.s_9[2].in.d[1]" "t.e_12.out[2].d[1]"
 = "t.s_9[2].go.a" "t.ct_9.in[2]"
-= "t.s_9[1].v.f" "t.var_z[1].v.f"
-= "t.s_9[1].v.d[0]" "t.var_z[1].v.d[0]"
-= "t.s_9[1].v.d[1]" "t.var_z[1].v.d[1]"
-= "t.s_9[1].v.t" "t.var_z[1].v.t"
-= "t.s_9[1].v.f" "t.s_6[1].v.f"
-= "t.s_9[1].v.d[0]" "t.s_6[1].v.d[0]"
-= "t.s_9[1].v.d[1]" "t.s_6[1].v.d[1]"
-= "t.s_9[1].v.t" "t.s_6[1].v.t"
+= "t.s_9[1].v.f" "t.var_a[1].v.f"
+= "t.s_9[1].v.d[0]" "t.var_a[1].v.d[0]"
+= "t.s_9[1].v.d[1]" "t.var_a[1].v.d[1]"
+= "t.s_9[1].v.t" "t.var_a[1].v.t"
 = "t.s_9[1].in.d[0]" "t.e_12.out[1].d[0]"
 = "t.s_9[1].in.d[1]" "t.e_12.out[1].d[1]"
 = "t.s_9[1].go.a" "t.ct_9.in[1]"
-= "t.s_9[0].v.f" "t.var_z[0].v.f"
-= "t.s_9[0].v.d[0]" "t.var_z[0].v.d[0]"
-= "t.s_9[0].v.d[1]" "t.var_z[0].v.d[1]"
-= "t.s_9[0].v.t" "t.var_z[0].v.t"
-= "t.s_9[0].v.f" "t.s_6[0].v.f"
-= "t.s_9[0].v.d[0]" "t.s_6[0].v.d[0]"
-= "t.s_9[0].v.d[1]" "t.s_6[0].v.d[1]"
-= "t.s_9[0].v.t" "t.s_6[0].v.t"
+= "t.s_9[0].v.f" "t.var_a[0].v.f"
+= "t.s_9[0].v.d[0]" "t.var_a[0].v.d[0]"
+= "t.s_9[0].v.d[1]" "t.var_a[0].v.d[1]"
+= "t.s_9[0].v.t" "t.var_a[0].v.t"
 = "t.s_9[0].in.d[0]" "t.e_12.out[0].d[0]"
 = "t.s_9[0].in.d[1]" "t.e_12.out[0].d[1]"
 = "t.s_9[0].go.a" "t.ct_9.in[0]"
@@ -3094,6 +3094,62 @@ weak ~"t.const_1.v.f"->"t.const_1.v.t"+
 = "t.e_12.v[7].d[0]" "t.tv_10[7].v.d[0]"
 = "t.e_12.v[7].d[1]" "t.tv_10[7].v.d[1]"
 = "t.e_12.v[7].t" "t.tv_10[7].v.t"
+"Reset"->"t.var_a[0].v.t"-
+"t.var_a[0].v.f"->"t.var_a[0].v.t"-
+"t.var_a[0].v.t"->"t.var_a[0].v.f"-
+weak ~"t.var_a[0].v.t"->"t.var_a[0].v.f"+
+weak ~"t.var_a[0].v.f"->"t.var_a[0].v.t"+
+= "t.var_a[0].v.d[0]" "t.var_a[0].v.f"
+= "t.var_a[0].v.d[1]" "t.var_a[0].v.t"
+"Reset"->"t.var_a[1].v.t"-
+"t.var_a[1].v.f"->"t.var_a[1].v.t"-
+"t.var_a[1].v.t"->"t.var_a[1].v.f"-
+weak ~"t.var_a[1].v.t"->"t.var_a[1].v.f"+
+weak ~"t.var_a[1].v.f"->"t.var_a[1].v.t"+
+= "t.var_a[1].v.d[0]" "t.var_a[1].v.f"
+= "t.var_a[1].v.d[1]" "t.var_a[1].v.t"
+"Reset"->"t.var_a[2].v.t"-
+"t.var_a[2].v.f"->"t.var_a[2].v.t"-
+"t.var_a[2].v.t"->"t.var_a[2].v.f"-
+weak ~"t.var_a[2].v.t"->"t.var_a[2].v.f"+
+weak ~"t.var_a[2].v.f"->"t.var_a[2].v.t"+
+= "t.var_a[2].v.d[0]" "t.var_a[2].v.f"
+= "t.var_a[2].v.d[1]" "t.var_a[2].v.t"
+"Reset"->"t.var_a[3].v.t"-
+"t.var_a[3].v.f"->"t.var_a[3].v.t"-
+"t.var_a[3].v.t"->"t.var_a[3].v.f"-
+weak ~"t.var_a[3].v.t"->"t.var_a[3].v.f"+
+weak ~"t.var_a[3].v.f"->"t.var_a[3].v.t"+
+= "t.var_a[3].v.d[0]" "t.var_a[3].v.f"
+= "t.var_a[3].v.d[1]" "t.var_a[3].v.t"
+"Reset"->"t.var_a[4].v.t"-
+"t.var_a[4].v.f"->"t.var_a[4].v.t"-
+"t.var_a[4].v.t"->"t.var_a[4].v.f"-
+weak ~"t.var_a[4].v.t"->"t.var_a[4].v.f"+
+weak ~"t.var_a[4].v.f"->"t.var_a[4].v.t"+
+= "t.var_a[4].v.d[0]" "t.var_a[4].v.f"
+= "t.var_a[4].v.d[1]" "t.var_a[4].v.t"
+"Reset"->"t.var_a[5].v.t"-
+"t.var_a[5].v.f"->"t.var_a[5].v.t"-
+"t.var_a[5].v.t"->"t.var_a[5].v.f"-
+weak ~"t.var_a[5].v.t"->"t.var_a[5].v.f"+
+weak ~"t.var_a[5].v.f"->"t.var_a[5].v.t"+
+= "t.var_a[5].v.d[0]" "t.var_a[5].v.f"
+= "t.var_a[5].v.d[1]" "t.var_a[5].v.t"
+"Reset"->"t.var_a[6].v.t"-
+"t.var_a[6].v.f"->"t.var_a[6].v.t"-
+"t.var_a[6].v.t"->"t.var_a[6].v.f"-
+weak ~"t.var_a[6].v.t"->"t.var_a[6].v.f"+
+weak ~"t.var_a[6].v.f"->"t.var_a[6].v.t"+
+= "t.var_a[6].v.d[0]" "t.var_a[6].v.f"
+= "t.var_a[6].v.d[1]" "t.var_a[6].v.t"
+"Reset"->"t.var_a[7].v.t"-
+"t.var_a[7].v.f"->"t.var_a[7].v.t"-
+"t.var_a[7].v.t"->"t.var_a[7].v.f"-
+weak ~"t.var_a[7].v.t"->"t.var_a[7].v.f"+
+weak ~"t.var_a[7].v.f"->"t.var_a[7].v.t"+
+= "t.var_a[7].v.d[0]" "t.var_a[7].v.f"
+= "t.var_a[7].v.d[1]" "t.var_a[7].v.t"
 "t.e_3.ev[0].go_r"&"t.e_3.ev[0].v.t"->"t.e_3.ev[0]._out.t"-
 "t.e_3.ev[0].go_r"&"t.e_3.ev[0].v.f"->"t.e_3.ev[0]._out.f"-
 ~"_Reset"|~"t.e_3.ev[0].go_r"->"t.e_3.ev[0]._out.t"+
@@ -3487,6 +3543,18 @@ weak ~"t.const_1.v.f"->"t.const_1.v.t"+
 = "t.rtv_1[7].go.a" "t.rtv_1[7].in.a"
 = "t.rtv_1[7].v.d[0]" "t.rtv_1[7].v.f"
 = "t.rtv_1[7].v.d[1]" "t.rtv_1[7].v.t"
+= "t.c_1.a" "t.s_2.s1.a"
+= "t.c_1.r" "t.s_2.s1.r"
+= "t.c_1.r" "t.s_0[7].go.r"
+= "t.c_1.r" "t.s_0[6].go.r"
+= "t.c_1.r" "t.s_0[5].go.r"
+= "t.c_1.r" "t.s_0[4].go.r"
+= "t.c_1.r" "t.s_0[3].go.r"
+= "t.c_1.r" "t.s_0[2].go.r"
+= "t.c_1.r" "t.s_0[1].go.r"
+= "t.c_1.r" "t.s_0[0].go.r"
+= "t.c_1.r" "t.s_1.go.r"
+= "t.c_1.a" "t.ct_0.out"
 "t.e_1.ev[0].go_r"&"t.e_1.ev[0].v.t"->"t.e_1.ev[0]._out.t"-
 "t.e_1.ev[0].go_r"&"t.e_1.ev[0].v.f"->"t.e_1.ev[0]._out.f"-
 ~"_Reset"|~"t.e_1.ev[0].go_r"->"t.e_1.ev[0]._out.t"+
@@ -3728,18 +3796,6 @@ weak ~"t.const_1.v.f"->"t.const_1.v.t"+
 = "t.e_1.out[1].d[1]" "t.rtv_1[1].in.d[1]"
 = "t.e_1.out[0].d[0]" "t.rtv_1[0].in.d[0]"
 = "t.e_1.out[0].d[1]" "t.rtv_1[0].in.d[1]"
-= "t.c_1.a" "t.s_2.s1.a"
-= "t.c_1.r" "t.s_2.s1.r"
-= "t.c_1.r" "t.s_0[7].go.r"
-= "t.c_1.r" "t.s_0[6].go.r"
-= "t.c_1.r" "t.s_0[5].go.r"
-= "t.c_1.r" "t.s_0[4].go.r"
-= "t.c_1.r" "t.s_0[3].go.r"
-= "t.c_1.r" "t.s_0[2].go.r"
-= "t.c_1.r" "t.s_0[1].go.r"
-= "t.c_1.r" "t.s_0[0].go.r"
-= "t.c_1.r" "t.s_1.go.r"
-= "t.c_1.a" "t.ct_0.out"
 "t.e_4.ev[0].go_r"&"t.e_4.ev[0].v.t"->"t.e_4.ev[0]._out.t"-
 "t.e_4.ev[0].go_r"&"t.e_4.ev[0].v.f"->"t.e_4.ev[0]._out.f"-
 ~"_Reset"|~"t.e_4.ev[0].go_r"->"t.e_4.ev[0]._out.t"+
@@ -5064,9 +5120,6 @@ weak ~"t.var_x[7].v.f"->"t.var_x[7].v.t"+
 = "t.s_8.s1.a" "t.s_8.s2.r"
 = "t.s_8.go.r" "t.s_8.s1.r"
 = "t.s_8.go.a" "t.s_8.s2.a"
-= "t.s_2.s1.a" "t.s_2.s2.r"
-= "t.s_2.go.r" "t.s_2.s1.r"
-= "t.s_2.go.a" "t.s_2.s2.a"
 "t.s_0[0].go.r"&"t.s_0[0]._goa"&"t.s_0[0].in.t"->"t.s_0[0].v.f"-
 "t.s_0[0].go.r"&"t.s_0[0]._goa"&"t.s_0[0].in.f"->"t.s_0[0].v.t"-
 "t.s_0[0].go.r"&("t.s_0[0].v.t"&"t.s_0[0].in.t"|"t.s_0[0].v.f"&"t.s_0[0].in.f")->"t.s_0[0]._goa"-
@@ -5163,6 +5216,9 @@ weak ~"t.var_x[7].v.f"->"t.var_x[7].v.t"+
 = "t.s_0[2].go.a" "t.ct_0.in[2]"
 = "t.s_0[1].go.a" "t.ct_0.in[1]"
 = "t.s_0[0].go.a" "t.ct_0.in[0]"
+= "t.s_2.s1.a" "t.s_2.s2.r"
+= "t.s_2.go.r" "t.s_2.s1.r"
+= "t.s_2.go.a" "t.s_2.s2.a"
 "t.s_3[0].go.r"&"t.s_3[0]._goa"&"t.s_3[0].in.t"->"t.s_3[0].v.f"-
 "t.s_3[0].go.r"&"t.s_3[0]._goa"&"t.s_3[0].in.f"->"t.s_3[0].v.t"-
 "t.s_3[0].go.r"&("t.s_3[0].v.t"&"t.s_3[0].in.t"|"t.s_3[0].v.f"&"t.s_3[0].in.f")->"t.s_3[0]._goa"-

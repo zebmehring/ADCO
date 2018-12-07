@@ -1,4 +1,4 @@
-import "~/Documents/ADCO/act/syn.act";
+import "/home/user/Documents/ADCO/act/syn.act";
 
 defproc toplevel (a1of1 go)
 {

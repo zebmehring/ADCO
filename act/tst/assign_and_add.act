@@ -1,8 +1,9 @@
-import "~/Documents/ADCO/act/syn.act";
+import "/home/user/Documents/ADCO/act/syn.act";
 
 defproc toplevel (a1of1 go)
 {
   /* --- declaring all variables and channels --- */
+  syn_var_init_false var_a[8];
   syn_var_init_false var_x[8];
   syn_var_init_false var_y[8];
   syn_var_init_false var_z[8];
@@ -154,7 +155,7 @@ defproc toplevel (a1of1 go)
   ct_9.out = c_6.a;
   (i:8: s_9[i].in.t = e_12.out[i].t;
         s_9[i].in.f = e_12.out[i].f;
-        s_9[i].v = var_z[i].v;)
+        s_9[i].v = var_a[i].v;)
 
   s_8.s2 = c_6;
 

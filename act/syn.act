@@ -469,16 +469,15 @@ defproc syn_add (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 template<pint N>
 defproc syn_uminus (dualrail in[N]; dualrail out[N])
 {
-  dualrail inv[N];
-  (i:N: in[i].t = inv[i].f;
-        in[i].f = inv[i].t;)
+  dualrail _in[N];
+  syn_not<N> n (in, _in);
 
   syn_var_init_false const_0;
   dualrail zero[N];
   (i:N: zero[i] = const_0.v;)
 
   syn_var_init_true const_1;
-  syn_ripple_carry_add<N> r (inv, zero, const_1.v, out);
+  syn_ripple_carry_add<N> r (_in, zero, const_1.v, out);
 }
 
 /* SUBTRACTION */
@@ -487,7 +486,6 @@ defproc syn_sub (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 {
   dualrail _in2[N];
   syn_uminus<N> u (in2, _in2);
-  syn_var_init_false const_0;
   syn_add<N> s (in1, _in2, out, overflow);
 }
 
