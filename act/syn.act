@@ -119,11 +119,13 @@ defproc syn_bool_or (bool in1, in2, out)
 }
 
 /* BOOLEAN NAND GATE */
-defproc syn_bool_nand (bool in1, in2, out)
+defproc syn_bool_notand (bool in1, in2, out)
 {
+  bool _in1;
   prs
   {
-    in1 & in2 => out-
+    _in1 | in2 => out-
+    in1 => _in1-
   }
 }
 
@@ -599,8 +601,8 @@ defproc syn_eq (dualrail in1[N], in2[N]; dualrail out)
   _dualrail _out;
   prs
   {
-    (|i:N: ((in1[i].t & in2[i].f) | (in1[i].f & in2[i].t))) => _out.f-
     (&i:N: ((in1[i].t & in2[i].t) | (in1[i].f & in2[i].f))) => _out.t-
+    (|i:N: ((in1[i].t & in2[i].f) | (in1[i].f & in2[i].t))) => _out.f-
 
     _out.t => out.t-
     _out.f => out.f-
@@ -611,9 +613,15 @@ defproc syn_eq (dualrail in1[N], in2[N]; dualrail out)
 template<pint N>
 defproc syn_ne (dualrail in1[N], in2[N]; dualrail out)
 {
-  dualrail _out;
-  syn_eq<N> eq (in1, in2, _out);
-  syn_expr_not inv (_out, out);
+_dualrail _out;
+prs
+{
+  (|i:N: ((in1[i].t & in2[i].f) | (in1[i].f & in2[i].t))) => _out.t-
+  (&i:N: ((in1[i].t & in2[i].t) | (in1[i].f & in2[i].f))) => _out.f-
+
+  _out.t => out.t-
+  _out.f => out.f-
+}
 }
 
 /* LESS THAN OR EQUALS */
@@ -654,18 +662,34 @@ defproc syn_ge (dualrail in1[N], in2[N]; dualrail out)
 template<pint N>
 defproc syn_lt (dualrail in1[N], in2[N]; dualrail out)
 {
-  dualrail _out;
-  syn_ge<N> ge (in1, in2, _out);
-  syn_expr_not inv (_out, out);
+  syn_sub<N> sub (in1, in2);
+
+  _dualrail _out;
+  prs {
+    sub.out[N-1].t => _out.t-
+    sub.out[N-1].f => _out.f-
+
+    _out.t => out.t-
+    _out.f => out.f-
+  }
 }
 
 /* GREATER THAN */
 template<pint N>
 defproc syn_gt (dualrail in1[N], in2[N]; dualrail out)
 {
-  dualrail _out;
-  syn_le<N> le (in1, in2, _out);
-  syn_expr_not inv (_out, out);
+  syn_sub<N> sub (in1, in2);
+  syn_eq<N> eq (in1, in2);
+
+  _dualrail _out;
+  prs
+  {
+    sub.out[N-1].f & eq.out.f => _out.t-
+    sub.out[N-1].t | eq.out.t => _out.f-
+
+    _out.t => out.t-
+    _out.f => out.f-
+  }
 }
 
 /* ============================ CHP CONSTRUCTS ============================ */

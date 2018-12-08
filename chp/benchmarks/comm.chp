@@ -1,0 +1,13 @@
+/* variable declarations */
+vars {
+  int<32> x;
+  int<32> y;
+  chan<32> z;
+}
+
+/* chp program */
+
+chp {
+  x := 156707415 ;
+  (z!x , z?y)      // [00001001010101110010101001010111]
+}

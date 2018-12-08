@@ -373,7 +373,6 @@ defproc bundled_eq (bool in1[N], in2[N]; bool out)
   prs
   {
     (|i:N: ((in1[i] & _in2[i]) | (_in1[i] & in2[i]))) => out-
-
     (i:N: in1[i] => _in1[i]-
           in2[i] => _in2[i]-)
   }
@@ -383,9 +382,13 @@ defproc bundled_eq (bool in1[N], in2[N]; bool out)
 template<pint N>
 defproc bundled_ne (bool in1[N], in2[N]; bool out)
 {
-  bool _out;
-  bundled_eq<N> eq (in1, in2, _out);
-  bundled_expr_not inv (_out, out);
+  bool _in1[N], _in2[N];
+  prs
+  {
+    (&i:N: ((in1[i] & in2[i]) | (_in1[i] & _in2[i]))) => out-
+    (i:N: in1[i] => _in1[i]-
+          in2[i] => _in2[i]-)
+  }
 }
 
 /* LESS THAN OR EQUALS */
@@ -409,6 +412,18 @@ defproc bundled_ge (bool in1[N], in2[N]; bool out)
 {
   bundled_sub<N> sub (in1, in2);
 
+  prs
+  {
+    sub.out[N-1] => out-
+  }
+}
+
+/* LESS THAN */
+template<pint N>
+defproc bundled_lt (bool in1[N], in2[N]; bool out)
+{
+  bundled_sub<N> sub (in1, in2);
+
   bool _out;
   prs
   {
@@ -417,22 +432,17 @@ defproc bundled_ge (bool in1[N], in2[N]; bool out)
   }
 }
 
-/* LESS THAN */
-template<pint N>
-defproc bundled_lt (bool in1[N], in2[N]; bool out)
-{
-  bool _out;
-  bundled_ge<N> ge (in1, in2, _out);
-  bundled_expr_not inv (_out, out);
-}
-
 /* GREATER THAN */
 template<pint N>
 defproc bundled_gt (bool in1[N], in2[N]; bool out)
 {
-  bool _out;
-  bundled_le<N> le (in1, in2, _out);
-  bundled_expr_not inv (_out, out);
+  bundled_sub<N> sub (in1, in2);
+  bundled_eq<N> eq (in1, in2);
+
+  prs
+  {
+    sub.out[N-1] | eq.out => out-
+  }
 }
 
 
