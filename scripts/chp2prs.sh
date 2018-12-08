@@ -38,6 +38,7 @@ for var in "$@"
 do
   var=${var%.chp};
   var=${var##*/};
+  echo ===${var}===
   if [ "$OPTIMIZATION" -eq 1 ]; then
     rm -f ${PROJECT_PATH}/act/tst/${var}.act;
     rm -f ${PROJECT_PATH}/prs/${var}.prs;
