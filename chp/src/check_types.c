@@ -288,6 +288,11 @@ void check_types_cmd (chp_lang_t *c)
     case CHP_LOOP:
       {
         chp_gc_t *gc = c->u.gc;
+        if (!gc)
+        {
+          fprintf (stderr, "check_types error: empty loop/selection statment\n");
+          exit (-1);
+        }
         while (gc)
         {
           // ensure guards are boolean-valued

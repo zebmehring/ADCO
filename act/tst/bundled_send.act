@@ -1,0 +1,32 @@
+import "/home/user/Documents/ADCO/act/syn.act";
+import "/home/user/Documents/ADCO/act/bundled.act";
+
+defproc toplevel (a1of1 go)
+{
+  /* --- declaring all variables and channels --- */
+  syn_var_init_false var_x;
+  a1of2 chan_z;
+  /* --- end of declarations --- */
+
+  /* send */
+  syn_expr_var e_1(,var_x.v);
+  a1of1 c_0;
+  syn_fullseq s_0;
+  c_0.r = s_0.go.r;
+  syn_recv rtv_0;
+  syn_expr_var e_2;
+  syn_var_init_false tv_0(rtv_0.v);
+  e_2.v = tv_0.v;
+  s_0.r.r = e_1.go_r;
+  s_0.r = rtv_0.go;
+  e_1.out.t = rtv_0.in.t;
+  e_1.out.f = rtv_0.in.f;
+  s_0.go.a = e_2.go_r;
+  c_0.a = e_2.go_r;
+  chan_z.t = e_2.out.t;
+  chan_z.f = e_2.out.f;
+
+  go = c_0;
+}
+
+toplevel t;

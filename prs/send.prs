@@ -12,7 +12,6 @@
 = "t.e_2.out.d[1]" "t.e_2.out.t"
 = "t.e_2.v.d[0]" "t.e_2.v.f"
 = "t.e_2.v.d[1]" "t.e_2.v.t"
-= "t.e_2.go_r" "t.s_0.go.a"
 = "t.e_2.v.f" "t.rtv_0.v.f"
 = "t.e_2.v.d[0]" "t.rtv_0.v.d[0]"
 = "t.e_2.v.d[1]" "t.rtv_0.v.d[1]"
@@ -47,7 +46,8 @@
 = "t.go.a" "t.c_0.a"
 = "t.go.r" "t.c_0.r"
 = "t.go.r" "t.s_0.go.r"
-= "t.go.a" "t.chan_z.a"
+= "t.go.a" "t.s_0.go.a"
+= "t.go.a" "t.e_2.go_r"
 "Reset"->"t.tv_0.v.t"-
 "t.tv_0.v.f"->"t.tv_0.v.t"-
 "t.tv_0.v.t"->"t.tv_0.v.f"-

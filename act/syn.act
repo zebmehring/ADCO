@@ -15,7 +15,8 @@ import "~/Documents/ADCO/act/channel.act";
 /* TRUE */
 defproc syn_var_init_true (dualrail v)
 {
-  prs {
+  prs
+  {
     Reset -> v.f-
     v.f<8> -> v.t-
     v.t<8> -> v.f-
@@ -27,7 +28,8 @@ defproc syn_var_init_true (dualrail v)
 /* FALSE */
 defproc syn_var_init_false (dualrail v)
 {
-  prs {
+  prs
+  {
     Reset -> v.t-
     v.f<8> -> v.t-
     v.t<8> -> v.f-
@@ -42,10 +44,11 @@ defproc syn_var_init_false (dualrail v)
 defproc syn_expr_and (dualrail in1, in2; dualrail out)
 {
   _dualrail _out;
-  prs {
+  prs
+  {
     in1.t & in2.t -> _out.t-
     ~in1.t & ~in2.t -> _out.t+
-    in1.f & (in2.t | in2.f) | in1.t & in2.f -> _out.f-
+    (in1.f & (in2.t | in2.f)) | (in1.t & in2.f) -> _out.f-
     ~in1.t & ~in1.f & ~in2.t & ~in2.f -> _out.f+
 
     _out.t => out.t-
@@ -57,8 +60,9 @@ defproc syn_expr_and (dualrail in1, in2; dualrail out)
 defproc syn_expr_or (dualrail in1, in2; dualrail out)
 {
   _dualrail _out;
-  prs {
-    in1.t & (in2.t|in2.f) | in1.f & in2.t -> _out.t-
+  prs
+  {
+    (in1.t & (in2.t | in2.f)) | (in1.f & in2.t) -> _out.t-
     ~in1.t & ~in1.f & ~in2.t & ~in2.f -> _out.t+
     in1.f & in2.f -> _out.f-
     ~in1.f & ~in2.f -> _out.f+
@@ -72,9 +76,12 @@ defproc syn_expr_or (dualrail in1, in2; dualrail out)
 defproc syn_expr_xor (dualrail in1, in2; dualrail out)
 {
   _dualrail _out;
-  prs {
-    (in1.t & in2.f) | (in1.f & in2.t) => _out.t-
-    (in1.t & in2.t) | (in1.f & in2.f) => _out.f-
+  prs
+  {
+    (in1.t & in2.f) | (in1.f & in2.t) -> _out.t-
+    ~in1.t & ~in1.f & ~in2.t & ~in2.f -> _out.t+
+    (in1.t & in1.t) | (in1.f & in2.f) -> _out.f-
+    ~in1.f & ~in2.f -> _out.f+
 
     _out.t => out.t-
     _out.f => out.f-
@@ -88,32 +95,44 @@ defproc syn_expr_not (dualrail in; dualrail out)
   out.f = in.t;
 }
 
-/* BOOLEAN OR GATE */
-defproc syn_or2 (bool x, y, out)
+/* C-ELEMENT */
+defproc syn_expr_c_elem (bool in1, in2; bool out)
 {
-  bool _or;
-  prs {
-    x | y => _or-
-    _or => out-
+  bool _out;
+  prs
+  {
+    in1 & in2 -> _out-
+    ~in1 & ~in2 -> _out+
+    _out => out-
+  }
+}
+
+/* BOOLEAN OR GATE */
+defproc syn_bool_or (bool in1, in2, out)
+{
+  bool _out;
+  prs
+  {
+    in1 | in2 => _out-
+    _out => out-
   }
 }
 
 /* BOOLEAN NAND GATE */
-defproc syn_notand (bool x, y, out)
+defproc syn_bool_nand (bool in1, in2, out)
 {
-  bool _inv;
-  prs {
-    x => _inv-
-    _inv | y => out-
+  prs
+  {
+    in1 & in2 => out-
   }
 }
 
 /* FULL ADDER */
 defproc syn_full_adder (dualrail a, b, c_in; dualrail s, c_out)
 {
-  _dualrail _s;
-  _dualrail _c_out;
-  prs {
+  _dualrail _s, _c_out;
+  prs
+  {
     (a.t & b.t & c_in.t) | (a.t & b.f & c_in.f) | (a.f & b.t & c_in.f) | (a.f & b.f & c_in.t) => _s.t-
     (a.f & b.f & c_in.f) | (a.t & b.t & c_in.f) | (a.f & b.t & c_in.t) | (a.t & b.f & c_in.t) => _s.f-
 
@@ -141,7 +160,8 @@ defproc syn_mul_cell (dualrail in1[N], in2; dualrail out[N])
 defproc syn_mux (dualrail a, b, s; dualrail o)
 {
   _dualrail _o;
-  prs {
+  prs
+  {
     (a.t & b.f & s.f) | (a.f & b.t & s.t) | (a.t & b.t & (s.t | s.f)) => _o.t-
     (a.f & b.t & s.f) | (a.t & b.f & s.t) | (a.f & b.f & (s.t | s.f)) => _o.f-
 
@@ -196,17 +216,19 @@ template<pint N>
 defproc syn_invctree (bool in[N]; bool _out)
 {
   [  N > 3 ->
-     syn_ctree<N/2> l(in[0..N/2-1]);
-     syn_ctree<N-N/2> r(in[N/2..N-1]);
-     prs {
-       l.out & r.out -> _out-
-       ~l.out & ~r.out -> _out+
-     }
+       syn_ctree<N/2> l (in[0..N/2-1]);
+       syn_ctree<N-N/2> r (in[N/2..N-1]);
+       prs
+       {
+         l.out & r.out -> _out-
+         ~l.out & ~r.out -> _out+
+       }
   [] else ->
-     prs {
-      (&i:N:in[i]) -> _out-
-      (&i:N:~in[i]) -> _out+
-     }
+       prs
+       {
+        (&i:N:in[i]) -> _out-
+        (&i:N:~in[i]) -> _out+
+       }
   ]
 }
 
@@ -215,20 +237,23 @@ template<pint N>
 defproc syn_ctree (bool in[N]; bool out)
 {
   [  N > 3 ->
-     syn_invctree<N/2> l(in[0..N/2-1]);
-     syn_invctree<N-N/2> r(in[N/2..N-1]);
-     prs {
-       l._out & r._out -> out-
-       ~l._out & ~r._out -> out+
-     }
-  [] N = 1 -> out = in[0];
+       syn_invctree<N/2> l(in[0..N/2-1]);
+       syn_invctree<N-N/2> r(in[N/2..N-1]);
+       prs
+       {
+         l._out & r._out -> out-
+         ~l._out & ~r._out -> out+
+       }
+  [] N = 1 ->
+       out = in[0];
   [] else ->
-      bool _out;
-      prs {
-        (&i:N:in[i]) -> _out-
-      	(&i:N:~in[i]) -> _out+
-        _out => out-
-      }
+       bool _out;
+       prs
+       {
+         (&i:N:in[i]) -> _out-
+         (&i:N:~in[i]) -> _out+
+         _out => out-
+       }
   ]
 }
 
@@ -237,19 +262,19 @@ template<pint M, N>
 defproc syn_linear_csa_cascade (dualrail in[M][N]; dualrail out1[N], out2[N])
 {
   [  M > 3 ->
-      dualrail next[M-1][N];
-      syn_carry_save_adder<N> cs (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], next[0][0..N-1], next[1][0..N-1]);
-      (i:M-3: next[i+2][0..N-1] = in[i+3][0..N-1];)
-      syn_linear_csa_cascade<M-1, N> csac (next, out1, out2);
+       dualrail next[M-1][N];
+       syn_carry_save_adder<N> cs (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], next[0][0..N-1], next[1][0..N-1]);
+       (i:M-3: next[i+2][0..N-1] = in[i+3][0..N-1];)
+       syn_linear_csa_cascade<M-1, N> csac (next, out1, out2);
   [] M = 1 ->
-      syn_var_init_false const_0;
-      out1 = in[0][0..N-1];
-      (i:N: out2[i] = const_0.v;)
+       syn_var_init_false const_0;
+       out1 = in[0][0..N-1];
+       (i:N: out2[i] = const_0.v;)
   [] M = 2 ->
-      out1 = in[0][0..N-1];
-      out2 = in[1][0..N-1];
+       out1 = in[0][0..N-1];
+       out2 = in[1][0..N-1];
   [] else ->
-      syn_carry_save_adder<N> cs_3 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], out1, out2);
+       syn_carry_save_adder<N> cs_3 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], out1, out2);
   ]
 }
 
@@ -258,23 +283,23 @@ template<pint M, N>
 defproc syn_wallace_tree (dualrail in[M][N]; dualrail out1[N], out2[N])
 {
   [  M > 4 ->
-      syn_wallace_tree<M/2, N> l(in[0..M/2-1][0..N-1]);
-      syn_wallace_tree<M-M/2, N> r(in[M/2..M-1][0..N-1]);
-      syn_4_to_2_compressor<N> comp (l.out1, l.out2, r.out1, r.out2, out1, out2);
+       syn_wallace_tree<M/2, N> l(in[0..M/2-1][0..N-1]);
+       syn_wallace_tree<M-M/2, N> r(in[M/2..M-1][0..N-1]);
+       syn_4_to_2_compressor<N> comp (l.out1, l.out2, r.out1, r.out2, out1, out2);
   [] M = 0 ->
-      syn_var_init_false const_0;
-      (i:N: out1[i] = const_0.v;
-            out2[i] = const_0.v;)
+       syn_var_init_false const_0;
+       (i:N: out1[i] = const_0.v;
+             out2[i] = const_0.v;)
   [] M = 1 ->
-      out1 = in[0][0..N-1];
-      (i:N: out2[i] = const_0.v;)
+       out1 = in[0][0..N-1];
+       (i:N: out2[i] = const_0.v;)
   [] M = 2 ->
-      out1 = in[0][0..N-1];
-      out2 = in[1][0..N-1];
+       out1 = in[0][0..N-1];
+       out2 = in[1][0..N-1];
   [] M = 3 ->
-      syn_carry_save_adder<N> cs_3 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], out1, out2);
+       syn_carry_save_adder<N> cs_3 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], out1, out2);
   [] else ->
-      syn_4_to_2_compressor<N> comp_4 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], in[3][0..N-1], out1, out2);
+       syn_4_to_2_compressor<N> comp_4 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], in[3][0..N-1], out1, out2);
   ]
 }
 
@@ -285,7 +310,8 @@ defproc syn_recv (a1of1 go; dualrail v; a1of2 in)
 {
   bool _goa;
   go.a = in.a;
-  prs {
+  prs
+  {
     [keeper=0] go.r & _goa & in.t -> v.f-
     [keeper=0] go.r & _goa & in.f -> v.t-
     go.r & (v.t & in.t | v.f & in.f) -> _goa-
@@ -295,13 +321,14 @@ defproc syn_recv (a1of1 go; dualrail v; a1of2 in)
 }
 
 /* A1OF2 PROBE */
-defproc syn_a1of2_probe (bool t, f, a; dualrail out)
+defproc syn_a1of2_probe (bool go_r; bool t, f, a; dualrail out)
 {
   bool _t, _f, _a;
   _dualrail _out;
-  prs {
-    (t | f) & _a => _out.t-
-    (_t & _f) | a => _out.f-
+  prs
+  {
+    go_r & ((t | f) & _a) => _out.t-
+    go_r & ((_t & _f) | a) => _out.f-
     t => _t-
     f => _f-
     a => _a-
@@ -312,14 +339,17 @@ defproc syn_a1of2_probe (bool t, f, a; dualrail out)
 
 /* AN1OF2 PROBE */
 template<pint N>
-defproc syn_aN1of2_probe (aN1of2 c; dualrail out)
+defproc syn_aN1of2_probe (bool go_r; aN1of2<N> c; dualrail out)
 {
-  _dualrail _out;
   syn_a1of2_probe probe[N];
-  (i:N: probe[i].t = c.d[i].t;
+  (i:N: probe[i].go_r = go_r;
+        probe[i].t = c.d[i].t;
         probe[i].f = c.d[i].f;
         probe[i].a = c.a;)
-  prs {
+
+  _dualrail _out;
+  prs
+  {
     (&i:N: probe[i].out.t) => _out.t-
     (|i:N: probe[i].out.f) => _out.f-
     _out.t => out.t-
@@ -333,7 +363,8 @@ defproc syn_aN1of2_probe (aN1of2 c; dualrail out)
 defproc syn_expr_var (bool go_r; dualrail v; dualrail out)
 {
   _dualrail _out;
-  prs {
+  prs
+  {
     go_r & v.t -> _out.t-
     go_r & v.f -> _out.f-
     ~_Reset | ~go_r -> _out.t+
@@ -402,11 +433,9 @@ template<pint N>
 defproc syn_ripple_carry_add (dualrail in1[N], in2[N], c_in; dualrail out[N], overflow)
 {
   syn_full_adder add[N];
-
   (i:N: add[i].a = in1[i];
         add[i].b = in2[i];
         add[i].s = out[i];)
-
   add[0].c_in = c_in;
   overflow = add[N-1].c_out;
   (i:N-1: add[i+1].c_in = add[i].c_out;)
@@ -431,7 +460,8 @@ defproc syn_cla_add (dualrail in1[N], in2[N], c_in; dualrail out[N], overflow)
         add[i].s = out[i];
         add[i].c_in = carry[i];)
 
-  prs {
+  prs
+  {
     (i:N-1: g.out[i].t | (p.out[i].t & carry[i].t) => _carry[i+1].t-
             g.out[i].f & (p.out[i].f | carry[i].f) => _carry[i+1].f-)
 
@@ -528,7 +558,8 @@ defproc syn_mul (dualrail in1[N], in2[N]; dualrail out[N], overflow)
 
   syn_2_to_1_mux<N> muxo (mul.out, _out, so, out);
 
-  prs {
+  prs
+  {
     in1[N-1].t => _s1.t-
     in1[N-1].f => _s1.f-
     in2[N-1].t => _s2.t-
@@ -566,7 +597,8 @@ template<pint N>
 defproc syn_eq (dualrail in1[N], in2[N]; dualrail out)
 {
   _dualrail _out;
-  prs {
+  prs
+  {
     (|i:N: ((in1[i].t & in2[i].f) | (in1[i].f & in2[i].t))) => _out.f-
     (&i:N: ((in1[i].t & in2[i].t) | (in1[i].f & in2[i].f))) => _out.t-
 
@@ -588,12 +620,12 @@ defproc syn_ne (dualrail in1[N], in2[N]; dualrail out)
 template<pint N>
 defproc syn_le (dualrail in1[N], in2[N]; dualrail out)
 {
-  _dualrail _out;
-
   syn_sub<N> sub (in1, in2);
   syn_eq<N> eq (in1, in2);
 
-  prs {
+  _dualrail _out;
+  prs
+  {
     sub.out[N-1].t | eq.out.t => _out.t-
     sub.out[N-1].f & eq.out.f => _out.f-
 
@@ -606,10 +638,9 @@ defproc syn_le (dualrail in1[N], in2[N]; dualrail out)
 template<pint N>
 defproc syn_ge (dualrail in1[N], in2[N]; dualrail out)
 {
-  _dualrail _out;
-
   syn_sub<N> sub (in1, in2);
 
+  _dualrail _out;
   prs {
     sub.out[N-1].t => _out.f-
     sub.out[N-1].f => _out.t-
@@ -652,8 +683,8 @@ defproc syn_fullseq (a1of1 go; a1of1 r)
   bool _gor;
   bool _goa;
   bool _ra;
-
-  prs {
+  prs
+  {
     ~x & ~_gor -> r.r+
     ~_ra -> x+
     Reset | x -> r.r-
@@ -681,8 +712,8 @@ defproc syn_par (a1of1 go; a1of1 s1, s2)
   go.r = s2.r;
 
   bool _c;
-
-  prs {
+  prs
+  {
     s1.a & s2.a -> _c-
     ~s1.a & ~s2.a -> _c+
 

@@ -33,7 +33,7 @@ int print_expr (Expr *e, int *bitwidth, int *base_var, int *delay);
 int print_expr_tmpvar (char *req, int ego, int eout, int bits);
 
 int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var);
-int print_gc (int loop, chp_gc_t *gc, int *bitwidth, int *base_var);
+int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var);
 
 int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var);
 

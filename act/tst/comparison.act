@@ -90,7 +90,7 @@ defproc toplevel (a1of1 go)
   s_5.s2 = c_4;
 
 
-  /*--- emit individual gc (#0) [selection] ---*/
+  /* emit individual gc (#0) [selection] */
   r1of2 gc_0;
   syn_expr_vararray<8> e_5;
   (i:8: e_5.v[i] = var_x[i].v;)
@@ -264,9 +264,9 @@ defproc toplevel (a1of1 go)
   gc_0.f = gc_1.r;
   gc_1.f = gc_2.r;
   gc_0.r = c_8.r;
-  syn_or2 or_15(gc_0.t,gc_1.t);
+  syn_bool_or or_15(gc_0.t,gc_1.t);
   or_15.out = c_8.a;
-  /* ----- end of gc (#0) ----- */
+  /* end of gc (#0) */
 
   syn_seq s_16(c_4);
   s_16.s1 = c_8;
@@ -312,7 +312,7 @@ defproc toplevel (a1of1 go)
   s_19.s2 = c_11;
 
 
-  /*--- emit individual gc (#1) [selection] ---*/
+  /* emit individual gc (#1) [selection] */
   r1of2 gc_3;
   syn_expr_vararray<8> e_25;
   (i:8: e_25.v[i] = var_x[i].v;)
@@ -486,9 +486,9 @@ defproc toplevel (a1of1 go)
   gc_3.f = gc_4.r;
   gc_4.f = gc_5.r;
   gc_3.r = c_15.r;
-  syn_or2 or_29(gc_3.t,gc_4.t);
+  syn_bool_or or_29(gc_3.t,gc_4.t);
   or_29.out = c_15.a;
-  /* ----- end of gc (#1) ----- */
+  /* end of gc (#1) */
 
   syn_seq s_30(c_11);
   s_30.s1 = c_15;
@@ -532,7 +532,7 @@ defproc toplevel (a1of1 go)
   s_33.s1 = c_17;
 
 
-  /*--- emit individual gc (#2) [selection] ---*/
+  /* emit individual gc (#2) [selection] */
   r1of2 gc_6;
   syn_expr_vararray<8> e_45;
   (i:8: e_45.v[i] = var_x[i].v;)
@@ -706,9 +706,9 @@ defproc toplevel (a1of1 go)
   gc_6.f = gc_7.r;
   gc_7.f = gc_8.r;
   gc_6.r = c_21.r;
-  syn_or2 or_43(gc_6.t,gc_7.t);
+  syn_bool_or or_43(gc_6.t,gc_7.t);
   or_43.out = c_21.a;
-  /* ----- end of gc (#2) ----- */
+  /* end of gc (#2) */
 
   s_33.s2 = c_21;
 

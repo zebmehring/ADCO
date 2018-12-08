@@ -364,7 +364,7 @@ defproc toplevel (a1of1 go)
   s_15.r.a = ct_15.out;
   (i:8: e_41.out[i].t = rtv_15[i].in.t; e_41.out[i].f = rtv_15[i].in.f;)
   s_15.go.a = e_42.go_r;
-  c_11.a = chan_A.a;
+  c_11.a = e_42.go_r;
   (i:8: chan_A.d[i] = e_42.out[i];)
 
   syn_seq s_16(c_10);

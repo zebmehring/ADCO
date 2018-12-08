@@ -6,7 +6,8 @@ import "~/Documents/ADCO/act/channel.act";
 defproc delaybuf (bool in, out)
 {
   bool _x;
-  prs {
+  prs
+  {
      in => _x-
      _x => out-
   }
@@ -40,21 +41,12 @@ defproc bundled_expr_vararray (bool v[N]; bool out[N])
 
 /* ============================ CIRCUIT ELEMENTS ============================ */
 
-/* NAND GATE */
-defproc bundled_expr_nand (bool in1, in2; bool out)
-{
-  bool _in1;
-  prs {
-    in1 => _in1-
-    _in1 | in2 => out-
-  }
-}
-
 /* AND GATE */
 defproc bundled_expr_and (bool in1, in2; bool out)
 {
   bool _out;
-  prs {
+  prs
+  {
     in1 & in2 => _out-
     _out => out-
   }
@@ -64,26 +56,40 @@ defproc bundled_expr_and (bool in1, in2; bool out)
 defproc bundled_expr_or (bool in1, in2; bool out)
 {
   bool _out;
-  prs {
+  prs
+  {
     in1 | in2 => _out-
     _out => out-
+  }
+}
+
+/* NOT GATE */
+defproc bundled_expr_not (bool in; bool out)
+{
+  prs
+  {
+    in => out-
   }
 }
 
 /* XOR GATE */
 defproc bundled_expr_xor (bool in1, in2; bool out)
 {
-  bundled_expr_or or (in1, in2);
-  bundled_expr_nand nand (in1, in2);
-  bundled_expr_and and (or.out, nand.out, out);
+  bool _in1, _in2;
+  prs
+  {
+    (in1 & in2) | (_in1 & _in2) => out-
+    _in1 => in1-
+    _in2 => in2-
+  }
 }
 
-/* NOT GATE */
-defproc bundled_expr_not (bool in; bool out)
+/* NAND GATE */
+defproc bundled_expr_nand (bool in1, in2; bool out)
 {
-  bool _in;
-  prs {
-    in => out-
+  prs
+  {
+    in1 & in2 => out-
   }
 }
 
@@ -91,7 +97,8 @@ defproc bundled_expr_not (bool in; bool out)
 defproc bundled_full_adder (bool a, b, c; bool s, c_out)
 {
   bool _a, _b, _c;
-  prs {
+  prs
+  {
     (_a & _b & _c) | (a & b & _c) | (_a & b & c) | (a & _b & c) => s-
   	(_a & _b) | (_a & _c) | (_b & _c) => c_out-
   	a => _a-
@@ -114,7 +121,8 @@ defproc bundled_mul_cell (bool in1[N], in2; bool out[N])
 defproc bundled_mux (bool a, b, s; bool o)
 {
   bool _b, _s, _o;
-  prs {
+  prs
+  {
     a & _s -> _o-
     ~a & ~s -> _o+
     b & s -> _o-
@@ -170,19 +178,19 @@ template<pint M, N>
 defproc bundled_linear_csa_cascade (bool in[M][N]; bool out1[N], out2[N])
 {
   [  M > 3 ->
-      bool next[M-1][N];
-      bundled_carry_save_adder<N> cs (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], next[0][0..N-1], next[1][0..N-1]);
-      (i:M-3: next[i+2][0..N-1] = in[i+3][0..N-1];)
-      bundled_linear_csa_cascade<M-1, N> csac (next, out1, out2);
+       bool next[M-1][N];
+       bundled_carry_save_adder<N> cs (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], next[0][0..N-1], next[1][0..N-1]);
+       (i:M-3: next[i+2][0..N-1] = in[i+3][0..N-1];)
+       bundled_linear_csa_cascade<M-1, N> csac (next, out1, out2);
   [] M = 1 ->
-      syn_var_init_false const_0;
-      out1 = in[0][0..N-1];
-      (i:N: out2[i] = const_0.v.t;)
+       syn_var_init_false const_0;
+       out1 = in[0][0..N-1];
+       (i:N: out2[i] = const_0.v.t;)
   [] M = 2 ->
-      out1 = in[0][0..N-1];
-      out2 = in[1][0..N-1];
+       out1 = in[0][0..N-1];
+       out2 = in[1][0..N-1];
   [] else ->
-      bundled_carry_save_adder<N> cs_3 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], out1, out2);
+       bundled_carry_save_adder<N> cs_3 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], out1, out2);
   ]
 }
 
@@ -191,23 +199,23 @@ template<pint M, N>
 defproc bundled_wallace_tree (bool in[M][N]; bool out1[N], out2[N])
 {
   [  M > 4 ->
-      bundled_wallace_tree<M/2, N> l(in[0..M/2-1][0..N-1]);
-      bundled_wallace_tree<M-M/2, N> r(in[M/2..M-1][0..N-1]);
-      bundled_4_to_2_compressor<N> comp (l.out1, l.out2, r.out1, r.out2, out1, out2);
+       bundled_wallace_tree<M/2, N> l(in[0..M/2-1][0..N-1]);
+       bundled_wallace_tree<M-M/2, N> r(in[M/2..M-1][0..N-1]);
+       bundled_4_to_2_compressor<N> comp (l.out1, l.out2, r.out1, r.out2, out1, out2);
   [] M = 0 ->
-      syn_var_init_false const_0;
-      (i:N: out1[i] = const_0.v.t;
-            out2[i] = const_0.v.t;)
+       syn_var_init_false const_0;
+       (i:N: out1[i] = const_0.v.t;
+             out2[i] = const_0.v.t;)
   [] M = 1 ->
-      out1 = in[0][0..N-1];
-      (i:N: out2[i] = const_0.v.t;)
+       out1 = in[0][0..N-1];
+       (i:N: out2[i] = const_0.v.t;)
   [] M = 2 ->
-      out1 = in[0][0..N-1];
-      out2 = in[1][0..N-1];
+       out1 = in[0][0..N-1];
+       out2 = in[1][0..N-1];
   [] M = 3 ->
-      bundled_carry_save_adder<N> cs_3 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], out1, out2);
+       bundled_carry_save_adder<N> cs_3 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], out1, out2);
   [] else ->
-      bundled_4_to_2_compressor<N> comp_4 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], in[3][0..N-1], out1, out2);
+       bundled_4_to_2_compressor<N> comp_4 (in[0][0..N-1], in[1][0..N-1], in[2][0..N-1], in[3][0..N-1], out1, out2);
   ]
 }
 
@@ -252,6 +260,15 @@ defproc bundled_xor (bool in1[N], in2[N]; bool out[N])
         xor[i].out = out[i];)
 }
 
+template<pint N>
+defproc bundled_nand (bool in1[N], in2[N]; bool out[N])
+{
+  bundled_expr_nand nand[N];
+  (i:N: nand[i].in1 = in1[i];
+        nand[i].in2 = in2[i];
+        nand[i].out = out[i];)
+}
+
 /* ========================= ARITHMETIC OPERATIONS ========================= */
 
 /* RIPPLE-CARRY ADDITION */
@@ -259,11 +276,9 @@ template<pint N>
 defproc bundled_ripple_carry_add (bool in1[N], in2[N], c_in; bool out[N], overflow)
 {
   bundled_full_adder add[N];
-
   (i:N: add[i].a = in1[i];
         add[i].b = in2[i];
         add[i].s = out[i];)
-
   add[0].c = c_in;
   overflow = add[N-1].c_out;
   (i:N-1: add[i+1].c = add[i].c_out;)
@@ -281,15 +296,14 @@ defproc bundled_add (bool in1[N], in2[N]; bool out[N], overflow)
 template<pint N>
 defproc bundled_uminus (bool in[N]; bool out[N])
 {
-  bool inv[N];
-  bundled_not<N> n (in, inv);
+  bool _in[N];
+  bundled_not<N> n (in, _in);
 
   syn_var_init_false const_0;
   bool zero[N];
   (i:N: zero[i] = const_0.v.t;)
 
-  syn_var_init_true const_1;
-  bundled_ripple_carry_add<N> r (inv, zero, const_1.v.t, out);
+  bundled_ripple_carry_add<N> r (_in, zero, const_0.v.f, out);
 }
 
 template<pint N>
@@ -338,7 +352,8 @@ defproc bundled_mul (bool in1[N], in2[N]; bool out[N], overflow)
 
   bundled_2_to_1_mux<N> muxo (mul.out, _out, so, out);
 
-  prs {
+  prs
+  {
     in1[N-1] => _s1-
     in2[N-1] => _s2-
     (in1[N-1] & in2[N-1]) | (_s1 & _s2) => so-
@@ -355,7 +370,8 @@ template<pint N>
 defproc bundled_eq (bool in1[N], in2[N]; bool out)
 {
   bool _in1[N], _in2[N];
-  prs {
+  prs
+  {
     (|i:N: ((in1[i] & _in2[i]) | (_in1[i] & in2[i]))) => out-
 
     (i:N: in1[i] => _in1[i]-
@@ -380,7 +396,8 @@ defproc bundled_le (bool in1[N], in2[N]; bool out)
   bundled_eq<N> eq (in1, in2);
 
   bool _out;
-  prs {
+  prs
+  {
     sub.out[N-1] | eq.out => _out-
     _out => out-
   }
@@ -393,7 +410,8 @@ defproc bundled_ge (bool in1[N], in2[N]; bool out)
   bundled_sub<N> sub (in1, in2);
 
   bool _out;
-  prs {
+  prs
+  {
     sub.out[N-1] => _out-
     _out => out-
   }
@@ -434,7 +452,8 @@ defproc bundled_recv (a1of1 go; dualrail v[N]; aN1of2<N> in)
         rec[i].in.f = in.d[i].f;)
 
   bool _go_a, _in_a;
-  prs {
+  prs
+  {
     rec[0].go.a & d.out => _go_a-
     rec[0].in.a & d.out => _in_a-
     _go_a => go.a-
@@ -446,7 +465,8 @@ defproc bundled_var_to_dualrail (bool d; bool in; dualrail out)
 {
   bool _in;
   _dualrail _out;
-  prs {
+  prs
+  {
     in & d => _out.t-
     _in & d => _out.f-
 

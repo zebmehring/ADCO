@@ -9,5 +9,5 @@ vars {
 
 chp {
   x := 3 ;
-  z!x ; z?y
+  (z!x , z?y)
 }

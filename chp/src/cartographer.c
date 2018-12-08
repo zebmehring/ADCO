@@ -781,15 +781,26 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
         symbol *s = find_symbol (__chp, (char *) e->u.e.l);
       	if (s->bitwidth == 1)
         {
-      	  fprintf (output_stream, "  syn_a1of2_probe e_%d(chan_%s.t, chan_%s.f, chan_%s.a);\n", expr_count, s->name, s->name, s->name);
+      	  fprintf (output_stream, "  syn_a1of2_probe e_%d(,chan_%s.t, chan_%s.f, chan_%s.a);\n", expr_count, s->name, s->name, s->name);
       	}
         else
         {
-      	  fprintf (output_stream, "  syn_aN1of2_probe<%d> e_%d(chan_%s);\n", s->bitwidth, expr_count, s->name);
+      	  fprintf (output_stream, "  syn_aN1of2_probe<%d> e_%d(,chan_%s);\n", s->bitwidth, expr_count, s->name);
       	}
         *bitwidth = s->bitwidth;
+        // the current expression becomes the base go signal, if none is set
+        if (*base_var == -1)
+        {
+          *base_var = expr_count;
+        }
+        // the current expression becomes the base go signal, if none is set
+        else
+        {
+          fprintf (output_stream, "  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
+        }
         ret = expr_count++;
       }
+      break;
     case E_FUNCTION:
       {
         Expr *tmp;
@@ -942,16 +953,15 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
 int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
 {
   int a, b;
-  int ret = gc_chan_count++;
-  if (!gc) return -1;
 
-  fprintf (output_stream, "  r1of2 gc_%d;\n", ret);
+  fprintf (output_stream, "  r1of2 gc_%d;\n", gc_chan_count);
+  // guarded statement case
   if (gc->g)
   {
     int delay;
     char buf[MAX_EXPR_SIZE];
     a = print_expr (gc->g, bitwidth, base_var, &delay);
-    snprintf (buf, MAX_EXPR_SIZE, "gc_%d.r", ret);
+    snprintf (buf, MAX_EXPR_SIZE, "gc_%d.r", gc_chan_count);
 
     if (bundle_data && *bitwidth > 1)
     {
@@ -962,7 +972,7 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
         snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
       }
       delay = get_bundle_delay (1, E_NOT);
-      fprintf (output_stream, "  delay<%d> dn_%d(gc_%d.r);\n", delay, a, ret);
+      fprintf (output_stream, "  delay<%d> dn_%d(%s);\n", delay, a, buf);
       fprintf (output_stream, "  bundled_var_to_dualrail be_%d(dn_%d.out, be_%d.out);\n", expr_count, a, a);
       fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
       fprintf (output_stream, "  e_%d.v = be_%d.out;\n", expr_count, expr_count);
@@ -971,32 +981,35 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
       *base_var = a;
     }
 
-    /* replace "a"  with latched value */
+    // replace guard output with latched value
     a = print_expr_tmpvar (buf, *base_var, a, 1);
 
+    // print guarded statement
     b = print_chp_stmt (gc->s, bitwidth, base_var);
 
+    // empty guard
     if (b == -1)
     {
-      /* empty */
-      fprintf (output_stream, "  gc_%d.t = e_%d.out.t;\n", ret, a);
+      fprintf (output_stream, "  gc_%d.t = e_%d.out.t;\n", gc_chan_count, a);
     }
+    // non-empty guard
     else
     {
       fprintf (output_stream, "  e_%d.out.t = c_%d.r;\n", a, b);
-      fprintf (output_stream, "  gc_%d.t = c_%d.a;\n", ret, b);
+      fprintf (output_stream, "  gc_%d.t = c_%d.a;\n", gc_chan_count, b);
     }
-    fprintf (output_stream, "  gc_%d.f = e_%d.out.f;\n", ret, a);
+    fprintf (output_stream, "  gc_%d.f = e_%d.out.f;\n", gc_chan_count, a);
   }
+  // unguarded statement case (implicit true guard)
   else
   {
     b = print_chp_stmt (gc->s, bitwidth, base_var);
-    fprintf (output_stream, "  gc_%d.r = c_%d.r;\n", ret, b);
-    fprintf (output_stream, "  gc_%d.t = c_%d.a;\n", ret, b);
-    //fprintf (output_stream, "  prs { Reset|~Reset -> gc_%d.f- }\n", ret);
-    fprintf (output_stream, "  gc_%d.f = GND;\n", ret);
+    fprintf (output_stream, "  gc_%d.r = c_%d.r;\n", gc_chan_count, b);
+    fprintf (output_stream, "  gc_%d.t = c_%d.a;\n", gc_chan_count, b);
+    //fprintf (output_stream, "  prs { Reset|~Reset -> gc_%d.f- }\n", gc_chan_count);
+    fprintf (output_stream, "  gc_%d.f = GND;\n", gc_chan_count);
   }
-  return ret;
+  return gc_chan_count++;
 }
 
 /*
@@ -1015,17 +1028,12 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
  *
  * Return Value: the integer corresponding to the first guard's request channel
  */
-int print_gc (int loop, chp_gc_t *gc, int *bitwidth, int *base_var)
+int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var)
 {
-  int start_gc_chan = gc_chan_count;
-  int end_gc_chan;
-  int ret, i;
-  int na;
+  int start_gc_chan, end_gc_chan, na;
   static int gc_num = 0;
-  int mygc;
 
-  mygc = gc_num++;
-  fprintf (output_stream, "\n  /*--- emit individual gc (#%d) [%s] ---*/\n", mygc, loop ? "loop"  : "selection");
+  fprintf (output_stream, "\n  /* emit individual gc (#%d) [%s] */\n", gc_num, loop ? "loop" : "selection");
   start_gc_chan = print_one_gc (gc, bitwidth, base_var);
   end_gc_chan = start_gc_chan;
   gc = gc->next;
@@ -1034,66 +1042,69 @@ int print_gc (int loop, chp_gc_t *gc, int *bitwidth, int *base_var)
     end_gc_chan = print_one_gc (gc, bitwidth, base_var);
     gc = gc->next;
   }
-
-  ret = chan_count++;
-  fprintf (output_stream, "  a1of1 c_%d;\n", ret);
-
+  fprintf (output_stream, "  a1of1 c_%d;\n", chan_count);
   fprintf (output_stream, "  /* gc cascade, start = %d, end = %d */\n", start_gc_chan, end_gc_chan);
 
-  for (i = start_gc_chan; i < end_gc_chan; i++)
+  // cascade guards for deterministic selection
+  for (int i = start_gc_chan; i < end_gc_chan; i++)
   {
-    /* gc cascade */
     fprintf (output_stream, "  gc_%d.f = gc_%d.r;\n", i, i+1);
   }
+
+  // connect statment request to first guard
   if (!loop)
   {
-    fprintf (output_stream, "  gc_%d.r = c_%d.r;\n", start_gc_chan, ret);
+    fprintf (output_stream, "  gc_%d.r = c_%d.r;\n", start_gc_chan, chan_count);
   }
   else
   {
     na = stmt_count++;
-    fprintf (output_stream, "  syn_notand na_%d;\n", na);
-    fprintf (output_stream, "  na_%d.x = c_%d.r;\n", na, ret);
+    fprintf (output_stream, "  syn_bool_nand na_%d;\n", na);
+    fprintf (output_stream, "  na_%d.in1 = c_%d.r;\n", na, chan_count);
     fprintf (output_stream, "  na_%d.out = gc_%d.r;\n", na, start_gc_chan);
   }
 
+  // single guard case
   if (start_gc_chan == end_gc_chan)
   {
-    /* only one guard */
     if (!loop)
     {
-      fprintf (output_stream, "  gc_%d.t = c_%d.a;\n", start_gc_chan, ret);
+      fprintf (output_stream, "  gc_%d.t = c_%d.a;\n", start_gc_chan, chan_count);
     }
     else
     {
-      fprintf (output_stream, "  gc_%d.t = na_%d.y;\n", start_gc_chan, na);
-      fprintf (output_stream, "  gc_%d.f = c_%d.a;\n", start_gc_chan, ret);
+      fprintf (output_stream, "  gc_%d.t = na_%d.in2;\n", start_gc_chan, na);
+      fprintf (output_stream, "  gc_%d.f = c_%d.a;\n", start_gc_chan, chan_count);
     }
   }
+  // multi-guard case
   else
   {
+    // construct a multi-stage or gate for guard outputs
     int a, b;
-    /* multi-stage or gate */
     a = stmt_count++;
-    fprintf (output_stream, "  syn_or2 or_%d(gc_%d.t,gc_%d.t);\n", a, start_gc_chan, start_gc_chan+1);
-    for (i = start_gc_chan+2; i < end_gc_chan; i++)
+    fprintf (output_stream, "  syn_bool_or or_%d(gc_%d.t,gc_%d.t);\n", a, start_gc_chan, start_gc_chan+1);
+    for (int i = start_gc_chan+2; i < end_gc_chan; i++)
     {
       b = stmt_count++;
-      fprintf (output_stream, "  syn_or2 or_%d(or_%d.out,gc_%d.t);\n", b, a, i);
+      fprintf (output_stream, "  syn_bool_or or_%d(or_%d.out,gc_%d.t);\n", b, a, i);
       a = b;
     }
+
+    // connect multi-stage or gate output to statement acknowledge
     if (!loop)
     {
-      fprintf (output_stream, "  or_%d.out = c_%d.a;\n", a, ret);
+      fprintf (output_stream, "  or_%d.out = c_%d.a;\n", a, chan_count);
     }
     else
     {
-      fprintf (output_stream, "  or_%d.out = na_%d.y;\n", a, na);
-      fprintf (output_stream, "  gc_%d.f = c_%d.a;\n", end_gc_chan, ret);
+      fprintf (output_stream, "  or_%d.out = na_%d.in2;\n", a, na);
+      fprintf (output_stream, "  gc_%d.f = c_%d.a;\n", end_gc_chan, chan_count);
     }
   }
-  fprintf (output_stream, "  /* ----- end of gc (#%d) ----- */\n\n", mygc);
-  return ret;
+
+  fprintf (output_stream, "  /* end of gc (#%d) */\n\n", gc_num++);
+  return chan_count++;
 }
 
 /*
@@ -1335,7 +1346,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
 
     case CHP_LOOP:
     case CHP_SELECT:
-      ret = print_gc ((c->type == CHP_LOOP) ? 1 : 0, c->u.gc, bitwidth, base_var);
+      ret = print_gc ((c->type == CHP_LOOP) ? true : false, c->u.gc, bitwidth, base_var);
       break;
 
     default:

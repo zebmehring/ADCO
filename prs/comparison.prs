@@ -4372,10 +4372,10 @@ weak ~"t.const_0.v.f"->"t.const_0.v.t"+
 = "t.e_10.v[7].d[0]" "t.tv_8[7].v.d[0]"
 = "t.e_10.v[7].d[1]" "t.tv_8[7].v.d[1]"
 = "t.e_10.v[7].t" "t.tv_8[7].v.t"
-"t.or_15.x"|"t.or_15.y"->"t.or_15._or"-
-~("t.or_15.x"|"t.or_15.y")->"t.or_15._or"+
-"t.or_15._or"->"t.or_15.out"-
-~("t.or_15._or")->"t.or_15.out"+
+"t.or_15.in1"|"t.or_15.in2"->"t.or_15._out"-
+~("t.or_15.in1"|"t.or_15.in2")->"t.or_15._out"+
+"t.or_15._out"->"t.or_15.out"-
+~("t.or_15._out")->"t.or_15.out"+
 "t.e_38.ev[0].go_r"&"t.e_38.ev[0].v.t"->"t.e_38.ev[0]._out.t"-
 "t.e_38.ev[0].go_r"&"t.e_38.ev[0].v.f"->"t.e_38.ev[0]._out.f"-
 ~"_Reset"|~"t.e_38.ev[0].go_r"->"t.e_38.ev[0]._out.t"+
@@ -6256,10 +6256,10 @@ weak ~"t.tv_11[7].v.f"->"t.tv_11[7].v.t"+
 "t.s_25.r.a"->"t.s_25._ra"-
 ~("t.s_25.r.a")->"t.s_25._ra"+
 = "t.s_25.r.a" "t.ct_25.out"
-"t.or_43.x"|"t.or_43.y"->"t.or_43._or"-
-~("t.or_43.x"|"t.or_43.y")->"t.or_43._or"+
-"t.or_43._or"->"t.or_43.out"-
-~("t.or_43._or")->"t.or_43.out"+
+"t.or_43.in1"|"t.or_43.in2"->"t.or_43._out"-
+~("t.or_43.in1"|"t.or_43.in2")->"t.or_43._out"+
+"t.or_43._out"->"t.or_43.out"-
+~("t.or_43._out")->"t.or_43.out"+
 "t.e_50.ev[0].go_r"&"t.e_50.ev[0].v.t"->"t.e_50.ev[0]._out.t"-
 "t.e_50.ev[0].go_r"&"t.e_50.ev[0].v.f"->"t.e_50.ev[0]._out.f"-
 ~"_Reset"|~"t.e_50.ev[0].go_r"->"t.e_50.ev[0]._out.t"+
@@ -7373,7 +7373,7 @@ weak ~"t.tv_1[7].v.f"->"t.tv_1[7].v.t"+
 = "t.c_6.r" "t.s_10[1].go.r"
 = "t.c_6.r" "t.s_10[0].go.r"
 = "t.c_6.r" "t.s_11.go.r"
-= "t.c_6.a" "t.or_15.y"
+= "t.c_6.a" "t.or_15.in2"
 = "t.c_6.a" "t.gc_1.t"
 = "t.c_6.a" "t.ct_10.out"
 "Reset"->"t.tv_4[0].v.t"-
@@ -15824,7 +15824,7 @@ weak ~"t.var_y[7].v.f"->"t.var_y[7].v.t"+
 = "t.c_19.r" "t.s_38[1].go.r"
 = "t.c_19.r" "t.s_38[0].go.r"
 = "t.c_19.r" "t.s_39.go.r"
-= "t.c_19.a" "t.or_43.y"
+= "t.c_19.a" "t.or_43.in2"
 = "t.c_19.a" "t.gc_7.t"
 = "t.c_19.a" "t.ct_38.out"
 "t.s_10[0].go.r"&"t.s_10[0]._goa"&"t.s_10[0].in.t"->"t.s_10[0].v.f"-
@@ -18411,7 +18411,7 @@ weak ~"t.tv_9.v.f"->"t.tv_9.v.t"+
 = "t.c_5.r" "t.s_7[1].go.r"
 = "t.c_5.r" "t.s_7[0].go.r"
 = "t.c_5.r" "t.s_8.go.r"
-= "t.c_5.a" "t.or_15.x"
+= "t.c_5.a" "t.or_15.in1"
 = "t.c_5.a" "t.gc_0.t"
 = "t.c_5.a" "t.ct_7.out"
 "t.e_18.ev[0].go_r"&"t.e_18.ev[0].v.t"->"t.e_18.ev[0]._out.t"-
@@ -20514,7 +20514,7 @@ weak ~"t.e_53.ge.sub.u.const_0.v.f"->"t.e_53.ge.sub.u.const_0.v.t"+
 = "t.c_18.r" "t.s_35[1].go.r"
 = "t.c_18.r" "t.s_35[0].go.r"
 = "t.c_18.r" "t.s_36.go.r"
-= "t.c_18.a" "t.or_43.x"
+= "t.c_18.a" "t.or_43.in1"
 = "t.c_18.a" "t.gc_6.t"
 = "t.c_18.a" "t.ct_35.out"
 = "t.e_47.inv.in.d[0]" "t.e_47.inv.in.f"
@@ -23682,10 +23682,10 @@ weak ~"t.e_47.le.sub.u.const_0.v.f"->"t.e_47.le.sub.u.const_0.v.t"+
 = "t.s_30.s1.a" "t.s_30.s2.r"
 = "t.s_30.go.r" "t.s_30.s1.r"
 = "t.s_30.go.a" "t.s_30.s2.a"
-"t.or_29.x"|"t.or_29.y"->"t.or_29._or"-
-~("t.or_29.x"|"t.or_29.y")->"t.or_29._or"+
-"t.or_29._or"->"t.or_29.out"-
-~("t.or_29._or")->"t.or_29.out"+
+"t.or_29.in1"|"t.or_29.in2"->"t.or_29._out"-
+~("t.or_29.in1"|"t.or_29.in2")->"t.or_29._out"+
+"t.or_29._out"->"t.or_29.out"-
+~("t.or_29._out")->"t.or_29.out"+
 "t.s_41[0].go.r"&"t.s_41[0]._goa"&"t.s_41[0].in.t"->"t.s_41[0].v.f"-
 "t.s_41[0].go.r"&"t.s_41[0]._goa"&"t.s_41[0].in.f"->"t.s_41[0].v.t"-
 "t.s_41[0].go.r"&("t.s_41[0].v.t"&"t.s_41[0].in.t"|"t.s_41[0].v.f"&"t.s_41[0].in.f")->"t.s_41[0]._goa"-
@@ -24629,7 +24629,7 @@ weak ~"t.e_47.le.sub.u.const_0.v.f"->"t.e_47.le.sub.u.const_0.v.t"+
 = "t.c_12.r" "t.s_21[1].go.r"
 = "t.c_12.r" "t.s_21[0].go.r"
 = "t.c_12.r" "t.s_22.go.r"
-= "t.c_12.a" "t.or_29.x"
+= "t.c_12.a" "t.or_29.in1"
 = "t.c_12.a" "t.gc_3.t"
 = "t.c_12.a" "t.ct_21.out"
 "t.e_31.ev[0].go_r"&"t.e_31.ev[0].v.t"->"t.e_31.ev[0]._out.t"-
@@ -28816,7 +28816,7 @@ weak ~"t.e_27.le.sub.u.const_0.v.f"->"t.e_27.le.sub.u.const_0.v.t"+
 = "t.c_13.r" "t.s_24[1].go.r"
 = "t.c_13.r" "t.s_24[0].go.r"
 = "t.c_13.r" "t.s_25.go.r"
-= "t.c_13.a" "t.or_29.y"
+= "t.c_13.a" "t.or_29.in2"
 = "t.c_13.a" "t.gc_4.t"
 = "t.c_13.a" "t.ct_24.out"
 "Reset"->"t.tv_37.v.t"-
