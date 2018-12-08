@@ -951,10 +951,25 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
     int delay;
     char buf[MAX_EXPR_SIZE];
     a = print_expr (gc->g, bitwidth, base_var, &delay);
-
-    // TODO bundle_data here
-
     snprintf (buf, MAX_EXPR_SIZE, "gc_%d.r", ret);
+
+    if (bundle_data && *bitwidth > 1)
+    {
+      delay += get_bundle_delay (*bitwidth, gc->g->type);
+      if (delay > 0)
+      {
+        fprintf (output_stream, "  delay<%d> de_%d(%s);\n", delay, a, buf);
+        snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
+      }
+      delay = get_bundle_delay (1, E_NOT);
+      fprintf (output_stream, "  delay<%d> dn_%d(gc_%d.r);\n", delay, a, ret);
+      fprintf (output_stream, "  bundled_var_to_dualrail be_%d(dn_%d.out, be_%d.out);\n", expr_count, a, a);
+      fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
+      fprintf (output_stream, "  e_%d.v = be_%d.out;\n", expr_count, expr_count);
+      snprintf (buf, MAX_EXPR_SIZE, "dn_%d.out", a);
+      a = expr_count++;
+      *base_var = a;
+    }
 
     /* replace "a"  with latched value */
     a = print_expr_tmpvar (buf, *base_var, a, 1);
@@ -1133,29 +1148,25 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       ret = chan_count++;
       b = stmt_count++;
       fprintf (output_stream, "  a1of1 c_%d;\n", ret);
+      snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
       if (bundle_data && v->bitwidth > 1)
       {
         delay += get_bundle_delay (*bitwidth, c->u.assign.e->type);
         if (delay > 0)
         {
-          fprintf (output_stream, "  delay<%d> de_%d(c_%d.r);\n", delay, a, ret);
-          fprintf (output_stream, "  bundled_to_dualrail<%d> e_%d(de_%d.out, be_%d.out);\n", v->bitwidth, expr_count, a, a);
-          delay = get_bundle_delay (*bitwidth, E_NOT);
-          fprintf (output_stream, "  delay<%d> dn_%d(de_%d.out);\n", delay, a, a);
+          fprintf (output_stream, "  delay<%d> de_%d(%s);\n", delay, a, buf);
+          snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
         }
-        else
-        {
-          fprintf (output_stream, "  bundled_to_dualrail<%d> e_%d(c_%d.r, be_%d.out);\n", v->bitwidth, expr_count, ret, a);
-          delay = get_bundle_delay (*bitwidth, E_NOT);
-          fprintf (output_stream, "  delay<%d> dn_%d(c_%d.r);\n", delay, a, ret);
-        }
-        snprintf (buf, MAX_EXPR_SIZE, "dn_%d.out", a);
+        delay = get_bundle_delay (*bitwidth, E_NOT);
+        fprintf (output_stream, "  delay<%d> dn_%d(%s);\n", delay, a, buf);
+        fprintf (output_stream, "  bundled_vararray_to_dualrail<%d> be_%d(dn_%d.out, be_%d.out);\n", v->bitwidth, expr_count, a, a);
+        fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
+        fprintf (output_stream, "  e_%d.go_r = dn_%d.out;\n", expr_count, a);
+        fprintf (output_stream, "  (i:%d: e_%d.v[i] = be_%d.out[i];)\n", v->bitwidth, expr_count, expr_count);
+        snprintf (buf, MAX_EXPR_SIZE, "e_%d.go_r", expr_count);
         a = expr_count++;
       }
-      else
-      {
-        snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
-      }
+
       a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
       // fprintf (output_stream, "  e_%d.go_r = c_%d.r;\n", go_r, ret);
       if (v->bitwidth == 1)
@@ -1198,29 +1209,25 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth, base_var, &delay);
         ret = chan_count++;
         fprintf (output_stream, "  a1of1 c_%d;\n", ret);
+        snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
         if (bundle_data && v->bitwidth > 1)
         {
           delay += get_bundle_delay (*bitwidth, ((Expr *)list_value (list_first (c->u.comm.rhs)))->type);
           if (delay > 0)
           {
-            fprintf (output_stream, "  delay<%d> de_%d(c_%d.r);\n", delay, a, ret);
-            fprintf (output_stream, "  bundled_to_dualrail<%d> e_%d(de_%d.out, be_%d.out);\n", v->bitwidth, expr_count, a, a);
-            delay = get_bundle_delay (*bitwidth, E_NOT);
-            fprintf (output_stream, "  delay<%d> dn_%d(de_%d.out);\n", delay, a, a);
+            fprintf (output_stream, "  delay<%d> de_%d(%s);\n", delay, a, buf);
+            snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
           }
-          else
-          {
-            fprintf (output_stream, "  bundled_to_dualrail<%d> e_%d(c_%d.r, be_%d.out);\n", v->bitwidth, expr_count, ret, a);
-            delay = get_bundle_delay (*bitwidth, E_NOT);
-            fprintf (output_stream, "  delay<%d> dn_%d(c_%d.r);\n", delay, a, ret);
-          }
-          snprintf (buf, MAX_EXPR_SIZE, "dn_%d.out", a);
+          delay = get_bundle_delay (*bitwidth, E_NOT);
+          fprintf (output_stream, "  delay<%d> dn_%d(%s);\n", delay, a, buf);
+          fprintf (output_stream, "  bundled_vararray_to_dualrail<%d> be_%d(dn_%d.out, be_%d.out);\n", v->bitwidth, expr_count, a, a);
+          fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
+          fprintf (output_stream, "  e_%d.go_r = dn_%d.out;\n", expr_count, a);
+          fprintf (output_stream, "  (i:%d: e_%d.v[i] = be_%d.out[i];)\n", v->bitwidth, expr_count, expr_count);
+          snprintf (buf, MAX_EXPR_SIZE, "e_%d.go_r", expr_count);
           a = expr_count++;
         }
-        else
-        {
-          snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
-        }
+
         a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
         // fprintf (output_stream, "  e_%d.go_r = c_%d.r;\n", go_r, ret);
         fprintf (output_stream, "  c_%d.a = e_%d.go_r;\n", ret, a);

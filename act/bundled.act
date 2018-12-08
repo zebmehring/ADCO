@@ -341,12 +341,82 @@ defproc bundled_mul (bool in1[N], in2[N]; bool out[N], overflow)
   prs {
     in1[N-1] => _s1-
     in2[N-1] => _s2-
-    (in1[N-1] & in2[N-1]) | (_in1[N-1] & _in2[N-1]) => so-
+    (in1[N-1] & in2[N-1]) | (_s1 & _s2) => so-
 
     _s1 => s1-
     _s2 => s2-
   }
 }
+
+/* ========================== COMPARISON OPERATORS ========================== */
+
+/* EQUALITY */
+template<pint N>
+defproc bundled_eq (bool in1[N], in2[N]; bool out)
+{
+  bool _in1[N], _in2[N];
+  prs {
+    (|i:N: ((in1[i] & _in2[i]) | (_in1[i] & in2[i]))) => out-
+
+    (i:N: in1[i] => _in1[i]-
+          in2[i] => _in2[i]-)
+  }
+}
+
+/* INEQUALITY */
+template<pint N>
+defproc bundled_ne (bool in1[N], in2[N]; bool out)
+{
+  bool _out;
+  bundled_eq<N> eq (in1, in2, _out);
+  bundled_expr_not inv (_out, out);
+}
+
+/* LESS THAN OR EQUALS */
+template<pint N>
+defproc bundled_le (bool in1[N], in2[N]; bool out)
+{
+  bundled_sub<N> sub (in1, in2);
+  bundled_eq<N> eq (in1, in2);
+
+  bool _out;
+  prs {
+    sub.out[N-1] | eq.out => _out-
+    _out => out-
+  }
+}
+
+/* GREATER THAN OR EQUALS */
+template<pint N>
+defproc bundled_ge (bool in1[N], in2[N]; bool out)
+{
+  bundled_sub<N> sub (in1, in2);
+
+  bool _out;
+  prs {
+    sub.out[N-1] => _out-
+    _out => out-
+  }
+}
+
+/* LESS THAN */
+template<pint N>
+defproc bundled_lt (bool in1[N], in2[N]; bool out)
+{
+  bool _out;
+  bundled_ge<N> ge (in1, in2, _out);
+  bundled_expr_not inv (_out, out);
+}
+
+/* GREATER THAN */
+template<pint N>
+defproc bundled_gt (bool in1[N], in2[N]; bool out)
+{
+  bool _out;
+  bundled_le<N> le (in1, in2, _out);
+  bundled_expr_not inv (_out, out);
+}
+
 
 /* ============================= COMMUNICATION ============================= */
 
@@ -372,18 +442,25 @@ defproc bundled_recv (a1of1 go; dualrail v[N]; aN1of2<N> in)
   }
 }
 
-template<pint N>
-defproc bundled_to_dualrail (bool d; bool in[N]; dualrail out[N])
+defproc bundled_var_to_dualrail (bool d; bool in; dualrail out)
 {
-  bool _in[N];
-  _dualrail _out[N];
-  bundled_not<N> n (in, _in);
-
+  bool _in;
+  _dualrail _out;
   prs {
-    (i:N: in[i] & d => _out[i].t-
-          _in[i] & d => _out[i].f-)
+    in & d => _out.t-
+    _in & d => _out.f-
 
-    (i:N: _out[i].t => out[i].t-
-          _out[i].f => out[i].f-)
+    in => _in-
+    _out.t => out.t-
+    _out.f => out.f-
   }
+}
+
+template<pint N>
+defproc bundled_vararray_to_dualrail (bool d; bool in[N]; dualrail out[N])
+{
+  bundled_var_to_dualrail vtd[N];
+  (i:N: vtd[i].d = d;
+        vtd[i].in = in[i];
+        vtd[i].out = out[i];)
 }
