@@ -2,6 +2,7 @@
 
 extern Chp *__chp;
 extern bool bundle_data;
+extern bool benchmark;
 extern char *output_file;
 extern int optimization;
 
@@ -71,6 +72,8 @@ int main (int argc, char **argv)
     fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] <chp>\n", argv[0]);
     return 1;
   }
+
+  if (strstr (argv[chp], "benchmarks")) benchmark = true;
 
   c = read_chp (argv[chp]);
 

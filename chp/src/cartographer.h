@@ -3,11 +3,12 @@
 extern int expr_count;
 extern int stmt_count;
 extern int chan_count;
-extern Chp *__chp;
 extern int gc_chan_count;
+extern Chp *__chp;
 extern bool bundle_data;
-extern int optimization;
+extern bool benchmark;
 extern char *output_file;
+extern int optimization;
 extern struct Hashtable *evaluated_exprs;
 
 void print_vars (Chp *c);

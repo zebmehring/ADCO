@@ -8,6 +8,7 @@ int gc_chan_count = 0;
 Chp *__chp;
 
 bool bundle_data = false;
+bool benchmark = false;
 char *output_file = NULL;
 FILE *output_stream;
 int optimization = 0;
@@ -1380,7 +1381,8 @@ void print_chp_structure (Chp *c)
   {
     char *output_path = calloc (MAX_PATH_SIZE, sizeof(char));
     char *bundled = bundle_data ? "bundled_" : "";
-    snprintf (output_path, MAX_PATH_SIZE, "%s/tst/%s%s", ACT_PATH, bundled, output_file);
+    char *output_dir = benchmark ? "benchmarks" : "tst";
+    snprintf (output_path, MAX_PATH_SIZE, "%s/%s/%s%s", ACT_PATH, output_dir, bundled, output_file);
     output_stream = fopen (output_path, "w");
     free (output_path);
   }

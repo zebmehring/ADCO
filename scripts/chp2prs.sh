@@ -36,23 +36,25 @@ done
 
 for var in "$@"
 do
+  dir=${var%/*.chp};
+  dir=${dir##*/};
   var=${var%.chp};
   var=${var##*/};
   echo ===${var}===
   if [ "$OPTIMIZATION" -eq 1 ]; then
-    rm -f ${PROJECT_PATH}/act/tst/${var}.act;
-    rm -f ${PROJECT_PATH}/prs/${var}.prs;
-    ${PROJECT_PATH}/chp/bin/zcc -O1 -o ${var}.act ${PROJECT_PATH}/chp/tst/${var}.chp;
-    ${AFLAT_PATH}/aflatv2 ${PROJECT_PATH}/act/tst/${var}.act > ${PROJECT_PATH}/prs/${var}.prs;
+    rm -f ${PROJECT_PATH}/act/${dir}/${var}.act;
+    rm -f ${PROJECT_PATH}/prs/${dir}/${var}.prs;
+    ${PROJECT_PATH}/chp/bin/zcc -O1 -o ${var}.act ${PROJECT_PATH}/chp/${dir}/${var}.chp;
+    ${AFLAT_PATH}/aflatv2 ${PROJECT_PATH}/act/${dir}/${var}.act > ${PROJECT_PATH}/prs/${dir}/${var}.prs;
   elif [ "$BUNDLED" -eq 1 ]; then
-    rm -f ${PROJECT_PATH}/act/tst/bundled_${var}.act;
-    rm -f ${PROJECT_PATH}/prs/bundled_${var}.prs;
-    ${PROJECT_PATH}/chp/bin/zcc -b -o ${var}.act ${PROJECT_PATH}/chp/tst/${var}.chp;
-    ${AFLAT_PATH}/aflatv2 ${PROJECT_PATH}/act/tst/bundled_${var}.act > ${PROJECT_PATH}/prs/bundled_${var}.prs;
+    rm -f ${PROJECT_PATH}/act/${dir}/bundled_${var}.act;
+    rm -f ${PROJECT_PATH}/prs/${dir}/bundled_${var}.prs;
+    ${PROJECT_PATH}/chp/bin/zcc -b -o ${var}.act ${PROJECT_PATH}/chp/${dir}/${var}.chp;
+    ${AFLAT_PATH}/aflatv2 ${PROJECT_PATH}/act/${dir}/bundled_${var}.act > ${PROJECT_PATH}/prs/${dir}/bundled_${var}.prs;
   else
-    rm -f ${PROJECT_PATH}/act/tst/${var}.act;
-    rm -f ${PROJECT_PATH}/prs/${var}.prs;
-    ${PROJECT_PATH}/chp/bin/zcc -o ${var}.act ${PROJECT_PATH}/chp/tst/${var}.chp;
-    ${AFLAT_PATH}/aflatv2 ${PROJECT_PATH}/act/tst/${var}.act > ${PROJECT_PATH}/prs/${var}.prs;
+    rm -f ${PROJECT_PATH}/act/${dir}/${var}.act;
+    rm -f ${PROJECT_PATH}/prs/${dir}/${var}.prs;
+    ${PROJECT_PATH}/chp/bin/zcc -o ${var}.act ${PROJECT_PATH}/chp/${dir}/${var}.chp;
+    ${AFLAT_PATH}/aflatv2 ${PROJECT_PATH}/act/${dir}/${var}.act > ${PROJECT_PATH}/prs/${dir}/${var}.prs;
   fi
 done
