@@ -1,8 +1,8 @@
 /* variable declarations */
 vars {
-  int<32> x;
-  int<32> y;
-  int<32> z;
+  int<8> x;
+  int<8> y;
+  int<8> z;
 }
 
 /* chp program */

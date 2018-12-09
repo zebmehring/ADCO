@@ -634,8 +634,8 @@ defproc syn_le (dualrail in1[N], in2[N]; dualrail out)
   _dualrail _out;
   prs
   {
-    sub.out[N-1].t | eq.out.t => _out.t-
-    sub.out[N-1].f & eq.out.f => _out.f-
+    (sub.out[N-1].t & (&i:N-1: (sub.out[i].t | sub.out[i].f)) & (eq.out.t | eq.out.f)) | ((&i:N: (sub.out[i].t | sub.out[i].f)) & eq.out.t) => _out.t-
+    (sub.out[N-1].f & (&i:N-1: (sub.out[i].t | sub.out[i].f))) & eq.out.f => _out.f-
 
     _out.t => out.t-
     _out.f => out.f-
@@ -649,9 +649,10 @@ defproc syn_ge (dualrail in1[N], in2[N]; dualrail out)
   syn_sub<N> sub (in1, in2);
 
   _dualrail _out;
-  prs {
-    sub.out[N-1].t => _out.f-
-    sub.out[N-1].f => _out.t-
+  prs
+  {
+    (sub.out[N-1].f & (&i:N-1: (sub.out[i].t | sub.out[i].f))) => _out.t-
+    (sub.out[N-1].t & (&i:N-1: (sub.out[i].t | sub.out[i].f))) => _out.f-
 
     _out.t => out.t-
     _out.f => out.f-
@@ -665,9 +666,10 @@ defproc syn_lt (dualrail in1[N], in2[N]; dualrail out)
   syn_sub<N> sub (in1, in2);
 
   _dualrail _out;
-  prs {
-    sub.out[N-1].t => _out.t-
-    sub.out[N-1].f => _out.f-
+  prs
+  {
+    (sub.out[N-1].t & (&i:N-1: (sub.out[i].t | sub.out[i].f))) => _out.t-
+    (sub.out[N-1].f & (&i:N-1: (sub.out[i].t | sub.out[i].f))) => _out.f-
 
     _out.t => out.t-
     _out.f => out.f-
@@ -684,8 +686,8 @@ defproc syn_gt (dualrail in1[N], in2[N]; dualrail out)
   _dualrail _out;
   prs
   {
-    sub.out[N-1].f & eq.out.f => _out.t-
-    sub.out[N-1].t | eq.out.t => _out.f-
+    (sub.out[N-1].f & (&i:N-1: (sub.out[i].t | sub.out[i].f))) & eq.out.f => _out.t-
+    (sub.out[N-1].t & (&i:N-1: (sub.out[i].t | sub.out[i].f)) & (eq.out.t | eq.out.f)) | ((&i:N: (sub.out[i].t | sub.out[i].f)) & eq.out.t) => _out.f-
 
     _out.t => out.t-
     _out.f => out.f-

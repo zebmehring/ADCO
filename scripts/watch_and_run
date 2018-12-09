@@ -35,3 +35,4 @@ set _Reset 1
 cycle
 set t.go.r 1
 cycle
+status X
