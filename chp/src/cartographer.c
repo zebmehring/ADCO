@@ -204,24 +204,24 @@ int get_bundle_delay (int n, int type)
     case E_XOR:
     case E_NOT:
     case E_COMPLEMENT:
-      return n;
+      return 2*n;
     case E_PLUS:
-      return n;
+      return 2*n;
     case E_MINUS:
-      return 2*n;
+      return 2*(2*n);
     case E_MULT:
-      return n*n;
+      return 2*(n*n);
     case E_UMINUS:
-      return 2*n;
+      return 2*(2*n);
     case E_LT:
     case E_GE:
-      return 2*n;
+      return 2*(2*n);
     case E_LE:
     case E_GT:
-      return 3*n;
+      return 2*(3*n);
     case E_NE:
     case E_EQ:
-      return 2*n;
+      return 2*(2*n);
     case E_VAR:
     case E_INT:
       return 0;
