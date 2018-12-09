@@ -2,12 +2,12 @@
 vars {
   int<8> x;
   int<8> y;
-  chan<8> z;
+  chan<8> a;
 }
 
 /* chp program */
 
 chp {
   x := 3 ;
-  (z!x , z?y)
+  (a!x , a?y)
 }

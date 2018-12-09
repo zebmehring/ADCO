@@ -9,5 +9,10 @@ do
     echo "$var not found."
     continue
   fi
-  cat $PROJECT_PATH/scripts/watch_and_run | prsim $PROJECT_PATH/prs/benchmarks/$var
+  touch /tmp/temp_$var;
+  cat $PROJECT_PATH/scripts/watch_and_run > /tmp/temp_$var;
+  name=${var%.prs};
+  echo "dumptc $PROJECT_PATH/results/$name.tc" >> /tmp/temp_$var;
+  cat /tmp/temp_$var | prsim $PROJECT_PATH/prs/benchmarks/$var;
+  rm -f /tmp/temp_$var;
 done

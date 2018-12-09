@@ -3,9 +3,9 @@ import "/home/user/Documents/ADCO/act/syn.act";
 defproc toplevel (a1of1 go)
 {
   /* --- declaring all variables and channels --- */
+  aN1of2<32> chan_a;
   syn_var_init_false var_x[32];
   syn_var_init_false var_y[32];
-  aN1of2<32> chan_z;
   /* --- end of declarations --- */
 
   /* semicolon */
@@ -94,7 +94,7 @@ defproc toplevel (a1of1 go)
   (i:32: e_3.out[i].t = rtv_3[i].in.t; e_3.out[i].f = rtv_3[i].in.f;)
   s_3.go.a = e_4.go_r;
   c_3.a = e_4.go_r;
-  (i:32: chan_z.d[i] = e_4.out[i];)
+  (i:32: chan_a.d[i] = e_4.out[i];)
 
   syn_par s_4(c_2);
   s_4.s1 = c_3;
@@ -105,9 +105,9 @@ defproc toplevel (a1of1 go)
   (i:32: s_5[i].go.r = c_4.r;)
   syn_ctree<32> ct_5;
   (i:32: ct_5.in[i] = s_5[i].go.a;)
-  ct_5.out = c_4.a; c_4.a = chan_z.a;
-  (i:32: s_5[i].in.t = chan_z.d[i].t;
-        s_5[i].in.f = chan_z.d[i].f;
+  ct_5.out = c_4.a; c_4.a = chan_a.a;
+  (i:32: s_5[i].in.t = chan_a.d[i].t;
+        s_5[i].in.f = chan_a.d[i].f;
         s_5[i].v = var_y[i].v;)
 
   s_4.s2 = c_4;

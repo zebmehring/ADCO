@@ -4,9 +4,9 @@ import "/home/user/Documents/ADCO/act/bundled.act";
 defproc toplevel (a1of1 go)
 {
   /* --- declaring all variables and channels --- */
+  aN1of2<8> chan_a;
   syn_var_init_false var_x[8];
   syn_var_init_false var_y[8];
-  aN1of2<8> chan_z;
   /* --- end of declarations --- */
 
   /* semicolon */
@@ -24,7 +24,7 @@ defproc toplevel (a1of1 go)
   be_1.v[6] = const_0.v.t;
   be_1.v[7] = const_0.v.t;
   a1of1 c_1;
-  delay<8> dn_1(c_1.r);
+  delay<16> dn_1(c_1.r);
   bundled_vararray_to_dualrail<8> be_2(dn_1.out, be_1.out);
   syn_expr_vararray<8> e_2;
   e_2.go_r = dn_1.out;
@@ -56,7 +56,7 @@ defproc toplevel (a1of1 go)
   bundled_expr_vararray<8> be_4;
   (i:8: be_4.v[i] = var_x[i].v.t;)
   a1of1 c_3;
-  delay<8> dn_4(c_3.r);
+  delay<16> dn_4(c_3.r);
   bundled_vararray_to_dualrail<8> be_5(dn_4.out, be_4.out);
   syn_expr_vararray<8> e_5;
   e_5.go_r = dn_4.out;
@@ -72,7 +72,7 @@ defproc toplevel (a1of1 go)
   (i:8: e_5.out[i].t = brtv_3.in.d[i].t; e_5.out[i].f = brtv_3.in.d[i].f;)
   s_3.go.a = e_6.go_r;
   c_3.a = e_6.go_r;
-  (i:8: chan_z.d[i] = e_6.out[i];)
+  (i:8: chan_a.d[i] = e_6.out[i];)
 
   syn_par s_4(c_2);
   s_4.s1 = c_3;
@@ -81,9 +81,9 @@ defproc toplevel (a1of1 go)
   a1of1 c_4;
   bundled_recv<8> s_5;
   s_5.go.r = c_4.r;
-  s_5.go.a = c_4.a; c_4.a = chan_z.a;
-  (i:8: s_5.in.d[i].t = chan_z.d[i].t;
-        s_5.in.d[i].f = chan_z.d[i].f;
+  s_5.go.a = c_4.a; c_4.a = chan_a.a;
+  (i:8: s_5.in.d[i].t = chan_a.d[i].t;
+        s_5.in.d[i].f = chan_a.d[i].f;
         s_5.v[i] = var_y[i].v;)
 
   s_4.s2 = c_4;

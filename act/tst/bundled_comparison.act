@@ -24,7 +24,7 @@ defproc toplevel (a1of1 go)
   be_1.v[6] = const_0.v.t;
   be_1.v[7] = const_0.v.t;
   a1of1 c_1;
-  delay<8> dn_1(c_1.r);
+  delay<16> dn_1(c_1.r);
   bundled_vararray_to_dualrail<8> be_2(dn_1.out, be_1.out);
   syn_expr_vararray<8> e_2;
   e_2.go_r = dn_1.out;
@@ -62,7 +62,7 @@ defproc toplevel (a1of1 go)
   be_4.v[6] = const_0.v.t;
   be_4.v[7] = const_0.v.t;
   a1of1 c_3;
-  delay<8> dn_4(c_3.r);
+  delay<16> dn_4(c_3.r);
   bundled_vararray_to_dualrail<8> be_5(dn_4.out, be_4.out);
   syn_expr_vararray<8> e_5;
   e_5.go_r = dn_4.out;
@@ -99,8 +99,8 @@ defproc toplevel (a1of1 go)
   bundled_gt<8> be_9;
   (i:8: be_9.in1[i] = be_7.out[i];)
   (i:8: be_9.in2[i] = be_8.out[i];)
-  delay<24> de_9(gc_0.r);
-  delay<1> dn_9(de_9.out);
+  delay<48> de_9(gc_0.r);
+  delay<2> dn_9(de_9.out);
   bundled_var_to_dualrail be_10(dn_9.out, be_9.out);
   syn_expr_var e_10;
   e_10.v = be_10.out;
@@ -126,7 +126,7 @@ defproc toplevel (a1of1 go)
   be_12.v[6] = const_0.v.t;
   be_12.v[7] = const_0.v.t;
   a1of1 c_5;
-  delay<8> dn_12(c_5.r);
+  delay<16> dn_12(c_5.r);
   bundled_vararray_to_dualrail<8> be_13(dn_12.out, be_12.out);
   syn_expr_vararray<8> e_13;
   e_13.go_r = dn_12.out;
@@ -159,8 +159,8 @@ defproc toplevel (a1of1 go)
   bundled_lt<8> be_17;
   (i:8: be_17.in1[i] = be_15.out[i];)
   (i:8: be_17.in2[i] = be_16.out[i];)
-  delay<16> de_17(gc_1.r);
-  delay<1> dn_17(de_17.out);
+  delay<32> de_17(gc_1.r);
+  delay<2> dn_17(de_17.out);
   bundled_var_to_dualrail be_18(dn_17.out, be_17.out);
   syn_expr_var e_18;
   e_18.v = be_18.out;
@@ -186,7 +186,7 @@ defproc toplevel (a1of1 go)
   be_20.v[6] = const_0.v.t;
   be_20.v[7] = const_0.v.t;
   a1of1 c_6;
-  delay<8> dn_20(c_6.r);
+  delay<16> dn_20(c_6.r);
   bundled_vararray_to_dualrail<8> be_21(dn_20.out, be_20.out);
   syn_expr_vararray<8> e_21;
   e_21.go_r = dn_20.out;
@@ -219,8 +219,8 @@ defproc toplevel (a1of1 go)
   bundled_eq<8> be_25;
   (i:8: be_25.in1[i] = be_23.out[i];)
   (i:8: be_25.in2[i] = be_24.out[i];)
-  delay<16> de_25(gc_2.r);
-  delay<1> dn_25(de_25.out);
+  delay<32> de_25(gc_2.r);
+  delay<2> dn_25(de_25.out);
   bundled_var_to_dualrail be_26(dn_25.out, be_25.out);
   syn_expr_var e_26;
   e_26.v = be_26.out;
@@ -246,7 +246,7 @@ defproc toplevel (a1of1 go)
   be_28.v[6] = const_0.v.t;
   be_28.v[7] = const_0.v.t;
   a1of1 c_7;
-  delay<8> dn_28(c_7.r);
+  delay<16> dn_28(c_7.r);
   bundled_vararray_to_dualrail<8> be_29(dn_28.out, be_28.out);
   syn_expr_vararray<8> e_29;
   e_29.go_r = dn_28.out;
@@ -296,7 +296,7 @@ defproc toplevel (a1of1 go)
   be_31.v[6] = const_0.v.t;
   be_31.v[7] = const_0.v.t;
   a1of1 c_10;
-  delay<8> dn_31(c_10.r);
+  delay<16> dn_31(c_10.r);
   bundled_vararray_to_dualrail<8> be_32(dn_31.out, be_31.out);
   syn_expr_vararray<8> e_32;
   e_32.go_r = dn_31.out;
@@ -333,8 +333,8 @@ defproc toplevel (a1of1 go)
   bundled_gt<8> be_36;
   (i:8: be_36.in1[i] = be_34.out[i];)
   (i:8: be_36.in2[i] = be_35.out[i];)
-  delay<24> de_36(gc_3.r);
-  delay<1> dn_36(de_36.out);
+  delay<48> de_36(gc_3.r);
+  delay<2> dn_36(de_36.out);
   bundled_var_to_dualrail be_37(dn_36.out, be_36.out);
   syn_expr_var e_37;
   e_37.v = be_37.out;
@@ -360,7 +360,7 @@ defproc toplevel (a1of1 go)
   be_39.v[6] = const_0.v.t;
   be_39.v[7] = const_0.v.t;
   a1of1 c_12;
-  delay<8> dn_39(c_12.r);
+  delay<16> dn_39(c_12.r);
   bundled_vararray_to_dualrail<8> be_40(dn_39.out, be_39.out);
   syn_expr_vararray<8> e_40;
   e_40.go_r = dn_39.out;
@@ -393,8 +393,8 @@ defproc toplevel (a1of1 go)
   bundled_lt<8> be_44;
   (i:8: be_44.in1[i] = be_42.out[i];)
   (i:8: be_44.in2[i] = be_43.out[i];)
-  delay<16> de_44(gc_4.r);
-  delay<1> dn_44(de_44.out);
+  delay<32> de_44(gc_4.r);
+  delay<2> dn_44(de_44.out);
   bundled_var_to_dualrail be_45(dn_44.out, be_44.out);
   syn_expr_var e_45;
   e_45.v = be_45.out;
@@ -420,7 +420,7 @@ defproc toplevel (a1of1 go)
   be_47.v[6] = const_0.v.t;
   be_47.v[7] = const_0.v.t;
   a1of1 c_13;
-  delay<8> dn_47(c_13.r);
+  delay<16> dn_47(c_13.r);
   bundled_vararray_to_dualrail<8> be_48(dn_47.out, be_47.out);
   syn_expr_vararray<8> e_48;
   e_48.go_r = dn_47.out;
@@ -453,8 +453,8 @@ defproc toplevel (a1of1 go)
   bundled_eq<8> be_52;
   (i:8: be_52.in1[i] = be_50.out[i];)
   (i:8: be_52.in2[i] = be_51.out[i];)
-  delay<16> de_52(gc_5.r);
-  delay<1> dn_52(de_52.out);
+  delay<32> de_52(gc_5.r);
+  delay<2> dn_52(de_52.out);
   bundled_var_to_dualrail be_53(dn_52.out, be_52.out);
   syn_expr_var e_53;
   e_53.v = be_53.out;
@@ -480,7 +480,7 @@ defproc toplevel (a1of1 go)
   be_55.v[6] = const_0.v.t;
   be_55.v[7] = const_0.v.t;
   a1of1 c_14;
-  delay<8> dn_55(c_14.r);
+  delay<16> dn_55(c_14.r);
   bundled_vararray_to_dualrail<8> be_56(dn_55.out, be_55.out);
   syn_expr_vararray<8> e_56;
   e_56.go_r = dn_55.out;
@@ -530,7 +530,7 @@ defproc toplevel (a1of1 go)
   be_58.v[6] = const_0.v.t;
   be_58.v[7] = const_0.v.t;
   a1of1 c_17;
-  delay<8> dn_58(c_17.r);
+  delay<16> dn_58(c_17.r);
   bundled_vararray_to_dualrail<8> be_59(dn_58.out, be_58.out);
   syn_expr_vararray<8> e_59;
   e_59.go_r = dn_58.out;
@@ -565,8 +565,8 @@ defproc toplevel (a1of1 go)
   bundled_gt<8> be_63;
   (i:8: be_63.in1[i] = be_61.out[i];)
   (i:8: be_63.in2[i] = be_62.out[i];)
-  delay<24> de_63(gc_6.r);
-  delay<1> dn_63(de_63.out);
+  delay<48> de_63(gc_6.r);
+  delay<2> dn_63(de_63.out);
   bundled_var_to_dualrail be_64(dn_63.out, be_63.out);
   syn_expr_var e_64;
   e_64.v = be_64.out;
@@ -592,7 +592,7 @@ defproc toplevel (a1of1 go)
   be_66.v[6] = const_0.v.t;
   be_66.v[7] = const_0.v.t;
   a1of1 c_18;
-  delay<8> dn_66(c_18.r);
+  delay<16> dn_66(c_18.r);
   bundled_vararray_to_dualrail<8> be_67(dn_66.out, be_66.out);
   syn_expr_vararray<8> e_67;
   e_67.go_r = dn_66.out;
@@ -625,8 +625,8 @@ defproc toplevel (a1of1 go)
   bundled_lt<8> be_71;
   (i:8: be_71.in1[i] = be_69.out[i];)
   (i:8: be_71.in2[i] = be_70.out[i];)
-  delay<16> de_71(gc_7.r);
-  delay<1> dn_71(de_71.out);
+  delay<32> de_71(gc_7.r);
+  delay<2> dn_71(de_71.out);
   bundled_var_to_dualrail be_72(dn_71.out, be_71.out);
   syn_expr_var e_72;
   e_72.v = be_72.out;
@@ -652,7 +652,7 @@ defproc toplevel (a1of1 go)
   be_74.v[6] = const_0.v.t;
   be_74.v[7] = const_0.v.t;
   a1of1 c_19;
-  delay<8> dn_74(c_19.r);
+  delay<16> dn_74(c_19.r);
   bundled_vararray_to_dualrail<8> be_75(dn_74.out, be_74.out);
   syn_expr_vararray<8> e_75;
   e_75.go_r = dn_74.out;
@@ -685,8 +685,8 @@ defproc toplevel (a1of1 go)
   bundled_eq<8> be_79;
   (i:8: be_79.in1[i] = be_77.out[i];)
   (i:8: be_79.in2[i] = be_78.out[i];)
-  delay<16> de_79(gc_8.r);
-  delay<1> dn_79(de_79.out);
+  delay<32> de_79(gc_8.r);
+  delay<2> dn_79(de_79.out);
   bundled_var_to_dualrail be_80(dn_79.out, be_79.out);
   syn_expr_var e_80;
   e_80.v = be_80.out;
@@ -712,7 +712,7 @@ defproc toplevel (a1of1 go)
   be_82.v[6] = const_0.v.t;
   be_82.v[7] = const_0.v.t;
   a1of1 c_20;
-  delay<8> dn_82(c_20.r);
+  delay<16> dn_82(c_20.r);
   bundled_vararray_to_dualrail<8> be_83(dn_82.out, be_82.out);
   syn_expr_vararray<8> e_83;
   e_83.go_r = dn_82.out;

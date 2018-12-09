@@ -4,8 +4,6 @@ defproc toplevel (a1of1 go)
 {
   /* --- declaring all variables and channels --- */
   syn_var_init_false var_x[8];
-  syn_var_init_false var_y[8];
-  syn_var_init_false var_z[8];
   /* --- end of declarations --- */
 
   /* semicolon */

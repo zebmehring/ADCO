@@ -3,7 +3,7 @@ import "/home/user/Documents/ADCO/act/syn.act";
 defproc toplevel (a1of1 go)
 {
   /* --- declaring all variables and channels --- */
-  syn_var_init_false var_a[8];
+  syn_var_init_false var_w[8];
   syn_var_init_false var_x[8];
   syn_var_init_false var_y[8];
   syn_var_init_false var_z[8];
@@ -87,8 +87,9 @@ defproc toplevel (a1of1 go)
 
   syn_seq s_5(c_2);
   s_5.s1 = c_3;
+
+  /* comma */
   a1of1 c_4;
-  s_5.s2 = c_4;
 
   /* assign */
   syn_expr_vararray<8> e_5;
@@ -122,7 +123,7 @@ defproc toplevel (a1of1 go)
         s_6[i].in.f = e_8.out[i].f;
         s_6[i].v = var_z[i].v;)
 
-  syn_seq s_8(c_4);
+  syn_par s_8(c_4);
   s_8.s1 = c_5;
 
   /* assign */
@@ -155,9 +156,11 @@ defproc toplevel (a1of1 go)
   ct_9.out = c_6.a;
   (i:8: s_9[i].in.t = e_12.out[i].t;
         s_9[i].in.f = e_12.out[i].f;
-        s_9[i].v = var_a[i].v;)
+        s_9[i].v = var_w[i].v;)
 
   s_8.s2 = c_6;
+
+  s_5.s2 = c_4;
 
   go = c_0;
 }

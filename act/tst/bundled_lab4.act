@@ -95,11 +95,11 @@ defproc toplevel (a1of1 go)
   s_8.s1 = c_8;
 
 
-  /* emit individual gc (#0) [selection] */
-  r1of2 gc_0;
+  /* emit individual gc (#1) [selection] */
+  r1of2 gc_1;
   syn_expr_var e_3(,var_b.v);
   syn_fullseq s_9;
-  gc_0.r = s_9.go.r;
+  gc_1.r = s_9.go.r;
   syn_recv rtv_9;
   syn_expr_var e_4;
   syn_var_init_false tv_9(rtv_9.v);
@@ -114,7 +114,7 @@ defproc toplevel (a1of1 go)
   (i:8: e_5.x[i] = var_x[i].v;)
   (i:8: e_5.y[i] = var_y[i].v;)
   a1of1 c_9;
-  delay<8> dn_5(c_9.r);
+  delay<16> dn_5(c_9.r);
   bundled_vararray_to_dualrail<8> be_6(dn_5.out, be_5.out);
   syn_expr_vararray<8> e_6;
   e_6.go_r = dn_5.out;
@@ -133,13 +133,13 @@ defproc toplevel (a1of1 go)
   (i:8: chan_S.d[i] = e_7.out[i];)
 
   e_4.out.t = c_9.r;
-  gc_0.t = c_9.a;
-  gc_0.f = e_4.out.f;
-  r1of2 gc_1;
+  gc_1.t = c_9.a;
+  gc_1.f = e_4.out.f;
+  r1of2 gc_2;
   syn_expr_var e_8(,var_b.v);
   syn_expr_not e_9(e_8.out);
   syn_fullseq s_11;
-  gc_1.r = s_11.go.r;
+  gc_2.r = s_11.go.r;
   syn_recv rtv_11;
   syn_expr_var e_10;
   syn_var_init_false tv_11(rtv_11.v);
@@ -155,7 +155,7 @@ defproc toplevel (a1of1 go)
   (i:8: e_11.x[i] = var_x[i].v;)
   (i:8: e_11.y[i] = var_y[i].v;)
   a1of1 c_10;
-  delay<8> dn_11(c_10.r);
+  delay<16> dn_11(c_10.r);
   bundled_vararray_to_dualrail<8> be_12(dn_11.out, be_11.out);
   syn_expr_vararray<8> e_12;
   e_12.go_r = dn_11.out;
@@ -174,29 +174,29 @@ defproc toplevel (a1of1 go)
   (i:8: chan_F.d[i] = e_13.out[i];)
 
   e_10.out.t = c_10.r;
-  gc_1.t = c_10.a;
-  gc_1.f = e_10.out.f;
+  gc_2.t = c_10.a;
+  gc_2.f = e_10.out.f;
   a1of1 c_11;
-  /* gc cascade, start = 0, end = 1 */
-  gc_0.f = gc_1.r;
-  gc_0.r = c_11.r;
-  syn_bool_or or_13(gc_0.t,gc_1.t);
+  /* gc cascade, start = 1, end = 2 */
+  gc_1.f = gc_2.r;
+  gc_1.r = c_11.r;
+  syn_bool_or or_13(gc_1.t,gc_2.t);
   or_13.out = c_11.a;
-  /* end of gc (#0) */
+  /* end of gc (#1) */
 
   s_8.s2 = c_11;
 
-  gc_2.r = c_1.r;
-  gc_2.t = c_1.a;
-  gc_2.f = GND;
+  gc_0.r = c_1.r;
+  gc_0.t = c_1.a;
+  gc_0.f = GND;
   a1of1 c_12;
-  /* gc cascade, start = 2, end = 2 */
-  syn_bool_nand na_14;
+  /* gc cascade, start = 0, end = 0 */
+  syn_bool_notand na_14;
   na_14.in1 = c_12.r;
-  na_14.out = gc_2.r;
-  gc_2.t = na_14.in2;
-  gc_2.f = c_12.a;
-  /* end of gc (#1) */
+  na_14.out = gc_0.r;
+  gc_0.t = na_14.in2;
+  gc_0.f = c_12.a;
+  /* end of gc (#0) */
 
   syn_par s_15(c_0);
   s_15.s1 = c_12;
@@ -220,7 +220,7 @@ defproc toplevel (a1of1 go)
   gc_3.f = GND;
   a1of1 c_15;
   /* gc cascade, start = 3, end = 3 */
-  syn_bool_nand na_17;
+  syn_bool_notand na_17;
   na_17.in1 = c_15.r;
   na_17.out = gc_3.r;
   gc_3.t = na_17.in2;
@@ -247,7 +247,7 @@ defproc toplevel (a1of1 go)
   gc_4.f = GND;
   a1of1 c_17;
   /* gc cascade, start = 4, end = 4 */
-  syn_bool_nand na_20;
+  syn_bool_notand na_20;
   na_20.in1 = c_17.r;
   na_20.out = gc_4.r;
   gc_4.t = na_20.in2;

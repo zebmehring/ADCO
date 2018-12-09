@@ -1,0 +1,31 @@
+vector tw8 t.var_w[7].v.t t.var_w[6].v.t t.var_w[5].v.t t.var_w[4].v.t t.var_w[3].v.t t.var_w[2].v.t t.var_w[1].v.t t.var_w[0].v.t
+vwatch tw8
+vector fw8 t.var_w[7].v.f t.var_w[6].v.f t.var_w[5].v.f t.var_w[4].v.f t.var_w[3].v.f t.var_w[2].v.f t.var_w[1].v.f t.var_w[0].v.f
+vwatch fw8
+vector tx8 t.var_x[7].v.t t.var_x[6].v.t t.var_x[5].v.t t.var_x[4].v.t t.var_x[3].v.t t.var_x[2].v.t t.var_x[1].v.t t.var_x[0].v.t
+vwatch tx8
+vector fx8 t.var_x[7].v.f t.var_x[6].v.f t.var_x[5].v.f t.var_x[4].v.f t.var_x[3].v.f t.var_x[2].v.f t.var_x[1].v.f t.var_x[0].v.f
+vwatch fx8
+vector ty8 t.var_y[7].v.t t.var_y[6].v.t t.var_y[5].v.t t.var_y[4].v.t t.var_y[3].v.t t.var_y[2].v.t t.var_y[1].v.t t.var_y[0].v.t
+vwatch ty8
+vector fy8 t.var_y[7].v.f t.var_y[6].v.f t.var_y[5].v.f t.var_y[4].v.f t.var_y[3].v.f t.var_y[2].v.f t.var_y[1].v.f t.var_y[0].v.f
+vwatch fy8
+vector tz8 t.var_z[7].v.t t.var_z[6].v.t t.var_z[5].v.t t.var_z[4].v.t t.var_z[3].v.t t.var_z[2].v.t t.var_z[1].v.t t.var_z[0].v.t
+vwatch tz8
+vector fz8 t.var_z[7].v.f t.var_z[6].v.f t.var_z[5].v.f t.var_z[4].v.f t.var_z[3].v.f t.var_z[2].v.f t.var_z[1].v.f t.var_z[0].v.f
+vwatch fz8
+vector ta8 t.chan_a.d[7].t t.chan_a.d[6].t t.chan_a.d[5].t t.chan_a.d[4].t t.chan_a.d[3].t t.chan_a.d[2].t t.chan_a.d[1].t t.chan_a.d[0].t
+vwatch ta8
+vector fa8 t.chan_a.d[7].f t.chan_a.d[6].f t.chan_a.d[5].f t.chan_a.d[4].f t.chan_a.d[3].f t.chan_a.d[2].f t.chan_a.d[1].f t.chan_a.d[0].f
+vwatch fa8
+initialize
+set Reset 1
+set _Reset 0
+set t.go.r 0
+cycle
+set Reset 0
+set _Reset 1
+cycle
+set t.go.r 1
+cycle
+status X

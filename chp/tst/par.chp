@@ -1,15 +1,15 @@
 /* variable declarations */
 vars {
+  int<8> w;
   int<8> x;
   int<8> y;
   int<8> z;
-  int<8> a;
 }
 
 /* chp program */
 
 chp {
   x := 3 ;
-  y := 3 ;
-  (z := x , a := y)
+  y := 8 ;
+  (z := x , w := y)
 }

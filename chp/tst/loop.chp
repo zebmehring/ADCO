@@ -2,14 +2,14 @@
 vars {
   int<8> x;
   int<8> y;
-  int<8> i;
+  int<8> z;
 }
 
 /* chp program */
 
 chp {
-  i := 0 ;
+  z := 0 ;
   x := 0 ;
-  *[i < 10 -> x := x + i ; i := i + 1] ;
+  *[z < 10 -> x := x + z ; z := z + 1] ;
   y := x
 }
