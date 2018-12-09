@@ -1,0 +1,16 @@
+add_32: 19836
+add_8: 4792
+bundled_add_32: 20311
+bundled_add_8: 5217
+bundled_comm: 12901
+bundled_for_loop: 284887
+bundled_mul_32: 69157
+bundled_mul_8: 8871
+bundled_sub_32: 22303
+bundled_sub_8: 5674
+comm: 10446
+for_loop: 1103663
+mul_32: 226148
+mul_8: 20324
+sub_32: 25228
+sub_8: 6152
