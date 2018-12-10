@@ -1,0 +1,440 @@
+Node `t.var_x[31].v.t' not found
+Vector `tx32' not found
+Node `t.var_x[31].v.f' not found
+Node `t.var_y[31].v.t' not found
+Vector `ty32' not found
+Node `t.var_y[31].v.f' not found
+Vector `fy32' not found
+Node `t.var_z[31].v.t' not found
+Vector `tz32' not found
+Node `t.var_z[31].v.f' not found
+Vector `fz32' not found
+Node `t.chan_a.d[31].t' not found
+Vector `ta32' not found
+Node `t.chan_a.d[31].f' not found
+Vector `fa32' not found
+WARNING: weak-interference `t.e_3.go_r'
+>> cause: Reset (val: 1)
+>> time:          0
+WARNING: weak-interference `t.e_5.go_r'
+>> cause: Reset (val: 1)
+>> time:          0
+WARNING: weak-interference `t.e_1.go_r'
+>> cause: Reset (val: 1)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[0]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[0]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[1]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[1]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[2]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[2]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[3]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[3]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[4]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[4]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[5]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[5]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[6]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[6]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[7]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_8.ev[7]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[0]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[0]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[1]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[1]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[2]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[2]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[3]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[3]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[4]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[4]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[5]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[5]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[6]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[6]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[7]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_6.ev[7]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[0]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[0]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[1]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[1]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[2]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[2]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[3]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[3]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[4]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[4]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[5]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[5]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[6]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[6]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[7]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_5.ev[7]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[0]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[0]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[1]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[1]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[2]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[2]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[3]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[3]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[4]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[4]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[5]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[5]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[6]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[6]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[7]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_3.ev[7]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[0]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[0]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[1]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[1]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[2]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[2]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[3]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[3]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[4]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[4]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[5]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[5]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[6]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[6]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[7]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_1.ev[7]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[0]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[0]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[1]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[1]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[2]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[2]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[3]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[3]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[4]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[4]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[5]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[5]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[6]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[6]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[7]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_4.ev[7]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[0]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[0]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[1]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[1]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[2]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[2]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[3]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[3]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[4]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[4]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[5]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[5]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[6]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[6]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[7]._out.t'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.e_2.ev[7]._out.f'
+>> cause: _Reset (val: 0)
+>> time:          0
+WARNING: weak-interference `t.s_1.x'
+>> cause: t.s_1._gor (val: 1)
+>> time:         10
+	        10 t.s_6[0].v.t : 0  [by Reset:=1] vec tz8 [XXXXXXX0]  -undefined-
+	        10 t.s_6[4].v.t : 0  [by Reset:=1] vec tz8 [XXX0XXX0]  -undefined-
+	        10 t.e_6.v[4].t : 0  [by Reset:=1] vec tx8 [XXX0XXXX]  -undefined-
+	        10 t.e_6.v[3].t : 0  [by Reset:=1] vec tx8 [XXX00XXX]  -undefined-
+	        10 t.e_6.v[2].t : 0  [by Reset:=1] vec tx8 [XXX000XX]  -undefined-
+	        10 t.e_6.v[1].t : 0  [by Reset:=1] vec tx8 [XXX0000X]  -undefined-
+	        10 t.e_6.v[0].t : 0  [by Reset:=1] vec tx8 [XXX00000]  -undefined-
+	        10 t.s_6[3].v.t : 0  [by Reset:=1] vec tz8 [XXX00XX0]  -undefined-
+	        10 t.e_5.v[7].t : 0  [by Reset:=1] vec ty8 [0XXXXXXX]  -undefined-
+	        10 t.e_5.v[6].t : 0  [by Reset:=1] vec ty8 [00XXXXXX]  -undefined-
+	        10 t.e_5.v[5].t : 0  [by Reset:=1] vec ty8 [000XXXXX]  -undefined-
+	        10 t.e_5.v[4].t : 0  [by Reset:=1] vec ty8 [0000XXXX]  -undefined-
+	        10 t.s_6[2].v.t : 0  [by Reset:=1] vec tz8 [XXX000X0]  -undefined-
+	        10 t.e_5.v[3].t : 0  [by Reset:=1] vec ty8 [00000XXX]  -undefined-
+	        10 t.e_5.v[2].t : 0  [by Reset:=1] vec ty8 [000000XX]  -undefined-
+	        10 t.s_6[7].v.t : 0  [by Reset:=1] vec tz8 [0XX000X0]  -undefined-
+	        10 t.e_5.v[1].t : 0  [by Reset:=1] vec ty8 [0000000X]  -undefined-
+	        10 t.e_5.v[0].t : 0  [by Reset:=1] vec ty8 [00000000] 0
+	        10 t.s_6[1].v.t : 0  [by Reset:=1] vec tz8 [0XX00000]  -undefined-
+	        10 t.s_6[6].v.t : 0  [by Reset:=1] vec tz8 [00X00000]  -undefined-
+	        10 t.s_6[5].v.t : 0  [by Reset:=1] vec tz8 [00000000] 0
+	        10 t.e_6.v[7].t : 0  [by Reset:=1] vec tx8 [0XX00000]  -undefined-
+	        10 t.e_6.v[6].t : 0  [by Reset:=1] vec tx8 [00X00000]  -undefined-
+	        10 t.e_6.v[5].t : 0  [by Reset:=1] vec tx8 [00000000] 0
+	        30 t.e_6.v[6].f : 1  [by t.e_6.v[6].t:=0] vec fx8 [X1XXXXXX]  -undefined-
+	        30 t.e_6.v[5].f : 1  [by t.e_6.v[5].t:=0] vec fx8 [X11XXXXX]  -undefined-
+	        30 t.e_6.v[1].f : 1  [by t.e_6.v[1].t:=0] vec fx8 [X11XXX1X]  -undefined-
+	        30 t.e_6.v[3].f : 1  [by t.e_6.v[3].t:=0] vec fx8 [X11X1X1X]  -undefined-
+	        30 t.e_6.v[4].f : 1  [by t.e_6.v[4].t:=0] vec fx8 [X1111X1X]  -undefined-
+	        30 t.e_6.v[7].f : 1  [by t.e_6.v[7].t:=0] vec fx8 [11111X1X]  -undefined-
+	        30 t.e_6.v[0].f : 1  [by t.e_6.v[0].t:=0] vec fx8 [11111X11]  -undefined-
+	        30 t.e_6.v[2].f : 1  [by t.e_6.v[2].t:=0] vec fx8 [11111111] 255
+	        50 t.s_6[2].v.f : 1  [by t.s_6[2].in.t:=0] vec fz8 [XXXXX1XX]  -undefined-
+	        50 t.s_6[1].v.f : 1  [by t.s_6[1].in.t:=0] vec fz8 [XXXXX11X]  -undefined-
+	        50 t.s_6[5].v.f : 1  [by t.s_6[5].in.t:=0] vec fz8 [XX1XX11X]  -undefined-
+	        50 t.e_5.v[1].f : 1  [by t.s_3[1].in.t:=0] vec fy8 [XXXXXX1X]  -undefined-
+	        50 t.e_5.v[2].f : 1  [by t.s_3[2].in.t:=0] vec fy8 [XXXXX11X]  -undefined-
+	        50 t.e_5.v[6].f : 1  [by t.s_3[6].in.t:=0] vec fy8 [X1XXX11X]  -undefined-
+	        50 t.e_5.v[3].f : 1  [by t.s_3[3].in.t:=0] vec fy8 [X1XX111X]  -undefined-
+	        50 t.s_6[4].v.f : 1  [by t.s_6[4].in.t:=0] vec fz8 [XX11X11X]  -undefined-
+	        50 t.e_5.v[5].f : 1  [by t.s_3[5].in.t:=0] vec fy8 [X11X111X]  -undefined-
+	        50 t.e_5.v[4].f : 1  [by t.s_3[4].in.t:=0] vec fy8 [X111111X]  -undefined-
+	        50 t.s_6[3].v.f : 1  [by t.s_6[3].in.t:=0] vec fz8 [XX11111X]  -undefined-
+	        50 t.s_6[6].v.f : 1  [by t.s_6[6].in.t:=0] vec fz8 [X111111X]  -undefined-
+	        50 t.e_5.v[7].f : 1  [by t.s_3[7].in.t:=0] vec fy8 [1111111X]  -undefined-
+	        50 t.e_5.v[0].f : 1  [by t.s_3[0].in.t:=0] vec fy8 [11111111] 255
+	        50 t.s_6[0].v.f : 1  [by t.s_6[0].in.t:=0] vec fz8 [X1111111]  -undefined-
+	        50 t.s_6[7].v.f : 1  [by t.s_6[7].in.t:=0] vec fz8 [11111111] 255
+WARNING: weak-interference `t.s_4.x'
+>> cause: t.s_4._gor (val: 1)
+>> time:         60
+WARNING: weak-interference `t.s_7.x'
+>> cause: t.s_7._gor (val: 1)
+>> time:         60
+	       560 t.e_6.v[1].f : 0  [by t.s_0[1].in.t:=1] vec fx8 [11111101] 253
+	       560 t.e_6.v[2].f : 0  [by t.s_0[2].in.t:=1] vec fx8 [11111001] 249
+	       560 t.e_6.v[3].f : 0  [by t.s_0[3].in.t:=1] vec fx8 [11110001] 241
+	       580 t.e_6.v[1].t : 1  [by t.e_6.v[1].f:=0] vec tx8 [00000010] 2
+	       580 t.e_6.v[3].t : 1  [by t.e_6.v[3].f:=0] vec tx8 [00001010] 10
+	       580 t.e_6.v[2].t : 1  [by t.e_6.v[2].f:=0] vec tx8 [00001110] 14
+	       940 t.e_5.v[3].f : 0  [by t.s_3[3].in.t:=1] vec fy8 [11110111] 247
+	       940 t.e_5.v[0].f : 0  [by t.s_3[0].in.t:=1] vec fy8 [11110110] 246
+	       960 t.e_5.v[0].t : 1  [by t.e_5.v[0].f:=0] vec ty8 [00000001] 1
+	       960 t.e_5.v[3].t : 1  [by t.e_5.v[3].f:=0] vec ty8 [00001001] 9
+	      1800 t.s_6[1].v.f : 0  [by t.s_6[1].in.t:=1] vec fz8 [11111101] 253
+	      1800 t.s_6[2].v.f : 0  [by t.s_6[2].in.t:=1] vec fz8 [11111001] 249
+	      1800 t.s_6[5].v.f : 0  [by t.s_6[5].in.t:=1] vec fz8 [11011001] 217
+	      1800 t.s_6[3].v.f : 0  [by t.s_6[3].in.t:=1] vec fz8 [11010001] 209
+	      1800 t.s_6[4].v.f : 0  [by t.s_6[4].in.t:=1] vec fz8 [11000001] 193
+	      1800 t.s_6[6].v.f : 0  [by t.s_6[6].in.t:=1] vec fz8 [10000001] 129
+	      1820 t.s_6[1].v.t : 1  [by t.s_6[1].v.f:=0] vec tz8 [00000010] 2
+	      1820 t.s_6[2].v.t : 1  [by t.s_6[2].v.f:=0] vec tz8 [00000110] 6
+	      1820 t.s_6[5].v.t : 1  [by t.s_6[5].v.f:=0] vec tz8 [00100110] 38
+	      1820 t.s_6[6].v.t : 1  [by t.s_6[6].v.f:=0] vec tz8 [01100110] 102
+	      1820 t.s_6[3].v.t : 1  [by t.s_6[3].v.f:=0] vec tz8 [01101110] 110
+	      1820 t.s_6[4].v.t : 1  [by t.s_6[4].v.f:=0] vec tz8 [01111110] 126
+

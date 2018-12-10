@@ -13,6 +13,6 @@ do
   cat $PROJECT_PATH/scripts/watch_and_run > /tmp/temp_$var;
   name=${var%.prs};
   echo "dumptc $PROJECT_PATH/results/$name.tc" >> /tmp/temp_$var;
-  cat /tmp/temp_$var | prsim $PROJECT_PATH/prs/benchmarks/$var;
+  cat /tmp/temp_$var | prsim $PROJECT_PATH/prs/benchmarks/$var > $PROJECT_PATH/results/${name}.sim;
   rm -f /tmp/temp_$var;
 done

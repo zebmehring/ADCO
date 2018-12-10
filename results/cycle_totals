@@ -1,0 +1,16 @@
+add_32: 2020
+add_8: 1360
+bundled_add_32: 13960
+bundled_add_8: 3880
+bundled_comm: 8040
+bundled_for_loop: 976620
+bundled_mul_32: 93320
+bundled_mul_8: 8360
+bundled_sub_32: 16520
+bundled_sub_8: 4520
+comm: 940
+for_loop: 22100
+mul_32: 2710
+mul_8: 1820
+sub_32: 2060
+sub_8: 1400

@@ -11,11 +11,11 @@ def reduce(tcs):
     return count
 
 def main():
-    output = "/home/user/Documents/ADCO/results/totals"
+    output = "/home/user/Documents/ADCO/results/tc_totals"
     if os.path.isfile(output):
         os.remove(output)
     for file in sys.argv[1:]:
-        if file == output:
+        if re.match(r".+\.tc$", file) == None:
             continue
         with open(file) as f:
             tcs = f.readlines()
