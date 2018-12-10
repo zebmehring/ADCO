@@ -6,14 +6,44 @@ extern bool benchmark;
 extern char *output_file;
 extern int optimization;
 
+void print_smiley ()
+{
+  fprintf (stdout, "/*************************************************************\n");
+  fprintf (stdout, "*                     *****************                      *\n");
+  fprintf (stdout, "*                ******               ******                 *\n");
+  fprintf (stdout, "*            ****                           ****             *\n");
+  fprintf (stdout, "*         ****                                 ***           *\n");
+  fprintf (stdout, "*       ***                                       ***        *\n");
+  fprintf (stdout, "*      **           ***               ***           **       *\n");
+  fprintf (stdout, "*    **           *******           *******          ***     *\n");
+  fprintf (stdout, "*   **            *******           *******            **    *\n");
+  fprintf (stdout, "*  **             *******           *******             **   *\n");
+  fprintf (stdout, "*  **               ***               ***               **   *\n");
+  fprintf (stdout, "* **                                                     **  *\n");
+  fprintf (stdout, "* **       *                                     *       **  *\n");
+  fprintf (stdout, "* **      **                                     **      **  *\n");
+  fprintf (stdout, "*  **   ****                                     ****   **   *\n");
+  fprintf (stdout, "*  **      **                                   **      **   *\n");
+  fprintf (stdout, "*   **       ***                             ***       **    *\n");
+  fprintf (stdout, "*    ***       ****                       ****       ***     *\n");
+  fprintf (stdout, "*      **         ******             ******         **       *\n");
+  fprintf (stdout, "*       ***            ***************            ***        *\n");
+  fprintf (stdout, "*         ****                                 ****          *\n");
+  fprintf (stdout, "*            ****                           ****             *\n");
+  fprintf (stdout, "*                ******               ******                 *\n");
+  fprintf (stdout, "*                     *****************                      *\n");
+  fprintf (stdout, "*************************************************************/\n");
+}
+
 int main (int argc, char **argv)
 {
   Chp *c;
   int chp = 1;
+  bool smiley = false;
 
   if (argc > 5)
   {
-    fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] <chp>\n", argv[0]);
+    fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n", argv[0]);
     return 1;
   }
   else if (argc > 2)
@@ -23,12 +53,12 @@ int main (int argc, char **argv)
     {
       if (!strcmp (argv[i], "-h") || !strcmp (argv[i], "--help"))
       {
-        printf ("Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] <chp>\n\n", argv[0]);
+        printf ("Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n\n", argv[0]);
         printf ("Options:\n");
         printf ("  -h, --help\tdisplay this message\n");
         printf ("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
         printf ("  -o, --output <file>\toutput the results to <file>");
-        printf ("  -O1\tenable level 1 optimizations\n");
+        printf ("  -O1\tenable level 1 optimizations (global common expression elimination for parallel constructs)\n");
         return 0;
       }
       else if (!strcmp (argv[i], "-b") || !strcmp (argv[i], "--bundle_data"))
@@ -47,9 +77,13 @@ int main (int argc, char **argv)
         optimization = 1;
         bundle_data = false;
       }
+      else if (!strcmp (argv[i], "--smiley") || !strcmp (argv[i], "-s"))
+      {
+        smiley = true;
+      }
       else
       {
-        fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] <chp>\n", argv[0]);
+        fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n", argv[0]);
         return 1;
       }
     }
@@ -58,18 +92,18 @@ int main (int argc, char **argv)
   {
     if (!strcmp (argv[1], "-h") || !strcmp (argv[1], "--help"))
     {
-      printf ("Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] <chp>\n\n", argv[0]);
+      printf ("Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n\n", argv[0]);
       printf ("Options:\n");
       printf ("  -h, --help\tdisplay this message\n");
       printf ("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
       printf ("  -o, --output <file>\toutput the results to <file>");
-      printf ("  -O1\tenable level 1 optimizations\n");
+      printf ("  -O1\tenable level 1 optimizations (global common expression elimination for parallel constructs)\n");
       return 0;
     }
   }
   else
   {
-    fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] <chp>\n", argv[0]);
+    fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n", argv[0]);
     return 1;
   }
 
@@ -77,11 +111,13 @@ int main (int argc, char **argv)
 
   c = read_chp (argv[chp]);
 
-  /* check that variables are used properly */
+  // check that variables are used properly
   __chp = c;
   check_types (c);
-  /* print the CHP program */
+  // print the CHP program
   print_chp_structure (c);
+
+  if (smiley) print_smiley();
 
   return 0;
 }

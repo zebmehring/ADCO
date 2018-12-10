@@ -613,15 +613,15 @@ defproc syn_eq (dualrail in1[N], in2[N]; dualrail out)
 template<pint N>
 defproc syn_ne (dualrail in1[N], in2[N]; dualrail out)
 {
-_dualrail _out;
-prs
-{
-  (|i:N: ((in1[i].t & in2[i].f) | (in1[i].f & in2[i].t))) => _out.t-
-  (&i:N: ((in1[i].t & in2[i].t) | (in1[i].f & in2[i].f))) => _out.f-
+  _dualrail _out;
+  prs
+  {
+    (|i:N: ((in1[i].t & in2[i].f) | (in1[i].f & in2[i].t))) => _out.t-
+    (&i:N: ((in1[i].t & in2[i].t) | (in1[i].f & in2[i].f))) => _out.f-
 
-  _out.t => out.t-
-  _out.f => out.f-
-}
+    _out.t => out.t-
+    _out.f => out.f-
+  }
 }
 
 /* LESS THAN OR EQUALS */

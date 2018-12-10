@@ -1328,6 +1328,18 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
           // connect the go signal to the statement appropriately
           fprintf (output_stream, "  syn_%s s_%d(c_%d);\n", c->type == CHP_COMMA ? "par" : "seq", s, a);
           fprintf (output_stream, "  s_%d.s1 = c_%d;\n", s, b);
+          if (optimization > 0 && c->type == CHP_SEMI)
+          {
+            hash_bucket_t *b;
+            for (int j = 0; j < evaluated_exprs->size; j++)
+            {
+              for (b = evaluated_exprs->head[j]; b; b = b->next)
+              {
+                free (b->v);
+              }
+            }
+            hash_clear (evaluated_exprs);
+          }
           // on the last loop iteration, print the final statement
           if (!list_next (list_next (li)))
           {
@@ -1410,9 +1422,9 @@ void print_chp_structure (Chp *c)
   {
     // free allocated memory for buckets still remaining in the table
     hash_bucket_t *b;
-    for (int j = 0; j < c->sym->size; j++)
+    for (int j = 0; j < evaluated_exprs->size; j++)
     {
-      for (b = c->sym->head[j]; b; b = b->next)
+      for (b = evaluated_exprs->head[j]; b; b = b->next)
       {
         free (b->v);
       }
