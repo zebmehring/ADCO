@@ -25,14 +25,14 @@ defproc delay (bool in, out)
 /* ========================= EXPRESSION EVALUATION ========================= */
 
 /* SINGLE-BIT VARIABLE */
-defproc bundled_expr_var (bool v; bool out)
+defproc bundled_expr_var (dualrail v; bool out)
 {
-  v = out;
+  v.t = out;
 }
 
 /* MULTI-BIT VARIABLE */
 template<pint N>
-defproc bundled_expr_vararray (bool v[N]; bool out[N])
+defproc bundled_expr_vararray (dualrail v[N]; bool out[N])
 {
   bundled_expr_var ev[N];
   (i:N: ev[i].v = v[i];

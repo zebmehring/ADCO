@@ -445,7 +445,8 @@ int unop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay)
       int ret = hash_get_or_add (evaluated_exprs, s, e->u.e.l, NULL, l, -1, false);
       if (ret > 0) return ret;
     }
-    fprintf (output_stream, "  syn_expr_%s e_%d(e_%d.out);\n", s, expr_count, l);
+    fprintf (output_stream, "  syn_expr_%s e_%d;\n", s, expr_count);
+    fprintf (output_stream, "  e_%d.in = e_%d.out;\n", expr_count, l);
   }
   // print ACT module for multi-bit unary operations with the bundle data protocol
   else if (bundle_data)
@@ -501,7 +502,9 @@ int binop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay, boo
       int ret = hash_get_or_add (evaluated_exprs, s, e->u.e.l, e->u.e.r, l, r, commutative);
       if (ret > 0) return ret;
     }
-    fprintf (output_stream, "  syn_expr_%s e_%d(e_%d.out, e_%d.out);\n", s, expr_count, l, r);
+    fprintf (output_stream, "  syn_expr_%s e_%d;\n", s, expr_count);
+    fprintf (output_stream, "  e_%d.in1 = e_%d.out;\n", expr_count, l);
+    fprintf (output_stream, "  e_%d.in2 = e_%d.out;\n", expr_count, r);
   }
   // print ACT module for multi-bit binary operations with the bundle data protocol
   else if (bundle_data)
@@ -549,6 +552,7 @@ int binop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay, boo
 int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
 {
   int ret;
+  fprintf (output_stream, "\n");
   switch (e->type)
   {
     case E_AND:
@@ -622,7 +626,8 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
         // }
         if (v->bitwidth == 1)
         {
-          fprintf (output_stream, "  syn_expr_var e_%d(,var_%s.v);\n", expr_count, (char *)e->u.e.l);
+          fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
+          fprintf (output_stream, "  e_%d.v = var_%s.v;\n", expr_count, (char *)e->u.e.l);
           if (*base_var == -1)
           {
     	       *base_var = expr_count;
@@ -635,7 +640,7 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
         else if (bundle_data)
         {
           fprintf (output_stream, "  bundled_expr_vararray<%d> be_%d;\n", v->bitwidth, expr_count);
-        	fprintf (output_stream, "  (i:%d: be_%d.v[i] = var_%s[i].v.t;)\n", v->bitwidth, expr_count, v->name);
+        	fprintf (output_stream, "  (i:%d: be_%d.v[i] = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
         }
         else
         {
@@ -684,12 +689,14 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
         if (e->u.v == 0)
         {
           emit_const_0 ();
-          fprintf (output_stream, "  syn_expr_var e_%d(,const_0.v);\n", expr_count);
+          fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
+          fprintf (output_stream, "  e_%d.v = const_0.v;\n", expr_count);
         }
         else
         {
           emit_const_1 ();
-          fprintf (output_stream, "  syn_expr_var e_%d(,const_1.v);\n", expr_count);
+          fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
+          fprintf (output_stream, "  e_%d.v = const_1.v;\n", expr_count);
         }
         if (*base_var == -1)
         {
@@ -703,17 +710,18 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
       else if (bundle_data)
       {
         emit_const_0 ();
+        emit_const_1 ();
         fprintf (output_stream, "  bundled_expr_vararray<%d> be_%d;\n", *bitwidth, expr_count);
         int t = e->u.v;
         for (int i = *bitwidth; i > 0; i--, t >>= 1)
         {
           if (t & 1)
           {
-            fprintf (output_stream, "  be_%d.v[%d] = const_0.v.f;\n", expr_count, *bitwidth - i);
+            fprintf (output_stream, "  be_%d.v[%d] = const_1.v;\n", expr_count, *bitwidth - i);
           }
           else
           {
-            fprintf (output_stream, "  be_%d.v[%d] = const_0.v.t;\n", expr_count, *bitwidth - i);
+            fprintf (output_stream, "  be_%d.v[%d] = const_0.v;\n", expr_count, *bitwidth - i);
           }
         }
       }
@@ -749,7 +757,8 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
       break;
     case E_TRUE:
       emit_const_1 ();
-      fprintf (output_stream, "  syn_expr_var e_%d(,const_1.v);\n", expr_count);
+      fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
+      fprintf (output_stream, "  e_%d.v = const_1.v;\n", expr_count);
       // the current expression becomes the base go signal, if none is set
       if (*base_var == -1)
       {
@@ -764,7 +773,8 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
       break;
     case E_FALSE:
       emit_const_0 ();
-      fprintf (output_stream, "  syn_expr_var e_%d(,const_0.v);\n", expr_count);
+      fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
+      fprintf (output_stream, "  e_%d.v = const_0.v;\n", expr_count);
       // the current expression becomes the base go signal, if none is set
       if (*base_var == -1)
       {
@@ -782,11 +792,15 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
         symbol *s = find_symbol (__chp, (char *) e->u.e.l);
       	if (s->bitwidth == 1)
         {
-      	  fprintf (output_stream, "  syn_a1of2_probe e_%d(,chan_%s.t, chan_%s.f, chan_%s.a);\n", expr_count, s->name, s->name, s->name);
-      	}
+      	  fprintf (output_stream, "  syn_a1of2_probe e_%d;\n", expr_count);
+          fprintf (output_stream, "  e_%d.t = chan_%s.t;\n", expr_count, s->name);
+          fprintf (output_stream, "  e_%d.f = chan_%s.f;\n", expr_count, s->name);
+          fprintf (output_stream, "  e_%d.a = chan_%s.a;\n", expr_count, s->name);
+        }
         else
         {
-      	  fprintf (output_stream, "  syn_aN1of2_probe<%d> e_%d(,chan_%s);\n", s->bitwidth, expr_count, s->name);
+      	  fprintf (output_stream, "  syn_aN1of2_probe<%d> e_%d;\n", s->bitwidth, expr_count);
+          fprintf (output_stream, "  e_%d.c = chan_%s;\n", expr_count, s->name);
       	}
         *bitwidth = s->bitwidth;
         // the current expression becomes the base go signal, if none is set
@@ -899,7 +913,8 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
   {
     fprintf (output_stream, "  syn_recv rtv_%d;\n", seq);
     fprintf (output_stream, "  syn_expr_var e_%d;\n", evar);
-    fprintf (output_stream, "  syn_var_init_false tv_%d(rtv_%d.v);\n", seq, seq);
+    fprintf (output_stream, "  syn_var_init_false tv_%d;\n", seq);
+    fprintf (output_stream, "  tv_%d.v = rtv_%d.v;\n", seq, seq);
     fprintf (output_stream, "  e_%d.v = tv_%d.v;\n", evar, seq);
     fprintf (output_stream, "  s_%d.r.r = e_%d.go_r;\n", seq, ego);
     fprintf (output_stream, "  s_%d.r = rtv_%d.go;\n", seq, seq);
@@ -911,23 +926,27 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
     fprintf (output_stream, "  bundled_recv<%d> brtv_%d;\n", bits, seq);
     fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", bits, evar);
     fprintf (output_stream, "  syn_var_init_false tv_%d[%d];\n", seq, bits);
-    fprintf (output_stream, "  (i:%d: e_%d.v[i] = tv_%d[i].v; e_%d.v[i] = brtv_%d.v[i];)\n", bits, evar, seq, evar, seq);
+    fprintf (output_stream, "  (i:%d: e_%d.v[i] = tv_%d[i].v;)\n", bits, evar, seq);
+    fprintf (output_stream, "  (i:%d: e_%d.v[i] = brtv_%d.v[i];)\n", bits, evar, seq);
     fprintf (output_stream, "  s_%d.r.r = brtv_%d.go.r;\n", seq, seq);
     fprintf (output_stream, "  s_%d.r.a = brtv_%d.go.a;\n", seq, seq);
-    fprintf (output_stream, "  (i:%d: e_%d.out[i].t = brtv_%d.in.d[i].t; e_%d.out[i].f = brtv_%d.in.d[i].f;)\n", bits, eout, seq, eout, seq);
+    fprintf (output_stream, "  (i:%d: e_%d.out[i].t = brtv_%d.in.d[i].t;\n", bits, eout, seq);
+    fprintf (output_stream, "        e_%d.out[i].f = brtv_%d.in.d[i].f;)\n", eout, seq);
   }
   else
   {
     fprintf (output_stream, "  syn_recv rtv_%d[%d];\n", seq, bits);
     fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", bits, evar);
     fprintf (output_stream, "  syn_var_init_false tv_%d[%d];\n", seq, bits);
-    fprintf (output_stream, "  (i:%d: e_%d.v[i] = tv_%d[i].v; e_%d.v[i] = rtv_%d[i].v;)\n", bits, evar, seq, evar, seq);
+    fprintf (output_stream, "  (i:%d: e_%d.v[i] = tv_%d[i].v;)\n", bits, evar, seq);
+    fprintf (output_stream, "  (i:%d: e_%d.v[i] = rtv_%d[i].v;)\n", bits, evar, seq);
     fprintf (output_stream, "  s_%d.r.r = e_%d.go_r;\n", seq, ego);
     fprintf (output_stream, "  (i:%d: s_%d.r.r = rtv_%d[i].go.r;)\n", bits, seq, seq);
     fprintf (output_stream, "  syn_ctree<%d> ct_%d;\n", bits, seq);
     fprintf (output_stream, "  (i:%d: ct_%d.in[i] = rtv_%d[i].go.a;)\n", bits, seq, seq);
     fprintf (output_stream, "  s_%d.r.a = ct_%d.out;\n", seq, seq);
-    fprintf (output_stream, "  (i:%d: e_%d.out[i].t = rtv_%d[i].in.t; e_%d.out[i].f = rtv_%d[i].in.f;)\n", bits, eout, seq, eout, seq);
+    fprintf (output_stream, "  (i:%d: e_%d.out[i].t = rtv_%d[i].in.t;\n", bits, eout, seq);
+    fprintf (output_stream, "        e_%d.out[i].f = rtv_%d[i].in.f;)\n", eout, seq);
   }
   fprintf (output_stream, "  s_%d.go.a = e_%d.go_r;\n", seq, evar);
 
@@ -970,12 +989,16 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
       delay += get_bundle_delay (*bitwidth, gc->g->type);
       if (delay > 0)
       {
-        fprintf (output_stream, "  delay<%d> de_%d(%s);\n", delay, a, buf);
+        fprintf (output_stream, "  delay<%d> de_%d;\n", delay, a);
+        fprintf (output_stream, "  de_%d.in = %s;\n", a, buf);
         snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
       }
       delay = get_bundle_delay (1, E_NOT);
-      fprintf (output_stream, "  delay<%d> dn_%d(%s);\n", delay, a, buf);
-      fprintf (output_stream, "  bundled_var_to_dualrail be_%d(dn_%d.out, be_%d.out);\n", expr_count, a, a);
+      fprintf (output_stream, "  delay<%d> dn_%d;\n", delay, a);
+      fprintf (output_stream, "  dn_%d.in = %s;\n", a, buf);
+      fprintf (output_stream, "  bundled_var_to_dualrail be_%d;\n", expr_count);
+      fprintf (output_stream, "  be_%d.d = dn_%d.out;\n", expr_count, a);
+      fprintf (output_stream, "  be_%d.in = be_%d.out;\n", expr_count, a);
       fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
       fprintf (output_stream, "  e_%d.v = be_%d.out;\n", expr_count, expr_count);
       snprintf (buf, MAX_EXPR_SIZE, "dn_%d.out", a);
@@ -1087,11 +1110,15 @@ int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var)
     // construct a multi-stage or gate for guard outputs
     int a, b;
     a = stmt_count++;
-    fprintf (output_stream, "  syn_bool_or or_%d(gc_%d.t,gc_%d.t);\n", a, start_gc_chan, start_gc_chan+1);
-    for (int i = start_gc_chan+2; i < end_gc_chan; i++)
+    fprintf (output_stream, "  syn_bool_or or_%d;\n", a);
+    fprintf (output_stream, "  or_%d.in1 = gc_%d.t;\n", a, start_gc_chan);
+    fprintf (output_stream, "  or_%d.in2 = gc_%d.t;\n", a, start_gc_chan + 1);
+    for (int i = start_gc_chan + 2; i < end_gc_chan; i++)
     {
       b = stmt_count++;
-      fprintf (output_stream, "  syn_bool_or or_%d(or_%d.out,gc_%d.t);\n", b, a, i);
+      fprintf (output_stream, "  syn_bool_or or_%d;\n", b);
+      fprintf (output_stream, "  or_%d.in1 = or_%d.out;\n", b, a);
+      fprintf (output_stream, "  or_%d.in2 = gc_%d.t;\n", b, i);
       a = b;
     }
 
@@ -1150,7 +1177,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
   {
     case CHP_SKIP:
       fprintf (output_stream, "  /* skip */");
-      fprintf (output_stream, "  syn_skip s_%d(c_%d);\n", stmt_count, chan_count);
+      fprintf (output_stream, "  syn_skip s_%d;\n", stmt_count);
+      fprintf (output_stream, "  s_%d.go = c_%d;\n", stmt_count, chan_count);
       stmt_count++;
       ret = chan_count++;
       break;
@@ -1169,12 +1197,16 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         delay += get_bundle_delay (*bitwidth, c->u.assign.e->type);
         if (delay > 0)
         {
-          fprintf (output_stream, "  delay<%d> de_%d(%s);\n", delay, a, buf);
+          fprintf (output_stream, "  delay<%d> de_%d;\n", delay, a);
+          fprintf (output_stream, "  de_%d.in = %s;\n", a, buf);
           snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
         }
         delay = get_bundle_delay (*bitwidth, E_NOT);
-        fprintf (output_stream, "  delay<%d> dn_%d(%s);\n", delay, a, buf);
-        fprintf (output_stream, "  bundled_vararray_to_dualrail<%d> be_%d(dn_%d.out, be_%d.out);\n", v->bitwidth, expr_count, a, a);
+        fprintf (output_stream, "  delay<%d> dn_%d;\n", delay, a);
+        fprintf (output_stream, "  dn_%d.in = %s;\n", a, buf);
+        fprintf (output_stream, "  bundled_vararray_to_dualrail<%d> be_%d;\n", v->bitwidth, expr_count);
+        fprintf (output_stream, "  be_%d.d = dn_%d.out;\n", expr_count, a);
+        fprintf (output_stream, "  (i:%d: be_%d.in[i] = be_%d.out[i];)\n", v->bitwidth, expr_count, a);
         fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
         fprintf (output_stream, "  e_%d.go_r = dn_%d.out;\n", expr_count, a);
         fprintf (output_stream, "  (i:%d: e_%d.v[i] = be_%d.out[i];)\n", v->bitwidth, expr_count, expr_count);
@@ -1186,7 +1218,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       // fprintf (output_stream, "  e_%d.go_r = c_%d.r;\n", go_r, ret);
       if (v->bitwidth == 1)
       {
-        fprintf (output_stream, "  syn_recv s_%d(c_%d);\n", b, ret);
+        fprintf (output_stream, "  syn_recv s_%d;\n", b);
+        fprintf (output_stream, "  s_%d.go = c_%d;\n", b, ret);
         fprintf (output_stream, "  s_%d.in.t = e_%d.out.t;\n", b, a);
         fprintf (output_stream, "  s_%d.in.f = e_%d.out.f;\n", b, a);
         fprintf (output_stream, "  s_%d.v = var_%s.v;\n", b, c->u.assign.id);
@@ -1204,12 +1237,12 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       {
         fprintf (output_stream, "  syn_recv s_%d[%d];\n", b, v->bitwidth);
         fprintf (output_stream, "  (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, b, ret);
-        fprintf (output_stream, "  syn_ctree<%d> ct_%d;\n", v->bitwidth, b);
-        fprintf (output_stream, "  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, b, b);
-        fprintf (output_stream, "  ct_%d.out = c_%d.a;\n", b, ret);
         fprintf (output_stream, "  (i:%d: s_%d[i].in.t = e_%d.out[i].t;\n", v->bitwidth, b, a);
         fprintf (output_stream, "        s_%d[i].in.f = e_%d.out[i].f;\n", b, a);
         fprintf (output_stream, "        s_%d[i].v = var_%s[i].v;)\n", b, c->u.assign.id);
+        fprintf (output_stream, "  syn_ctree<%d> ct_%d;\n", v->bitwidth, b);
+        fprintf (output_stream, "  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, b, b);
+        fprintf (output_stream, "  ct_%d.out = c_%d.a;\n", b, ret);
       }
       fprintf (output_stream, "\n");
       if (optimization > 0) hash_remove_expr (evaluated_exprs, c->u.assign.id);
@@ -1230,12 +1263,16 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
           delay += get_bundle_delay (*bitwidth, ((Expr *)list_value (list_first (c->u.comm.rhs)))->type);
           if (delay > 0)
           {
-            fprintf (output_stream, "  delay<%d> de_%d(%s);\n", delay, a, buf);
+            fprintf (output_stream, "  delay<%d> de_%d;\n", delay, a);
+            fprintf (output_stream, "  de_%d.in = %s;\n", a, buf);
             snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
           }
           delay = get_bundle_delay (*bitwidth, E_NOT);
-          fprintf (output_stream, "  delay<%d> dn_%d(%s);\n", delay, a, buf);
-          fprintf (output_stream, "  bundled_vararray_to_dualrail<%d> be_%d(dn_%d.out, be_%d.out);\n", v->bitwidth, expr_count, a, a);
+          fprintf (output_stream, "  delay<%d> dn_%d;\n", delay, a);
+          fprintf (output_stream, "  dn_%d.in = %s;\n", a, buf);
+          fprintf (output_stream, "  bundled_vararray_to_dualrail<%d> be_%d;\n", v->bitwidth, expr_count);
+          fprintf (output_stream, "  be_%d.d = dn_%d.out;\n", expr_count, a);
+          fprintf (output_stream, "  (i:%d: be_%d.in = be_%d.out;)\n", v->bitwidth, expr_count, a);
           fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
           fprintf (output_stream, "  e_%d.go_r = dn_%d.out;\n", expr_count, a);
           fprintf (output_stream, "  (i:%d: e_%d.v[i] = be_%d.out[i];)\n", v->bitwidth, expr_count, expr_count);
@@ -1275,7 +1312,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         fprintf (output_stream, "  a1of1 c_%d;\n", ret);
         if (v->bitwidth == 1)
         {
-        	fprintf (output_stream, "  syn_recv s_%d(c_%d);\n", a, ret);
+        	fprintf (output_stream, "  syn_recv s_%d;\n", a);
+          fprintf (output_stream, "  s_%d.go = c_%d;\n", a, ret);
         	fprintf (output_stream, "  s_%d.in = chan_%s;\n", a, c->u.comm.chan);
         	fprintf (output_stream, "  s_%d.v = var_%s.v;\n", a, u->name);
         }
@@ -1292,12 +1330,12 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         {
         	fprintf (output_stream, "  syn_recv s_%d[%d];\n", a, v->bitwidth);
         	fprintf (output_stream, "  (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, a, ret);
-        	fprintf (output_stream, "  syn_ctree<%d> ct_%d;\n", v->bitwidth, a);
-        	fprintf (output_stream, "  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, a, a);
-        	fprintf (output_stream, "  ct_%d.out = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
         	fprintf (output_stream, "  (i:%d: s_%d[i].in.t = chan_%s.d[i].t;\n", v->bitwidth, a, v->name);
           fprintf (output_stream, "        s_%d[i].in.f = chan_%s.d[i].f;\n", a, v->name);
           fprintf (output_stream, "        s_%d[i].v = var_%s[i].v;)\n", a, u->name);
+          fprintf (output_stream, "  syn_ctree<%d> ct_%d;\n", v->bitwidth, a);
+          fprintf (output_stream, "  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, a, a);
+          fprintf (output_stream, "  ct_%d.out = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
         }
         if (optimization > 0) hash_remove_expr (evaluated_exprs, u->name);
       }
@@ -1326,7 +1364,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
   	      b = print_chp_stmt ((chp_lang_t *)list_value (li), bitwidth, base_var);
           s = stmt_count++;
           // connect the go signal to the statement appropriately
-          fprintf (output_stream, "  syn_%s s_%d(c_%d);\n", c->type == CHP_COMMA ? "par" : "seq", s, a);
+          fprintf (output_stream, "  syn_%s s_%d;\n", c->type == CHP_COMMA ? "par" : "seq", s);
+          fprintf (output_stream, "  s_%d.go = c_%d;\n", s, a);
           fprintf (output_stream, "  s_%d.s1 = c_%d;\n", s, b);
           if (optimization > 0 && c->type == CHP_SEMI)
           {
