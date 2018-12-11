@@ -16,7 +16,7 @@ void print_vars (Chp *c);
 void emit_const_1 (void);
 void emit_const_0 (void);
 
-int get_bitwidth (int n);
+int get_bitwidth (int n, int base);
 int get_func_bitwidth (char *s);
 int get_max_bits (const char *s, int lbits, int rbits);
 void get_expr (Expr *e, int v, char *buf);

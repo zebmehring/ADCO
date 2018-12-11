@@ -124,19 +124,19 @@ void emit_const_0 (void)
 }
 
 /*
- * int get_bitwidth (int n)
+ * int get_bitwidth (int n, int base)
  *
  * Summary:
  *
- *    Returns the bitwidth of the integer n.
+ *    Returns the bitwidth of the integer n in the specified base.
  *
  */
-int get_bitwidth (int n)
+int get_bitwidth (int n, int base)
 {
   int width = n == 0 ? 1 : 0;
   while (n > 0)
   {
-    n >>= 1;
+    n /= base;
     width++;
   }
   return width;
@@ -552,7 +552,6 @@ int binop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay, boo
 int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
 {
   int ret;
-  fprintf (output_stream, "\n");
   switch (e->type)
   {
     case E_AND:
@@ -792,14 +791,14 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
         symbol *s = find_symbol (__chp, (char *) e->u.e.l);
       	if (s->bitwidth == 1)
         {
-      	  fprintf (output_stream, "  syn_a1of2_probe e_%d;\n", expr_count);
+          fprintf (output_stream, "  syn_a1of2_probe e_%d;\n", expr_count);
           fprintf (output_stream, "  e_%d.t = chan_%s.t;\n", expr_count, s->name);
           fprintf (output_stream, "  e_%d.f = chan_%s.f;\n", expr_count, s->name);
           fprintf (output_stream, "  e_%d.a = chan_%s.a;\n", expr_count, s->name);
         }
         else
         {
-      	  fprintf (output_stream, "  syn_aN1of2_probe<%d> e_%d;\n", s->bitwidth, expr_count);
+          fprintf (output_stream, "  syn_aN1of2_probe<%d> e_%d;\n", s->bitwidth, expr_count);
           fprintf (output_stream, "  e_%d.c = chan_%s;\n", expr_count, s->name);
       	}
         *bitwidth = s->bitwidth;
@@ -931,7 +930,7 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
     fprintf (output_stream, "  s_%d.r.r = brtv_%d.go.r;\n", seq, seq);
     fprintf (output_stream, "  s_%d.r.a = brtv_%d.go.a;\n", seq, seq);
     fprintf (output_stream, "  (i:%d: e_%d.out[i].t = brtv_%d.in.d[i].t;\n", bits, eout, seq);
-    fprintf (output_stream, "        e_%d.out[i].f = brtv_%d.in.d[i].f;)\n", eout, seq);
+    fprintf (output_stream, "       %*ce_%d.out[i].f = brtv_%d.in.d[i].f;)\n", get_bitwidth (bits, 10), ' ', eout, seq);
   }
   else
   {
@@ -946,7 +945,7 @@ int print_expr_tmpvar (char *req, int ego, int eout, int bits)
     fprintf (output_stream, "  (i:%d: ct_%d.in[i] = rtv_%d[i].go.a;)\n", bits, seq, seq);
     fprintf (output_stream, "  s_%d.r.a = ct_%d.out;\n", seq, seq);
     fprintf (output_stream, "  (i:%d: e_%d.out[i].t = rtv_%d[i].in.t;\n", bits, eout, seq);
-    fprintf (output_stream, "        e_%d.out[i].f = rtv_%d[i].in.f;)\n", eout, seq);
+    fprintf (output_stream, "       %*ce_%d.out[i].f = rtv_%d[i].in.f;)\n", get_bitwidth (bits, 10), ' ', eout, seq);
   }
   fprintf (output_stream, "  s_%d.go.a = e_%d.go_r;\n", seq, evar);
 
@@ -1230,16 +1229,16 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         fprintf (output_stream, "  s_%d.go.r = e_%d.go_r;\n", b, a);
         fprintf (output_stream, "  s_%d.go.a = c_%d.a;\n", b, ret);
         fprintf (output_stream, "  (i:%d: s_%d.in.d[i].t = e_%d.out[i].t;\n", v->bitwidth, b, a);
-        fprintf (output_stream, "        s_%d.in.d[i].f = e_%d.out[i].f;\n", b, a);
-        fprintf (output_stream, "        s_%d.v[i] = var_%s[i].v;)\n", b, c->u.assign.id);
+        fprintf (output_stream, "       %*cs_%d.in.d[i].f = e_%d.out[i].f;\n", get_bitwidth (v->bitwidth, 10), ' ', b, a);
+        fprintf (output_stream, "       %*cs_%d.v[i] = var_%s[i].v;)\n", get_bitwidth (v->bitwidth, 10), ' ', b, c->u.assign.id);
       }
       else
       {
         fprintf (output_stream, "  syn_recv s_%d[%d];\n", b, v->bitwidth);
         fprintf (output_stream, "  (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, b, ret);
         fprintf (output_stream, "  (i:%d: s_%d[i].in.t = e_%d.out[i].t;\n", v->bitwidth, b, a);
-        fprintf (output_stream, "        s_%d[i].in.f = e_%d.out[i].f;\n", b, a);
-        fprintf (output_stream, "        s_%d[i].v = var_%s[i].v;)\n", b, c->u.assign.id);
+        fprintf (output_stream, "       %*cs_%d[i].in.f = e_%d.out[i].f;\n", get_bitwidth (v->bitwidth, 10), ' ', b, a);
+        fprintf (output_stream, "       %*cs_%d[i].v = var_%s[i].v;)\n", get_bitwidth (v->bitwidth, 10), ' ', b, c->u.assign.id);
         fprintf (output_stream, "  syn_ctree<%d> ct_%d;\n", v->bitwidth, b);
         fprintf (output_stream, "  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, b, b);
         fprintf (output_stream, "  ct_%d.out = c_%d.a;\n", b, ret);
@@ -1312,10 +1311,10 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         fprintf (output_stream, "  a1of1 c_%d;\n", ret);
         if (v->bitwidth == 1)
         {
-        	fprintf (output_stream, "  syn_recv s_%d;\n", a);
+          fprintf (output_stream, "  syn_recv s_%d;\n", a);
           fprintf (output_stream, "  s_%d.go = c_%d;\n", a, ret);
-        	fprintf (output_stream, "  s_%d.in = chan_%s;\n", a, c->u.comm.chan);
-        	fprintf (output_stream, "  s_%d.v = var_%s.v;\n", a, u->name);
+          fprintf (output_stream, "  s_%d.in = chan_%s;\n", a, c->u.comm.chan);
+          fprintf (output_stream, "  s_%d.v = var_%s.v;\n", a, u->name);
         }
         else if (bundle_data)
         {
@@ -1323,16 +1322,16 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
           fprintf (output_stream, "  s_%d.go.r = c_%d.r;\n", a, ret);
           fprintf (output_stream, "  s_%d.go.a = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
           fprintf (output_stream, "  (i:%d: s_%d.in.d[i].t = chan_%s.d[i].t;\n", v->bitwidth, a, v->name);
-          fprintf (output_stream, "        s_%d.in.d[i].f = chan_%s.d[i].f;\n", a, v->name);
-          fprintf (output_stream, "        s_%d.v[i] = var_%s[i].v;)\n", a, u->name);
+          fprintf (output_stream, "       %*cs_%d.in.d[i].f = chan_%s.d[i].f;\n", get_bitwidth (v->bitwidth, 10), ' ', a, v->name);
+          fprintf (output_stream, "       %*cs_%d.v[i] = var_%s[i].v;)\n", get_bitwidth (v->bitwidth, 10), ' ', a, u->name);
         }
         else
         {
         	fprintf (output_stream, "  syn_recv s_%d[%d];\n", a, v->bitwidth);
         	fprintf (output_stream, "  (i:%d: s_%d[i].go.r = c_%d.r;)\n", v->bitwidth, a, ret);
         	fprintf (output_stream, "  (i:%d: s_%d[i].in.t = chan_%s.d[i].t;\n", v->bitwidth, a, v->name);
-          fprintf (output_stream, "        s_%d[i].in.f = chan_%s.d[i].f;\n", a, v->name);
-          fprintf (output_stream, "        s_%d[i].v = var_%s[i].v;)\n", a, u->name);
+          fprintf (output_stream, "       %*cs_%d[i].in.f = chan_%s.d[i].f;\n", get_bitwidth (v->bitwidth, 10), ' ', a, v->name);
+          fprintf (output_stream, "       %*cs_%d[i].v = var_%s[i].v;)\n", get_bitwidth (v->bitwidth, 10), ' ', a, u->name);
           fprintf (output_stream, "  syn_ctree<%d> ct_%d;\n", v->bitwidth, a);
           fprintf (output_stream, "  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, a, a);
           fprintf (output_stream, "  ct_%d.out = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);

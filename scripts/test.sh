@@ -9,5 +9,5 @@ do
     echo "$var not found."
     continue
   fi
-  cat $PROJECT_PATH/scripts/watch_and_run | prsim $PROJECT_PATH/prs/tst/$var
+  cat $PROJECT_PATH/scripts/watch_and_run_test | prsim $PROJECT_PATH/prs/tst/$var
 done

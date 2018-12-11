@@ -72,18 +72,6 @@ defproc bundled_expr_not (bool in; bool out)
   }
 }
 
-/* XOR GATE */
-defproc bundled_expr_xor (bool in1, in2; bool out)
-{
-  bool _in1, _in2;
-  prs
-  {
-    (in1 & in2) | (_in1 & _in2) => out-
-    _in1 => in1-
-    _in2 => in2-
-  }
-}
-
 /* NAND GATE */
 defproc bundled_expr_nand (bool in1, in2; bool out)
 {
@@ -91,6 +79,14 @@ defproc bundled_expr_nand (bool in1, in2; bool out)
   {
     in1 & in2 => out-
   }
+}
+
+/* XOR GATE */
+defproc bundled_expr_xor (bool in1, in2; bool out)
+{
+  bundled_expr_nand nand (in1, in2);
+  bundled_expr_or or (in1, in2);
+  bundled_expr_and and (nand.out, or.out, out);
 }
 
 /* FULL ADDER */

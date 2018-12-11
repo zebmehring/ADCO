@@ -254,134 +254,662 @@ weak ~"t.tv_1[7].v.t"->"t.tv_1[7].v.f"+
 weak ~"t.tv_1[7].v.f"->"t.tv_1[7].v.t"+
 = "t.tv_1[7].v.d[0]" "t.tv_1[7].v.f"
 = "t.tv_1[7].v.d[1]" "t.tv_1[7].v.t"
-"t.e_3.xor[0].in1.t"&"t.e_3.xor[0].in2.f"|"t.e_3.xor[0].in1.f"&"t.e_3.xor[0].in2.t"->"t.e_3.xor[0]._out.t"-
-~"t.e_3.xor[0].in1.t"&~"t.e_3.xor[0].in1.f"&~"t.e_3.xor[0].in2.t"&~"t.e_3.xor[0].in2.f"->"t.e_3.xor[0]._out.t"+
-"t.e_3.xor[0].in1.t"&"t.e_3.xor[0].in1.t"|"t.e_3.xor[0].in1.f"&"t.e_3.xor[0].in2.f"->"t.e_3.xor[0]._out.f"-
-~"t.e_3.xor[0].in1.f"&~"t.e_3.xor[0].in2.f"->"t.e_3.xor[0]._out.f"+
-"t.e_3.xor[0]._out.t"->"t.e_3.xor[0].out.t"-
-~("t.e_3.xor[0]._out.t")->"t.e_3.xor[0].out.t"+
-"t.e_3.xor[0]._out.f"->"t.e_3.xor[0].out.f"-
-~("t.e_3.xor[0]._out.f")->"t.e_3.xor[0].out.f"+
+"t.e_3.xor[0].and.in1.t"&"t.e_3.xor[0].and.in2.t"->"t.e_3.xor[0].and._out.t"-
+~"t.e_3.xor[0].and.in1.t"&~"t.e_3.xor[0].and.in2.t"->"t.e_3.xor[0].and._out.t"+
+"t.e_3.xor[0].and.in1.f"&("t.e_3.xor[0].and.in2.t"|"t.e_3.xor[0].and.in2.f")|"t.e_3.xor[0].and.in1.t"&"t.e_3.xor[0].and.in2.f"->"t.e_3.xor[0].and._out.f"-
+~"t.e_3.xor[0].and.in1.t"&~"t.e_3.xor[0].and.in1.f"&~"t.e_3.xor[0].and.in2.t"&~"t.e_3.xor[0].and.in2.f"->"t.e_3.xor[0].and._out.f"+
+"t.e_3.xor[0].and._out.t"->"t.e_3.xor[0].and.out.t"-
+~("t.e_3.xor[0].and._out.t")->"t.e_3.xor[0].and.out.t"+
+"t.e_3.xor[0].and._out.f"->"t.e_3.xor[0].and.out.f"-
+~("t.e_3.xor[0].and._out.f")->"t.e_3.xor[0].and.out.f"+
+= "t.e_3.xor[0].and.in2.d[0]" "t.e_3.xor[0].and.in2.f"
+= "t.e_3.xor[0].and.in2.d[1]" "t.e_3.xor[0].and.in2.t"
+= "t.e_3.xor[0].and._out.d[0]" "t.e_3.xor[0].and._out.f"
+= "t.e_3.xor[0].and._out.d[1]" "t.e_3.xor[0].and._out.t"
+= "t.e_3.xor[0].and.out.d[0]" "t.e_3.xor[0].and.out.f"
+= "t.e_3.xor[0].and.out.d[1]" "t.e_3.xor[0].and.out.t"
+= "t.e_3.xor[0].and.in1.d[0]" "t.e_3.xor[0].and.in1.f"
+= "t.e_3.xor[0].and.in1.d[1]" "t.e_3.xor[0].and.in1.t"
+= "t.e_3.xor[0].and.in1.f" "t.e_3.xor[0].nand.out.f"
+= "t.e_3.xor[0].and.in1.d[0]" "t.e_3.xor[0].nand.out.d[0]"
+= "t.e_3.xor[0].and.in1.d[1]" "t.e_3.xor[0].nand.out.d[1]"
+= "t.e_3.xor[0].and.in1.t" "t.e_3.xor[0].nand.out.t"
 = "t.e_3.xor[0].in2.d[0]" "t.e_3.xor[0].in2.f"
 = "t.e_3.xor[0].in2.d[1]" "t.e_3.xor[0].in2.t"
-= "t.e_3.xor[0]._out.d[0]" "t.e_3.xor[0]._out.f"
-= "t.e_3.xor[0]._out.d[1]" "t.e_3.xor[0]._out.t"
+= "t.e_3.xor[0].in2.f" "t.e_3.xor[0].or.in2.f"
+= "t.e_3.xor[0].in2.d[0]" "t.e_3.xor[0].or.in2.d[0]"
+= "t.e_3.xor[0].in2.d[1]" "t.e_3.xor[0].or.in2.d[1]"
+= "t.e_3.xor[0].in2.t" "t.e_3.xor[0].or.in2.t"
+= "t.e_3.xor[0].in2.f" "t.e_3.xor[0].nand.in2.f"
+= "t.e_3.xor[0].in2.d[0]" "t.e_3.xor[0].nand.in2.d[0]"
+= "t.e_3.xor[0].in2.d[1]" "t.e_3.xor[0].nand.in2.d[1]"
+= "t.e_3.xor[0].in2.t" "t.e_3.xor[0].nand.in2.t"
+"t.e_3.xor[0].or.in1.t"&("t.e_3.xor[0].or.in2.t"|"t.e_3.xor[0].or.in2.f")|"t.e_3.xor[0].or.in1.f"&"t.e_3.xor[0].or.in2.t"->"t.e_3.xor[0].or._out.t"-
+~"t.e_3.xor[0].or.in1.t"&~"t.e_3.xor[0].or.in1.f"&~"t.e_3.xor[0].or.in2.t"&~"t.e_3.xor[0].or.in2.f"->"t.e_3.xor[0].or._out.t"+
+"t.e_3.xor[0].or.in1.f"&"t.e_3.xor[0].or.in2.f"->"t.e_3.xor[0].or._out.f"-
+~"t.e_3.xor[0].or.in1.f"&~"t.e_3.xor[0].or.in2.f"->"t.e_3.xor[0].or._out.f"+
+"t.e_3.xor[0].or._out.t"->"t.e_3.xor[0].or.out.t"-
+~("t.e_3.xor[0].or._out.t")->"t.e_3.xor[0].or.out.t"+
+"t.e_3.xor[0].or._out.f"->"t.e_3.xor[0].or.out.f"-
+~("t.e_3.xor[0].or._out.f")->"t.e_3.xor[0].or.out.f"+
+= "t.e_3.xor[0].or.in2.d[0]" "t.e_3.xor[0].or.in2.f"
+= "t.e_3.xor[0].or.in2.d[1]" "t.e_3.xor[0].or.in2.t"
+= "t.e_3.xor[0].or._out.d[0]" "t.e_3.xor[0].or._out.f"
+= "t.e_3.xor[0].or._out.d[1]" "t.e_3.xor[0].or._out.t"
+= "t.e_3.xor[0].or.out.d[0]" "t.e_3.xor[0].or.out.f"
+= "t.e_3.xor[0].or.out.d[1]" "t.e_3.xor[0].or.out.t"
+= "t.e_3.xor[0].or.in1.d[0]" "t.e_3.xor[0].or.in1.f"
+= "t.e_3.xor[0].or.in1.d[1]" "t.e_3.xor[0].or.in1.t"
+= "t.e_3.xor[0].or.out.f" "t.e_3.xor[0].and.in2.f"
+= "t.e_3.xor[0].or.out.d[0]" "t.e_3.xor[0].and.in2.d[0]"
+= "t.e_3.xor[0].or.out.d[1]" "t.e_3.xor[0].and.in2.d[1]"
+= "t.e_3.xor[0].or.out.t" "t.e_3.xor[0].and.in2.t"
+"t.e_3.xor[0].nand.in1.t"&"t.e_3.xor[0].nand.in2.t"->"t.e_3.xor[0].nand._out.f"-
+~"t.e_3.xor[0].nand.in1.t"&~"t.e_3.xor[0].nand.in2.t"->"t.e_3.xor[0].nand._out.f"+
+"t.e_3.xor[0].nand.in1.f"&("t.e_3.xor[0].nand.in2.t"|"t.e_3.xor[0].nand.in2.f")|"t.e_3.xor[0].nand.in1.t"&"t.e_3.xor[0].nand.in2.f"->"t.e_3.xor[0].nand._out.t"-
+~"t.e_3.xor[0].nand.in1.t"&~"t.e_3.xor[0].nand.in1.f"&~"t.e_3.xor[0].nand.in2.t"&~"t.e_3.xor[0].nand.in2.f"->"t.e_3.xor[0].nand._out.t"+
+"t.e_3.xor[0].nand._out.t"->"t.e_3.xor[0].nand.out.t"-
+~("t.e_3.xor[0].nand._out.t")->"t.e_3.xor[0].nand.out.t"+
+"t.e_3.xor[0].nand._out.f"->"t.e_3.xor[0].nand.out.f"-
+~("t.e_3.xor[0].nand._out.f")->"t.e_3.xor[0].nand.out.f"+
+= "t.e_3.xor[0].nand.in2.d[0]" "t.e_3.xor[0].nand.in2.f"
+= "t.e_3.xor[0].nand.in2.d[1]" "t.e_3.xor[0].nand.in2.t"
+= "t.e_3.xor[0].nand._out.d[0]" "t.e_3.xor[0].nand._out.f"
+= "t.e_3.xor[0].nand._out.d[1]" "t.e_3.xor[0].nand._out.t"
+= "t.e_3.xor[0].nand.out.d[0]" "t.e_3.xor[0].nand.out.f"
+= "t.e_3.xor[0].nand.out.d[1]" "t.e_3.xor[0].nand.out.t"
+= "t.e_3.xor[0].nand.in1.d[0]" "t.e_3.xor[0].nand.in1.f"
+= "t.e_3.xor[0].nand.in1.d[1]" "t.e_3.xor[0].nand.in1.t"
 = "t.e_3.xor[0].out.d[0]" "t.e_3.xor[0].out.f"
 = "t.e_3.xor[0].out.d[1]" "t.e_3.xor[0].out.t"
+= "t.e_3.xor[0].out.f" "t.e_3.xor[0].and.out.f"
+= "t.e_3.xor[0].out.d[0]" "t.e_3.xor[0].and.out.d[0]"
+= "t.e_3.xor[0].out.d[1]" "t.e_3.xor[0].and.out.d[1]"
+= "t.e_3.xor[0].out.t" "t.e_3.xor[0].and.out.t"
 = "t.e_3.xor[0].in1.d[0]" "t.e_3.xor[0].in1.f"
 = "t.e_3.xor[0].in1.d[1]" "t.e_3.xor[0].in1.t"
-"t.e_3.xor[1].in1.t"&"t.e_3.xor[1].in2.f"|"t.e_3.xor[1].in1.f"&"t.e_3.xor[1].in2.t"->"t.e_3.xor[1]._out.t"-
-~"t.e_3.xor[1].in1.t"&~"t.e_3.xor[1].in1.f"&~"t.e_3.xor[1].in2.t"&~"t.e_3.xor[1].in2.f"->"t.e_3.xor[1]._out.t"+
-"t.e_3.xor[1].in1.t"&"t.e_3.xor[1].in1.t"|"t.e_3.xor[1].in1.f"&"t.e_3.xor[1].in2.f"->"t.e_3.xor[1]._out.f"-
-~"t.e_3.xor[1].in1.f"&~"t.e_3.xor[1].in2.f"->"t.e_3.xor[1]._out.f"+
-"t.e_3.xor[1]._out.t"->"t.e_3.xor[1].out.t"-
-~("t.e_3.xor[1]._out.t")->"t.e_3.xor[1].out.t"+
-"t.e_3.xor[1]._out.f"->"t.e_3.xor[1].out.f"-
-~("t.e_3.xor[1]._out.f")->"t.e_3.xor[1].out.f"+
+= "t.e_3.xor[0].in1.f" "t.e_3.xor[0].or.in1.f"
+= "t.e_3.xor[0].in1.d[0]" "t.e_3.xor[0].or.in1.d[0]"
+= "t.e_3.xor[0].in1.d[1]" "t.e_3.xor[0].or.in1.d[1]"
+= "t.e_3.xor[0].in1.t" "t.e_3.xor[0].or.in1.t"
+= "t.e_3.xor[0].in1.f" "t.e_3.xor[0].nand.in1.f"
+= "t.e_3.xor[0].in1.d[0]" "t.e_3.xor[0].nand.in1.d[0]"
+= "t.e_3.xor[0].in1.d[1]" "t.e_3.xor[0].nand.in1.d[1]"
+= "t.e_3.xor[0].in1.t" "t.e_3.xor[0].nand.in1.t"
+"t.e_3.xor[1].and.in1.t"&"t.e_3.xor[1].and.in2.t"->"t.e_3.xor[1].and._out.t"-
+~"t.e_3.xor[1].and.in1.t"&~"t.e_3.xor[1].and.in2.t"->"t.e_3.xor[1].and._out.t"+
+"t.e_3.xor[1].and.in1.f"&("t.e_3.xor[1].and.in2.t"|"t.e_3.xor[1].and.in2.f")|"t.e_3.xor[1].and.in1.t"&"t.e_3.xor[1].and.in2.f"->"t.e_3.xor[1].and._out.f"-
+~"t.e_3.xor[1].and.in1.t"&~"t.e_3.xor[1].and.in1.f"&~"t.e_3.xor[1].and.in2.t"&~"t.e_3.xor[1].and.in2.f"->"t.e_3.xor[1].and._out.f"+
+"t.e_3.xor[1].and._out.t"->"t.e_3.xor[1].and.out.t"-
+~("t.e_3.xor[1].and._out.t")->"t.e_3.xor[1].and.out.t"+
+"t.e_3.xor[1].and._out.f"->"t.e_3.xor[1].and.out.f"-
+~("t.e_3.xor[1].and._out.f")->"t.e_3.xor[1].and.out.f"+
+= "t.e_3.xor[1].and.in2.d[0]" "t.e_3.xor[1].and.in2.f"
+= "t.e_3.xor[1].and.in2.d[1]" "t.e_3.xor[1].and.in2.t"
+= "t.e_3.xor[1].and._out.d[0]" "t.e_3.xor[1].and._out.f"
+= "t.e_3.xor[1].and._out.d[1]" "t.e_3.xor[1].and._out.t"
+= "t.e_3.xor[1].and.out.d[0]" "t.e_3.xor[1].and.out.f"
+= "t.e_3.xor[1].and.out.d[1]" "t.e_3.xor[1].and.out.t"
+= "t.e_3.xor[1].and.in1.d[0]" "t.e_3.xor[1].and.in1.f"
+= "t.e_3.xor[1].and.in1.d[1]" "t.e_3.xor[1].and.in1.t"
+= "t.e_3.xor[1].and.in1.f" "t.e_3.xor[1].nand.out.f"
+= "t.e_3.xor[1].and.in1.d[0]" "t.e_3.xor[1].nand.out.d[0]"
+= "t.e_3.xor[1].and.in1.d[1]" "t.e_3.xor[1].nand.out.d[1]"
+= "t.e_3.xor[1].and.in1.t" "t.e_3.xor[1].nand.out.t"
 = "t.e_3.xor[1].in2.d[0]" "t.e_3.xor[1].in2.f"
 = "t.e_3.xor[1].in2.d[1]" "t.e_3.xor[1].in2.t"
-= "t.e_3.xor[1]._out.d[0]" "t.e_3.xor[1]._out.f"
-= "t.e_3.xor[1]._out.d[1]" "t.e_3.xor[1]._out.t"
+= "t.e_3.xor[1].in2.f" "t.e_3.xor[1].or.in2.f"
+= "t.e_3.xor[1].in2.d[0]" "t.e_3.xor[1].or.in2.d[0]"
+= "t.e_3.xor[1].in2.d[1]" "t.e_3.xor[1].or.in2.d[1]"
+= "t.e_3.xor[1].in2.t" "t.e_3.xor[1].or.in2.t"
+= "t.e_3.xor[1].in2.f" "t.e_3.xor[1].nand.in2.f"
+= "t.e_3.xor[1].in2.d[0]" "t.e_3.xor[1].nand.in2.d[0]"
+= "t.e_3.xor[1].in2.d[1]" "t.e_3.xor[1].nand.in2.d[1]"
+= "t.e_3.xor[1].in2.t" "t.e_3.xor[1].nand.in2.t"
+"t.e_3.xor[1].or.in1.t"&("t.e_3.xor[1].or.in2.t"|"t.e_3.xor[1].or.in2.f")|"t.e_3.xor[1].or.in1.f"&"t.e_3.xor[1].or.in2.t"->"t.e_3.xor[1].or._out.t"-
+~"t.e_3.xor[1].or.in1.t"&~"t.e_3.xor[1].or.in1.f"&~"t.e_3.xor[1].or.in2.t"&~"t.e_3.xor[1].or.in2.f"->"t.e_3.xor[1].or._out.t"+
+"t.e_3.xor[1].or.in1.f"&"t.e_3.xor[1].or.in2.f"->"t.e_3.xor[1].or._out.f"-
+~"t.e_3.xor[1].or.in1.f"&~"t.e_3.xor[1].or.in2.f"->"t.e_3.xor[1].or._out.f"+
+"t.e_3.xor[1].or._out.t"->"t.e_3.xor[1].or.out.t"-
+~("t.e_3.xor[1].or._out.t")->"t.e_3.xor[1].or.out.t"+
+"t.e_3.xor[1].or._out.f"->"t.e_3.xor[1].or.out.f"-
+~("t.e_3.xor[1].or._out.f")->"t.e_3.xor[1].or.out.f"+
+= "t.e_3.xor[1].or.in2.d[0]" "t.e_3.xor[1].or.in2.f"
+= "t.e_3.xor[1].or.in2.d[1]" "t.e_3.xor[1].or.in2.t"
+= "t.e_3.xor[1].or._out.d[0]" "t.e_3.xor[1].or._out.f"
+= "t.e_3.xor[1].or._out.d[1]" "t.e_3.xor[1].or._out.t"
+= "t.e_3.xor[1].or.out.d[0]" "t.e_3.xor[1].or.out.f"
+= "t.e_3.xor[1].or.out.d[1]" "t.e_3.xor[1].or.out.t"
+= "t.e_3.xor[1].or.in1.d[0]" "t.e_3.xor[1].or.in1.f"
+= "t.e_3.xor[1].or.in1.d[1]" "t.e_3.xor[1].or.in1.t"
+= "t.e_3.xor[1].or.out.f" "t.e_3.xor[1].and.in2.f"
+= "t.e_3.xor[1].or.out.d[0]" "t.e_3.xor[1].and.in2.d[0]"
+= "t.e_3.xor[1].or.out.d[1]" "t.e_3.xor[1].and.in2.d[1]"
+= "t.e_3.xor[1].or.out.t" "t.e_3.xor[1].and.in2.t"
+"t.e_3.xor[1].nand.in1.t"&"t.e_3.xor[1].nand.in2.t"->"t.e_3.xor[1].nand._out.f"-
+~"t.e_3.xor[1].nand.in1.t"&~"t.e_3.xor[1].nand.in2.t"->"t.e_3.xor[1].nand._out.f"+
+"t.e_3.xor[1].nand.in1.f"&("t.e_3.xor[1].nand.in2.t"|"t.e_3.xor[1].nand.in2.f")|"t.e_3.xor[1].nand.in1.t"&"t.e_3.xor[1].nand.in2.f"->"t.e_3.xor[1].nand._out.t"-
+~"t.e_3.xor[1].nand.in1.t"&~"t.e_3.xor[1].nand.in1.f"&~"t.e_3.xor[1].nand.in2.t"&~"t.e_3.xor[1].nand.in2.f"->"t.e_3.xor[1].nand._out.t"+
+"t.e_3.xor[1].nand._out.t"->"t.e_3.xor[1].nand.out.t"-
+~("t.e_3.xor[1].nand._out.t")->"t.e_3.xor[1].nand.out.t"+
+"t.e_3.xor[1].nand._out.f"->"t.e_3.xor[1].nand.out.f"-
+~("t.e_3.xor[1].nand._out.f")->"t.e_3.xor[1].nand.out.f"+
+= "t.e_3.xor[1].nand.in2.d[0]" "t.e_3.xor[1].nand.in2.f"
+= "t.e_3.xor[1].nand.in2.d[1]" "t.e_3.xor[1].nand.in2.t"
+= "t.e_3.xor[1].nand._out.d[0]" "t.e_3.xor[1].nand._out.f"
+= "t.e_3.xor[1].nand._out.d[1]" "t.e_3.xor[1].nand._out.t"
+= "t.e_3.xor[1].nand.out.d[0]" "t.e_3.xor[1].nand.out.f"
+= "t.e_3.xor[1].nand.out.d[1]" "t.e_3.xor[1].nand.out.t"
+= "t.e_3.xor[1].nand.in1.d[0]" "t.e_3.xor[1].nand.in1.f"
+= "t.e_3.xor[1].nand.in1.d[1]" "t.e_3.xor[1].nand.in1.t"
 = "t.e_3.xor[1].out.d[0]" "t.e_3.xor[1].out.f"
 = "t.e_3.xor[1].out.d[1]" "t.e_3.xor[1].out.t"
+= "t.e_3.xor[1].out.f" "t.e_3.xor[1].and.out.f"
+= "t.e_3.xor[1].out.d[0]" "t.e_3.xor[1].and.out.d[0]"
+= "t.e_3.xor[1].out.d[1]" "t.e_3.xor[1].and.out.d[1]"
+= "t.e_3.xor[1].out.t" "t.e_3.xor[1].and.out.t"
 = "t.e_3.xor[1].in1.d[0]" "t.e_3.xor[1].in1.f"
 = "t.e_3.xor[1].in1.d[1]" "t.e_3.xor[1].in1.t"
-"t.e_3.xor[2].in1.t"&"t.e_3.xor[2].in2.f"|"t.e_3.xor[2].in1.f"&"t.e_3.xor[2].in2.t"->"t.e_3.xor[2]._out.t"-
-~"t.e_3.xor[2].in1.t"&~"t.e_3.xor[2].in1.f"&~"t.e_3.xor[2].in2.t"&~"t.e_3.xor[2].in2.f"->"t.e_3.xor[2]._out.t"+
-"t.e_3.xor[2].in1.t"&"t.e_3.xor[2].in1.t"|"t.e_3.xor[2].in1.f"&"t.e_3.xor[2].in2.f"->"t.e_3.xor[2]._out.f"-
-~"t.e_3.xor[2].in1.f"&~"t.e_3.xor[2].in2.f"->"t.e_3.xor[2]._out.f"+
-"t.e_3.xor[2]._out.t"->"t.e_3.xor[2].out.t"-
-~("t.e_3.xor[2]._out.t")->"t.e_3.xor[2].out.t"+
-"t.e_3.xor[2]._out.f"->"t.e_3.xor[2].out.f"-
-~("t.e_3.xor[2]._out.f")->"t.e_3.xor[2].out.f"+
+= "t.e_3.xor[1].in1.f" "t.e_3.xor[1].or.in1.f"
+= "t.e_3.xor[1].in1.d[0]" "t.e_3.xor[1].or.in1.d[0]"
+= "t.e_3.xor[1].in1.d[1]" "t.e_3.xor[1].or.in1.d[1]"
+= "t.e_3.xor[1].in1.t" "t.e_3.xor[1].or.in1.t"
+= "t.e_3.xor[1].in1.f" "t.e_3.xor[1].nand.in1.f"
+= "t.e_3.xor[1].in1.d[0]" "t.e_3.xor[1].nand.in1.d[0]"
+= "t.e_3.xor[1].in1.d[1]" "t.e_3.xor[1].nand.in1.d[1]"
+= "t.e_3.xor[1].in1.t" "t.e_3.xor[1].nand.in1.t"
+"t.e_3.xor[2].and.in1.t"&"t.e_3.xor[2].and.in2.t"->"t.e_3.xor[2].and._out.t"-
+~"t.e_3.xor[2].and.in1.t"&~"t.e_3.xor[2].and.in2.t"->"t.e_3.xor[2].and._out.t"+
+"t.e_3.xor[2].and.in1.f"&("t.e_3.xor[2].and.in2.t"|"t.e_3.xor[2].and.in2.f")|"t.e_3.xor[2].and.in1.t"&"t.e_3.xor[2].and.in2.f"->"t.e_3.xor[2].and._out.f"-
+~"t.e_3.xor[2].and.in1.t"&~"t.e_3.xor[2].and.in1.f"&~"t.e_3.xor[2].and.in2.t"&~"t.e_3.xor[2].and.in2.f"->"t.e_3.xor[2].and._out.f"+
+"t.e_3.xor[2].and._out.t"->"t.e_3.xor[2].and.out.t"-
+~("t.e_3.xor[2].and._out.t")->"t.e_3.xor[2].and.out.t"+
+"t.e_3.xor[2].and._out.f"->"t.e_3.xor[2].and.out.f"-
+~("t.e_3.xor[2].and._out.f")->"t.e_3.xor[2].and.out.f"+
+= "t.e_3.xor[2].and.in2.d[0]" "t.e_3.xor[2].and.in2.f"
+= "t.e_3.xor[2].and.in2.d[1]" "t.e_3.xor[2].and.in2.t"
+= "t.e_3.xor[2].and._out.d[0]" "t.e_3.xor[2].and._out.f"
+= "t.e_3.xor[2].and._out.d[1]" "t.e_3.xor[2].and._out.t"
+= "t.e_3.xor[2].and.out.d[0]" "t.e_3.xor[2].and.out.f"
+= "t.e_3.xor[2].and.out.d[1]" "t.e_3.xor[2].and.out.t"
+= "t.e_3.xor[2].and.in1.d[0]" "t.e_3.xor[2].and.in1.f"
+= "t.e_3.xor[2].and.in1.d[1]" "t.e_3.xor[2].and.in1.t"
+= "t.e_3.xor[2].and.in1.f" "t.e_3.xor[2].nand.out.f"
+= "t.e_3.xor[2].and.in1.d[0]" "t.e_3.xor[2].nand.out.d[0]"
+= "t.e_3.xor[2].and.in1.d[1]" "t.e_3.xor[2].nand.out.d[1]"
+= "t.e_3.xor[2].and.in1.t" "t.e_3.xor[2].nand.out.t"
 = "t.e_3.xor[2].in2.d[0]" "t.e_3.xor[2].in2.f"
 = "t.e_3.xor[2].in2.d[1]" "t.e_3.xor[2].in2.t"
-= "t.e_3.xor[2]._out.d[0]" "t.e_3.xor[2]._out.f"
-= "t.e_3.xor[2]._out.d[1]" "t.e_3.xor[2]._out.t"
+= "t.e_3.xor[2].in2.f" "t.e_3.xor[2].or.in2.f"
+= "t.e_3.xor[2].in2.d[0]" "t.e_3.xor[2].or.in2.d[0]"
+= "t.e_3.xor[2].in2.d[1]" "t.e_3.xor[2].or.in2.d[1]"
+= "t.e_3.xor[2].in2.t" "t.e_3.xor[2].or.in2.t"
+= "t.e_3.xor[2].in2.f" "t.e_3.xor[2].nand.in2.f"
+= "t.e_3.xor[2].in2.d[0]" "t.e_3.xor[2].nand.in2.d[0]"
+= "t.e_3.xor[2].in2.d[1]" "t.e_3.xor[2].nand.in2.d[1]"
+= "t.e_3.xor[2].in2.t" "t.e_3.xor[2].nand.in2.t"
+"t.e_3.xor[2].or.in1.t"&("t.e_3.xor[2].or.in2.t"|"t.e_3.xor[2].or.in2.f")|"t.e_3.xor[2].or.in1.f"&"t.e_3.xor[2].or.in2.t"->"t.e_3.xor[2].or._out.t"-
+~"t.e_3.xor[2].or.in1.t"&~"t.e_3.xor[2].or.in1.f"&~"t.e_3.xor[2].or.in2.t"&~"t.e_3.xor[2].or.in2.f"->"t.e_3.xor[2].or._out.t"+
+"t.e_3.xor[2].or.in1.f"&"t.e_3.xor[2].or.in2.f"->"t.e_3.xor[2].or._out.f"-
+~"t.e_3.xor[2].or.in1.f"&~"t.e_3.xor[2].or.in2.f"->"t.e_3.xor[2].or._out.f"+
+"t.e_3.xor[2].or._out.t"->"t.e_3.xor[2].or.out.t"-
+~("t.e_3.xor[2].or._out.t")->"t.e_3.xor[2].or.out.t"+
+"t.e_3.xor[2].or._out.f"->"t.e_3.xor[2].or.out.f"-
+~("t.e_3.xor[2].or._out.f")->"t.e_3.xor[2].or.out.f"+
+= "t.e_3.xor[2].or.in2.d[0]" "t.e_3.xor[2].or.in2.f"
+= "t.e_3.xor[2].or.in2.d[1]" "t.e_3.xor[2].or.in2.t"
+= "t.e_3.xor[2].or._out.d[0]" "t.e_3.xor[2].or._out.f"
+= "t.e_3.xor[2].or._out.d[1]" "t.e_3.xor[2].or._out.t"
+= "t.e_3.xor[2].or.out.d[0]" "t.e_3.xor[2].or.out.f"
+= "t.e_3.xor[2].or.out.d[1]" "t.e_3.xor[2].or.out.t"
+= "t.e_3.xor[2].or.in1.d[0]" "t.e_3.xor[2].or.in1.f"
+= "t.e_3.xor[2].or.in1.d[1]" "t.e_3.xor[2].or.in1.t"
+= "t.e_3.xor[2].or.out.f" "t.e_3.xor[2].and.in2.f"
+= "t.e_3.xor[2].or.out.d[0]" "t.e_3.xor[2].and.in2.d[0]"
+= "t.e_3.xor[2].or.out.d[1]" "t.e_3.xor[2].and.in2.d[1]"
+= "t.e_3.xor[2].or.out.t" "t.e_3.xor[2].and.in2.t"
+"t.e_3.xor[2].nand.in1.t"&"t.e_3.xor[2].nand.in2.t"->"t.e_3.xor[2].nand._out.f"-
+~"t.e_3.xor[2].nand.in1.t"&~"t.e_3.xor[2].nand.in2.t"->"t.e_3.xor[2].nand._out.f"+
+"t.e_3.xor[2].nand.in1.f"&("t.e_3.xor[2].nand.in2.t"|"t.e_3.xor[2].nand.in2.f")|"t.e_3.xor[2].nand.in1.t"&"t.e_3.xor[2].nand.in2.f"->"t.e_3.xor[2].nand._out.t"-
+~"t.e_3.xor[2].nand.in1.t"&~"t.e_3.xor[2].nand.in1.f"&~"t.e_3.xor[2].nand.in2.t"&~"t.e_3.xor[2].nand.in2.f"->"t.e_3.xor[2].nand._out.t"+
+"t.e_3.xor[2].nand._out.t"->"t.e_3.xor[2].nand.out.t"-
+~("t.e_3.xor[2].nand._out.t")->"t.e_3.xor[2].nand.out.t"+
+"t.e_3.xor[2].nand._out.f"->"t.e_3.xor[2].nand.out.f"-
+~("t.e_3.xor[2].nand._out.f")->"t.e_3.xor[2].nand.out.f"+
+= "t.e_3.xor[2].nand.in2.d[0]" "t.e_3.xor[2].nand.in2.f"
+= "t.e_3.xor[2].nand.in2.d[1]" "t.e_3.xor[2].nand.in2.t"
+= "t.e_3.xor[2].nand._out.d[0]" "t.e_3.xor[2].nand._out.f"
+= "t.e_3.xor[2].nand._out.d[1]" "t.e_3.xor[2].nand._out.t"
+= "t.e_3.xor[2].nand.out.d[0]" "t.e_3.xor[2].nand.out.f"
+= "t.e_3.xor[2].nand.out.d[1]" "t.e_3.xor[2].nand.out.t"
+= "t.e_3.xor[2].nand.in1.d[0]" "t.e_3.xor[2].nand.in1.f"
+= "t.e_3.xor[2].nand.in1.d[1]" "t.e_3.xor[2].nand.in1.t"
 = "t.e_3.xor[2].out.d[0]" "t.e_3.xor[2].out.f"
 = "t.e_3.xor[2].out.d[1]" "t.e_3.xor[2].out.t"
+= "t.e_3.xor[2].out.f" "t.e_3.xor[2].and.out.f"
+= "t.e_3.xor[2].out.d[0]" "t.e_3.xor[2].and.out.d[0]"
+= "t.e_3.xor[2].out.d[1]" "t.e_3.xor[2].and.out.d[1]"
+= "t.e_3.xor[2].out.t" "t.e_3.xor[2].and.out.t"
 = "t.e_3.xor[2].in1.d[0]" "t.e_3.xor[2].in1.f"
 = "t.e_3.xor[2].in1.d[1]" "t.e_3.xor[2].in1.t"
-"t.e_3.xor[3].in1.t"&"t.e_3.xor[3].in2.f"|"t.e_3.xor[3].in1.f"&"t.e_3.xor[3].in2.t"->"t.e_3.xor[3]._out.t"-
-~"t.e_3.xor[3].in1.t"&~"t.e_3.xor[3].in1.f"&~"t.e_3.xor[3].in2.t"&~"t.e_3.xor[3].in2.f"->"t.e_3.xor[3]._out.t"+
-"t.e_3.xor[3].in1.t"&"t.e_3.xor[3].in1.t"|"t.e_3.xor[3].in1.f"&"t.e_3.xor[3].in2.f"->"t.e_3.xor[3]._out.f"-
-~"t.e_3.xor[3].in1.f"&~"t.e_3.xor[3].in2.f"->"t.e_3.xor[3]._out.f"+
-"t.e_3.xor[3]._out.t"->"t.e_3.xor[3].out.t"-
-~("t.e_3.xor[3]._out.t")->"t.e_3.xor[3].out.t"+
-"t.e_3.xor[3]._out.f"->"t.e_3.xor[3].out.f"-
-~("t.e_3.xor[3]._out.f")->"t.e_3.xor[3].out.f"+
+= "t.e_3.xor[2].in1.f" "t.e_3.xor[2].or.in1.f"
+= "t.e_3.xor[2].in1.d[0]" "t.e_3.xor[2].or.in1.d[0]"
+= "t.e_3.xor[2].in1.d[1]" "t.e_3.xor[2].or.in1.d[1]"
+= "t.e_3.xor[2].in1.t" "t.e_3.xor[2].or.in1.t"
+= "t.e_3.xor[2].in1.f" "t.e_3.xor[2].nand.in1.f"
+= "t.e_3.xor[2].in1.d[0]" "t.e_3.xor[2].nand.in1.d[0]"
+= "t.e_3.xor[2].in1.d[1]" "t.e_3.xor[2].nand.in1.d[1]"
+= "t.e_3.xor[2].in1.t" "t.e_3.xor[2].nand.in1.t"
+"t.e_3.xor[3].and.in1.t"&"t.e_3.xor[3].and.in2.t"->"t.e_3.xor[3].and._out.t"-
+~"t.e_3.xor[3].and.in1.t"&~"t.e_3.xor[3].and.in2.t"->"t.e_3.xor[3].and._out.t"+
+"t.e_3.xor[3].and.in1.f"&("t.e_3.xor[3].and.in2.t"|"t.e_3.xor[3].and.in2.f")|"t.e_3.xor[3].and.in1.t"&"t.e_3.xor[3].and.in2.f"->"t.e_3.xor[3].and._out.f"-
+~"t.e_3.xor[3].and.in1.t"&~"t.e_3.xor[3].and.in1.f"&~"t.e_3.xor[3].and.in2.t"&~"t.e_3.xor[3].and.in2.f"->"t.e_3.xor[3].and._out.f"+
+"t.e_3.xor[3].and._out.t"->"t.e_3.xor[3].and.out.t"-
+~("t.e_3.xor[3].and._out.t")->"t.e_3.xor[3].and.out.t"+
+"t.e_3.xor[3].and._out.f"->"t.e_3.xor[3].and.out.f"-
+~("t.e_3.xor[3].and._out.f")->"t.e_3.xor[3].and.out.f"+
+= "t.e_3.xor[3].and.in2.d[0]" "t.e_3.xor[3].and.in2.f"
+= "t.e_3.xor[3].and.in2.d[1]" "t.e_3.xor[3].and.in2.t"
+= "t.e_3.xor[3].and._out.d[0]" "t.e_3.xor[3].and._out.f"
+= "t.e_3.xor[3].and._out.d[1]" "t.e_3.xor[3].and._out.t"
+= "t.e_3.xor[3].and.out.d[0]" "t.e_3.xor[3].and.out.f"
+= "t.e_3.xor[3].and.out.d[1]" "t.e_3.xor[3].and.out.t"
+= "t.e_3.xor[3].and.in1.d[0]" "t.e_3.xor[3].and.in1.f"
+= "t.e_3.xor[3].and.in1.d[1]" "t.e_3.xor[3].and.in1.t"
+= "t.e_3.xor[3].and.in1.f" "t.e_3.xor[3].nand.out.f"
+= "t.e_3.xor[3].and.in1.d[0]" "t.e_3.xor[3].nand.out.d[0]"
+= "t.e_3.xor[3].and.in1.d[1]" "t.e_3.xor[3].nand.out.d[1]"
+= "t.e_3.xor[3].and.in1.t" "t.e_3.xor[3].nand.out.t"
 = "t.e_3.xor[3].in2.d[0]" "t.e_3.xor[3].in2.f"
 = "t.e_3.xor[3].in2.d[1]" "t.e_3.xor[3].in2.t"
-= "t.e_3.xor[3]._out.d[0]" "t.e_3.xor[3]._out.f"
-= "t.e_3.xor[3]._out.d[1]" "t.e_3.xor[3]._out.t"
+= "t.e_3.xor[3].in2.f" "t.e_3.xor[3].or.in2.f"
+= "t.e_3.xor[3].in2.d[0]" "t.e_3.xor[3].or.in2.d[0]"
+= "t.e_3.xor[3].in2.d[1]" "t.e_3.xor[3].or.in2.d[1]"
+= "t.e_3.xor[3].in2.t" "t.e_3.xor[3].or.in2.t"
+= "t.e_3.xor[3].in2.f" "t.e_3.xor[3].nand.in2.f"
+= "t.e_3.xor[3].in2.d[0]" "t.e_3.xor[3].nand.in2.d[0]"
+= "t.e_3.xor[3].in2.d[1]" "t.e_3.xor[3].nand.in2.d[1]"
+= "t.e_3.xor[3].in2.t" "t.e_3.xor[3].nand.in2.t"
+"t.e_3.xor[3].or.in1.t"&("t.e_3.xor[3].or.in2.t"|"t.e_3.xor[3].or.in2.f")|"t.e_3.xor[3].or.in1.f"&"t.e_3.xor[3].or.in2.t"->"t.e_3.xor[3].or._out.t"-
+~"t.e_3.xor[3].or.in1.t"&~"t.e_3.xor[3].or.in1.f"&~"t.e_3.xor[3].or.in2.t"&~"t.e_3.xor[3].or.in2.f"->"t.e_3.xor[3].or._out.t"+
+"t.e_3.xor[3].or.in1.f"&"t.e_3.xor[3].or.in2.f"->"t.e_3.xor[3].or._out.f"-
+~"t.e_3.xor[3].or.in1.f"&~"t.e_3.xor[3].or.in2.f"->"t.e_3.xor[3].or._out.f"+
+"t.e_3.xor[3].or._out.t"->"t.e_3.xor[3].or.out.t"-
+~("t.e_3.xor[3].or._out.t")->"t.e_3.xor[3].or.out.t"+
+"t.e_3.xor[3].or._out.f"->"t.e_3.xor[3].or.out.f"-
+~("t.e_3.xor[3].or._out.f")->"t.e_3.xor[3].or.out.f"+
+= "t.e_3.xor[3].or.in2.d[0]" "t.e_3.xor[3].or.in2.f"
+= "t.e_3.xor[3].or.in2.d[1]" "t.e_3.xor[3].or.in2.t"
+= "t.e_3.xor[3].or._out.d[0]" "t.e_3.xor[3].or._out.f"
+= "t.e_3.xor[3].or._out.d[1]" "t.e_3.xor[3].or._out.t"
+= "t.e_3.xor[3].or.out.d[0]" "t.e_3.xor[3].or.out.f"
+= "t.e_3.xor[3].or.out.d[1]" "t.e_3.xor[3].or.out.t"
+= "t.e_3.xor[3].or.in1.d[0]" "t.e_3.xor[3].or.in1.f"
+= "t.e_3.xor[3].or.in1.d[1]" "t.e_3.xor[3].or.in1.t"
+= "t.e_3.xor[3].or.out.f" "t.e_3.xor[3].and.in2.f"
+= "t.e_3.xor[3].or.out.d[0]" "t.e_3.xor[3].and.in2.d[0]"
+= "t.e_3.xor[3].or.out.d[1]" "t.e_3.xor[3].and.in2.d[1]"
+= "t.e_3.xor[3].or.out.t" "t.e_3.xor[3].and.in2.t"
+"t.e_3.xor[3].nand.in1.t"&"t.e_3.xor[3].nand.in2.t"->"t.e_3.xor[3].nand._out.f"-
+~"t.e_3.xor[3].nand.in1.t"&~"t.e_3.xor[3].nand.in2.t"->"t.e_3.xor[3].nand._out.f"+
+"t.e_3.xor[3].nand.in1.f"&("t.e_3.xor[3].nand.in2.t"|"t.e_3.xor[3].nand.in2.f")|"t.e_3.xor[3].nand.in1.t"&"t.e_3.xor[3].nand.in2.f"->"t.e_3.xor[3].nand._out.t"-
+~"t.e_3.xor[3].nand.in1.t"&~"t.e_3.xor[3].nand.in1.f"&~"t.e_3.xor[3].nand.in2.t"&~"t.e_3.xor[3].nand.in2.f"->"t.e_3.xor[3].nand._out.t"+
+"t.e_3.xor[3].nand._out.t"->"t.e_3.xor[3].nand.out.t"-
+~("t.e_3.xor[3].nand._out.t")->"t.e_3.xor[3].nand.out.t"+
+"t.e_3.xor[3].nand._out.f"->"t.e_3.xor[3].nand.out.f"-
+~("t.e_3.xor[3].nand._out.f")->"t.e_3.xor[3].nand.out.f"+
+= "t.e_3.xor[3].nand.in2.d[0]" "t.e_3.xor[3].nand.in2.f"
+= "t.e_3.xor[3].nand.in2.d[1]" "t.e_3.xor[3].nand.in2.t"
+= "t.e_3.xor[3].nand._out.d[0]" "t.e_3.xor[3].nand._out.f"
+= "t.e_3.xor[3].nand._out.d[1]" "t.e_3.xor[3].nand._out.t"
+= "t.e_3.xor[3].nand.out.d[0]" "t.e_3.xor[3].nand.out.f"
+= "t.e_3.xor[3].nand.out.d[1]" "t.e_3.xor[3].nand.out.t"
+= "t.e_3.xor[3].nand.in1.d[0]" "t.e_3.xor[3].nand.in1.f"
+= "t.e_3.xor[3].nand.in1.d[1]" "t.e_3.xor[3].nand.in1.t"
 = "t.e_3.xor[3].out.d[0]" "t.e_3.xor[3].out.f"
 = "t.e_3.xor[3].out.d[1]" "t.e_3.xor[3].out.t"
+= "t.e_3.xor[3].out.f" "t.e_3.xor[3].and.out.f"
+= "t.e_3.xor[3].out.d[0]" "t.e_3.xor[3].and.out.d[0]"
+= "t.e_3.xor[3].out.d[1]" "t.e_3.xor[3].and.out.d[1]"
+= "t.e_3.xor[3].out.t" "t.e_3.xor[3].and.out.t"
 = "t.e_3.xor[3].in1.d[0]" "t.e_3.xor[3].in1.f"
 = "t.e_3.xor[3].in1.d[1]" "t.e_3.xor[3].in1.t"
-"t.e_3.xor[4].in1.t"&"t.e_3.xor[4].in2.f"|"t.e_3.xor[4].in1.f"&"t.e_3.xor[4].in2.t"->"t.e_3.xor[4]._out.t"-
-~"t.e_3.xor[4].in1.t"&~"t.e_3.xor[4].in1.f"&~"t.e_3.xor[4].in2.t"&~"t.e_3.xor[4].in2.f"->"t.e_3.xor[4]._out.t"+
-"t.e_3.xor[4].in1.t"&"t.e_3.xor[4].in1.t"|"t.e_3.xor[4].in1.f"&"t.e_3.xor[4].in2.f"->"t.e_3.xor[4]._out.f"-
-~"t.e_3.xor[4].in1.f"&~"t.e_3.xor[4].in2.f"->"t.e_3.xor[4]._out.f"+
-"t.e_3.xor[4]._out.t"->"t.e_3.xor[4].out.t"-
-~("t.e_3.xor[4]._out.t")->"t.e_3.xor[4].out.t"+
-"t.e_3.xor[4]._out.f"->"t.e_3.xor[4].out.f"-
-~("t.e_3.xor[4]._out.f")->"t.e_3.xor[4].out.f"+
+= "t.e_3.xor[3].in1.f" "t.e_3.xor[3].or.in1.f"
+= "t.e_3.xor[3].in1.d[0]" "t.e_3.xor[3].or.in1.d[0]"
+= "t.e_3.xor[3].in1.d[1]" "t.e_3.xor[3].or.in1.d[1]"
+= "t.e_3.xor[3].in1.t" "t.e_3.xor[3].or.in1.t"
+= "t.e_3.xor[3].in1.f" "t.e_3.xor[3].nand.in1.f"
+= "t.e_3.xor[3].in1.d[0]" "t.e_3.xor[3].nand.in1.d[0]"
+= "t.e_3.xor[3].in1.d[1]" "t.e_3.xor[3].nand.in1.d[1]"
+= "t.e_3.xor[3].in1.t" "t.e_3.xor[3].nand.in1.t"
+"t.e_3.xor[4].and.in1.t"&"t.e_3.xor[4].and.in2.t"->"t.e_3.xor[4].and._out.t"-
+~"t.e_3.xor[4].and.in1.t"&~"t.e_3.xor[4].and.in2.t"->"t.e_3.xor[4].and._out.t"+
+"t.e_3.xor[4].and.in1.f"&("t.e_3.xor[4].and.in2.t"|"t.e_3.xor[4].and.in2.f")|"t.e_3.xor[4].and.in1.t"&"t.e_3.xor[4].and.in2.f"->"t.e_3.xor[4].and._out.f"-
+~"t.e_3.xor[4].and.in1.t"&~"t.e_3.xor[4].and.in1.f"&~"t.e_3.xor[4].and.in2.t"&~"t.e_3.xor[4].and.in2.f"->"t.e_3.xor[4].and._out.f"+
+"t.e_3.xor[4].and._out.t"->"t.e_3.xor[4].and.out.t"-
+~("t.e_3.xor[4].and._out.t")->"t.e_3.xor[4].and.out.t"+
+"t.e_3.xor[4].and._out.f"->"t.e_3.xor[4].and.out.f"-
+~("t.e_3.xor[4].and._out.f")->"t.e_3.xor[4].and.out.f"+
+= "t.e_3.xor[4].and.in2.d[0]" "t.e_3.xor[4].and.in2.f"
+= "t.e_3.xor[4].and.in2.d[1]" "t.e_3.xor[4].and.in2.t"
+= "t.e_3.xor[4].and._out.d[0]" "t.e_3.xor[4].and._out.f"
+= "t.e_3.xor[4].and._out.d[1]" "t.e_3.xor[4].and._out.t"
+= "t.e_3.xor[4].and.out.d[0]" "t.e_3.xor[4].and.out.f"
+= "t.e_3.xor[4].and.out.d[1]" "t.e_3.xor[4].and.out.t"
+= "t.e_3.xor[4].and.in1.d[0]" "t.e_3.xor[4].and.in1.f"
+= "t.e_3.xor[4].and.in1.d[1]" "t.e_3.xor[4].and.in1.t"
+= "t.e_3.xor[4].and.in1.f" "t.e_3.xor[4].nand.out.f"
+= "t.e_3.xor[4].and.in1.d[0]" "t.e_3.xor[4].nand.out.d[0]"
+= "t.e_3.xor[4].and.in1.d[1]" "t.e_3.xor[4].nand.out.d[1]"
+= "t.e_3.xor[4].and.in1.t" "t.e_3.xor[4].nand.out.t"
 = "t.e_3.xor[4].in2.d[0]" "t.e_3.xor[4].in2.f"
 = "t.e_3.xor[4].in2.d[1]" "t.e_3.xor[4].in2.t"
-= "t.e_3.xor[4]._out.d[0]" "t.e_3.xor[4]._out.f"
-= "t.e_3.xor[4]._out.d[1]" "t.e_3.xor[4]._out.t"
+= "t.e_3.xor[4].in2.f" "t.e_3.xor[4].or.in2.f"
+= "t.e_3.xor[4].in2.d[0]" "t.e_3.xor[4].or.in2.d[0]"
+= "t.e_3.xor[4].in2.d[1]" "t.e_3.xor[4].or.in2.d[1]"
+= "t.e_3.xor[4].in2.t" "t.e_3.xor[4].or.in2.t"
+= "t.e_3.xor[4].in2.f" "t.e_3.xor[4].nand.in2.f"
+= "t.e_3.xor[4].in2.d[0]" "t.e_3.xor[4].nand.in2.d[0]"
+= "t.e_3.xor[4].in2.d[1]" "t.e_3.xor[4].nand.in2.d[1]"
+= "t.e_3.xor[4].in2.t" "t.e_3.xor[4].nand.in2.t"
+"t.e_3.xor[4].or.in1.t"&("t.e_3.xor[4].or.in2.t"|"t.e_3.xor[4].or.in2.f")|"t.e_3.xor[4].or.in1.f"&"t.e_3.xor[4].or.in2.t"->"t.e_3.xor[4].or._out.t"-
+~"t.e_3.xor[4].or.in1.t"&~"t.e_3.xor[4].or.in1.f"&~"t.e_3.xor[4].or.in2.t"&~"t.e_3.xor[4].or.in2.f"->"t.e_3.xor[4].or._out.t"+
+"t.e_3.xor[4].or.in1.f"&"t.e_3.xor[4].or.in2.f"->"t.e_3.xor[4].or._out.f"-
+~"t.e_3.xor[4].or.in1.f"&~"t.e_3.xor[4].or.in2.f"->"t.e_3.xor[4].or._out.f"+
+"t.e_3.xor[4].or._out.t"->"t.e_3.xor[4].or.out.t"-
+~("t.e_3.xor[4].or._out.t")->"t.e_3.xor[4].or.out.t"+
+"t.e_3.xor[4].or._out.f"->"t.e_3.xor[4].or.out.f"-
+~("t.e_3.xor[4].or._out.f")->"t.e_3.xor[4].or.out.f"+
+= "t.e_3.xor[4].or.in2.d[0]" "t.e_3.xor[4].or.in2.f"
+= "t.e_3.xor[4].or.in2.d[1]" "t.e_3.xor[4].or.in2.t"
+= "t.e_3.xor[4].or._out.d[0]" "t.e_3.xor[4].or._out.f"
+= "t.e_3.xor[4].or._out.d[1]" "t.e_3.xor[4].or._out.t"
+= "t.e_3.xor[4].or.out.d[0]" "t.e_3.xor[4].or.out.f"
+= "t.e_3.xor[4].or.out.d[1]" "t.e_3.xor[4].or.out.t"
+= "t.e_3.xor[4].or.in1.d[0]" "t.e_3.xor[4].or.in1.f"
+= "t.e_3.xor[4].or.in1.d[1]" "t.e_3.xor[4].or.in1.t"
+= "t.e_3.xor[4].or.out.f" "t.e_3.xor[4].and.in2.f"
+= "t.e_3.xor[4].or.out.d[0]" "t.e_3.xor[4].and.in2.d[0]"
+= "t.e_3.xor[4].or.out.d[1]" "t.e_3.xor[4].and.in2.d[1]"
+= "t.e_3.xor[4].or.out.t" "t.e_3.xor[4].and.in2.t"
+"t.e_3.xor[4].nand.in1.t"&"t.e_3.xor[4].nand.in2.t"->"t.e_3.xor[4].nand._out.f"-
+~"t.e_3.xor[4].nand.in1.t"&~"t.e_3.xor[4].nand.in2.t"->"t.e_3.xor[4].nand._out.f"+
+"t.e_3.xor[4].nand.in1.f"&("t.e_3.xor[4].nand.in2.t"|"t.e_3.xor[4].nand.in2.f")|"t.e_3.xor[4].nand.in1.t"&"t.e_3.xor[4].nand.in2.f"->"t.e_3.xor[4].nand._out.t"-
+~"t.e_3.xor[4].nand.in1.t"&~"t.e_3.xor[4].nand.in1.f"&~"t.e_3.xor[4].nand.in2.t"&~"t.e_3.xor[4].nand.in2.f"->"t.e_3.xor[4].nand._out.t"+
+"t.e_3.xor[4].nand._out.t"->"t.e_3.xor[4].nand.out.t"-
+~("t.e_3.xor[4].nand._out.t")->"t.e_3.xor[4].nand.out.t"+
+"t.e_3.xor[4].nand._out.f"->"t.e_3.xor[4].nand.out.f"-
+~("t.e_3.xor[4].nand._out.f")->"t.e_3.xor[4].nand.out.f"+
+= "t.e_3.xor[4].nand.in2.d[0]" "t.e_3.xor[4].nand.in2.f"
+= "t.e_3.xor[4].nand.in2.d[1]" "t.e_3.xor[4].nand.in2.t"
+= "t.e_3.xor[4].nand._out.d[0]" "t.e_3.xor[4].nand._out.f"
+= "t.e_3.xor[4].nand._out.d[1]" "t.e_3.xor[4].nand._out.t"
+= "t.e_3.xor[4].nand.out.d[0]" "t.e_3.xor[4].nand.out.f"
+= "t.e_3.xor[4].nand.out.d[1]" "t.e_3.xor[4].nand.out.t"
+= "t.e_3.xor[4].nand.in1.d[0]" "t.e_3.xor[4].nand.in1.f"
+= "t.e_3.xor[4].nand.in1.d[1]" "t.e_3.xor[4].nand.in1.t"
 = "t.e_3.xor[4].out.d[0]" "t.e_3.xor[4].out.f"
 = "t.e_3.xor[4].out.d[1]" "t.e_3.xor[4].out.t"
+= "t.e_3.xor[4].out.f" "t.e_3.xor[4].and.out.f"
+= "t.e_3.xor[4].out.d[0]" "t.e_3.xor[4].and.out.d[0]"
+= "t.e_3.xor[4].out.d[1]" "t.e_3.xor[4].and.out.d[1]"
+= "t.e_3.xor[4].out.t" "t.e_3.xor[4].and.out.t"
 = "t.e_3.xor[4].in1.d[0]" "t.e_3.xor[4].in1.f"
 = "t.e_3.xor[4].in1.d[1]" "t.e_3.xor[4].in1.t"
-"t.e_3.xor[5].in1.t"&"t.e_3.xor[5].in2.f"|"t.e_3.xor[5].in1.f"&"t.e_3.xor[5].in2.t"->"t.e_3.xor[5]._out.t"-
-~"t.e_3.xor[5].in1.t"&~"t.e_3.xor[5].in1.f"&~"t.e_3.xor[5].in2.t"&~"t.e_3.xor[5].in2.f"->"t.e_3.xor[5]._out.t"+
-"t.e_3.xor[5].in1.t"&"t.e_3.xor[5].in1.t"|"t.e_3.xor[5].in1.f"&"t.e_3.xor[5].in2.f"->"t.e_3.xor[5]._out.f"-
-~"t.e_3.xor[5].in1.f"&~"t.e_3.xor[5].in2.f"->"t.e_3.xor[5]._out.f"+
-"t.e_3.xor[5]._out.t"->"t.e_3.xor[5].out.t"-
-~("t.e_3.xor[5]._out.t")->"t.e_3.xor[5].out.t"+
-"t.e_3.xor[5]._out.f"->"t.e_3.xor[5].out.f"-
-~("t.e_3.xor[5]._out.f")->"t.e_3.xor[5].out.f"+
+= "t.e_3.xor[4].in1.f" "t.e_3.xor[4].or.in1.f"
+= "t.e_3.xor[4].in1.d[0]" "t.e_3.xor[4].or.in1.d[0]"
+= "t.e_3.xor[4].in1.d[1]" "t.e_3.xor[4].or.in1.d[1]"
+= "t.e_3.xor[4].in1.t" "t.e_3.xor[4].or.in1.t"
+= "t.e_3.xor[4].in1.f" "t.e_3.xor[4].nand.in1.f"
+= "t.e_3.xor[4].in1.d[0]" "t.e_3.xor[4].nand.in1.d[0]"
+= "t.e_3.xor[4].in1.d[1]" "t.e_3.xor[4].nand.in1.d[1]"
+= "t.e_3.xor[4].in1.t" "t.e_3.xor[4].nand.in1.t"
+"t.e_3.xor[5].and.in1.t"&"t.e_3.xor[5].and.in2.t"->"t.e_3.xor[5].and._out.t"-
+~"t.e_3.xor[5].and.in1.t"&~"t.e_3.xor[5].and.in2.t"->"t.e_3.xor[5].and._out.t"+
+"t.e_3.xor[5].and.in1.f"&("t.e_3.xor[5].and.in2.t"|"t.e_3.xor[5].and.in2.f")|"t.e_3.xor[5].and.in1.t"&"t.e_3.xor[5].and.in2.f"->"t.e_3.xor[5].and._out.f"-
+~"t.e_3.xor[5].and.in1.t"&~"t.e_3.xor[5].and.in1.f"&~"t.e_3.xor[5].and.in2.t"&~"t.e_3.xor[5].and.in2.f"->"t.e_3.xor[5].and._out.f"+
+"t.e_3.xor[5].and._out.t"->"t.e_3.xor[5].and.out.t"-
+~("t.e_3.xor[5].and._out.t")->"t.e_3.xor[5].and.out.t"+
+"t.e_3.xor[5].and._out.f"->"t.e_3.xor[5].and.out.f"-
+~("t.e_3.xor[5].and._out.f")->"t.e_3.xor[5].and.out.f"+
+= "t.e_3.xor[5].and.in2.d[0]" "t.e_3.xor[5].and.in2.f"
+= "t.e_3.xor[5].and.in2.d[1]" "t.e_3.xor[5].and.in2.t"
+= "t.e_3.xor[5].and._out.d[0]" "t.e_3.xor[5].and._out.f"
+= "t.e_3.xor[5].and._out.d[1]" "t.e_3.xor[5].and._out.t"
+= "t.e_3.xor[5].and.out.d[0]" "t.e_3.xor[5].and.out.f"
+= "t.e_3.xor[5].and.out.d[1]" "t.e_3.xor[5].and.out.t"
+= "t.e_3.xor[5].and.in1.d[0]" "t.e_3.xor[5].and.in1.f"
+= "t.e_3.xor[5].and.in1.d[1]" "t.e_3.xor[5].and.in1.t"
+= "t.e_3.xor[5].and.in1.f" "t.e_3.xor[5].nand.out.f"
+= "t.e_3.xor[5].and.in1.d[0]" "t.e_3.xor[5].nand.out.d[0]"
+= "t.e_3.xor[5].and.in1.d[1]" "t.e_3.xor[5].nand.out.d[1]"
+= "t.e_3.xor[5].and.in1.t" "t.e_3.xor[5].nand.out.t"
 = "t.e_3.xor[5].in2.d[0]" "t.e_3.xor[5].in2.f"
 = "t.e_3.xor[5].in2.d[1]" "t.e_3.xor[5].in2.t"
-= "t.e_3.xor[5]._out.d[0]" "t.e_3.xor[5]._out.f"
-= "t.e_3.xor[5]._out.d[1]" "t.e_3.xor[5]._out.t"
+= "t.e_3.xor[5].in2.f" "t.e_3.xor[5].or.in2.f"
+= "t.e_3.xor[5].in2.d[0]" "t.e_3.xor[5].or.in2.d[0]"
+= "t.e_3.xor[5].in2.d[1]" "t.e_3.xor[5].or.in2.d[1]"
+= "t.e_3.xor[5].in2.t" "t.e_3.xor[5].or.in2.t"
+= "t.e_3.xor[5].in2.f" "t.e_3.xor[5].nand.in2.f"
+= "t.e_3.xor[5].in2.d[0]" "t.e_3.xor[5].nand.in2.d[0]"
+= "t.e_3.xor[5].in2.d[1]" "t.e_3.xor[5].nand.in2.d[1]"
+= "t.e_3.xor[5].in2.t" "t.e_3.xor[5].nand.in2.t"
+"t.e_3.xor[5].or.in1.t"&("t.e_3.xor[5].or.in2.t"|"t.e_3.xor[5].or.in2.f")|"t.e_3.xor[5].or.in1.f"&"t.e_3.xor[5].or.in2.t"->"t.e_3.xor[5].or._out.t"-
+~"t.e_3.xor[5].or.in1.t"&~"t.e_3.xor[5].or.in1.f"&~"t.e_3.xor[5].or.in2.t"&~"t.e_3.xor[5].or.in2.f"->"t.e_3.xor[5].or._out.t"+
+"t.e_3.xor[5].or.in1.f"&"t.e_3.xor[5].or.in2.f"->"t.e_3.xor[5].or._out.f"-
+~"t.e_3.xor[5].or.in1.f"&~"t.e_3.xor[5].or.in2.f"->"t.e_3.xor[5].or._out.f"+
+"t.e_3.xor[5].or._out.t"->"t.e_3.xor[5].or.out.t"-
+~("t.e_3.xor[5].or._out.t")->"t.e_3.xor[5].or.out.t"+
+"t.e_3.xor[5].or._out.f"->"t.e_3.xor[5].or.out.f"-
+~("t.e_3.xor[5].or._out.f")->"t.e_3.xor[5].or.out.f"+
+= "t.e_3.xor[5].or.in2.d[0]" "t.e_3.xor[5].or.in2.f"
+= "t.e_3.xor[5].or.in2.d[1]" "t.e_3.xor[5].or.in2.t"
+= "t.e_3.xor[5].or._out.d[0]" "t.e_3.xor[5].or._out.f"
+= "t.e_3.xor[5].or._out.d[1]" "t.e_3.xor[5].or._out.t"
+= "t.e_3.xor[5].or.out.d[0]" "t.e_3.xor[5].or.out.f"
+= "t.e_3.xor[5].or.out.d[1]" "t.e_3.xor[5].or.out.t"
+= "t.e_3.xor[5].or.in1.d[0]" "t.e_3.xor[5].or.in1.f"
+= "t.e_3.xor[5].or.in1.d[1]" "t.e_3.xor[5].or.in1.t"
+= "t.e_3.xor[5].or.out.f" "t.e_3.xor[5].and.in2.f"
+= "t.e_3.xor[5].or.out.d[0]" "t.e_3.xor[5].and.in2.d[0]"
+= "t.e_3.xor[5].or.out.d[1]" "t.e_3.xor[5].and.in2.d[1]"
+= "t.e_3.xor[5].or.out.t" "t.e_3.xor[5].and.in2.t"
+"t.e_3.xor[5].nand.in1.t"&"t.e_3.xor[5].nand.in2.t"->"t.e_3.xor[5].nand._out.f"-
+~"t.e_3.xor[5].nand.in1.t"&~"t.e_3.xor[5].nand.in2.t"->"t.e_3.xor[5].nand._out.f"+
+"t.e_3.xor[5].nand.in1.f"&("t.e_3.xor[5].nand.in2.t"|"t.e_3.xor[5].nand.in2.f")|"t.e_3.xor[5].nand.in1.t"&"t.e_3.xor[5].nand.in2.f"->"t.e_3.xor[5].nand._out.t"-
+~"t.e_3.xor[5].nand.in1.t"&~"t.e_3.xor[5].nand.in1.f"&~"t.e_3.xor[5].nand.in2.t"&~"t.e_3.xor[5].nand.in2.f"->"t.e_3.xor[5].nand._out.t"+
+"t.e_3.xor[5].nand._out.t"->"t.e_3.xor[5].nand.out.t"-
+~("t.e_3.xor[5].nand._out.t")->"t.e_3.xor[5].nand.out.t"+
+"t.e_3.xor[5].nand._out.f"->"t.e_3.xor[5].nand.out.f"-
+~("t.e_3.xor[5].nand._out.f")->"t.e_3.xor[5].nand.out.f"+
+= "t.e_3.xor[5].nand.in2.d[0]" "t.e_3.xor[5].nand.in2.f"
+= "t.e_3.xor[5].nand.in2.d[1]" "t.e_3.xor[5].nand.in2.t"
+= "t.e_3.xor[5].nand._out.d[0]" "t.e_3.xor[5].nand._out.f"
+= "t.e_3.xor[5].nand._out.d[1]" "t.e_3.xor[5].nand._out.t"
+= "t.e_3.xor[5].nand.out.d[0]" "t.e_3.xor[5].nand.out.f"
+= "t.e_3.xor[5].nand.out.d[1]" "t.e_3.xor[5].nand.out.t"
+= "t.e_3.xor[5].nand.in1.d[0]" "t.e_3.xor[5].nand.in1.f"
+= "t.e_3.xor[5].nand.in1.d[1]" "t.e_3.xor[5].nand.in1.t"
 = "t.e_3.xor[5].out.d[0]" "t.e_3.xor[5].out.f"
 = "t.e_3.xor[5].out.d[1]" "t.e_3.xor[5].out.t"
+= "t.e_3.xor[5].out.f" "t.e_3.xor[5].and.out.f"
+= "t.e_3.xor[5].out.d[0]" "t.e_3.xor[5].and.out.d[0]"
+= "t.e_3.xor[5].out.d[1]" "t.e_3.xor[5].and.out.d[1]"
+= "t.e_3.xor[5].out.t" "t.e_3.xor[5].and.out.t"
 = "t.e_3.xor[5].in1.d[0]" "t.e_3.xor[5].in1.f"
 = "t.e_3.xor[5].in1.d[1]" "t.e_3.xor[5].in1.t"
-"t.e_3.xor[6].in1.t"&"t.e_3.xor[6].in2.f"|"t.e_3.xor[6].in1.f"&"t.e_3.xor[6].in2.t"->"t.e_3.xor[6]._out.t"-
-~"t.e_3.xor[6].in1.t"&~"t.e_3.xor[6].in1.f"&~"t.e_3.xor[6].in2.t"&~"t.e_3.xor[6].in2.f"->"t.e_3.xor[6]._out.t"+
-"t.e_3.xor[6].in1.t"&"t.e_3.xor[6].in1.t"|"t.e_3.xor[6].in1.f"&"t.e_3.xor[6].in2.f"->"t.e_3.xor[6]._out.f"-
-~"t.e_3.xor[6].in1.f"&~"t.e_3.xor[6].in2.f"->"t.e_3.xor[6]._out.f"+
-"t.e_3.xor[6]._out.t"->"t.e_3.xor[6].out.t"-
-~("t.e_3.xor[6]._out.t")->"t.e_3.xor[6].out.t"+
-"t.e_3.xor[6]._out.f"->"t.e_3.xor[6].out.f"-
-~("t.e_3.xor[6]._out.f")->"t.e_3.xor[6].out.f"+
+= "t.e_3.xor[5].in1.f" "t.e_3.xor[5].or.in1.f"
+= "t.e_3.xor[5].in1.d[0]" "t.e_3.xor[5].or.in1.d[0]"
+= "t.e_3.xor[5].in1.d[1]" "t.e_3.xor[5].or.in1.d[1]"
+= "t.e_3.xor[5].in1.t" "t.e_3.xor[5].or.in1.t"
+= "t.e_3.xor[5].in1.f" "t.e_3.xor[5].nand.in1.f"
+= "t.e_3.xor[5].in1.d[0]" "t.e_3.xor[5].nand.in1.d[0]"
+= "t.e_3.xor[5].in1.d[1]" "t.e_3.xor[5].nand.in1.d[1]"
+= "t.e_3.xor[5].in1.t" "t.e_3.xor[5].nand.in1.t"
+"t.e_3.xor[6].and.in1.t"&"t.e_3.xor[6].and.in2.t"->"t.e_3.xor[6].and._out.t"-
+~"t.e_3.xor[6].and.in1.t"&~"t.e_3.xor[6].and.in2.t"->"t.e_3.xor[6].and._out.t"+
+"t.e_3.xor[6].and.in1.f"&("t.e_3.xor[6].and.in2.t"|"t.e_3.xor[6].and.in2.f")|"t.e_3.xor[6].and.in1.t"&"t.e_3.xor[6].and.in2.f"->"t.e_3.xor[6].and._out.f"-
+~"t.e_3.xor[6].and.in1.t"&~"t.e_3.xor[6].and.in1.f"&~"t.e_3.xor[6].and.in2.t"&~"t.e_3.xor[6].and.in2.f"->"t.e_3.xor[6].and._out.f"+
+"t.e_3.xor[6].and._out.t"->"t.e_3.xor[6].and.out.t"-
+~("t.e_3.xor[6].and._out.t")->"t.e_3.xor[6].and.out.t"+
+"t.e_3.xor[6].and._out.f"->"t.e_3.xor[6].and.out.f"-
+~("t.e_3.xor[6].and._out.f")->"t.e_3.xor[6].and.out.f"+
+= "t.e_3.xor[6].and.in2.d[0]" "t.e_3.xor[6].and.in2.f"
+= "t.e_3.xor[6].and.in2.d[1]" "t.e_3.xor[6].and.in2.t"
+= "t.e_3.xor[6].and._out.d[0]" "t.e_3.xor[6].and._out.f"
+= "t.e_3.xor[6].and._out.d[1]" "t.e_3.xor[6].and._out.t"
+= "t.e_3.xor[6].and.out.d[0]" "t.e_3.xor[6].and.out.f"
+= "t.e_3.xor[6].and.out.d[1]" "t.e_3.xor[6].and.out.t"
+= "t.e_3.xor[6].and.in1.d[0]" "t.e_3.xor[6].and.in1.f"
+= "t.e_3.xor[6].and.in1.d[1]" "t.e_3.xor[6].and.in1.t"
+= "t.e_3.xor[6].and.in1.f" "t.e_3.xor[6].nand.out.f"
+= "t.e_3.xor[6].and.in1.d[0]" "t.e_3.xor[6].nand.out.d[0]"
+= "t.e_3.xor[6].and.in1.d[1]" "t.e_3.xor[6].nand.out.d[1]"
+= "t.e_3.xor[6].and.in1.t" "t.e_3.xor[6].nand.out.t"
 = "t.e_3.xor[6].in2.d[0]" "t.e_3.xor[6].in2.f"
 = "t.e_3.xor[6].in2.d[1]" "t.e_3.xor[6].in2.t"
-= "t.e_3.xor[6]._out.d[0]" "t.e_3.xor[6]._out.f"
-= "t.e_3.xor[6]._out.d[1]" "t.e_3.xor[6]._out.t"
+= "t.e_3.xor[6].in2.f" "t.e_3.xor[6].or.in2.f"
+= "t.e_3.xor[6].in2.d[0]" "t.e_3.xor[6].or.in2.d[0]"
+= "t.e_3.xor[6].in2.d[1]" "t.e_3.xor[6].or.in2.d[1]"
+= "t.e_3.xor[6].in2.t" "t.e_3.xor[6].or.in2.t"
+= "t.e_3.xor[6].in2.f" "t.e_3.xor[6].nand.in2.f"
+= "t.e_3.xor[6].in2.d[0]" "t.e_3.xor[6].nand.in2.d[0]"
+= "t.e_3.xor[6].in2.d[1]" "t.e_3.xor[6].nand.in2.d[1]"
+= "t.e_3.xor[6].in2.t" "t.e_3.xor[6].nand.in2.t"
+"t.e_3.xor[6].or.in1.t"&("t.e_3.xor[6].or.in2.t"|"t.e_3.xor[6].or.in2.f")|"t.e_3.xor[6].or.in1.f"&"t.e_3.xor[6].or.in2.t"->"t.e_3.xor[6].or._out.t"-
+~"t.e_3.xor[6].or.in1.t"&~"t.e_3.xor[6].or.in1.f"&~"t.e_3.xor[6].or.in2.t"&~"t.e_3.xor[6].or.in2.f"->"t.e_3.xor[6].or._out.t"+
+"t.e_3.xor[6].or.in1.f"&"t.e_3.xor[6].or.in2.f"->"t.e_3.xor[6].or._out.f"-
+~"t.e_3.xor[6].or.in1.f"&~"t.e_3.xor[6].or.in2.f"->"t.e_3.xor[6].or._out.f"+
+"t.e_3.xor[6].or._out.t"->"t.e_3.xor[6].or.out.t"-
+~("t.e_3.xor[6].or._out.t")->"t.e_3.xor[6].or.out.t"+
+"t.e_3.xor[6].or._out.f"->"t.e_3.xor[6].or.out.f"-
+~("t.e_3.xor[6].or._out.f")->"t.e_3.xor[6].or.out.f"+
+= "t.e_3.xor[6].or.in2.d[0]" "t.e_3.xor[6].or.in2.f"
+= "t.e_3.xor[6].or.in2.d[1]" "t.e_3.xor[6].or.in2.t"
+= "t.e_3.xor[6].or._out.d[0]" "t.e_3.xor[6].or._out.f"
+= "t.e_3.xor[6].or._out.d[1]" "t.e_3.xor[6].or._out.t"
+= "t.e_3.xor[6].or.out.d[0]" "t.e_3.xor[6].or.out.f"
+= "t.e_3.xor[6].or.out.d[1]" "t.e_3.xor[6].or.out.t"
+= "t.e_3.xor[6].or.in1.d[0]" "t.e_3.xor[6].or.in1.f"
+= "t.e_3.xor[6].or.in1.d[1]" "t.e_3.xor[6].or.in1.t"
+= "t.e_3.xor[6].or.out.f" "t.e_3.xor[6].and.in2.f"
+= "t.e_3.xor[6].or.out.d[0]" "t.e_3.xor[6].and.in2.d[0]"
+= "t.e_3.xor[6].or.out.d[1]" "t.e_3.xor[6].and.in2.d[1]"
+= "t.e_3.xor[6].or.out.t" "t.e_3.xor[6].and.in2.t"
+"t.e_3.xor[6].nand.in1.t"&"t.e_3.xor[6].nand.in2.t"->"t.e_3.xor[6].nand._out.f"-
+~"t.e_3.xor[6].nand.in1.t"&~"t.e_3.xor[6].nand.in2.t"->"t.e_3.xor[6].nand._out.f"+
+"t.e_3.xor[6].nand.in1.f"&("t.e_3.xor[6].nand.in2.t"|"t.e_3.xor[6].nand.in2.f")|"t.e_3.xor[6].nand.in1.t"&"t.e_3.xor[6].nand.in2.f"->"t.e_3.xor[6].nand._out.t"-
+~"t.e_3.xor[6].nand.in1.t"&~"t.e_3.xor[6].nand.in1.f"&~"t.e_3.xor[6].nand.in2.t"&~"t.e_3.xor[6].nand.in2.f"->"t.e_3.xor[6].nand._out.t"+
+"t.e_3.xor[6].nand._out.t"->"t.e_3.xor[6].nand.out.t"-
+~("t.e_3.xor[6].nand._out.t")->"t.e_3.xor[6].nand.out.t"+
+"t.e_3.xor[6].nand._out.f"->"t.e_3.xor[6].nand.out.f"-
+~("t.e_3.xor[6].nand._out.f")->"t.e_3.xor[6].nand.out.f"+
+= "t.e_3.xor[6].nand.in2.d[0]" "t.e_3.xor[6].nand.in2.f"
+= "t.e_3.xor[6].nand.in2.d[1]" "t.e_3.xor[6].nand.in2.t"
+= "t.e_3.xor[6].nand._out.d[0]" "t.e_3.xor[6].nand._out.f"
+= "t.e_3.xor[6].nand._out.d[1]" "t.e_3.xor[6].nand._out.t"
+= "t.e_3.xor[6].nand.out.d[0]" "t.e_3.xor[6].nand.out.f"
+= "t.e_3.xor[6].nand.out.d[1]" "t.e_3.xor[6].nand.out.t"
+= "t.e_3.xor[6].nand.in1.d[0]" "t.e_3.xor[6].nand.in1.f"
+= "t.e_3.xor[6].nand.in1.d[1]" "t.e_3.xor[6].nand.in1.t"
 = "t.e_3.xor[6].out.d[0]" "t.e_3.xor[6].out.f"
 = "t.e_3.xor[6].out.d[1]" "t.e_3.xor[6].out.t"
+= "t.e_3.xor[6].out.f" "t.e_3.xor[6].and.out.f"
+= "t.e_3.xor[6].out.d[0]" "t.e_3.xor[6].and.out.d[0]"
+= "t.e_3.xor[6].out.d[1]" "t.e_3.xor[6].and.out.d[1]"
+= "t.e_3.xor[6].out.t" "t.e_3.xor[6].and.out.t"
 = "t.e_3.xor[6].in1.d[0]" "t.e_3.xor[6].in1.f"
 = "t.e_3.xor[6].in1.d[1]" "t.e_3.xor[6].in1.t"
-"t.e_3.xor[7].in1.t"&"t.e_3.xor[7].in2.f"|"t.e_3.xor[7].in1.f"&"t.e_3.xor[7].in2.t"->"t.e_3.xor[7]._out.t"-
-~"t.e_3.xor[7].in1.t"&~"t.e_3.xor[7].in1.f"&~"t.e_3.xor[7].in2.t"&~"t.e_3.xor[7].in2.f"->"t.e_3.xor[7]._out.t"+
-"t.e_3.xor[7].in1.t"&"t.e_3.xor[7].in1.t"|"t.e_3.xor[7].in1.f"&"t.e_3.xor[7].in2.f"->"t.e_3.xor[7]._out.f"-
-~"t.e_3.xor[7].in1.f"&~"t.e_3.xor[7].in2.f"->"t.e_3.xor[7]._out.f"+
-"t.e_3.xor[7]._out.t"->"t.e_3.xor[7].out.t"-
-~("t.e_3.xor[7]._out.t")->"t.e_3.xor[7].out.t"+
-"t.e_3.xor[7]._out.f"->"t.e_3.xor[7].out.f"-
-~("t.e_3.xor[7]._out.f")->"t.e_3.xor[7].out.f"+
+= "t.e_3.xor[6].in1.f" "t.e_3.xor[6].or.in1.f"
+= "t.e_3.xor[6].in1.d[0]" "t.e_3.xor[6].or.in1.d[0]"
+= "t.e_3.xor[6].in1.d[1]" "t.e_3.xor[6].or.in1.d[1]"
+= "t.e_3.xor[6].in1.t" "t.e_3.xor[6].or.in1.t"
+= "t.e_3.xor[6].in1.f" "t.e_3.xor[6].nand.in1.f"
+= "t.e_3.xor[6].in1.d[0]" "t.e_3.xor[6].nand.in1.d[0]"
+= "t.e_3.xor[6].in1.d[1]" "t.e_3.xor[6].nand.in1.d[1]"
+= "t.e_3.xor[6].in1.t" "t.e_3.xor[6].nand.in1.t"
+"t.e_3.xor[7].and.in1.t"&"t.e_3.xor[7].and.in2.t"->"t.e_3.xor[7].and._out.t"-
+~"t.e_3.xor[7].and.in1.t"&~"t.e_3.xor[7].and.in2.t"->"t.e_3.xor[7].and._out.t"+
+"t.e_3.xor[7].and.in1.f"&("t.e_3.xor[7].and.in2.t"|"t.e_3.xor[7].and.in2.f")|"t.e_3.xor[7].and.in1.t"&"t.e_3.xor[7].and.in2.f"->"t.e_3.xor[7].and._out.f"-
+~"t.e_3.xor[7].and.in1.t"&~"t.e_3.xor[7].and.in1.f"&~"t.e_3.xor[7].and.in2.t"&~"t.e_3.xor[7].and.in2.f"->"t.e_3.xor[7].and._out.f"+
+"t.e_3.xor[7].and._out.t"->"t.e_3.xor[7].and.out.t"-
+~("t.e_3.xor[7].and._out.t")->"t.e_3.xor[7].and.out.t"+
+"t.e_3.xor[7].and._out.f"->"t.e_3.xor[7].and.out.f"-
+~("t.e_3.xor[7].and._out.f")->"t.e_3.xor[7].and.out.f"+
+= "t.e_3.xor[7].and.in2.d[0]" "t.e_3.xor[7].and.in2.f"
+= "t.e_3.xor[7].and.in2.d[1]" "t.e_3.xor[7].and.in2.t"
+= "t.e_3.xor[7].and._out.d[0]" "t.e_3.xor[7].and._out.f"
+= "t.e_3.xor[7].and._out.d[1]" "t.e_3.xor[7].and._out.t"
+= "t.e_3.xor[7].and.out.d[0]" "t.e_3.xor[7].and.out.f"
+= "t.e_3.xor[7].and.out.d[1]" "t.e_3.xor[7].and.out.t"
+= "t.e_3.xor[7].and.in1.d[0]" "t.e_3.xor[7].and.in1.f"
+= "t.e_3.xor[7].and.in1.d[1]" "t.e_3.xor[7].and.in1.t"
+= "t.e_3.xor[7].and.in1.f" "t.e_3.xor[7].nand.out.f"
+= "t.e_3.xor[7].and.in1.d[0]" "t.e_3.xor[7].nand.out.d[0]"
+= "t.e_3.xor[7].and.in1.d[1]" "t.e_3.xor[7].nand.out.d[1]"
+= "t.e_3.xor[7].and.in1.t" "t.e_3.xor[7].nand.out.t"
 = "t.e_3.xor[7].in2.d[0]" "t.e_3.xor[7].in2.f"
 = "t.e_3.xor[7].in2.d[1]" "t.e_3.xor[7].in2.t"
-= "t.e_3.xor[7]._out.d[0]" "t.e_3.xor[7]._out.f"
-= "t.e_3.xor[7]._out.d[1]" "t.e_3.xor[7]._out.t"
+= "t.e_3.xor[7].in2.f" "t.e_3.xor[7].or.in2.f"
+= "t.e_3.xor[7].in2.d[0]" "t.e_3.xor[7].or.in2.d[0]"
+= "t.e_3.xor[7].in2.d[1]" "t.e_3.xor[7].or.in2.d[1]"
+= "t.e_3.xor[7].in2.t" "t.e_3.xor[7].or.in2.t"
+= "t.e_3.xor[7].in2.f" "t.e_3.xor[7].nand.in2.f"
+= "t.e_3.xor[7].in2.d[0]" "t.e_3.xor[7].nand.in2.d[0]"
+= "t.e_3.xor[7].in2.d[1]" "t.e_3.xor[7].nand.in2.d[1]"
+= "t.e_3.xor[7].in2.t" "t.e_3.xor[7].nand.in2.t"
+"t.e_3.xor[7].or.in1.t"&("t.e_3.xor[7].or.in2.t"|"t.e_3.xor[7].or.in2.f")|"t.e_3.xor[7].or.in1.f"&"t.e_3.xor[7].or.in2.t"->"t.e_3.xor[7].or._out.t"-
+~"t.e_3.xor[7].or.in1.t"&~"t.e_3.xor[7].or.in1.f"&~"t.e_3.xor[7].or.in2.t"&~"t.e_3.xor[7].or.in2.f"->"t.e_3.xor[7].or._out.t"+
+"t.e_3.xor[7].or.in1.f"&"t.e_3.xor[7].or.in2.f"->"t.e_3.xor[7].or._out.f"-
+~"t.e_3.xor[7].or.in1.f"&~"t.e_3.xor[7].or.in2.f"->"t.e_3.xor[7].or._out.f"+
+"t.e_3.xor[7].or._out.t"->"t.e_3.xor[7].or.out.t"-
+~("t.e_3.xor[7].or._out.t")->"t.e_3.xor[7].or.out.t"+
+"t.e_3.xor[7].or._out.f"->"t.e_3.xor[7].or.out.f"-
+~("t.e_3.xor[7].or._out.f")->"t.e_3.xor[7].or.out.f"+
+= "t.e_3.xor[7].or.in2.d[0]" "t.e_3.xor[7].or.in2.f"
+= "t.e_3.xor[7].or.in2.d[1]" "t.e_3.xor[7].or.in2.t"
+= "t.e_3.xor[7].or._out.d[0]" "t.e_3.xor[7].or._out.f"
+= "t.e_3.xor[7].or._out.d[1]" "t.e_3.xor[7].or._out.t"
+= "t.e_3.xor[7].or.out.d[0]" "t.e_3.xor[7].or.out.f"
+= "t.e_3.xor[7].or.out.d[1]" "t.e_3.xor[7].or.out.t"
+= "t.e_3.xor[7].or.in1.d[0]" "t.e_3.xor[7].or.in1.f"
+= "t.e_3.xor[7].or.in1.d[1]" "t.e_3.xor[7].or.in1.t"
+= "t.e_3.xor[7].or.out.f" "t.e_3.xor[7].and.in2.f"
+= "t.e_3.xor[7].or.out.d[0]" "t.e_3.xor[7].and.in2.d[0]"
+= "t.e_3.xor[7].or.out.d[1]" "t.e_3.xor[7].and.in2.d[1]"
+= "t.e_3.xor[7].or.out.t" "t.e_3.xor[7].and.in2.t"
+"t.e_3.xor[7].nand.in1.t"&"t.e_3.xor[7].nand.in2.t"->"t.e_3.xor[7].nand._out.f"-
+~"t.e_3.xor[7].nand.in1.t"&~"t.e_3.xor[7].nand.in2.t"->"t.e_3.xor[7].nand._out.f"+
+"t.e_3.xor[7].nand.in1.f"&("t.e_3.xor[7].nand.in2.t"|"t.e_3.xor[7].nand.in2.f")|"t.e_3.xor[7].nand.in1.t"&"t.e_3.xor[7].nand.in2.f"->"t.e_3.xor[7].nand._out.t"-
+~"t.e_3.xor[7].nand.in1.t"&~"t.e_3.xor[7].nand.in1.f"&~"t.e_3.xor[7].nand.in2.t"&~"t.e_3.xor[7].nand.in2.f"->"t.e_3.xor[7].nand._out.t"+
+"t.e_3.xor[7].nand._out.t"->"t.e_3.xor[7].nand.out.t"-
+~("t.e_3.xor[7].nand._out.t")->"t.e_3.xor[7].nand.out.t"+
+"t.e_3.xor[7].nand._out.f"->"t.e_3.xor[7].nand.out.f"-
+~("t.e_3.xor[7].nand._out.f")->"t.e_3.xor[7].nand.out.f"+
+= "t.e_3.xor[7].nand.in2.d[0]" "t.e_3.xor[7].nand.in2.f"
+= "t.e_3.xor[7].nand.in2.d[1]" "t.e_3.xor[7].nand.in2.t"
+= "t.e_3.xor[7].nand._out.d[0]" "t.e_3.xor[7].nand._out.f"
+= "t.e_3.xor[7].nand._out.d[1]" "t.e_3.xor[7].nand._out.t"
+= "t.e_3.xor[7].nand.out.d[0]" "t.e_3.xor[7].nand.out.f"
+= "t.e_3.xor[7].nand.out.d[1]" "t.e_3.xor[7].nand.out.t"
+= "t.e_3.xor[7].nand.in1.d[0]" "t.e_3.xor[7].nand.in1.f"
+= "t.e_3.xor[7].nand.in1.d[1]" "t.e_3.xor[7].nand.in1.t"
 = "t.e_3.xor[7].out.d[0]" "t.e_3.xor[7].out.f"
 = "t.e_3.xor[7].out.d[1]" "t.e_3.xor[7].out.t"
+= "t.e_3.xor[7].out.f" "t.e_3.xor[7].and.out.f"
+= "t.e_3.xor[7].out.d[0]" "t.e_3.xor[7].and.out.d[0]"
+= "t.e_3.xor[7].out.d[1]" "t.e_3.xor[7].and.out.d[1]"
+= "t.e_3.xor[7].out.t" "t.e_3.xor[7].and.out.t"
 = "t.e_3.xor[7].in1.d[0]" "t.e_3.xor[7].in1.f"
 = "t.e_3.xor[7].in1.d[1]" "t.e_3.xor[7].in1.t"
+= "t.e_3.xor[7].in1.f" "t.e_3.xor[7].or.in1.f"
+= "t.e_3.xor[7].in1.d[0]" "t.e_3.xor[7].or.in1.d[0]"
+= "t.e_3.xor[7].in1.d[1]" "t.e_3.xor[7].or.in1.d[1]"
+= "t.e_3.xor[7].in1.t" "t.e_3.xor[7].or.in1.t"
+= "t.e_3.xor[7].in1.f" "t.e_3.xor[7].nand.in1.f"
+= "t.e_3.xor[7].in1.d[0]" "t.e_3.xor[7].nand.in1.d[0]"
+= "t.e_3.xor[7].in1.d[1]" "t.e_3.xor[7].nand.in1.d[1]"
+= "t.e_3.xor[7].in1.t" "t.e_3.xor[7].nand.in1.t"
 = "t.e_3.in2[0].d[0]" "t.e_3.in2[0].f"
 = "t.e_3.in2[0].d[1]" "t.e_3.in2[0].t"
 = "t.e_3.in2[1].d[0]" "t.e_3.in2[1].f"

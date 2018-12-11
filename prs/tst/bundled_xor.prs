@@ -1,3 +1,179 @@
+= "t.be_1.ev[0].v.d[0]" "t.be_1.ev[0].v.f"
+= "t.be_1.ev[0].v.d[1]" "t.be_1.ev[0].v.t"
+= "t.be_1.ev[0].v.d[1]" "t.be_1.ev[0].out"
+= "t.be_1.ev[1].v.d[0]" "t.be_1.ev[1].v.f"
+= "t.be_1.ev[1].v.d[1]" "t.be_1.ev[1].v.t"
+= "t.be_1.ev[1].v.d[1]" "t.be_1.ev[1].out"
+= "t.be_1.ev[2].v.d[0]" "t.be_1.ev[2].v.f"
+= "t.be_1.ev[2].v.d[1]" "t.be_1.ev[2].v.t"
+= "t.be_1.ev[2].v.d[1]" "t.be_1.ev[2].out"
+= "t.be_1.ev[3].v.d[0]" "t.be_1.ev[3].v.f"
+= "t.be_1.ev[3].v.d[1]" "t.be_1.ev[3].v.t"
+= "t.be_1.ev[3].v.d[1]" "t.be_1.ev[3].out"
+= "t.be_1.ev[4].v.d[0]" "t.be_1.ev[4].v.f"
+= "t.be_1.ev[4].v.d[1]" "t.be_1.ev[4].v.t"
+= "t.be_1.ev[4].v.d[1]" "t.be_1.ev[4].out"
+= "t.be_1.ev[5].v.d[0]" "t.be_1.ev[5].v.f"
+= "t.be_1.ev[5].v.d[1]" "t.be_1.ev[5].v.t"
+= "t.be_1.ev[5].v.d[1]" "t.be_1.ev[5].out"
+= "t.be_1.ev[6].v.d[0]" "t.be_1.ev[6].v.f"
+= "t.be_1.ev[6].v.d[1]" "t.be_1.ev[6].v.t"
+= "t.be_1.ev[6].v.d[1]" "t.be_1.ev[6].out"
+= "t.be_1.ev[7].v.d[0]" "t.be_1.ev[7].v.f"
+= "t.be_1.ev[7].v.d[1]" "t.be_1.ev[7].v.t"
+= "t.be_1.ev[7].v.d[1]" "t.be_1.ev[7].out"
+= "t.be_1.out[0]" "t.be_1.v[0].d[1]"
+= "t.be_1.out[1]" "t.be_1.v[1].d[1]"
+= "t.be_1.out[2]" "t.be_1.v[2].d[1]"
+= "t.be_1.out[3]" "t.be_1.v[3].d[1]"
+= "t.be_1.out[4]" "t.be_1.v[4].d[1]"
+= "t.be_1.out[5]" "t.be_1.v[5].d[1]"
+= "t.be_1.out[6]" "t.be_1.v[6].d[1]"
+= "t.be_1.out[7]" "t.be_1.v[7].d[1]"
+= "t.be_1.v[0].d[0]" "t.be_1.v[0].f"
+= "t.be_1.v[0].d[1]" "t.be_1.v[0].t"
+= "t.be_1.v[1].d[0]" "t.be_1.v[1].f"
+= "t.be_1.v[1].d[1]" "t.be_1.v[1].t"
+= "t.be_1.v[2].d[0]" "t.be_1.v[2].f"
+= "t.be_1.v[2].d[1]" "t.be_1.v[2].t"
+= "t.be_1.v[3].d[0]" "t.be_1.v[3].f"
+= "t.be_1.v[3].d[1]" "t.be_1.v[3].t"
+= "t.be_1.v[4].d[0]" "t.be_1.v[4].f"
+= "t.be_1.v[4].d[1]" "t.be_1.v[4].t"
+= "t.be_1.v[5].d[0]" "t.be_1.v[5].f"
+= "t.be_1.v[5].d[1]" "t.be_1.v[5].t"
+= "t.be_1.v[6].d[0]" "t.be_1.v[6].f"
+= "t.be_1.v[6].d[1]" "t.be_1.v[6].t"
+= "t.be_1.v[7].d[0]" "t.be_1.v[7].f"
+= "t.be_1.v[7].d[1]" "t.be_1.v[7].t"
+= "t.be_1.v[0].f" "t.be_1.ev[0].v.f"
+= "t.be_1.v[0].d[0]" "t.be_1.ev[0].v.d[0]"
+= "t.be_1.v[0].d[1]" "t.be_1.ev[0].v.d[1]"
+= "t.be_1.v[0].t" "t.be_1.ev[0].v.t"
+= "t.be_1.v[1].f" "t.be_1.ev[1].v.f"
+= "t.be_1.v[1].d[0]" "t.be_1.ev[1].v.d[0]"
+= "t.be_1.v[1].d[1]" "t.be_1.ev[1].v.d[1]"
+= "t.be_1.v[1].t" "t.be_1.ev[1].v.t"
+= "t.be_1.v[2].f" "t.be_1.ev[2].v.f"
+= "t.be_1.v[2].d[0]" "t.be_1.ev[2].v.d[0]"
+= "t.be_1.v[2].d[1]" "t.be_1.ev[2].v.d[1]"
+= "t.be_1.v[2].t" "t.be_1.ev[2].v.t"
+= "t.be_1.v[3].f" "t.be_1.ev[3].v.f"
+= "t.be_1.v[3].d[0]" "t.be_1.ev[3].v.d[0]"
+= "t.be_1.v[3].d[1]" "t.be_1.ev[3].v.d[1]"
+= "t.be_1.v[3].t" "t.be_1.ev[3].v.t"
+= "t.be_1.v[4].f" "t.be_1.ev[4].v.f"
+= "t.be_1.v[4].d[0]" "t.be_1.ev[4].v.d[0]"
+= "t.be_1.v[4].d[1]" "t.be_1.ev[4].v.d[1]"
+= "t.be_1.v[4].t" "t.be_1.ev[4].v.t"
+= "t.be_1.v[5].f" "t.be_1.ev[5].v.f"
+= "t.be_1.v[5].d[0]" "t.be_1.ev[5].v.d[0]"
+= "t.be_1.v[5].d[1]" "t.be_1.ev[5].v.d[1]"
+= "t.be_1.v[5].t" "t.be_1.ev[5].v.t"
+= "t.be_1.v[6].f" "t.be_1.ev[6].v.f"
+= "t.be_1.v[6].d[0]" "t.be_1.ev[6].v.d[0]"
+= "t.be_1.v[6].d[1]" "t.be_1.ev[6].v.d[1]"
+= "t.be_1.v[6].t" "t.be_1.ev[6].v.t"
+= "t.be_1.v[7].f" "t.be_1.ev[7].v.f"
+= "t.be_1.v[7].d[0]" "t.be_1.ev[7].v.d[0]"
+= "t.be_1.v[7].d[1]" "t.be_1.ev[7].v.d[1]"
+= "t.be_1.v[7].t" "t.be_1.ev[7].v.t"
+= "t.be_1.out[0]" "t.be_3.in1[0]"
+= "t.be_1.out[1]" "t.be_3.in1[1]"
+= "t.be_1.out[2]" "t.be_3.in1[2]"
+= "t.be_1.out[3]" "t.be_3.in1[3]"
+= "t.be_1.out[4]" "t.be_3.in1[4]"
+= "t.be_1.out[5]" "t.be_3.in1[5]"
+= "t.be_1.out[6]" "t.be_3.in1[6]"
+= "t.be_1.out[7]" "t.be_3.in1[7]"
+"Reset"->"t.const_1.v.f"-
+"t.const_1.v.f"->"t.const_1.v.t"-
+"t.const_1.v.t"->"t.const_1.v.f"-
+weak ~"t.const_1.v.t"->"t.const_1.v.f"+
+weak ~"t.const_1.v.f"->"t.const_1.v.t"+
+= "t.const_1.v.d[0]" "t.const_1.v.f"
+= "t.const_1.v.d[1]" "t.const_1.v.t"
+"t.dn_3.d[0].in"->"t.dn_3.d[0]._x"-
+~("t.dn_3.d[0].in")->"t.dn_3.d[0]._x"+
+"t.dn_3.d[0]._x"->"t.dn_3.d[0].out"-
+~("t.dn_3.d[0]._x")->"t.dn_3.d[0].out"+
+"t.dn_3.d[1].in"->"t.dn_3.d[1]._x"-
+~("t.dn_3.d[1].in")->"t.dn_3.d[1]._x"+
+"t.dn_3.d[1]._x"->"t.dn_3.d[1].out"-
+~("t.dn_3.d[1]._x")->"t.dn_3.d[1].out"+
+"t.dn_3.d[2].in"->"t.dn_3.d[2]._x"-
+~("t.dn_3.d[2].in")->"t.dn_3.d[2]._x"+
+"t.dn_3.d[2]._x"->"t.dn_3.d[2].out"-
+~("t.dn_3.d[2]._x")->"t.dn_3.d[2].out"+
+"t.dn_3.d[3].in"->"t.dn_3.d[3]._x"-
+~("t.dn_3.d[3].in")->"t.dn_3.d[3]._x"+
+"t.dn_3.d[3]._x"->"t.dn_3.d[3].out"-
+~("t.dn_3.d[3]._x")->"t.dn_3.d[3].out"+
+"t.dn_3.d[4].in"->"t.dn_3.d[4]._x"-
+~("t.dn_3.d[4].in")->"t.dn_3.d[4]._x"+
+"t.dn_3.d[4]._x"->"t.dn_3.d[4].out"-
+~("t.dn_3.d[4]._x")->"t.dn_3.d[4].out"+
+"t.dn_3.d[5].in"->"t.dn_3.d[5]._x"-
+~("t.dn_3.d[5].in")->"t.dn_3.d[5]._x"+
+"t.dn_3.d[5]._x"->"t.dn_3.d[5].out"-
+~("t.dn_3.d[5]._x")->"t.dn_3.d[5].out"+
+"t.dn_3.d[6].in"->"t.dn_3.d[6]._x"-
+~("t.dn_3.d[6].in")->"t.dn_3.d[6]._x"+
+"t.dn_3.d[6]._x"->"t.dn_3.d[6].out"-
+~("t.dn_3.d[6]._x")->"t.dn_3.d[6].out"+
+"t.dn_3.d[7].in"->"t.dn_3.d[7]._x"-
+~("t.dn_3.d[7].in")->"t.dn_3.d[7]._x"+
+"t.dn_3.d[7]._x"->"t.dn_3.d[7].out"-
+~("t.dn_3.d[7]._x")->"t.dn_3.d[7].out"+
+"t.dn_3.d[8].in"->"t.dn_3.d[8]._x"-
+~("t.dn_3.d[8].in")->"t.dn_3.d[8]._x"+
+"t.dn_3.d[8]._x"->"t.dn_3.d[8].out"-
+~("t.dn_3.d[8]._x")->"t.dn_3.d[8].out"+
+"t.dn_3.d[9].in"->"t.dn_3.d[9]._x"-
+~("t.dn_3.d[9].in")->"t.dn_3.d[9]._x"+
+"t.dn_3.d[9]._x"->"t.dn_3.d[9].out"-
+~("t.dn_3.d[9]._x")->"t.dn_3.d[9].out"+
+"t.dn_3.d[10].in"->"t.dn_3.d[10]._x"-
+~("t.dn_3.d[10].in")->"t.dn_3.d[10]._x"+
+"t.dn_3.d[10]._x"->"t.dn_3.d[10].out"-
+~("t.dn_3.d[10]._x")->"t.dn_3.d[10].out"+
+"t.dn_3.d[11].in"->"t.dn_3.d[11]._x"-
+~("t.dn_3.d[11].in")->"t.dn_3.d[11]._x"+
+"t.dn_3.d[11]._x"->"t.dn_3.d[11].out"-
+~("t.dn_3.d[11]._x")->"t.dn_3.d[11].out"+
+"t.dn_3.d[12].in"->"t.dn_3.d[12]._x"-
+~("t.dn_3.d[12].in")->"t.dn_3.d[12]._x"+
+"t.dn_3.d[12]._x"->"t.dn_3.d[12].out"-
+~("t.dn_3.d[12]._x")->"t.dn_3.d[12].out"+
+"t.dn_3.d[13].in"->"t.dn_3.d[13]._x"-
+~("t.dn_3.d[13].in")->"t.dn_3.d[13]._x"+
+"t.dn_3.d[13]._x"->"t.dn_3.d[13].out"-
+~("t.dn_3.d[13]._x")->"t.dn_3.d[13].out"+
+"t.dn_3.d[14].in"->"t.dn_3.d[14]._x"-
+~("t.dn_3.d[14].in")->"t.dn_3.d[14]._x"+
+"t.dn_3.d[14]._x"->"t.dn_3.d[14].out"-
+~("t.dn_3.d[14]._x")->"t.dn_3.d[14].out"+
+"t.dn_3.d[15].in"->"t.dn_3.d[15]._x"-
+~("t.dn_3.d[15].in")->"t.dn_3.d[15]._x"+
+"t.dn_3.d[15]._x"->"t.dn_3.d[15].out"-
+~("t.dn_3.d[15]._x")->"t.dn_3.d[15].out"+
+= "t.dn_3.d[14].out" "t.dn_3.d[15].in"
+= "t.dn_3.d[13].out" "t.dn_3.d[14].in"
+= "t.dn_3.d[12].out" "t.dn_3.d[13].in"
+= "t.dn_3.d[11].out" "t.dn_3.d[12].in"
+= "t.dn_3.d[10].out" "t.dn_3.d[11].in"
+= "t.dn_3.d[9].out" "t.dn_3.d[10].in"
+= "t.dn_3.d[8].out" "t.dn_3.d[9].in"
+= "t.dn_3.d[7].out" "t.dn_3.d[8].in"
+= "t.dn_3.d[6].out" "t.dn_3.d[7].in"
+= "t.dn_3.d[5].out" "t.dn_3.d[6].in"
+= "t.dn_3.d[4].out" "t.dn_3.d[5].in"
+= "t.dn_3.d[3].out" "t.dn_3.d[4].in"
+= "t.dn_3.d[2].out" "t.dn_3.d[3].in"
+= "t.dn_3.d[1].out" "t.dn_3.d[2].in"
+= "t.dn_3.d[0].out" "t.dn_3.d[1].in"
+= "t.dn_3.in" "t.dn_3.d[0].in"
+= "t.dn_3.out" "t.dn_3.d[15].out"
 "t.brtv_1.rec[0].go.a"&"t.brtv_1.d.out"->"t.brtv_1._go_a"-
 ~("t.brtv_1.rec[0].go.a"&"t.brtv_1.d.out")->"t.brtv_1._go_a"+
 "t.brtv_1.rec[0].in.a"&"t.brtv_1.d.out"->"t.brtv_1._in_a"-
@@ -224,762 +400,158 @@
 = "t.brtv_1.v[7].d[0]" "t.brtv_1.rec[7].v.d[0]"
 = "t.brtv_1.v[7].d[1]" "t.brtv_1.rec[7].v.d[1]"
 = "t.brtv_1.v[7].t" "t.brtv_1.rec[7].v.t"
-= "t.go.a" "t.c_0.a"
-= "t.go.r" "t.c_0.r"
-= "t.go.r" "t.de_3.in"
-= "t.go.a" "t.s_0.go.a"
-"Reset"->"t.const_0.v.t"-
-"t.const_0.v.f"->"t.const_0.v.t"-
-"t.const_0.v.t"->"t.const_0.v.f"-
-weak ~"t.const_0.v.t"->"t.const_0.v.f"+
-weak ~"t.const_0.v.f"->"t.const_0.v.t"+
-= "t.const_0.v.d[0]" "t.const_0.v.f"
-= "t.const_0.v.d[1]" "t.const_0.v.t"
-= "t.be_1.ev[0].v" "t.be_1.ev[0].out"
-= "t.be_1.ev[1].v" "t.be_1.ev[1].out"
-= "t.be_1.ev[2].v" "t.be_1.ev[2].out"
-= "t.be_1.ev[3].v" "t.be_1.ev[3].out"
-= "t.be_1.ev[4].v" "t.be_1.ev[4].out"
-= "t.be_1.ev[5].v" "t.be_1.ev[5].out"
-= "t.be_1.ev[6].v" "t.be_1.ev[6].out"
-= "t.be_1.ev[7].v" "t.be_1.ev[7].out"
-= "t.be_1.out[0]" "t.be_1.ev[0].v"
-= "t.be_1.out[0]" "t.be_1.v[0]"
-= "t.be_1.out[1]" "t.be_1.ev[1].v"
-= "t.be_1.out[1]" "t.be_1.v[1]"
-= "t.be_1.out[2]" "t.be_1.ev[2].v"
-= "t.be_1.out[2]" "t.be_1.v[2]"
-= "t.be_1.out[3]" "t.be_1.ev[3].v"
-= "t.be_1.out[3]" "t.be_1.v[3]"
-= "t.be_1.out[4]" "t.be_1.ev[4].v"
-= "t.be_1.out[4]" "t.be_1.v[4]"
-= "t.be_1.out[5]" "t.be_1.ev[5].v"
-= "t.be_1.out[5]" "t.be_1.v[5]"
-= "t.be_1.out[6]" "t.be_1.ev[6].v"
-= "t.be_1.out[6]" "t.be_1.v[6]"
-= "t.be_1.out[7]" "t.be_1.ev[7].v"
-= "t.be_1.out[7]" "t.be_1.v[7]"
-"t.dn_3.d[0].in"->"t.dn_3.d[0]._x"-
-~("t.dn_3.d[0].in")->"t.dn_3.d[0]._x"+
-"t.dn_3.d[0]._x"->"t.dn_3.d[0].out"-
-~("t.dn_3.d[0]._x")->"t.dn_3.d[0].out"+
-"t.dn_3.d[1].in"->"t.dn_3.d[1]._x"-
-~("t.dn_3.d[1].in")->"t.dn_3.d[1]._x"+
-"t.dn_3.d[1]._x"->"t.dn_3.d[1].out"-
-~("t.dn_3.d[1]._x")->"t.dn_3.d[1].out"+
-"t.dn_3.d[2].in"->"t.dn_3.d[2]._x"-
-~("t.dn_3.d[2].in")->"t.dn_3.d[2]._x"+
-"t.dn_3.d[2]._x"->"t.dn_3.d[2].out"-
-~("t.dn_3.d[2]._x")->"t.dn_3.d[2].out"+
-"t.dn_3.d[3].in"->"t.dn_3.d[3]._x"-
-~("t.dn_3.d[3].in")->"t.dn_3.d[3]._x"+
-"t.dn_3.d[3]._x"->"t.dn_3.d[3].out"-
-~("t.dn_3.d[3]._x")->"t.dn_3.d[3].out"+
-"t.dn_3.d[4].in"->"t.dn_3.d[4]._x"-
-~("t.dn_3.d[4].in")->"t.dn_3.d[4]._x"+
-"t.dn_3.d[4]._x"->"t.dn_3.d[4].out"-
-~("t.dn_3.d[4]._x")->"t.dn_3.d[4].out"+
-"t.dn_3.d[5].in"->"t.dn_3.d[5]._x"-
-~("t.dn_3.d[5].in")->"t.dn_3.d[5]._x"+
-"t.dn_3.d[5]._x"->"t.dn_3.d[5].out"-
-~("t.dn_3.d[5]._x")->"t.dn_3.d[5].out"+
-"t.dn_3.d[6].in"->"t.dn_3.d[6]._x"-
-~("t.dn_3.d[6].in")->"t.dn_3.d[6]._x"+
-"t.dn_3.d[6]._x"->"t.dn_3.d[6].out"-
-~("t.dn_3.d[6]._x")->"t.dn_3.d[6].out"+
-"t.dn_3.d[7].in"->"t.dn_3.d[7]._x"-
-~("t.dn_3.d[7].in")->"t.dn_3.d[7]._x"+
-"t.dn_3.d[7]._x"->"t.dn_3.d[7].out"-
-~("t.dn_3.d[7]._x")->"t.dn_3.d[7].out"+
-"t.dn_3.d[8].in"->"t.dn_3.d[8]._x"-
-~("t.dn_3.d[8].in")->"t.dn_3.d[8]._x"+
-"t.dn_3.d[8]._x"->"t.dn_3.d[8].out"-
-~("t.dn_3.d[8]._x")->"t.dn_3.d[8].out"+
-"t.dn_3.d[9].in"->"t.dn_3.d[9]._x"-
-~("t.dn_3.d[9].in")->"t.dn_3.d[9]._x"+
-"t.dn_3.d[9]._x"->"t.dn_3.d[9].out"-
-~("t.dn_3.d[9]._x")->"t.dn_3.d[9].out"+
-"t.dn_3.d[10].in"->"t.dn_3.d[10]._x"-
-~("t.dn_3.d[10].in")->"t.dn_3.d[10]._x"+
-"t.dn_3.d[10]._x"->"t.dn_3.d[10].out"-
-~("t.dn_3.d[10]._x")->"t.dn_3.d[10].out"+
-"t.dn_3.d[11].in"->"t.dn_3.d[11]._x"-
-~("t.dn_3.d[11].in")->"t.dn_3.d[11]._x"+
-"t.dn_3.d[11]._x"->"t.dn_3.d[11].out"-
-~("t.dn_3.d[11]._x")->"t.dn_3.d[11].out"+
-"t.dn_3.d[12].in"->"t.dn_3.d[12]._x"-
-~("t.dn_3.d[12].in")->"t.dn_3.d[12]._x"+
-"t.dn_3.d[12]._x"->"t.dn_3.d[12].out"-
-~("t.dn_3.d[12]._x")->"t.dn_3.d[12].out"+
-"t.dn_3.d[13].in"->"t.dn_3.d[13]._x"-
-~("t.dn_3.d[13].in")->"t.dn_3.d[13]._x"+
-"t.dn_3.d[13]._x"->"t.dn_3.d[13].out"-
-~("t.dn_3.d[13]._x")->"t.dn_3.d[13].out"+
-"t.dn_3.d[14].in"->"t.dn_3.d[14]._x"-
-~("t.dn_3.d[14].in")->"t.dn_3.d[14]._x"+
-"t.dn_3.d[14]._x"->"t.dn_3.d[14].out"-
-~("t.dn_3.d[14]._x")->"t.dn_3.d[14].out"+
-"t.dn_3.d[15].in"->"t.dn_3.d[15]._x"-
-~("t.dn_3.d[15].in")->"t.dn_3.d[15]._x"+
-"t.dn_3.d[15]._x"->"t.dn_3.d[15].out"-
-~("t.dn_3.d[15]._x")->"t.dn_3.d[15].out"+
-= "t.dn_3.d[14].out" "t.dn_3.d[15].in"
-= "t.dn_3.d[13].out" "t.dn_3.d[14].in"
-= "t.dn_3.d[12].out" "t.dn_3.d[13].in"
-= "t.dn_3.d[11].out" "t.dn_3.d[12].in"
-= "t.dn_3.d[10].out" "t.dn_3.d[11].in"
-= "t.dn_3.d[9].out" "t.dn_3.d[10].in"
-= "t.dn_3.d[8].out" "t.dn_3.d[9].in"
-= "t.dn_3.d[7].out" "t.dn_3.d[8].in"
-= "t.dn_3.d[6].out" "t.dn_3.d[7].in"
-= "t.dn_3.d[5].out" "t.dn_3.d[6].in"
-= "t.dn_3.d[4].out" "t.dn_3.d[5].in"
-= "t.dn_3.d[3].out" "t.dn_3.d[4].in"
-= "t.dn_3.d[2].out" "t.dn_3.d[3].in"
-= "t.dn_3.d[1].out" "t.dn_3.d[2].in"
-= "t.dn_3.d[0].out" "t.dn_3.d[1].in"
-= "t.dn_3.in" "t.dn_3.d[0].in"
-= "t.dn_3.out" "t.dn_3.d[15].out"
-"t.s_0.rec[0].go.a"&"t.s_0.d.out"->"t.s_0._go_a"-
-~("t.s_0.rec[0].go.a"&"t.s_0.d.out")->"t.s_0._go_a"+
-"t.s_0.rec[0].in.a"&"t.s_0.d.out"->"t.s_0._in_a"-
-~("t.s_0.rec[0].in.a"&"t.s_0.d.out")->"t.s_0._in_a"+
-"t.s_0._go_a"->"t.s_0.go.a"-
-~("t.s_0._go_a")->"t.s_0.go.a"+
-"t.s_0._in_a"->"t.s_0.in.a"-
-~("t.s_0._in_a")->"t.s_0.in.a"+
-"t.s_0.d.d[0].in"->"t.s_0.d.d[0]._x"-
-~("t.s_0.d.d[0].in")->"t.s_0.d.d[0]._x"+
-"t.s_0.d.d[0]._x"->"t.s_0.d.d[0].out"-
-~("t.s_0.d.d[0]._x")->"t.s_0.d.d[0].out"+
-"t.s_0.d.d[1].in"->"t.s_0.d.d[1]._x"-
-~("t.s_0.d.d[1].in")->"t.s_0.d.d[1]._x"+
-"t.s_0.d.d[1]._x"->"t.s_0.d.d[1].out"-
-~("t.s_0.d.d[1]._x")->"t.s_0.d.d[1].out"+
-"t.s_0.d.d[2].in"->"t.s_0.d.d[2]._x"-
-~("t.s_0.d.d[2].in")->"t.s_0.d.d[2]._x"+
-"t.s_0.d.d[2]._x"->"t.s_0.d.d[2].out"-
-~("t.s_0.d.d[2]._x")->"t.s_0.d.d[2].out"+
-"t.s_0.d.d[3].in"->"t.s_0.d.d[3]._x"-
-~("t.s_0.d.d[3].in")->"t.s_0.d.d[3]._x"+
-"t.s_0.d.d[3]._x"->"t.s_0.d.d[3].out"-
-~("t.s_0.d.d[3]._x")->"t.s_0.d.d[3].out"+
-"t.s_0.d.d[4].in"->"t.s_0.d.d[4]._x"-
-~("t.s_0.d.d[4].in")->"t.s_0.d.d[4]._x"+
-"t.s_0.d.d[4]._x"->"t.s_0.d.d[4].out"-
-~("t.s_0.d.d[4]._x")->"t.s_0.d.d[4].out"+
-"t.s_0.d.d[5].in"->"t.s_0.d.d[5]._x"-
-~("t.s_0.d.d[5].in")->"t.s_0.d.d[5]._x"+
-"t.s_0.d.d[5]._x"->"t.s_0.d.d[5].out"-
-~("t.s_0.d.d[5]._x")->"t.s_0.d.d[5].out"+
-"t.s_0.d.d[6].in"->"t.s_0.d.d[6]._x"-
-~("t.s_0.d.d[6].in")->"t.s_0.d.d[6]._x"+
-"t.s_0.d.d[6]._x"->"t.s_0.d.d[6].out"-
-~("t.s_0.d.d[6]._x")->"t.s_0.d.d[6].out"+
-"t.s_0.d.d[7].in"->"t.s_0.d.d[7]._x"-
-~("t.s_0.d.d[7].in")->"t.s_0.d.d[7]._x"+
-"t.s_0.d.d[7]._x"->"t.s_0.d.d[7].out"-
-~("t.s_0.d.d[7]._x")->"t.s_0.d.d[7].out"+
-= "t.s_0.d.d[6].out" "t.s_0.d.d[7].in"
-= "t.s_0.d.d[5].out" "t.s_0.d.d[6].in"
-= "t.s_0.d.d[4].out" "t.s_0.d.d[5].in"
-= "t.s_0.d.d[3].out" "t.s_0.d.d[4].in"
-= "t.s_0.d.d[2].out" "t.s_0.d.d[3].in"
-= "t.s_0.d.d[1].out" "t.s_0.d.d[2].in"
-= "t.s_0.d.d[0].out" "t.s_0.d.d[1].in"
-= "t.s_0.d.in" "t.s_0.d.d[0].in"
-= "t.s_0.d.out" "t.s_0.d.d[7].out"
-= "t.s_0.in.d[0].d[0]" "t.s_0.in.d[0].f"
-= "t.s_0.in.d[0].d[1]" "t.s_0.in.d[0].t"
-= "t.s_0.in.d[1].d[0]" "t.s_0.in.d[1].f"
-= "t.s_0.in.d[1].d[1]" "t.s_0.in.d[1].t"
-= "t.s_0.in.d[2].d[0]" "t.s_0.in.d[2].f"
-= "t.s_0.in.d[2].d[1]" "t.s_0.in.d[2].t"
-= "t.s_0.in.d[3].d[0]" "t.s_0.in.d[3].f"
-= "t.s_0.in.d[3].d[1]" "t.s_0.in.d[3].t"
-= "t.s_0.in.d[4].d[0]" "t.s_0.in.d[4].f"
-= "t.s_0.in.d[4].d[1]" "t.s_0.in.d[4].t"
-= "t.s_0.in.d[5].d[0]" "t.s_0.in.d[5].f"
-= "t.s_0.in.d[5].d[1]" "t.s_0.in.d[5].t"
-= "t.s_0.in.d[6].d[0]" "t.s_0.in.d[6].f"
-= "t.s_0.in.d[6].d[1]" "t.s_0.in.d[6].t"
-= "t.s_0.in.d[7].d[0]" "t.s_0.in.d[7].f"
-= "t.s_0.in.d[7].d[1]" "t.s_0.in.d[7].t"
-= "t.s_0.in.d[7].d[0]" "t.s_0.rec[7].in.d[0]"
-= "t.s_0.in.d[7].d[1]" "t.s_0.rec[7].in.d[1]"
-= "t.s_0.in.d[6].d[0]" "t.s_0.rec[6].in.d[0]"
-= "t.s_0.in.d[6].d[1]" "t.s_0.rec[6].in.d[1]"
-= "t.s_0.in.d[5].d[0]" "t.s_0.rec[5].in.d[0]"
-= "t.s_0.in.d[5].d[1]" "t.s_0.rec[5].in.d[1]"
-= "t.s_0.in.d[4].d[0]" "t.s_0.rec[4].in.d[0]"
-= "t.s_0.in.d[4].d[1]" "t.s_0.rec[4].in.d[1]"
-= "t.s_0.in.d[3].d[0]" "t.s_0.rec[3].in.d[0]"
-= "t.s_0.in.d[3].d[1]" "t.s_0.rec[3].in.d[1]"
-= "t.s_0.in.d[2].d[0]" "t.s_0.rec[2].in.d[0]"
-= "t.s_0.in.d[2].d[1]" "t.s_0.rec[2].in.d[1]"
-= "t.s_0.in.d[1].d[0]" "t.s_0.rec[1].in.d[0]"
-= "t.s_0.in.d[1].d[1]" "t.s_0.rec[1].in.d[1]"
-= "t.s_0.in.d[0].d[0]" "t.s_0.rec[0].in.d[0]"
-= "t.s_0.in.d[0].d[1]" "t.s_0.rec[0].in.d[1]"
-= "t.s_0.go.r" "t.s_0.rec[7].go.r"
-= "t.s_0.go.r" "t.s_0.rec[6].go.r"
-= "t.s_0.go.r" "t.s_0.rec[5].go.r"
-= "t.s_0.go.r" "t.s_0.rec[4].go.r"
-= "t.s_0.go.r" "t.s_0.rec[3].go.r"
-= "t.s_0.go.r" "t.s_0.rec[2].go.r"
-= "t.s_0.go.r" "t.s_0.rec[1].go.r"
-= "t.s_0.go.r" "t.s_0.rec[0].go.r"
-= "t.s_0.go.r" "t.s_0.d.in"
-"t.s_0.rec[0].go.r"&"t.s_0.rec[0]._goa"&"t.s_0.rec[0].in.t"->"t.s_0.rec[0].v.f"-
-"t.s_0.rec[0].go.r"&"t.s_0.rec[0]._goa"&"t.s_0.rec[0].in.f"->"t.s_0.rec[0].v.t"-
-"t.s_0.rec[0].go.r"&("t.s_0.rec[0].v.t"&"t.s_0.rec[0].in.t"|"t.s_0.rec[0].v.f"&"t.s_0.rec[0].in.f")->"t.s_0.rec[0]._goa"-
-~"t.s_0.rec[0].in.t"&~"t.s_0.rec[0].in.f"&~"t.s_0.rec[0].go.r"->"t.s_0.rec[0]._goa"+
-"Reset"|"t.s_0.rec[0]._goa"->"t.s_0.rec[0].go.a"-
-~("Reset"|"t.s_0.rec[0]._goa")->"t.s_0.rec[0].go.a"+
-= "t.s_0.rec[0].in.d[0]" "t.s_0.rec[0].in.f"
-= "t.s_0.rec[0].in.d[1]" "t.s_0.rec[0].in.t"
-= "t.s_0.rec[0].go.a" "t.s_0.rec[0].in.a"
-= "t.s_0.rec[0].v.d[0]" "t.s_0.rec[0].v.f"
-= "t.s_0.rec[0].v.d[1]" "t.s_0.rec[0].v.t"
-"t.s_0.rec[1].go.r"&"t.s_0.rec[1]._goa"&"t.s_0.rec[1].in.t"->"t.s_0.rec[1].v.f"-
-"t.s_0.rec[1].go.r"&"t.s_0.rec[1]._goa"&"t.s_0.rec[1].in.f"->"t.s_0.rec[1].v.t"-
-"t.s_0.rec[1].go.r"&("t.s_0.rec[1].v.t"&"t.s_0.rec[1].in.t"|"t.s_0.rec[1].v.f"&"t.s_0.rec[1].in.f")->"t.s_0.rec[1]._goa"-
-~"t.s_0.rec[1].in.t"&~"t.s_0.rec[1].in.f"&~"t.s_0.rec[1].go.r"->"t.s_0.rec[1]._goa"+
-"Reset"|"t.s_0.rec[1]._goa"->"t.s_0.rec[1].go.a"-
-~("Reset"|"t.s_0.rec[1]._goa")->"t.s_0.rec[1].go.a"+
-= "t.s_0.rec[1].in.d[0]" "t.s_0.rec[1].in.f"
-= "t.s_0.rec[1].in.d[1]" "t.s_0.rec[1].in.t"
-= "t.s_0.rec[1].go.a" "t.s_0.rec[1].in.a"
-= "t.s_0.rec[1].v.d[0]" "t.s_0.rec[1].v.f"
-= "t.s_0.rec[1].v.d[1]" "t.s_0.rec[1].v.t"
-"t.s_0.rec[2].go.r"&"t.s_0.rec[2]._goa"&"t.s_0.rec[2].in.t"->"t.s_0.rec[2].v.f"-
-"t.s_0.rec[2].go.r"&"t.s_0.rec[2]._goa"&"t.s_0.rec[2].in.f"->"t.s_0.rec[2].v.t"-
-"t.s_0.rec[2].go.r"&("t.s_0.rec[2].v.t"&"t.s_0.rec[2].in.t"|"t.s_0.rec[2].v.f"&"t.s_0.rec[2].in.f")->"t.s_0.rec[2]._goa"-
-~"t.s_0.rec[2].in.t"&~"t.s_0.rec[2].in.f"&~"t.s_0.rec[2].go.r"->"t.s_0.rec[2]._goa"+
-"Reset"|"t.s_0.rec[2]._goa"->"t.s_0.rec[2].go.a"-
-~("Reset"|"t.s_0.rec[2]._goa")->"t.s_0.rec[2].go.a"+
-= "t.s_0.rec[2].in.d[0]" "t.s_0.rec[2].in.f"
-= "t.s_0.rec[2].in.d[1]" "t.s_0.rec[2].in.t"
-= "t.s_0.rec[2].go.a" "t.s_0.rec[2].in.a"
-= "t.s_0.rec[2].v.d[0]" "t.s_0.rec[2].v.f"
-= "t.s_0.rec[2].v.d[1]" "t.s_0.rec[2].v.t"
-"t.s_0.rec[3].go.r"&"t.s_0.rec[3]._goa"&"t.s_0.rec[3].in.t"->"t.s_0.rec[3].v.f"-
-"t.s_0.rec[3].go.r"&"t.s_0.rec[3]._goa"&"t.s_0.rec[3].in.f"->"t.s_0.rec[3].v.t"-
-"t.s_0.rec[3].go.r"&("t.s_0.rec[3].v.t"&"t.s_0.rec[3].in.t"|"t.s_0.rec[3].v.f"&"t.s_0.rec[3].in.f")->"t.s_0.rec[3]._goa"-
-~"t.s_0.rec[3].in.t"&~"t.s_0.rec[3].in.f"&~"t.s_0.rec[3].go.r"->"t.s_0.rec[3]._goa"+
-"Reset"|"t.s_0.rec[3]._goa"->"t.s_0.rec[3].go.a"-
-~("Reset"|"t.s_0.rec[3]._goa")->"t.s_0.rec[3].go.a"+
-= "t.s_0.rec[3].in.d[0]" "t.s_0.rec[3].in.f"
-= "t.s_0.rec[3].in.d[1]" "t.s_0.rec[3].in.t"
-= "t.s_0.rec[3].go.a" "t.s_0.rec[3].in.a"
-= "t.s_0.rec[3].v.d[0]" "t.s_0.rec[3].v.f"
-= "t.s_0.rec[3].v.d[1]" "t.s_0.rec[3].v.t"
-"t.s_0.rec[4].go.r"&"t.s_0.rec[4]._goa"&"t.s_0.rec[4].in.t"->"t.s_0.rec[4].v.f"-
-"t.s_0.rec[4].go.r"&"t.s_0.rec[4]._goa"&"t.s_0.rec[4].in.f"->"t.s_0.rec[4].v.t"-
-"t.s_0.rec[4].go.r"&("t.s_0.rec[4].v.t"&"t.s_0.rec[4].in.t"|"t.s_0.rec[4].v.f"&"t.s_0.rec[4].in.f")->"t.s_0.rec[4]._goa"-
-~"t.s_0.rec[4].in.t"&~"t.s_0.rec[4].in.f"&~"t.s_0.rec[4].go.r"->"t.s_0.rec[4]._goa"+
-"Reset"|"t.s_0.rec[4]._goa"->"t.s_0.rec[4].go.a"-
-~("Reset"|"t.s_0.rec[4]._goa")->"t.s_0.rec[4].go.a"+
-= "t.s_0.rec[4].in.d[0]" "t.s_0.rec[4].in.f"
-= "t.s_0.rec[4].in.d[1]" "t.s_0.rec[4].in.t"
-= "t.s_0.rec[4].go.a" "t.s_0.rec[4].in.a"
-= "t.s_0.rec[4].v.d[0]" "t.s_0.rec[4].v.f"
-= "t.s_0.rec[4].v.d[1]" "t.s_0.rec[4].v.t"
-"t.s_0.rec[5].go.r"&"t.s_0.rec[5]._goa"&"t.s_0.rec[5].in.t"->"t.s_0.rec[5].v.f"-
-"t.s_0.rec[5].go.r"&"t.s_0.rec[5]._goa"&"t.s_0.rec[5].in.f"->"t.s_0.rec[5].v.t"-
-"t.s_0.rec[5].go.r"&("t.s_0.rec[5].v.t"&"t.s_0.rec[5].in.t"|"t.s_0.rec[5].v.f"&"t.s_0.rec[5].in.f")->"t.s_0.rec[5]._goa"-
-~"t.s_0.rec[5].in.t"&~"t.s_0.rec[5].in.f"&~"t.s_0.rec[5].go.r"->"t.s_0.rec[5]._goa"+
-"Reset"|"t.s_0.rec[5]._goa"->"t.s_0.rec[5].go.a"-
-~("Reset"|"t.s_0.rec[5]._goa")->"t.s_0.rec[5].go.a"+
-= "t.s_0.rec[5].in.d[0]" "t.s_0.rec[5].in.f"
-= "t.s_0.rec[5].in.d[1]" "t.s_0.rec[5].in.t"
-= "t.s_0.rec[5].go.a" "t.s_0.rec[5].in.a"
-= "t.s_0.rec[5].v.d[0]" "t.s_0.rec[5].v.f"
-= "t.s_0.rec[5].v.d[1]" "t.s_0.rec[5].v.t"
-"t.s_0.rec[6].go.r"&"t.s_0.rec[6]._goa"&"t.s_0.rec[6].in.t"->"t.s_0.rec[6].v.f"-
-"t.s_0.rec[6].go.r"&"t.s_0.rec[6]._goa"&"t.s_0.rec[6].in.f"->"t.s_0.rec[6].v.t"-
-"t.s_0.rec[6].go.r"&("t.s_0.rec[6].v.t"&"t.s_0.rec[6].in.t"|"t.s_0.rec[6].v.f"&"t.s_0.rec[6].in.f")->"t.s_0.rec[6]._goa"-
-~"t.s_0.rec[6].in.t"&~"t.s_0.rec[6].in.f"&~"t.s_0.rec[6].go.r"->"t.s_0.rec[6]._goa"+
-"Reset"|"t.s_0.rec[6]._goa"->"t.s_0.rec[6].go.a"-
-~("Reset"|"t.s_0.rec[6]._goa")->"t.s_0.rec[6].go.a"+
-= "t.s_0.rec[6].in.d[0]" "t.s_0.rec[6].in.f"
-= "t.s_0.rec[6].in.d[1]" "t.s_0.rec[6].in.t"
-= "t.s_0.rec[6].go.a" "t.s_0.rec[6].in.a"
-= "t.s_0.rec[6].v.d[0]" "t.s_0.rec[6].v.f"
-= "t.s_0.rec[6].v.d[1]" "t.s_0.rec[6].v.t"
-"t.s_0.rec[7].go.r"&"t.s_0.rec[7]._goa"&"t.s_0.rec[7].in.t"->"t.s_0.rec[7].v.f"-
-"t.s_0.rec[7].go.r"&"t.s_0.rec[7]._goa"&"t.s_0.rec[7].in.f"->"t.s_0.rec[7].v.t"-
-"t.s_0.rec[7].go.r"&("t.s_0.rec[7].v.t"&"t.s_0.rec[7].in.t"|"t.s_0.rec[7].v.f"&"t.s_0.rec[7].in.f")->"t.s_0.rec[7]._goa"-
-~"t.s_0.rec[7].in.t"&~"t.s_0.rec[7].in.f"&~"t.s_0.rec[7].go.r"->"t.s_0.rec[7]._goa"+
-"Reset"|"t.s_0.rec[7]._goa"->"t.s_0.rec[7].go.a"-
-~("Reset"|"t.s_0.rec[7]._goa")->"t.s_0.rec[7].go.a"+
-= "t.s_0.rec[7].in.d[0]" "t.s_0.rec[7].in.f"
-= "t.s_0.rec[7].in.d[1]" "t.s_0.rec[7].in.t"
-= "t.s_0.rec[7].go.a" "t.s_0.rec[7].in.a"
-= "t.s_0.rec[7].v.d[0]" "t.s_0.rec[7].v.f"
-= "t.s_0.rec[7].v.d[1]" "t.s_0.rec[7].v.t"
-= "t.s_0.v[0].d[0]" "t.s_0.v[0].f"
-= "t.s_0.v[0].d[1]" "t.s_0.v[0].t"
-= "t.s_0.v[1].d[0]" "t.s_0.v[1].f"
-= "t.s_0.v[1].d[1]" "t.s_0.v[1].t"
-= "t.s_0.v[2].d[0]" "t.s_0.v[2].f"
-= "t.s_0.v[2].d[1]" "t.s_0.v[2].t"
-= "t.s_0.v[3].d[0]" "t.s_0.v[3].f"
-= "t.s_0.v[3].d[1]" "t.s_0.v[3].t"
-= "t.s_0.v[4].d[0]" "t.s_0.v[4].f"
-= "t.s_0.v[4].d[1]" "t.s_0.v[4].t"
-= "t.s_0.v[5].d[0]" "t.s_0.v[5].f"
-= "t.s_0.v[5].d[1]" "t.s_0.v[5].t"
-= "t.s_0.v[6].d[0]" "t.s_0.v[6].f"
-= "t.s_0.v[6].d[1]" "t.s_0.v[6].t"
-= "t.s_0.v[7].d[0]" "t.s_0.v[7].f"
-= "t.s_0.v[7].d[1]" "t.s_0.v[7].t"
-= "t.s_0.v[0].f" "t.s_0.rec[0].v.f"
-= "t.s_0.v[0].d[0]" "t.s_0.rec[0].v.d[0]"
-= "t.s_0.v[0].d[1]" "t.s_0.rec[0].v.d[1]"
-= "t.s_0.v[0].t" "t.s_0.rec[0].v.t"
-= "t.s_0.v[1].f" "t.s_0.rec[1].v.f"
-= "t.s_0.v[1].d[0]" "t.s_0.rec[1].v.d[0]"
-= "t.s_0.v[1].d[1]" "t.s_0.rec[1].v.d[1]"
-= "t.s_0.v[1].t" "t.s_0.rec[1].v.t"
-= "t.s_0.v[2].f" "t.s_0.rec[2].v.f"
-= "t.s_0.v[2].d[0]" "t.s_0.rec[2].v.d[0]"
-= "t.s_0.v[2].d[1]" "t.s_0.rec[2].v.d[1]"
-= "t.s_0.v[2].t" "t.s_0.rec[2].v.t"
-= "t.s_0.v[3].f" "t.s_0.rec[3].v.f"
-= "t.s_0.v[3].d[0]" "t.s_0.rec[3].v.d[0]"
-= "t.s_0.v[3].d[1]" "t.s_0.rec[3].v.d[1]"
-= "t.s_0.v[3].t" "t.s_0.rec[3].v.t"
-= "t.s_0.v[4].f" "t.s_0.rec[4].v.f"
-= "t.s_0.v[4].d[0]" "t.s_0.rec[4].v.d[0]"
-= "t.s_0.v[4].d[1]" "t.s_0.rec[4].v.d[1]"
-= "t.s_0.v[4].t" "t.s_0.rec[4].v.t"
-= "t.s_0.v[5].f" "t.s_0.rec[5].v.f"
-= "t.s_0.v[5].d[0]" "t.s_0.rec[5].v.d[0]"
-= "t.s_0.v[5].d[1]" "t.s_0.rec[5].v.d[1]"
-= "t.s_0.v[5].t" "t.s_0.rec[5].v.t"
-= "t.s_0.v[6].f" "t.s_0.rec[6].v.f"
-= "t.s_0.v[6].d[0]" "t.s_0.rec[6].v.d[0]"
-= "t.s_0.v[6].d[1]" "t.s_0.rec[6].v.d[1]"
-= "t.s_0.v[6].t" "t.s_0.rec[6].v.t"
-= "t.s_0.v[7].f" "t.s_0.rec[7].v.f"
-= "t.s_0.v[7].d[0]" "t.s_0.rec[7].v.d[0]"
-= "t.s_0.v[7].d[1]" "t.s_0.rec[7].v.d[1]"
-= "t.s_0.v[7].t" "t.s_0.rec[7].v.t"
-= "t.s_0.v[0].f" "t.var_x[0].v.f"
-= "t.s_0.v[0].d[0]" "t.var_x[0].v.d[0]"
-= "t.s_0.v[0].d[1]" "t.var_x[0].v.d[1]"
-= "t.s_0.v[0].t" "t.var_x[0].v.t"
-= "t.s_0.v[1].f" "t.var_x[1].v.f"
-= "t.s_0.v[1].d[0]" "t.var_x[1].v.d[0]"
-= "t.s_0.v[1].d[1]" "t.var_x[1].v.d[1]"
-= "t.s_0.v[1].t" "t.var_x[1].v.t"
-= "t.s_0.v[2].f" "t.var_x[2].v.f"
-= "t.s_0.v[2].d[0]" "t.var_x[2].v.d[0]"
-= "t.s_0.v[2].d[1]" "t.var_x[2].v.d[1]"
-= "t.s_0.v[2].t" "t.var_x[2].v.t"
-= "t.s_0.v[3].f" "t.var_x[3].v.f"
-= "t.s_0.v[3].d[0]" "t.var_x[3].v.d[0]"
-= "t.s_0.v[3].d[1]" "t.var_x[3].v.d[1]"
-= "t.s_0.v[3].t" "t.var_x[3].v.t"
-= "t.s_0.v[4].f" "t.var_x[4].v.f"
-= "t.s_0.v[4].d[0]" "t.var_x[4].v.d[0]"
-= "t.s_0.v[4].d[1]" "t.var_x[4].v.d[1]"
-= "t.s_0.v[4].t" "t.var_x[4].v.t"
-= "t.s_0.v[5].f" "t.var_x[5].v.f"
-= "t.s_0.v[5].d[0]" "t.var_x[5].v.d[0]"
-= "t.s_0.v[5].d[1]" "t.var_x[5].v.d[1]"
-= "t.s_0.v[5].t" "t.var_x[5].v.t"
-= "t.s_0.v[6].f" "t.var_x[6].v.f"
-= "t.s_0.v[6].d[0]" "t.var_x[6].v.d[0]"
-= "t.s_0.v[6].d[1]" "t.var_x[6].v.d[1]"
-= "t.s_0.v[6].t" "t.var_x[6].v.t"
-= "t.s_0.v[7].f" "t.var_x[7].v.f"
-= "t.s_0.v[7].d[0]" "t.var_x[7].v.d[0]"
-= "t.s_0.v[7].d[1]" "t.var_x[7].v.d[1]"
-= "t.s_0.v[7].t" "t.var_x[7].v.t"
-"Reset"->"t.tv_1[0].v.t"-
-"t.tv_1[0].v.f"->"t.tv_1[0].v.t"-
-"t.tv_1[0].v.t"->"t.tv_1[0].v.f"-
-weak ~"t.tv_1[0].v.t"->"t.tv_1[0].v.f"+
-weak ~"t.tv_1[0].v.f"->"t.tv_1[0].v.t"+
-= "t.tv_1[0].v.d[0]" "t.tv_1[0].v.f"
-= "t.tv_1[0].v.d[1]" "t.tv_1[0].v.t"
-"Reset"->"t.tv_1[1].v.t"-
-"t.tv_1[1].v.f"->"t.tv_1[1].v.t"-
-"t.tv_1[1].v.t"->"t.tv_1[1].v.f"-
-weak ~"t.tv_1[1].v.t"->"t.tv_1[1].v.f"+
-weak ~"t.tv_1[1].v.f"->"t.tv_1[1].v.t"+
-= "t.tv_1[1].v.d[0]" "t.tv_1[1].v.f"
-= "t.tv_1[1].v.d[1]" "t.tv_1[1].v.t"
-"Reset"->"t.tv_1[2].v.t"-
-"t.tv_1[2].v.f"->"t.tv_1[2].v.t"-
-"t.tv_1[2].v.t"->"t.tv_1[2].v.f"-
-weak ~"t.tv_1[2].v.t"->"t.tv_1[2].v.f"+
-weak ~"t.tv_1[2].v.f"->"t.tv_1[2].v.t"+
-= "t.tv_1[2].v.d[0]" "t.tv_1[2].v.f"
-= "t.tv_1[2].v.d[1]" "t.tv_1[2].v.t"
-"Reset"->"t.tv_1[3].v.t"-
-"t.tv_1[3].v.f"->"t.tv_1[3].v.t"-
-"t.tv_1[3].v.t"->"t.tv_1[3].v.f"-
-weak ~"t.tv_1[3].v.t"->"t.tv_1[3].v.f"+
-weak ~"t.tv_1[3].v.f"->"t.tv_1[3].v.t"+
-= "t.tv_1[3].v.d[0]" "t.tv_1[3].v.f"
-= "t.tv_1[3].v.d[1]" "t.tv_1[3].v.t"
-"Reset"->"t.tv_1[4].v.t"-
-"t.tv_1[4].v.f"->"t.tv_1[4].v.t"-
-"t.tv_1[4].v.t"->"t.tv_1[4].v.f"-
-weak ~"t.tv_1[4].v.t"->"t.tv_1[4].v.f"+
-weak ~"t.tv_1[4].v.f"->"t.tv_1[4].v.t"+
-= "t.tv_1[4].v.d[0]" "t.tv_1[4].v.f"
-= "t.tv_1[4].v.d[1]" "t.tv_1[4].v.t"
-"Reset"->"t.tv_1[5].v.t"-
-"t.tv_1[5].v.f"->"t.tv_1[5].v.t"-
-"t.tv_1[5].v.t"->"t.tv_1[5].v.f"-
-weak ~"t.tv_1[5].v.t"->"t.tv_1[5].v.f"+
-weak ~"t.tv_1[5].v.f"->"t.tv_1[5].v.t"+
-= "t.tv_1[5].v.d[0]" "t.tv_1[5].v.f"
-= "t.tv_1[5].v.d[1]" "t.tv_1[5].v.t"
-"Reset"->"t.tv_1[6].v.t"-
-"t.tv_1[6].v.f"->"t.tv_1[6].v.t"-
-"t.tv_1[6].v.t"->"t.tv_1[6].v.f"-
-weak ~"t.tv_1[6].v.t"->"t.tv_1[6].v.f"+
-weak ~"t.tv_1[6].v.f"->"t.tv_1[6].v.t"+
-= "t.tv_1[6].v.d[0]" "t.tv_1[6].v.f"
-= "t.tv_1[6].v.d[1]" "t.tv_1[6].v.t"
-"Reset"->"t.tv_1[7].v.t"-
-"t.tv_1[7].v.f"->"t.tv_1[7].v.t"-
-"t.tv_1[7].v.t"->"t.tv_1[7].v.f"-
-weak ~"t.tv_1[7].v.t"->"t.tv_1[7].v.f"+
-weak ~"t.tv_1[7].v.f"->"t.tv_1[7].v.t"+
-= "t.tv_1[7].v.d[0]" "t.tv_1[7].v.f"
-= "t.tv_1[7].v.d[1]" "t.tv_1[7].v.t"
-= "t.be_4.in[0]" "t.be_4.vtd[0].in"
-= "t.be_4.in[1]" "t.be_4.vtd[1].in"
-= "t.be_4.in[2]" "t.be_4.vtd[2].in"
-= "t.be_4.in[3]" "t.be_4.vtd[3].in"
-= "t.be_4.in[4]" "t.be_4.vtd[4].in"
-= "t.be_4.in[5]" "t.be_4.vtd[5].in"
-= "t.be_4.in[6]" "t.be_4.vtd[6].in"
-= "t.be_4.in[7]" "t.be_4.vtd[7].in"
-= "t.be_4.d" "t.be_4.vtd[7].d"
-= "t.be_4.d" "t.be_4.vtd[6].d"
-= "t.be_4.d" "t.be_4.vtd[5].d"
-= "t.be_4.d" "t.be_4.vtd[4].d"
-= "t.be_4.d" "t.be_4.vtd[3].d"
-= "t.be_4.d" "t.be_4.vtd[2].d"
-= "t.be_4.d" "t.be_4.vtd[1].d"
-= "t.be_4.d" "t.be_4.vtd[0].d"
-"t.be_4.vtd[0].in"&"t.be_4.vtd[0].d"->"t.be_4.vtd[0]._out.t"-
-~("t.be_4.vtd[0].in"&"t.be_4.vtd[0].d")->"t.be_4.vtd[0]._out.t"+
-"t.be_4.vtd[0]._in"&"t.be_4.vtd[0].d"->"t.be_4.vtd[0]._out.f"-
-~("t.be_4.vtd[0]._in"&"t.be_4.vtd[0].d")->"t.be_4.vtd[0]._out.f"+
-"t.be_4.vtd[0].in"->"t.be_4.vtd[0]._in"-
-~("t.be_4.vtd[0].in")->"t.be_4.vtd[0]._in"+
-"t.be_4.vtd[0]._out.t"->"t.be_4.vtd[0].out.t"-
-~("t.be_4.vtd[0]._out.t")->"t.be_4.vtd[0].out.t"+
-"t.be_4.vtd[0]._out.f"->"t.be_4.vtd[0].out.f"-
-~("t.be_4.vtd[0]._out.f")->"t.be_4.vtd[0].out.f"+
-= "t.be_4.vtd[0]._out.d[0]" "t.be_4.vtd[0]._out.f"
-= "t.be_4.vtd[0]._out.d[1]" "t.be_4.vtd[0]._out.t"
-= "t.be_4.vtd[0].out.d[0]" "t.be_4.vtd[0].out.f"
-= "t.be_4.vtd[0].out.d[1]" "t.be_4.vtd[0].out.t"
-"t.be_4.vtd[1].in"&"t.be_4.vtd[1].d"->"t.be_4.vtd[1]._out.t"-
-~("t.be_4.vtd[1].in"&"t.be_4.vtd[1].d")->"t.be_4.vtd[1]._out.t"+
-"t.be_4.vtd[1]._in"&"t.be_4.vtd[1].d"->"t.be_4.vtd[1]._out.f"-
-~("t.be_4.vtd[1]._in"&"t.be_4.vtd[1].d")->"t.be_4.vtd[1]._out.f"+
-"t.be_4.vtd[1].in"->"t.be_4.vtd[1]._in"-
-~("t.be_4.vtd[1].in")->"t.be_4.vtd[1]._in"+
-"t.be_4.vtd[1]._out.t"->"t.be_4.vtd[1].out.t"-
-~("t.be_4.vtd[1]._out.t")->"t.be_4.vtd[1].out.t"+
-"t.be_4.vtd[1]._out.f"->"t.be_4.vtd[1].out.f"-
-~("t.be_4.vtd[1]._out.f")->"t.be_4.vtd[1].out.f"+
-= "t.be_4.vtd[1]._out.d[0]" "t.be_4.vtd[1]._out.f"
-= "t.be_4.vtd[1]._out.d[1]" "t.be_4.vtd[1]._out.t"
-= "t.be_4.vtd[1].out.d[0]" "t.be_4.vtd[1].out.f"
-= "t.be_4.vtd[1].out.d[1]" "t.be_4.vtd[1].out.t"
-"t.be_4.vtd[2].in"&"t.be_4.vtd[2].d"->"t.be_4.vtd[2]._out.t"-
-~("t.be_4.vtd[2].in"&"t.be_4.vtd[2].d")->"t.be_4.vtd[2]._out.t"+
-"t.be_4.vtd[2]._in"&"t.be_4.vtd[2].d"->"t.be_4.vtd[2]._out.f"-
-~("t.be_4.vtd[2]._in"&"t.be_4.vtd[2].d")->"t.be_4.vtd[2]._out.f"+
-"t.be_4.vtd[2].in"->"t.be_4.vtd[2]._in"-
-~("t.be_4.vtd[2].in")->"t.be_4.vtd[2]._in"+
-"t.be_4.vtd[2]._out.t"->"t.be_4.vtd[2].out.t"-
-~("t.be_4.vtd[2]._out.t")->"t.be_4.vtd[2].out.t"+
-"t.be_4.vtd[2]._out.f"->"t.be_4.vtd[2].out.f"-
-~("t.be_4.vtd[2]._out.f")->"t.be_4.vtd[2].out.f"+
-= "t.be_4.vtd[2]._out.d[0]" "t.be_4.vtd[2]._out.f"
-= "t.be_4.vtd[2]._out.d[1]" "t.be_4.vtd[2]._out.t"
-= "t.be_4.vtd[2].out.d[0]" "t.be_4.vtd[2].out.f"
-= "t.be_4.vtd[2].out.d[1]" "t.be_4.vtd[2].out.t"
-"t.be_4.vtd[3].in"&"t.be_4.vtd[3].d"->"t.be_4.vtd[3]._out.t"-
-~("t.be_4.vtd[3].in"&"t.be_4.vtd[3].d")->"t.be_4.vtd[3]._out.t"+
-"t.be_4.vtd[3]._in"&"t.be_4.vtd[3].d"->"t.be_4.vtd[3]._out.f"-
-~("t.be_4.vtd[3]._in"&"t.be_4.vtd[3].d")->"t.be_4.vtd[3]._out.f"+
-"t.be_4.vtd[3].in"->"t.be_4.vtd[3]._in"-
-~("t.be_4.vtd[3].in")->"t.be_4.vtd[3]._in"+
-"t.be_4.vtd[3]._out.t"->"t.be_4.vtd[3].out.t"-
-~("t.be_4.vtd[3]._out.t")->"t.be_4.vtd[3].out.t"+
-"t.be_4.vtd[3]._out.f"->"t.be_4.vtd[3].out.f"-
-~("t.be_4.vtd[3]._out.f")->"t.be_4.vtd[3].out.f"+
-= "t.be_4.vtd[3]._out.d[0]" "t.be_4.vtd[3]._out.f"
-= "t.be_4.vtd[3]._out.d[1]" "t.be_4.vtd[3]._out.t"
-= "t.be_4.vtd[3].out.d[0]" "t.be_4.vtd[3].out.f"
-= "t.be_4.vtd[3].out.d[1]" "t.be_4.vtd[3].out.t"
-"t.be_4.vtd[4].in"&"t.be_4.vtd[4].d"->"t.be_4.vtd[4]._out.t"-
-~("t.be_4.vtd[4].in"&"t.be_4.vtd[4].d")->"t.be_4.vtd[4]._out.t"+
-"t.be_4.vtd[4]._in"&"t.be_4.vtd[4].d"->"t.be_4.vtd[4]._out.f"-
-~("t.be_4.vtd[4]._in"&"t.be_4.vtd[4].d")->"t.be_4.vtd[4]._out.f"+
-"t.be_4.vtd[4].in"->"t.be_4.vtd[4]._in"-
-~("t.be_4.vtd[4].in")->"t.be_4.vtd[4]._in"+
-"t.be_4.vtd[4]._out.t"->"t.be_4.vtd[4].out.t"-
-~("t.be_4.vtd[4]._out.t")->"t.be_4.vtd[4].out.t"+
-"t.be_4.vtd[4]._out.f"->"t.be_4.vtd[4].out.f"-
-~("t.be_4.vtd[4]._out.f")->"t.be_4.vtd[4].out.f"+
-= "t.be_4.vtd[4]._out.d[0]" "t.be_4.vtd[4]._out.f"
-= "t.be_4.vtd[4]._out.d[1]" "t.be_4.vtd[4]._out.t"
-= "t.be_4.vtd[4].out.d[0]" "t.be_4.vtd[4].out.f"
-= "t.be_4.vtd[4].out.d[1]" "t.be_4.vtd[4].out.t"
-"t.be_4.vtd[5].in"&"t.be_4.vtd[5].d"->"t.be_4.vtd[5]._out.t"-
-~("t.be_4.vtd[5].in"&"t.be_4.vtd[5].d")->"t.be_4.vtd[5]._out.t"+
-"t.be_4.vtd[5]._in"&"t.be_4.vtd[5].d"->"t.be_4.vtd[5]._out.f"-
-~("t.be_4.vtd[5]._in"&"t.be_4.vtd[5].d")->"t.be_4.vtd[5]._out.f"+
-"t.be_4.vtd[5].in"->"t.be_4.vtd[5]._in"-
-~("t.be_4.vtd[5].in")->"t.be_4.vtd[5]._in"+
-"t.be_4.vtd[5]._out.t"->"t.be_4.vtd[5].out.t"-
-~("t.be_4.vtd[5]._out.t")->"t.be_4.vtd[5].out.t"+
-"t.be_4.vtd[5]._out.f"->"t.be_4.vtd[5].out.f"-
-~("t.be_4.vtd[5]._out.f")->"t.be_4.vtd[5].out.f"+
-= "t.be_4.vtd[5]._out.d[0]" "t.be_4.vtd[5]._out.f"
-= "t.be_4.vtd[5]._out.d[1]" "t.be_4.vtd[5]._out.t"
-= "t.be_4.vtd[5].out.d[0]" "t.be_4.vtd[5].out.f"
-= "t.be_4.vtd[5].out.d[1]" "t.be_4.vtd[5].out.t"
-"t.be_4.vtd[6].in"&"t.be_4.vtd[6].d"->"t.be_4.vtd[6]._out.t"-
-~("t.be_4.vtd[6].in"&"t.be_4.vtd[6].d")->"t.be_4.vtd[6]._out.t"+
-"t.be_4.vtd[6]._in"&"t.be_4.vtd[6].d"->"t.be_4.vtd[6]._out.f"-
-~("t.be_4.vtd[6]._in"&"t.be_4.vtd[6].d")->"t.be_4.vtd[6]._out.f"+
-"t.be_4.vtd[6].in"->"t.be_4.vtd[6]._in"-
-~("t.be_4.vtd[6].in")->"t.be_4.vtd[6]._in"+
-"t.be_4.vtd[6]._out.t"->"t.be_4.vtd[6].out.t"-
-~("t.be_4.vtd[6]._out.t")->"t.be_4.vtd[6].out.t"+
-"t.be_4.vtd[6]._out.f"->"t.be_4.vtd[6].out.f"-
-~("t.be_4.vtd[6]._out.f")->"t.be_4.vtd[6].out.f"+
-= "t.be_4.vtd[6]._out.d[0]" "t.be_4.vtd[6]._out.f"
-= "t.be_4.vtd[6]._out.d[1]" "t.be_4.vtd[6]._out.t"
-= "t.be_4.vtd[6].out.d[0]" "t.be_4.vtd[6].out.f"
-= "t.be_4.vtd[6].out.d[1]" "t.be_4.vtd[6].out.t"
-"t.be_4.vtd[7].in"&"t.be_4.vtd[7].d"->"t.be_4.vtd[7]._out.t"-
-~("t.be_4.vtd[7].in"&"t.be_4.vtd[7].d")->"t.be_4.vtd[7]._out.t"+
-"t.be_4.vtd[7]._in"&"t.be_4.vtd[7].d"->"t.be_4.vtd[7]._out.f"-
-~("t.be_4.vtd[7]._in"&"t.be_4.vtd[7].d")->"t.be_4.vtd[7]._out.f"+
-"t.be_4.vtd[7].in"->"t.be_4.vtd[7]._in"-
-~("t.be_4.vtd[7].in")->"t.be_4.vtd[7]._in"+
-"t.be_4.vtd[7]._out.t"->"t.be_4.vtd[7].out.t"-
-~("t.be_4.vtd[7]._out.t")->"t.be_4.vtd[7].out.t"+
-"t.be_4.vtd[7]._out.f"->"t.be_4.vtd[7].out.f"-
-~("t.be_4.vtd[7]._out.f")->"t.be_4.vtd[7].out.f"+
-= "t.be_4.vtd[7]._out.d[0]" "t.be_4.vtd[7]._out.f"
-= "t.be_4.vtd[7]._out.d[1]" "t.be_4.vtd[7]._out.t"
-= "t.be_4.vtd[7].out.d[0]" "t.be_4.vtd[7].out.f"
-= "t.be_4.vtd[7].out.d[1]" "t.be_4.vtd[7].out.t"
-= "t.be_4.out[0].d[0]" "t.be_4.out[0].f"
-= "t.be_4.out[0].d[1]" "t.be_4.out[0].t"
-= "t.be_4.out[1].d[0]" "t.be_4.out[1].f"
-= "t.be_4.out[1].d[1]" "t.be_4.out[1].t"
-= "t.be_4.out[2].d[0]" "t.be_4.out[2].f"
-= "t.be_4.out[2].d[1]" "t.be_4.out[2].t"
-= "t.be_4.out[3].d[0]" "t.be_4.out[3].f"
-= "t.be_4.out[3].d[1]" "t.be_4.out[3].t"
-= "t.be_4.out[4].d[0]" "t.be_4.out[4].f"
-= "t.be_4.out[4].d[1]" "t.be_4.out[4].t"
-= "t.be_4.out[5].d[0]" "t.be_4.out[5].f"
-= "t.be_4.out[5].d[1]" "t.be_4.out[5].t"
-= "t.be_4.out[6].d[0]" "t.be_4.out[6].f"
-= "t.be_4.out[6].d[1]" "t.be_4.out[6].t"
-= "t.be_4.out[7].d[0]" "t.be_4.out[7].f"
-= "t.be_4.out[7].d[1]" "t.be_4.out[7].t"
-= "t.be_4.out[0].f" "t.be_4.vtd[0].out.f"
-= "t.be_4.out[0].d[0]" "t.be_4.vtd[0].out.d[0]"
-= "t.be_4.out[0].d[1]" "t.be_4.vtd[0].out.d[1]"
-= "t.be_4.out[0].t" "t.be_4.vtd[0].out.t"
-= "t.be_4.out[1].f" "t.be_4.vtd[1].out.f"
-= "t.be_4.out[1].d[0]" "t.be_4.vtd[1].out.d[0]"
-= "t.be_4.out[1].d[1]" "t.be_4.vtd[1].out.d[1]"
-= "t.be_4.out[1].t" "t.be_4.vtd[1].out.t"
-= "t.be_4.out[2].f" "t.be_4.vtd[2].out.f"
-= "t.be_4.out[2].d[0]" "t.be_4.vtd[2].out.d[0]"
-= "t.be_4.out[2].d[1]" "t.be_4.vtd[2].out.d[1]"
-= "t.be_4.out[2].t" "t.be_4.vtd[2].out.t"
-= "t.be_4.out[3].f" "t.be_4.vtd[3].out.f"
-= "t.be_4.out[3].d[0]" "t.be_4.vtd[3].out.d[0]"
-= "t.be_4.out[3].d[1]" "t.be_4.vtd[3].out.d[1]"
-= "t.be_4.out[3].t" "t.be_4.vtd[3].out.t"
-= "t.be_4.out[4].f" "t.be_4.vtd[4].out.f"
-= "t.be_4.out[4].d[0]" "t.be_4.vtd[4].out.d[0]"
-= "t.be_4.out[4].d[1]" "t.be_4.vtd[4].out.d[1]"
-= "t.be_4.out[4].t" "t.be_4.vtd[4].out.t"
-= "t.be_4.out[5].f" "t.be_4.vtd[5].out.f"
-= "t.be_4.out[5].d[0]" "t.be_4.vtd[5].out.d[0]"
-= "t.be_4.out[5].d[1]" "t.be_4.vtd[5].out.d[1]"
-= "t.be_4.out[5].t" "t.be_4.vtd[5].out.t"
-= "t.be_4.out[6].f" "t.be_4.vtd[6].out.f"
-= "t.be_4.out[6].d[0]" "t.be_4.vtd[6].out.d[0]"
-= "t.be_4.out[6].d[1]" "t.be_4.vtd[6].out.d[1]"
-= "t.be_4.out[6].t" "t.be_4.vtd[6].out.t"
-= "t.be_4.out[7].f" "t.be_4.vtd[7].out.f"
-= "t.be_4.out[7].d[0]" "t.be_4.vtd[7].out.d[0]"
-= "t.be_4.out[7].d[1]" "t.be_4.vtd[7].out.d[1]"
-= "t.be_4.out[7].t" "t.be_4.vtd[7].out.t"
-= "t.be_2.ev[0].v" "t.be_2.ev[0].out"
-= "t.be_2.ev[1].v" "t.be_2.ev[1].out"
-= "t.be_2.ev[2].v" "t.be_2.ev[2].out"
-= "t.be_2.ev[3].v" "t.be_2.ev[3].out"
-= "t.be_2.ev[4].v" "t.be_2.ev[4].out"
-= "t.be_2.ev[5].v" "t.be_2.ev[5].out"
-= "t.be_2.ev[6].v" "t.be_2.ev[6].out"
-= "t.be_2.ev[7].v" "t.be_2.ev[7].out"
-= "t.be_2.out[0]" "t.be_2.ev[0].v"
-= "t.be_2.out[0]" "t.be_2.v[0]"
-= "t.be_2.out[1]" "t.be_2.ev[1].v"
-= "t.be_2.out[1]" "t.be_2.v[1]"
-= "t.be_2.out[2]" "t.be_2.ev[2].v"
-= "t.be_2.out[2]" "t.be_2.v[2]"
-= "t.be_2.out[3]" "t.be_2.ev[3].v"
-= "t.be_2.out[3]" "t.be_2.v[3]"
-= "t.be_2.out[4]" "t.be_2.ev[4].v"
-= "t.be_2.out[4]" "t.be_2.v[4]"
-= "t.be_2.out[5]" "t.be_2.ev[5].v"
-= "t.be_2.out[5]" "t.be_2.v[5]"
-= "t.be_2.out[6]" "t.be_2.ev[6].v"
-= "t.be_2.out[6]" "t.be_2.v[6]"
-= "t.be_2.out[7]" "t.be_2.ev[7].v"
-= "t.be_2.out[7]" "t.be_2.v[7]"
+= "t.be_2.ev[0].v.d[0]" "t.be_2.ev[0].v.f"
+= "t.be_2.ev[0].v.d[1]" "t.be_2.ev[0].v.t"
+= "t.be_2.ev[0].v.d[1]" "t.be_2.ev[0].out"
+= "t.be_2.ev[1].v.d[0]" "t.be_2.ev[1].v.f"
+= "t.be_2.ev[1].v.d[1]" "t.be_2.ev[1].v.t"
+= "t.be_2.ev[1].v.d[1]" "t.be_2.ev[1].out"
+= "t.be_2.ev[2].v.d[0]" "t.be_2.ev[2].v.f"
+= "t.be_2.ev[2].v.d[1]" "t.be_2.ev[2].v.t"
+= "t.be_2.ev[2].v.d[1]" "t.be_2.ev[2].out"
+= "t.be_2.ev[3].v.d[0]" "t.be_2.ev[3].v.f"
+= "t.be_2.ev[3].v.d[1]" "t.be_2.ev[3].v.t"
+= "t.be_2.ev[3].v.d[1]" "t.be_2.ev[3].out"
+= "t.be_2.ev[4].v.d[0]" "t.be_2.ev[4].v.f"
+= "t.be_2.ev[4].v.d[1]" "t.be_2.ev[4].v.t"
+= "t.be_2.ev[4].v.d[1]" "t.be_2.ev[4].out"
+= "t.be_2.ev[5].v.d[0]" "t.be_2.ev[5].v.f"
+= "t.be_2.ev[5].v.d[1]" "t.be_2.ev[5].v.t"
+= "t.be_2.ev[5].v.d[1]" "t.be_2.ev[5].out"
+= "t.be_2.ev[6].v.d[0]" "t.be_2.ev[6].v.f"
+= "t.be_2.ev[6].v.d[1]" "t.be_2.ev[6].v.t"
+= "t.be_2.ev[6].v.d[1]" "t.be_2.ev[6].out"
+= "t.be_2.ev[7].v.d[0]" "t.be_2.ev[7].v.f"
+= "t.be_2.ev[7].v.d[1]" "t.be_2.ev[7].v.t"
+= "t.be_2.ev[7].v.d[1]" "t.be_2.ev[7].out"
+= "t.be_2.out[0]" "t.be_2.v[0].d[1]"
+= "t.be_2.out[1]" "t.be_2.v[1].d[1]"
+= "t.be_2.out[2]" "t.be_2.v[2].d[1]"
+= "t.be_2.out[3]" "t.be_2.v[3].d[1]"
+= "t.be_2.out[4]" "t.be_2.v[4].d[1]"
+= "t.be_2.out[5]" "t.be_2.v[5].d[1]"
+= "t.be_2.out[6]" "t.be_2.v[6].d[1]"
+= "t.be_2.out[7]" "t.be_2.v[7].d[1]"
+= "t.be_2.v[0].d[0]" "t.be_2.v[0].f"
+= "t.be_2.v[0].d[1]" "t.be_2.v[0].t"
+= "t.be_2.v[1].d[0]" "t.be_2.v[1].f"
+= "t.be_2.v[1].d[1]" "t.be_2.v[1].t"
+= "t.be_2.v[2].d[0]" "t.be_2.v[2].f"
+= "t.be_2.v[2].d[1]" "t.be_2.v[2].t"
+= "t.be_2.v[3].d[0]" "t.be_2.v[3].f"
+= "t.be_2.v[3].d[1]" "t.be_2.v[3].t"
+= "t.be_2.v[4].d[0]" "t.be_2.v[4].f"
+= "t.be_2.v[4].d[1]" "t.be_2.v[4].t"
+= "t.be_2.v[5].d[0]" "t.be_2.v[5].f"
+= "t.be_2.v[5].d[1]" "t.be_2.v[5].t"
+= "t.be_2.v[6].d[0]" "t.be_2.v[6].f"
+= "t.be_2.v[6].d[1]" "t.be_2.v[6].t"
+= "t.be_2.v[7].d[0]" "t.be_2.v[7].f"
+= "t.be_2.v[7].d[1]" "t.be_2.v[7].t"
+= "t.be_2.v[0].f" "t.be_2.ev[0].v.f"
+= "t.be_2.v[0].d[0]" "t.be_2.ev[0].v.d[0]"
+= "t.be_2.v[0].d[1]" "t.be_2.ev[0].v.d[1]"
+= "t.be_2.v[0].t" "t.be_2.ev[0].v.t"
+= "t.be_2.v[1].f" "t.be_2.ev[1].v.f"
+= "t.be_2.v[1].d[0]" "t.be_2.ev[1].v.d[0]"
+= "t.be_2.v[1].d[1]" "t.be_2.ev[1].v.d[1]"
+= "t.be_2.v[1].t" "t.be_2.ev[1].v.t"
+= "t.be_2.v[2].f" "t.be_2.ev[2].v.f"
+= "t.be_2.v[2].d[0]" "t.be_2.ev[2].v.d[0]"
+= "t.be_2.v[2].d[1]" "t.be_2.ev[2].v.d[1]"
+= "t.be_2.v[2].t" "t.be_2.ev[2].v.t"
+= "t.be_2.v[3].f" "t.be_2.ev[3].v.f"
+= "t.be_2.v[3].d[0]" "t.be_2.ev[3].v.d[0]"
+= "t.be_2.v[3].d[1]" "t.be_2.ev[3].v.d[1]"
+= "t.be_2.v[3].t" "t.be_2.ev[3].v.t"
+= "t.be_2.v[4].f" "t.be_2.ev[4].v.f"
+= "t.be_2.v[4].d[0]" "t.be_2.ev[4].v.d[0]"
+= "t.be_2.v[4].d[1]" "t.be_2.ev[4].v.d[1]"
+= "t.be_2.v[4].t" "t.be_2.ev[4].v.t"
+= "t.be_2.v[5].f" "t.be_2.ev[5].v.f"
+= "t.be_2.v[5].d[0]" "t.be_2.ev[5].v.d[0]"
+= "t.be_2.v[5].d[1]" "t.be_2.ev[5].v.d[1]"
+= "t.be_2.v[5].t" "t.be_2.ev[5].v.t"
+= "t.be_2.v[6].f" "t.be_2.ev[6].v.f"
+= "t.be_2.v[6].d[0]" "t.be_2.ev[6].v.d[0]"
+= "t.be_2.v[6].d[1]" "t.be_2.ev[6].v.d[1]"
+= "t.be_2.v[6].t" "t.be_2.ev[6].v.t"
+= "t.be_2.v[7].f" "t.be_2.ev[7].v.f"
+= "t.be_2.v[7].d[0]" "t.be_2.ev[7].v.d[0]"
+= "t.be_2.v[7].d[1]" "t.be_2.ev[7].v.d[1]"
+= "t.be_2.v[7].t" "t.be_2.ev[7].v.t"
+= "t.be_2.out[0]" "t.be_3.in2[0]"
 = "t.be_2.out[1]" "t.be_3.in2[1]"
-= "t.be_2.out[1]" "t.be_3.in2[0]"
-= "t.be_2.out[1]" "t.be_3.in1[3]"
-= "t.be_2.out[1]" "t.be_3.in1[1]"
-= "t.be_2.out[1]" "t.be_3.in1[0]"
-= "t.be_2.out[1]" "t.const_0.v.d[0]"
-= "t.be_2.out[1]" "t.be_1.out[0]"
-= "t.be_2.out[1]" "t.be_1.out[1]"
-= "t.be_2.out[1]" "t.be_1.out[3]"
-= "t.be_2.out[1]" "t.be_2.out[0]"
+= "t.be_2.out[2]" "t.be_3.in2[2]"
+= "t.be_2.out[3]" "t.be_3.in2[3]"
+= "t.be_2.out[4]" "t.be_3.in2[4]"
+= "t.be_2.out[5]" "t.be_3.in2[5]"
+= "t.be_2.out[6]" "t.be_3.in2[6]"
 = "t.be_2.out[7]" "t.be_3.in2[7]"
-= "t.be_2.out[7]" "t.be_3.in2[6]"
-= "t.be_2.out[7]" "t.be_3.in2[5]"
-= "t.be_2.out[7]" "t.be_3.in2[4]"
-= "t.be_2.out[7]" "t.be_3.in2[3]"
-= "t.be_2.out[7]" "t.be_3.in2[2]"
-= "t.be_2.out[7]" "t.be_3.in1[7]"
-= "t.be_2.out[7]" "t.be_3.in1[6]"
-= "t.be_2.out[7]" "t.be_3.in1[5]"
-= "t.be_2.out[7]" "t.be_3.in1[4]"
-= "t.be_2.out[7]" "t.be_3.in1[2]"
-= "t.be_2.out[7]" "t.const_0.v.d[1]"
-= "t.be_2.out[7]" "t.be_1.out[2]"
-= "t.be_2.out[7]" "t.be_1.out[4]"
-= "t.be_2.out[7]" "t.be_1.out[5]"
-= "t.be_2.out[7]" "t.be_1.out[6]"
-= "t.be_2.out[7]" "t.be_1.out[7]"
-= "t.be_2.out[7]" "t.be_2.out[2]"
-= "t.be_2.out[7]" "t.be_2.out[3]"
-= "t.be_2.out[7]" "t.be_2.out[4]"
-= "t.be_2.out[7]" "t.be_2.out[5]"
-= "t.be_2.out[7]" "t.be_2.out[6]"
-"t.be_3.xor[0].in1"&"t.be_3.xor[0].in2"|"t.be_3.xor[0]._in1"&"t.be_3.xor[0]._in2"->"t.be_3.xor[0].out"-
-~("t.be_3.xor[0].in1"&"t.be_3.xor[0].in2"|"t.be_3.xor[0]._in1"&"t.be_3.xor[0]._in2")->"t.be_3.xor[0].out"+
-"t.be_3.xor[0]._in1"->"t.be_3.xor[0].in1"-
-~("t.be_3.xor[0]._in1")->"t.be_3.xor[0].in1"+
-"t.be_3.xor[0]._in2"->"t.be_3.xor[0].in2"-
-~("t.be_3.xor[0]._in2")->"t.be_3.xor[0].in2"+
-"t.be_3.xor[1].in1"&"t.be_3.xor[1].in2"|"t.be_3.xor[1]._in1"&"t.be_3.xor[1]._in2"->"t.be_3.xor[1].out"-
-~("t.be_3.xor[1].in1"&"t.be_3.xor[1].in2"|"t.be_3.xor[1]._in1"&"t.be_3.xor[1]._in2")->"t.be_3.xor[1].out"+
-"t.be_3.xor[1]._in1"->"t.be_3.xor[1].in1"-
-~("t.be_3.xor[1]._in1")->"t.be_3.xor[1].in1"+
-"t.be_3.xor[1]._in2"->"t.be_3.xor[1].in2"-
-~("t.be_3.xor[1]._in2")->"t.be_3.xor[1].in2"+
-"t.be_3.xor[2].in1"&"t.be_3.xor[2].in2"|"t.be_3.xor[2]._in1"&"t.be_3.xor[2]._in2"->"t.be_3.xor[2].out"-
-~("t.be_3.xor[2].in1"&"t.be_3.xor[2].in2"|"t.be_3.xor[2]._in1"&"t.be_3.xor[2]._in2")->"t.be_3.xor[2].out"+
-"t.be_3.xor[2]._in1"->"t.be_3.xor[2].in1"-
-~("t.be_3.xor[2]._in1")->"t.be_3.xor[2].in1"+
-"t.be_3.xor[2]._in2"->"t.be_3.xor[2].in2"-
-~("t.be_3.xor[2]._in2")->"t.be_3.xor[2].in2"+
-"t.be_3.xor[3].in1"&"t.be_3.xor[3].in2"|"t.be_3.xor[3]._in1"&"t.be_3.xor[3]._in2"->"t.be_3.xor[3].out"-
-~("t.be_3.xor[3].in1"&"t.be_3.xor[3].in2"|"t.be_3.xor[3]._in1"&"t.be_3.xor[3]._in2")->"t.be_3.xor[3].out"+
-"t.be_3.xor[3]._in1"->"t.be_3.xor[3].in1"-
-~("t.be_3.xor[3]._in1")->"t.be_3.xor[3].in1"+
-"t.be_3.xor[3]._in2"->"t.be_3.xor[3].in2"-
-~("t.be_3.xor[3]._in2")->"t.be_3.xor[3].in2"+
-"t.be_3.xor[4].in1"&"t.be_3.xor[4].in2"|"t.be_3.xor[4]._in1"&"t.be_3.xor[4]._in2"->"t.be_3.xor[4].out"-
-~("t.be_3.xor[4].in1"&"t.be_3.xor[4].in2"|"t.be_3.xor[4]._in1"&"t.be_3.xor[4]._in2")->"t.be_3.xor[4].out"+
-"t.be_3.xor[4]._in1"->"t.be_3.xor[4].in1"-
-~("t.be_3.xor[4]._in1")->"t.be_3.xor[4].in1"+
-"t.be_3.xor[4]._in2"->"t.be_3.xor[4].in2"-
-~("t.be_3.xor[4]._in2")->"t.be_3.xor[4].in2"+
-"t.be_3.xor[5].in1"&"t.be_3.xor[5].in2"|"t.be_3.xor[5]._in1"&"t.be_3.xor[5]._in2"->"t.be_3.xor[5].out"-
-~("t.be_3.xor[5].in1"&"t.be_3.xor[5].in2"|"t.be_3.xor[5]._in1"&"t.be_3.xor[5]._in2")->"t.be_3.xor[5].out"+
-"t.be_3.xor[5]._in1"->"t.be_3.xor[5].in1"-
-~("t.be_3.xor[5]._in1")->"t.be_3.xor[5].in1"+
-"t.be_3.xor[5]._in2"->"t.be_3.xor[5].in2"-
-~("t.be_3.xor[5]._in2")->"t.be_3.xor[5].in2"+
-"t.be_3.xor[6].in1"&"t.be_3.xor[6].in2"|"t.be_3.xor[6]._in1"&"t.be_3.xor[6]._in2"->"t.be_3.xor[6].out"-
-~("t.be_3.xor[6].in1"&"t.be_3.xor[6].in2"|"t.be_3.xor[6]._in1"&"t.be_3.xor[6]._in2")->"t.be_3.xor[6].out"+
-"t.be_3.xor[6]._in1"->"t.be_3.xor[6].in1"-
-~("t.be_3.xor[6]._in1")->"t.be_3.xor[6].in1"+
-"t.be_3.xor[6]._in2"->"t.be_3.xor[6].in2"-
-~("t.be_3.xor[6]._in2")->"t.be_3.xor[6].in2"+
-"t.be_3.xor[7].in1"&"t.be_3.xor[7].in2"|"t.be_3.xor[7]._in1"&"t.be_3.xor[7]._in2"->"t.be_3.xor[7].out"-
-~("t.be_3.xor[7].in1"&"t.be_3.xor[7].in2"|"t.be_3.xor[7]._in1"&"t.be_3.xor[7]._in2")->"t.be_3.xor[7].out"+
-"t.be_3.xor[7]._in1"->"t.be_3.xor[7].in1"-
-~("t.be_3.xor[7]._in1")->"t.be_3.xor[7].in1"+
-"t.be_3.xor[7]._in2"->"t.be_3.xor[7].in2"-
-~("t.be_3.xor[7]._in2")->"t.be_3.xor[7].in2"+
-= "t.be_3.in2[0]" "t.be_3.xor[0].in2"
-= "t.be_3.in2[1]" "t.be_3.xor[1].in2"
-= "t.be_3.in2[2]" "t.be_3.xor[2].in2"
-= "t.be_3.in2[3]" "t.be_3.xor[3].in2"
-= "t.be_3.in2[4]" "t.be_3.xor[4].in2"
-= "t.be_3.in2[5]" "t.be_3.xor[5].in2"
-= "t.be_3.in2[6]" "t.be_3.xor[6].in2"
-= "t.be_3.in2[7]" "t.be_3.xor[7].in2"
-= "t.be_3.out[0]" "t.be_3.xor[0].out"
-= "t.be_3.out[1]" "t.be_3.xor[1].out"
-= "t.be_3.out[2]" "t.be_3.xor[2].out"
-= "t.be_3.out[3]" "t.be_3.xor[3].out"
-= "t.be_3.out[4]" "t.be_3.xor[4].out"
-= "t.be_3.out[5]" "t.be_3.xor[5].out"
-= "t.be_3.out[6]" "t.be_3.xor[6].out"
-= "t.be_3.out[7]" "t.be_3.xor[7].out"
-= "t.be_3.in1[0]" "t.be_3.xor[0].in1"
-= "t.be_3.in1[1]" "t.be_3.xor[1].in1"
-= "t.be_3.in1[2]" "t.be_3.xor[2].in1"
-= "t.be_3.in1[3]" "t.be_3.xor[3].in1"
-= "t.be_3.in1[4]" "t.be_3.xor[4].in1"
-= "t.be_3.in1[5]" "t.be_3.xor[5].in1"
-= "t.be_3.in1[6]" "t.be_3.xor[6].in1"
-= "t.be_3.in1[7]" "t.be_3.xor[7].in1"
-= "t.be_3.out[0]" "t.be_4.in[0]"
-= "t.be_3.out[1]" "t.be_4.in[1]"
-= "t.be_3.out[2]" "t.be_4.in[2]"
-= "t.be_3.out[3]" "t.be_4.in[3]"
-= "t.be_3.out[4]" "t.be_4.in[4]"
-= "t.be_3.out[5]" "t.be_4.in[5]"
-= "t.be_3.out[6]" "t.be_4.in[6]"
-= "t.be_3.out[7]" "t.be_4.in[7]"
-~"t.s_1.x"&~"t.s_1._gor"->"t.s_1.r.r"+
-~"t.s_1._ra"->"t.s_1.x"+
-"Reset"|"t.s_1.x"->"t.s_1.r.r"-
-"t.s_1.x"&"t.s_1._ra"->"t.s_1._goa"-
-"t.s_1._gor"->"t.s_1.x"-
-~"t.s_1.x"->"t.s_1._goa"+
-"t.s_1.go.r"->"t.s_1._gor"-
-~("t.s_1.go.r")->"t.s_1._gor"+
-"t.s_1._goa"->"t.s_1.go.a"-
-~("t.s_1._goa")->"t.s_1.go.a"+
-"t.s_1.r.a"->"t.s_1._ra"-
-~("t.s_1.r.a")->"t.s_1._ra"+
-= "t.s_1.r.r" "t.brtv_1.go.r"
-= "t.s_1.r.a" "t.brtv_1.go.a"
+= "t.be_2.v[1].f" "t.const_1.v.f"
+= "t.be_2.v[1].d[0]" "t.const_1.v.d[0]"
+= "t.be_2.v[1].d[1]" "t.const_1.v.d[1]"
+= "t.be_2.v[1].t" "t.const_1.v.t"
+= "t.be_2.v[1].f" "t.be_1.v[0].f"
+= "t.be_2.v[1].d[0]" "t.be_1.v[0].d[0]"
+= "t.be_2.v[1].d[1]" "t.be_1.v[0].d[1]"
+= "t.be_2.v[1].t" "t.be_1.v[0].t"
+= "t.be_2.v[1].f" "t.be_1.v[1].f"
+= "t.be_2.v[1].d[0]" "t.be_1.v[1].d[0]"
+= "t.be_2.v[1].d[1]" "t.be_1.v[1].d[1]"
+= "t.be_2.v[1].t" "t.be_1.v[1].t"
+= "t.be_2.v[1].f" "t.be_1.v[3].f"
+= "t.be_2.v[1].d[0]" "t.be_1.v[3].d[0]"
+= "t.be_2.v[1].d[1]" "t.be_1.v[3].d[1]"
+= "t.be_2.v[1].t" "t.be_1.v[3].t"
+= "t.be_2.v[1].f" "t.be_2.v[0].f"
+= "t.be_2.v[1].d[0]" "t.be_2.v[0].d[0]"
+= "t.be_2.v[1].d[1]" "t.be_2.v[0].d[1]"
+= "t.be_2.v[1].t" "t.be_2.v[0].t"
+= "t.be_2.v[7].f" "t.const_0.v.f"
+= "t.be_2.v[7].d[0]" "t.const_0.v.d[0]"
+= "t.be_2.v[7].d[1]" "t.const_0.v.d[1]"
+= "t.be_2.v[7].t" "t.const_0.v.t"
+= "t.be_2.v[7].f" "t.be_1.v[2].f"
+= "t.be_2.v[7].d[0]" "t.be_1.v[2].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_1.v[2].d[1]"
+= "t.be_2.v[7].t" "t.be_1.v[2].t"
+= "t.be_2.v[7].f" "t.be_1.v[4].f"
+= "t.be_2.v[7].d[0]" "t.be_1.v[4].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_1.v[4].d[1]"
+= "t.be_2.v[7].t" "t.be_1.v[4].t"
+= "t.be_2.v[7].f" "t.be_1.v[5].f"
+= "t.be_2.v[7].d[0]" "t.be_1.v[5].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_1.v[5].d[1]"
+= "t.be_2.v[7].t" "t.be_1.v[5].t"
+= "t.be_2.v[7].f" "t.be_1.v[6].f"
+= "t.be_2.v[7].d[0]" "t.be_1.v[6].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_1.v[6].d[1]"
+= "t.be_2.v[7].t" "t.be_1.v[6].t"
+= "t.be_2.v[7].f" "t.be_1.v[7].f"
+= "t.be_2.v[7].d[0]" "t.be_1.v[7].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_1.v[7].d[1]"
+= "t.be_2.v[7].t" "t.be_1.v[7].t"
+= "t.be_2.v[7].f" "t.be_2.v[2].f"
+= "t.be_2.v[7].d[0]" "t.be_2.v[2].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_2.v[2].d[1]"
+= "t.be_2.v[7].t" "t.be_2.v[2].t"
+= "t.be_2.v[7].f" "t.be_2.v[3].f"
+= "t.be_2.v[7].d[0]" "t.be_2.v[3].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_2.v[3].d[1]"
+= "t.be_2.v[7].t" "t.be_2.v[3].t"
+= "t.be_2.v[7].f" "t.be_2.v[4].f"
+= "t.be_2.v[7].d[0]" "t.be_2.v[4].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_2.v[4].d[1]"
+= "t.be_2.v[7].t" "t.be_2.v[4].t"
+= "t.be_2.v[7].f" "t.be_2.v[5].f"
+= "t.be_2.v[7].d[0]" "t.be_2.v[5].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_2.v[5].d[1]"
+= "t.be_2.v[7].t" "t.be_2.v[5].t"
+= "t.be_2.v[7].f" "t.be_2.v[6].f"
+= "t.be_2.v[7].d[0]" "t.be_2.v[6].d[0]"
+= "t.be_2.v[7].d[1]" "t.be_2.v[6].d[1]"
+= "t.be_2.v[7].t" "t.be_2.v[6].t"
 "t.e_4.ev[0].go_r"&"t.e_4.ev[0].v.t"->"t.e_4.ev[0]._out.t"-
 "t.e_4.ev[0].go_r"&"t.e_4.ev[0].v.f"->"t.e_4.ev[0]._out.f"-
 ~"_Reset"|~"t.e_4.ev[0].go_r"->"t.e_4.ev[0]._out.t"+
@@ -1247,88 +819,62 @@ weak ~"t.tv_1[7].v.f"->"t.tv_1[7].v.t"+
 = "t.e_4.v[7].d[0]" "t.be_4.out[7].d[0]"
 = "t.e_4.v[7].d[1]" "t.be_4.out[7].d[1]"
 = "t.e_4.v[7].t" "t.be_4.out[7].t"
-"t.de_3.d[0].in"->"t.de_3.d[0]._x"-
-~("t.de_3.d[0].in")->"t.de_3.d[0]._x"+
-"t.de_3.d[0]._x"->"t.de_3.d[0].out"-
-~("t.de_3.d[0]._x")->"t.de_3.d[0].out"+
-"t.de_3.d[1].in"->"t.de_3.d[1]._x"-
-~("t.de_3.d[1].in")->"t.de_3.d[1]._x"+
-"t.de_3.d[1]._x"->"t.de_3.d[1].out"-
-~("t.de_3.d[1]._x")->"t.de_3.d[1].out"+
-"t.de_3.d[2].in"->"t.de_3.d[2]._x"-
-~("t.de_3.d[2].in")->"t.de_3.d[2]._x"+
-"t.de_3.d[2]._x"->"t.de_3.d[2].out"-
-~("t.de_3.d[2]._x")->"t.de_3.d[2].out"+
-"t.de_3.d[3].in"->"t.de_3.d[3]._x"-
-~("t.de_3.d[3].in")->"t.de_3.d[3]._x"+
-"t.de_3.d[3]._x"->"t.de_3.d[3].out"-
-~("t.de_3.d[3]._x")->"t.de_3.d[3].out"+
-"t.de_3.d[4].in"->"t.de_3.d[4]._x"-
-~("t.de_3.d[4].in")->"t.de_3.d[4]._x"+
-"t.de_3.d[4]._x"->"t.de_3.d[4].out"-
-~("t.de_3.d[4]._x")->"t.de_3.d[4].out"+
-"t.de_3.d[5].in"->"t.de_3.d[5]._x"-
-~("t.de_3.d[5].in")->"t.de_3.d[5]._x"+
-"t.de_3.d[5]._x"->"t.de_3.d[5].out"-
-~("t.de_3.d[5]._x")->"t.de_3.d[5].out"+
-"t.de_3.d[6].in"->"t.de_3.d[6]._x"-
-~("t.de_3.d[6].in")->"t.de_3.d[6]._x"+
-"t.de_3.d[6]._x"->"t.de_3.d[6].out"-
-~("t.de_3.d[6]._x")->"t.de_3.d[6].out"+
-"t.de_3.d[7].in"->"t.de_3.d[7]._x"-
-~("t.de_3.d[7].in")->"t.de_3.d[7]._x"+
-"t.de_3.d[7]._x"->"t.de_3.d[7].out"-
-~("t.de_3.d[7]._x")->"t.de_3.d[7].out"+
-"t.de_3.d[8].in"->"t.de_3.d[8]._x"-
-~("t.de_3.d[8].in")->"t.de_3.d[8]._x"+
-"t.de_3.d[8]._x"->"t.de_3.d[8].out"-
-~("t.de_3.d[8]._x")->"t.de_3.d[8].out"+
-"t.de_3.d[9].in"->"t.de_3.d[9]._x"-
-~("t.de_3.d[9].in")->"t.de_3.d[9]._x"+
-"t.de_3.d[9]._x"->"t.de_3.d[9].out"-
-~("t.de_3.d[9]._x")->"t.de_3.d[9].out"+
-"t.de_3.d[10].in"->"t.de_3.d[10]._x"-
-~("t.de_3.d[10].in")->"t.de_3.d[10]._x"+
-"t.de_3.d[10]._x"->"t.de_3.d[10].out"-
-~("t.de_3.d[10]._x")->"t.de_3.d[10].out"+
-"t.de_3.d[11].in"->"t.de_3.d[11]._x"-
-~("t.de_3.d[11].in")->"t.de_3.d[11]._x"+
-"t.de_3.d[11]._x"->"t.de_3.d[11].out"-
-~("t.de_3.d[11]._x")->"t.de_3.d[11].out"+
-"t.de_3.d[12].in"->"t.de_3.d[12]._x"-
-~("t.de_3.d[12].in")->"t.de_3.d[12]._x"+
-"t.de_3.d[12]._x"->"t.de_3.d[12].out"-
-~("t.de_3.d[12]._x")->"t.de_3.d[12].out"+
-"t.de_3.d[13].in"->"t.de_3.d[13]._x"-
-~("t.de_3.d[13].in")->"t.de_3.d[13]._x"+
-"t.de_3.d[13]._x"->"t.de_3.d[13].out"-
-~("t.de_3.d[13]._x")->"t.de_3.d[13].out"+
-"t.de_3.d[14].in"->"t.de_3.d[14]._x"-
-~("t.de_3.d[14].in")->"t.de_3.d[14]._x"+
-"t.de_3.d[14]._x"->"t.de_3.d[14].out"-
-~("t.de_3.d[14]._x")->"t.de_3.d[14].out"+
-"t.de_3.d[15].in"->"t.de_3.d[15]._x"-
-~("t.de_3.d[15].in")->"t.de_3.d[15]._x"+
-"t.de_3.d[15]._x"->"t.de_3.d[15].out"-
-~("t.de_3.d[15]._x")->"t.de_3.d[15].out"+
-= "t.de_3.d[14].out" "t.de_3.d[15].in"
-= "t.de_3.d[13].out" "t.de_3.d[14].in"
-= "t.de_3.d[12].out" "t.de_3.d[13].in"
-= "t.de_3.d[11].out" "t.de_3.d[12].in"
-= "t.de_3.d[10].out" "t.de_3.d[11].in"
-= "t.de_3.d[9].out" "t.de_3.d[10].in"
-= "t.de_3.d[8].out" "t.de_3.d[9].in"
-= "t.de_3.d[7].out" "t.de_3.d[8].in"
-= "t.de_3.d[6].out" "t.de_3.d[7].in"
-= "t.de_3.d[5].out" "t.de_3.d[6].in"
-= "t.de_3.d[4].out" "t.de_3.d[5].in"
-= "t.de_3.d[3].out" "t.de_3.d[4].in"
-= "t.de_3.d[2].out" "t.de_3.d[3].in"
-= "t.de_3.d[1].out" "t.de_3.d[2].in"
-= "t.de_3.d[0].out" "t.de_3.d[1].in"
-= "t.de_3.in" "t.de_3.d[0].in"
-= "t.de_3.out" "t.de_3.d[15].out"
-= "t.de_3.out" "t.dn_3.in"
+"Reset"->"t.var_x[0].v.t"-
+"t.var_x[0].v.f"->"t.var_x[0].v.t"-
+"t.var_x[0].v.t"->"t.var_x[0].v.f"-
+weak ~"t.var_x[0].v.t"->"t.var_x[0].v.f"+
+weak ~"t.var_x[0].v.f"->"t.var_x[0].v.t"+
+= "t.var_x[0].v.d[0]" "t.var_x[0].v.f"
+= "t.var_x[0].v.d[1]" "t.var_x[0].v.t"
+"Reset"->"t.var_x[1].v.t"-
+"t.var_x[1].v.f"->"t.var_x[1].v.t"-
+"t.var_x[1].v.t"->"t.var_x[1].v.f"-
+weak ~"t.var_x[1].v.t"->"t.var_x[1].v.f"+
+weak ~"t.var_x[1].v.f"->"t.var_x[1].v.t"+
+= "t.var_x[1].v.d[0]" "t.var_x[1].v.f"
+= "t.var_x[1].v.d[1]" "t.var_x[1].v.t"
+"Reset"->"t.var_x[2].v.t"-
+"t.var_x[2].v.f"->"t.var_x[2].v.t"-
+"t.var_x[2].v.t"->"t.var_x[2].v.f"-
+weak ~"t.var_x[2].v.t"->"t.var_x[2].v.f"+
+weak ~"t.var_x[2].v.f"->"t.var_x[2].v.t"+
+= "t.var_x[2].v.d[0]" "t.var_x[2].v.f"
+= "t.var_x[2].v.d[1]" "t.var_x[2].v.t"
+"Reset"->"t.var_x[3].v.t"-
+"t.var_x[3].v.f"->"t.var_x[3].v.t"-
+"t.var_x[3].v.t"->"t.var_x[3].v.f"-
+weak ~"t.var_x[3].v.t"->"t.var_x[3].v.f"+
+weak ~"t.var_x[3].v.f"->"t.var_x[3].v.t"+
+= "t.var_x[3].v.d[0]" "t.var_x[3].v.f"
+= "t.var_x[3].v.d[1]" "t.var_x[3].v.t"
+"Reset"->"t.var_x[4].v.t"-
+"t.var_x[4].v.f"->"t.var_x[4].v.t"-
+"t.var_x[4].v.t"->"t.var_x[4].v.f"-
+weak ~"t.var_x[4].v.t"->"t.var_x[4].v.f"+
+weak ~"t.var_x[4].v.f"->"t.var_x[4].v.t"+
+= "t.var_x[4].v.d[0]" "t.var_x[4].v.f"
+= "t.var_x[4].v.d[1]" "t.var_x[4].v.t"
+"Reset"->"t.var_x[5].v.t"-
+"t.var_x[5].v.f"->"t.var_x[5].v.t"-
+"t.var_x[5].v.t"->"t.var_x[5].v.f"-
+weak ~"t.var_x[5].v.t"->"t.var_x[5].v.f"+
+weak ~"t.var_x[5].v.f"->"t.var_x[5].v.t"+
+= "t.var_x[5].v.d[0]" "t.var_x[5].v.f"
+= "t.var_x[5].v.d[1]" "t.var_x[5].v.t"
+"Reset"->"t.var_x[6].v.t"-
+"t.var_x[6].v.f"->"t.var_x[6].v.t"-
+"t.var_x[6].v.t"->"t.var_x[6].v.f"-
+weak ~"t.var_x[6].v.t"->"t.var_x[6].v.f"+
+weak ~"t.var_x[6].v.f"->"t.var_x[6].v.t"+
+= "t.var_x[6].v.d[0]" "t.var_x[6].v.f"
+= "t.var_x[6].v.d[1]" "t.var_x[6].v.t"
+"Reset"->"t.var_x[7].v.t"-
+"t.var_x[7].v.f"->"t.var_x[7].v.t"-
+"t.var_x[7].v.t"->"t.var_x[7].v.f"-
+weak ~"t.var_x[7].v.t"->"t.var_x[7].v.f"+
+weak ~"t.var_x[7].v.f"->"t.var_x[7].v.t"+
+= "t.var_x[7].v.d[0]" "t.var_x[7].v.f"
+= "t.var_x[7].v.d[1]" "t.var_x[7].v.t"
 "t.e_5.ev[0].go_r"&"t.e_5.ev[0].v.t"->"t.e_5.ev[0]._out.t"-
 "t.e_5.ev[0].go_r"&"t.e_5.ev[0].v.f"->"t.e_5.ev[0]._out.f"-
 ~"_Reset"|~"t.e_5.ev[0].go_r"->"t.e_5.ev[0]._out.t"+
@@ -1627,59 +1173,768 @@ weak ~"t.tv_1[7].v.f"->"t.tv_1[7].v.t"+
 = "t.e_5.v[7].d[0]" "t.tv_1[7].v.d[0]"
 = "t.e_5.v[7].d[1]" "t.tv_1[7].v.d[1]"
 = "t.e_5.v[7].t" "t.tv_1[7].v.t"
-"Reset"->"t.var_x[0].v.t"-
-"t.var_x[0].v.f"->"t.var_x[0].v.t"-
-"t.var_x[0].v.t"->"t.var_x[0].v.f"-
-weak ~"t.var_x[0].v.t"->"t.var_x[0].v.f"+
-weak ~"t.var_x[0].v.f"->"t.var_x[0].v.t"+
-= "t.var_x[0].v.d[0]" "t.var_x[0].v.f"
-= "t.var_x[0].v.d[1]" "t.var_x[0].v.t"
-"Reset"->"t.var_x[1].v.t"-
-"t.var_x[1].v.f"->"t.var_x[1].v.t"-
-"t.var_x[1].v.t"->"t.var_x[1].v.f"-
-weak ~"t.var_x[1].v.t"->"t.var_x[1].v.f"+
-weak ~"t.var_x[1].v.f"->"t.var_x[1].v.t"+
-= "t.var_x[1].v.d[0]" "t.var_x[1].v.f"
-= "t.var_x[1].v.d[1]" "t.var_x[1].v.t"
-"Reset"->"t.var_x[2].v.t"-
-"t.var_x[2].v.f"->"t.var_x[2].v.t"-
-"t.var_x[2].v.t"->"t.var_x[2].v.f"-
-weak ~"t.var_x[2].v.t"->"t.var_x[2].v.f"+
-weak ~"t.var_x[2].v.f"->"t.var_x[2].v.t"+
-= "t.var_x[2].v.d[0]" "t.var_x[2].v.f"
-= "t.var_x[2].v.d[1]" "t.var_x[2].v.t"
-"Reset"->"t.var_x[3].v.t"-
-"t.var_x[3].v.f"->"t.var_x[3].v.t"-
-"t.var_x[3].v.t"->"t.var_x[3].v.f"-
-weak ~"t.var_x[3].v.t"->"t.var_x[3].v.f"+
-weak ~"t.var_x[3].v.f"->"t.var_x[3].v.t"+
-= "t.var_x[3].v.d[0]" "t.var_x[3].v.f"
-= "t.var_x[3].v.d[1]" "t.var_x[3].v.t"
-"Reset"->"t.var_x[4].v.t"-
-"t.var_x[4].v.f"->"t.var_x[4].v.t"-
-"t.var_x[4].v.t"->"t.var_x[4].v.f"-
-weak ~"t.var_x[4].v.t"->"t.var_x[4].v.f"+
-weak ~"t.var_x[4].v.f"->"t.var_x[4].v.t"+
-= "t.var_x[4].v.d[0]" "t.var_x[4].v.f"
-= "t.var_x[4].v.d[1]" "t.var_x[4].v.t"
-"Reset"->"t.var_x[5].v.t"-
-"t.var_x[5].v.f"->"t.var_x[5].v.t"-
-"t.var_x[5].v.t"->"t.var_x[5].v.f"-
-weak ~"t.var_x[5].v.t"->"t.var_x[5].v.f"+
-weak ~"t.var_x[5].v.f"->"t.var_x[5].v.t"+
-= "t.var_x[5].v.d[0]" "t.var_x[5].v.f"
-= "t.var_x[5].v.d[1]" "t.var_x[5].v.t"
-"Reset"->"t.var_x[6].v.t"-
-"t.var_x[6].v.f"->"t.var_x[6].v.t"-
-"t.var_x[6].v.t"->"t.var_x[6].v.f"-
-weak ~"t.var_x[6].v.t"->"t.var_x[6].v.f"+
-weak ~"t.var_x[6].v.f"->"t.var_x[6].v.t"+
-= "t.var_x[6].v.d[0]" "t.var_x[6].v.f"
-= "t.var_x[6].v.d[1]" "t.var_x[6].v.t"
-"Reset"->"t.var_x[7].v.t"-
-"t.var_x[7].v.f"->"t.var_x[7].v.t"-
-"t.var_x[7].v.t"->"t.var_x[7].v.f"-
-weak ~"t.var_x[7].v.t"->"t.var_x[7].v.f"+
-weak ~"t.var_x[7].v.f"->"t.var_x[7].v.t"+
-= "t.var_x[7].v.d[0]" "t.var_x[7].v.f"
-= "t.var_x[7].v.d[1]" "t.var_x[7].v.t"
+"Reset"->"t.const_0.v.t"-
+"t.const_0.v.f"->"t.const_0.v.t"-
+"t.const_0.v.t"->"t.const_0.v.f"-
+weak ~"t.const_0.v.t"->"t.const_0.v.f"+
+weak ~"t.const_0.v.f"->"t.const_0.v.t"+
+= "t.const_0.v.d[0]" "t.const_0.v.f"
+= "t.const_0.v.d[1]" "t.const_0.v.t"
+= "t.go.a" "t.c_0.a"
+= "t.go.r" "t.c_0.r"
+= "t.go.r" "t.de_3.in"
+= "t.go.a" "t.s_0.go.a"
+"t.be_3.xor[0].and.in1"&"t.be_3.xor[0].and.in2"->"t.be_3.xor[0].and._out"-
+~("t.be_3.xor[0].and.in1"&"t.be_3.xor[0].and.in2")->"t.be_3.xor[0].and._out"+
+"t.be_3.xor[0].and._out"->"t.be_3.xor[0].and.out"-
+~("t.be_3.xor[0].and._out")->"t.be_3.xor[0].and.out"+
+= "t.be_3.xor[0].and.in1" "t.be_3.xor[0].nand.out"
+= "t.be_3.xor[0].in2" "t.be_3.xor[0].or.in2"
+= "t.be_3.xor[0].in2" "t.be_3.xor[0].nand.in2"
+"t.be_3.xor[0].or.in1"|"t.be_3.xor[0].or.in2"->"t.be_3.xor[0].or._out"-
+~("t.be_3.xor[0].or.in1"|"t.be_3.xor[0].or.in2")->"t.be_3.xor[0].or._out"+
+"t.be_3.xor[0].or._out"->"t.be_3.xor[0].or.out"-
+~("t.be_3.xor[0].or._out")->"t.be_3.xor[0].or.out"+
+= "t.be_3.xor[0].or.out" "t.be_3.xor[0].and.in2"
+"t.be_3.xor[0].nand.in1"&"t.be_3.xor[0].nand.in2"->"t.be_3.xor[0].nand.out"-
+~("t.be_3.xor[0].nand.in1"&"t.be_3.xor[0].nand.in2")->"t.be_3.xor[0].nand.out"+
+= "t.be_3.xor[0].out" "t.be_3.xor[0].and.out"
+= "t.be_3.xor[0].in1" "t.be_3.xor[0].or.in1"
+= "t.be_3.xor[0].in1" "t.be_3.xor[0].nand.in1"
+"t.be_3.xor[1].and.in1"&"t.be_3.xor[1].and.in2"->"t.be_3.xor[1].and._out"-
+~("t.be_3.xor[1].and.in1"&"t.be_3.xor[1].and.in2")->"t.be_3.xor[1].and._out"+
+"t.be_3.xor[1].and._out"->"t.be_3.xor[1].and.out"-
+~("t.be_3.xor[1].and._out")->"t.be_3.xor[1].and.out"+
+= "t.be_3.xor[1].and.in1" "t.be_3.xor[1].nand.out"
+= "t.be_3.xor[1].in2" "t.be_3.xor[1].or.in2"
+= "t.be_3.xor[1].in2" "t.be_3.xor[1].nand.in2"
+"t.be_3.xor[1].or.in1"|"t.be_3.xor[1].or.in2"->"t.be_3.xor[1].or._out"-
+~("t.be_3.xor[1].or.in1"|"t.be_3.xor[1].or.in2")->"t.be_3.xor[1].or._out"+
+"t.be_3.xor[1].or._out"->"t.be_3.xor[1].or.out"-
+~("t.be_3.xor[1].or._out")->"t.be_3.xor[1].or.out"+
+= "t.be_3.xor[1].or.out" "t.be_3.xor[1].and.in2"
+"t.be_3.xor[1].nand.in1"&"t.be_3.xor[1].nand.in2"->"t.be_3.xor[1].nand.out"-
+~("t.be_3.xor[1].nand.in1"&"t.be_3.xor[1].nand.in2")->"t.be_3.xor[1].nand.out"+
+= "t.be_3.xor[1].out" "t.be_3.xor[1].and.out"
+= "t.be_3.xor[1].in1" "t.be_3.xor[1].or.in1"
+= "t.be_3.xor[1].in1" "t.be_3.xor[1].nand.in1"
+"t.be_3.xor[2].and.in1"&"t.be_3.xor[2].and.in2"->"t.be_3.xor[2].and._out"-
+~("t.be_3.xor[2].and.in1"&"t.be_3.xor[2].and.in2")->"t.be_3.xor[2].and._out"+
+"t.be_3.xor[2].and._out"->"t.be_3.xor[2].and.out"-
+~("t.be_3.xor[2].and._out")->"t.be_3.xor[2].and.out"+
+= "t.be_3.xor[2].and.in1" "t.be_3.xor[2].nand.out"
+= "t.be_3.xor[2].in2" "t.be_3.xor[2].or.in2"
+= "t.be_3.xor[2].in2" "t.be_3.xor[2].nand.in2"
+"t.be_3.xor[2].or.in1"|"t.be_3.xor[2].or.in2"->"t.be_3.xor[2].or._out"-
+~("t.be_3.xor[2].or.in1"|"t.be_3.xor[2].or.in2")->"t.be_3.xor[2].or._out"+
+"t.be_3.xor[2].or._out"->"t.be_3.xor[2].or.out"-
+~("t.be_3.xor[2].or._out")->"t.be_3.xor[2].or.out"+
+= "t.be_3.xor[2].or.out" "t.be_3.xor[2].and.in2"
+"t.be_3.xor[2].nand.in1"&"t.be_3.xor[2].nand.in2"->"t.be_3.xor[2].nand.out"-
+~("t.be_3.xor[2].nand.in1"&"t.be_3.xor[2].nand.in2")->"t.be_3.xor[2].nand.out"+
+= "t.be_3.xor[2].out" "t.be_3.xor[2].and.out"
+= "t.be_3.xor[2].in1" "t.be_3.xor[2].or.in1"
+= "t.be_3.xor[2].in1" "t.be_3.xor[2].nand.in1"
+"t.be_3.xor[3].and.in1"&"t.be_3.xor[3].and.in2"->"t.be_3.xor[3].and._out"-
+~("t.be_3.xor[3].and.in1"&"t.be_3.xor[3].and.in2")->"t.be_3.xor[3].and._out"+
+"t.be_3.xor[3].and._out"->"t.be_3.xor[3].and.out"-
+~("t.be_3.xor[3].and._out")->"t.be_3.xor[3].and.out"+
+= "t.be_3.xor[3].and.in1" "t.be_3.xor[3].nand.out"
+= "t.be_3.xor[3].in2" "t.be_3.xor[3].or.in2"
+= "t.be_3.xor[3].in2" "t.be_3.xor[3].nand.in2"
+"t.be_3.xor[3].or.in1"|"t.be_3.xor[3].or.in2"->"t.be_3.xor[3].or._out"-
+~("t.be_3.xor[3].or.in1"|"t.be_3.xor[3].or.in2")->"t.be_3.xor[3].or._out"+
+"t.be_3.xor[3].or._out"->"t.be_3.xor[3].or.out"-
+~("t.be_3.xor[3].or._out")->"t.be_3.xor[3].or.out"+
+= "t.be_3.xor[3].or.out" "t.be_3.xor[3].and.in2"
+"t.be_3.xor[3].nand.in1"&"t.be_3.xor[3].nand.in2"->"t.be_3.xor[3].nand.out"-
+~("t.be_3.xor[3].nand.in1"&"t.be_3.xor[3].nand.in2")->"t.be_3.xor[3].nand.out"+
+= "t.be_3.xor[3].out" "t.be_3.xor[3].and.out"
+= "t.be_3.xor[3].in1" "t.be_3.xor[3].or.in1"
+= "t.be_3.xor[3].in1" "t.be_3.xor[3].nand.in1"
+"t.be_3.xor[4].and.in1"&"t.be_3.xor[4].and.in2"->"t.be_3.xor[4].and._out"-
+~("t.be_3.xor[4].and.in1"&"t.be_3.xor[4].and.in2")->"t.be_3.xor[4].and._out"+
+"t.be_3.xor[4].and._out"->"t.be_3.xor[4].and.out"-
+~("t.be_3.xor[4].and._out")->"t.be_3.xor[4].and.out"+
+= "t.be_3.xor[4].and.in1" "t.be_3.xor[4].nand.out"
+= "t.be_3.xor[4].in2" "t.be_3.xor[4].or.in2"
+= "t.be_3.xor[4].in2" "t.be_3.xor[4].nand.in2"
+"t.be_3.xor[4].or.in1"|"t.be_3.xor[4].or.in2"->"t.be_3.xor[4].or._out"-
+~("t.be_3.xor[4].or.in1"|"t.be_3.xor[4].or.in2")->"t.be_3.xor[4].or._out"+
+"t.be_3.xor[4].or._out"->"t.be_3.xor[4].or.out"-
+~("t.be_3.xor[4].or._out")->"t.be_3.xor[4].or.out"+
+= "t.be_3.xor[4].or.out" "t.be_3.xor[4].and.in2"
+"t.be_3.xor[4].nand.in1"&"t.be_3.xor[4].nand.in2"->"t.be_3.xor[4].nand.out"-
+~("t.be_3.xor[4].nand.in1"&"t.be_3.xor[4].nand.in2")->"t.be_3.xor[4].nand.out"+
+= "t.be_3.xor[4].out" "t.be_3.xor[4].and.out"
+= "t.be_3.xor[4].in1" "t.be_3.xor[4].or.in1"
+= "t.be_3.xor[4].in1" "t.be_3.xor[4].nand.in1"
+"t.be_3.xor[5].and.in1"&"t.be_3.xor[5].and.in2"->"t.be_3.xor[5].and._out"-
+~("t.be_3.xor[5].and.in1"&"t.be_3.xor[5].and.in2")->"t.be_3.xor[5].and._out"+
+"t.be_3.xor[5].and._out"->"t.be_3.xor[5].and.out"-
+~("t.be_3.xor[5].and._out")->"t.be_3.xor[5].and.out"+
+= "t.be_3.xor[5].and.in1" "t.be_3.xor[5].nand.out"
+= "t.be_3.xor[5].in2" "t.be_3.xor[5].or.in2"
+= "t.be_3.xor[5].in2" "t.be_3.xor[5].nand.in2"
+"t.be_3.xor[5].or.in1"|"t.be_3.xor[5].or.in2"->"t.be_3.xor[5].or._out"-
+~("t.be_3.xor[5].or.in1"|"t.be_3.xor[5].or.in2")->"t.be_3.xor[5].or._out"+
+"t.be_3.xor[5].or._out"->"t.be_3.xor[5].or.out"-
+~("t.be_3.xor[5].or._out")->"t.be_3.xor[5].or.out"+
+= "t.be_3.xor[5].or.out" "t.be_3.xor[5].and.in2"
+"t.be_3.xor[5].nand.in1"&"t.be_3.xor[5].nand.in2"->"t.be_3.xor[5].nand.out"-
+~("t.be_3.xor[5].nand.in1"&"t.be_3.xor[5].nand.in2")->"t.be_3.xor[5].nand.out"+
+= "t.be_3.xor[5].out" "t.be_3.xor[5].and.out"
+= "t.be_3.xor[5].in1" "t.be_3.xor[5].or.in1"
+= "t.be_3.xor[5].in1" "t.be_3.xor[5].nand.in1"
+"t.be_3.xor[6].and.in1"&"t.be_3.xor[6].and.in2"->"t.be_3.xor[6].and._out"-
+~("t.be_3.xor[6].and.in1"&"t.be_3.xor[6].and.in2")->"t.be_3.xor[6].and._out"+
+"t.be_3.xor[6].and._out"->"t.be_3.xor[6].and.out"-
+~("t.be_3.xor[6].and._out")->"t.be_3.xor[6].and.out"+
+= "t.be_3.xor[6].and.in1" "t.be_3.xor[6].nand.out"
+= "t.be_3.xor[6].in2" "t.be_3.xor[6].or.in2"
+= "t.be_3.xor[6].in2" "t.be_3.xor[6].nand.in2"
+"t.be_3.xor[6].or.in1"|"t.be_3.xor[6].or.in2"->"t.be_3.xor[6].or._out"-
+~("t.be_3.xor[6].or.in1"|"t.be_3.xor[6].or.in2")->"t.be_3.xor[6].or._out"+
+"t.be_3.xor[6].or._out"->"t.be_3.xor[6].or.out"-
+~("t.be_3.xor[6].or._out")->"t.be_3.xor[6].or.out"+
+= "t.be_3.xor[6].or.out" "t.be_3.xor[6].and.in2"
+"t.be_3.xor[6].nand.in1"&"t.be_3.xor[6].nand.in2"->"t.be_3.xor[6].nand.out"-
+~("t.be_3.xor[6].nand.in1"&"t.be_3.xor[6].nand.in2")->"t.be_3.xor[6].nand.out"+
+= "t.be_3.xor[6].out" "t.be_3.xor[6].and.out"
+= "t.be_3.xor[6].in1" "t.be_3.xor[6].or.in1"
+= "t.be_3.xor[6].in1" "t.be_3.xor[6].nand.in1"
+"t.be_3.xor[7].and.in1"&"t.be_3.xor[7].and.in2"->"t.be_3.xor[7].and._out"-
+~("t.be_3.xor[7].and.in1"&"t.be_3.xor[7].and.in2")->"t.be_3.xor[7].and._out"+
+"t.be_3.xor[7].and._out"->"t.be_3.xor[7].and.out"-
+~("t.be_3.xor[7].and._out")->"t.be_3.xor[7].and.out"+
+= "t.be_3.xor[7].and.in1" "t.be_3.xor[7].nand.out"
+= "t.be_3.xor[7].in2" "t.be_3.xor[7].or.in2"
+= "t.be_3.xor[7].in2" "t.be_3.xor[7].nand.in2"
+"t.be_3.xor[7].or.in1"|"t.be_3.xor[7].or.in2"->"t.be_3.xor[7].or._out"-
+~("t.be_3.xor[7].or.in1"|"t.be_3.xor[7].or.in2")->"t.be_3.xor[7].or._out"+
+"t.be_3.xor[7].or._out"->"t.be_3.xor[7].or.out"-
+~("t.be_3.xor[7].or._out")->"t.be_3.xor[7].or.out"+
+= "t.be_3.xor[7].or.out" "t.be_3.xor[7].and.in2"
+"t.be_3.xor[7].nand.in1"&"t.be_3.xor[7].nand.in2"->"t.be_3.xor[7].nand.out"-
+~("t.be_3.xor[7].nand.in1"&"t.be_3.xor[7].nand.in2")->"t.be_3.xor[7].nand.out"+
+= "t.be_3.xor[7].out" "t.be_3.xor[7].and.out"
+= "t.be_3.xor[7].in1" "t.be_3.xor[7].or.in1"
+= "t.be_3.xor[7].in1" "t.be_3.xor[7].nand.in1"
+= "t.be_3.in2[0]" "t.be_3.xor[0].in2"
+= "t.be_3.in2[1]" "t.be_3.xor[1].in2"
+= "t.be_3.in2[2]" "t.be_3.xor[2].in2"
+= "t.be_3.in2[3]" "t.be_3.xor[3].in2"
+= "t.be_3.in2[4]" "t.be_3.xor[4].in2"
+= "t.be_3.in2[5]" "t.be_3.xor[5].in2"
+= "t.be_3.in2[6]" "t.be_3.xor[6].in2"
+= "t.be_3.in2[7]" "t.be_3.xor[7].in2"
+= "t.be_3.out[0]" "t.be_3.xor[0].out"
+= "t.be_3.out[1]" "t.be_3.xor[1].out"
+= "t.be_3.out[2]" "t.be_3.xor[2].out"
+= "t.be_3.out[3]" "t.be_3.xor[3].out"
+= "t.be_3.out[4]" "t.be_3.xor[4].out"
+= "t.be_3.out[5]" "t.be_3.xor[5].out"
+= "t.be_3.out[6]" "t.be_3.xor[6].out"
+= "t.be_3.out[7]" "t.be_3.xor[7].out"
+= "t.be_3.in1[0]" "t.be_3.xor[0].in1"
+= "t.be_3.in1[1]" "t.be_3.xor[1].in1"
+= "t.be_3.in1[2]" "t.be_3.xor[2].in1"
+= "t.be_3.in1[3]" "t.be_3.xor[3].in1"
+= "t.be_3.in1[4]" "t.be_3.xor[4].in1"
+= "t.be_3.in1[5]" "t.be_3.xor[5].in1"
+= "t.be_3.in1[6]" "t.be_3.xor[6].in1"
+= "t.be_3.in1[7]" "t.be_3.xor[7].in1"
+= "t.be_3.out[0]" "t.be_4.in[0]"
+= "t.be_3.out[1]" "t.be_4.in[1]"
+= "t.be_3.out[2]" "t.be_4.in[2]"
+= "t.be_3.out[3]" "t.be_4.in[3]"
+= "t.be_3.out[4]" "t.be_4.in[4]"
+= "t.be_3.out[5]" "t.be_4.in[5]"
+= "t.be_3.out[6]" "t.be_4.in[6]"
+= "t.be_3.out[7]" "t.be_4.in[7]"
+= "t.be_4.in[0]" "t.be_4.vtd[0].in"
+= "t.be_4.in[1]" "t.be_4.vtd[1].in"
+= "t.be_4.in[2]" "t.be_4.vtd[2].in"
+= "t.be_4.in[3]" "t.be_4.vtd[3].in"
+= "t.be_4.in[4]" "t.be_4.vtd[4].in"
+= "t.be_4.in[5]" "t.be_4.vtd[5].in"
+= "t.be_4.in[6]" "t.be_4.vtd[6].in"
+= "t.be_4.in[7]" "t.be_4.vtd[7].in"
+= "t.be_4.d" "t.be_4.vtd[7].d"
+= "t.be_4.d" "t.be_4.vtd[6].d"
+= "t.be_4.d" "t.be_4.vtd[5].d"
+= "t.be_4.d" "t.be_4.vtd[4].d"
+= "t.be_4.d" "t.be_4.vtd[3].d"
+= "t.be_4.d" "t.be_4.vtd[2].d"
+= "t.be_4.d" "t.be_4.vtd[1].d"
+= "t.be_4.d" "t.be_4.vtd[0].d"
+"t.be_4.vtd[0].in"&"t.be_4.vtd[0].d"->"t.be_4.vtd[0]._out.t"-
+~("t.be_4.vtd[0].in"&"t.be_4.vtd[0].d")->"t.be_4.vtd[0]._out.t"+
+"t.be_4.vtd[0]._in"&"t.be_4.vtd[0].d"->"t.be_4.vtd[0]._out.f"-
+~("t.be_4.vtd[0]._in"&"t.be_4.vtd[0].d")->"t.be_4.vtd[0]._out.f"+
+"t.be_4.vtd[0].in"->"t.be_4.vtd[0]._in"-
+~("t.be_4.vtd[0].in")->"t.be_4.vtd[0]._in"+
+"t.be_4.vtd[0]._out.t"->"t.be_4.vtd[0].out.t"-
+~("t.be_4.vtd[0]._out.t")->"t.be_4.vtd[0].out.t"+
+"t.be_4.vtd[0]._out.f"->"t.be_4.vtd[0].out.f"-
+~("t.be_4.vtd[0]._out.f")->"t.be_4.vtd[0].out.f"+
+= "t.be_4.vtd[0]._out.d[0]" "t.be_4.vtd[0]._out.f"
+= "t.be_4.vtd[0]._out.d[1]" "t.be_4.vtd[0]._out.t"
+= "t.be_4.vtd[0].out.d[0]" "t.be_4.vtd[0].out.f"
+= "t.be_4.vtd[0].out.d[1]" "t.be_4.vtd[0].out.t"
+"t.be_4.vtd[1].in"&"t.be_4.vtd[1].d"->"t.be_4.vtd[1]._out.t"-
+~("t.be_4.vtd[1].in"&"t.be_4.vtd[1].d")->"t.be_4.vtd[1]._out.t"+
+"t.be_4.vtd[1]._in"&"t.be_4.vtd[1].d"->"t.be_4.vtd[1]._out.f"-
+~("t.be_4.vtd[1]._in"&"t.be_4.vtd[1].d")->"t.be_4.vtd[1]._out.f"+
+"t.be_4.vtd[1].in"->"t.be_4.vtd[1]._in"-
+~("t.be_4.vtd[1].in")->"t.be_4.vtd[1]._in"+
+"t.be_4.vtd[1]._out.t"->"t.be_4.vtd[1].out.t"-
+~("t.be_4.vtd[1]._out.t")->"t.be_4.vtd[1].out.t"+
+"t.be_4.vtd[1]._out.f"->"t.be_4.vtd[1].out.f"-
+~("t.be_4.vtd[1]._out.f")->"t.be_4.vtd[1].out.f"+
+= "t.be_4.vtd[1]._out.d[0]" "t.be_4.vtd[1]._out.f"
+= "t.be_4.vtd[1]._out.d[1]" "t.be_4.vtd[1]._out.t"
+= "t.be_4.vtd[1].out.d[0]" "t.be_4.vtd[1].out.f"
+= "t.be_4.vtd[1].out.d[1]" "t.be_4.vtd[1].out.t"
+"t.be_4.vtd[2].in"&"t.be_4.vtd[2].d"->"t.be_4.vtd[2]._out.t"-
+~("t.be_4.vtd[2].in"&"t.be_4.vtd[2].d")->"t.be_4.vtd[2]._out.t"+
+"t.be_4.vtd[2]._in"&"t.be_4.vtd[2].d"->"t.be_4.vtd[2]._out.f"-
+~("t.be_4.vtd[2]._in"&"t.be_4.vtd[2].d")->"t.be_4.vtd[2]._out.f"+
+"t.be_4.vtd[2].in"->"t.be_4.vtd[2]._in"-
+~("t.be_4.vtd[2].in")->"t.be_4.vtd[2]._in"+
+"t.be_4.vtd[2]._out.t"->"t.be_4.vtd[2].out.t"-
+~("t.be_4.vtd[2]._out.t")->"t.be_4.vtd[2].out.t"+
+"t.be_4.vtd[2]._out.f"->"t.be_4.vtd[2].out.f"-
+~("t.be_4.vtd[2]._out.f")->"t.be_4.vtd[2].out.f"+
+= "t.be_4.vtd[2]._out.d[0]" "t.be_4.vtd[2]._out.f"
+= "t.be_4.vtd[2]._out.d[1]" "t.be_4.vtd[2]._out.t"
+= "t.be_4.vtd[2].out.d[0]" "t.be_4.vtd[2].out.f"
+= "t.be_4.vtd[2].out.d[1]" "t.be_4.vtd[2].out.t"
+"t.be_4.vtd[3].in"&"t.be_4.vtd[3].d"->"t.be_4.vtd[3]._out.t"-
+~("t.be_4.vtd[3].in"&"t.be_4.vtd[3].d")->"t.be_4.vtd[3]._out.t"+
+"t.be_4.vtd[3]._in"&"t.be_4.vtd[3].d"->"t.be_4.vtd[3]._out.f"-
+~("t.be_4.vtd[3]._in"&"t.be_4.vtd[3].d")->"t.be_4.vtd[3]._out.f"+
+"t.be_4.vtd[3].in"->"t.be_4.vtd[3]._in"-
+~("t.be_4.vtd[3].in")->"t.be_4.vtd[3]._in"+
+"t.be_4.vtd[3]._out.t"->"t.be_4.vtd[3].out.t"-
+~("t.be_4.vtd[3]._out.t")->"t.be_4.vtd[3].out.t"+
+"t.be_4.vtd[3]._out.f"->"t.be_4.vtd[3].out.f"-
+~("t.be_4.vtd[3]._out.f")->"t.be_4.vtd[3].out.f"+
+= "t.be_4.vtd[3]._out.d[0]" "t.be_4.vtd[3]._out.f"
+= "t.be_4.vtd[3]._out.d[1]" "t.be_4.vtd[3]._out.t"
+= "t.be_4.vtd[3].out.d[0]" "t.be_4.vtd[3].out.f"
+= "t.be_4.vtd[3].out.d[1]" "t.be_4.vtd[3].out.t"
+"t.be_4.vtd[4].in"&"t.be_4.vtd[4].d"->"t.be_4.vtd[4]._out.t"-
+~("t.be_4.vtd[4].in"&"t.be_4.vtd[4].d")->"t.be_4.vtd[4]._out.t"+
+"t.be_4.vtd[4]._in"&"t.be_4.vtd[4].d"->"t.be_4.vtd[4]._out.f"-
+~("t.be_4.vtd[4]._in"&"t.be_4.vtd[4].d")->"t.be_4.vtd[4]._out.f"+
+"t.be_4.vtd[4].in"->"t.be_4.vtd[4]._in"-
+~("t.be_4.vtd[4].in")->"t.be_4.vtd[4]._in"+
+"t.be_4.vtd[4]._out.t"->"t.be_4.vtd[4].out.t"-
+~("t.be_4.vtd[4]._out.t")->"t.be_4.vtd[4].out.t"+
+"t.be_4.vtd[4]._out.f"->"t.be_4.vtd[4].out.f"-
+~("t.be_4.vtd[4]._out.f")->"t.be_4.vtd[4].out.f"+
+= "t.be_4.vtd[4]._out.d[0]" "t.be_4.vtd[4]._out.f"
+= "t.be_4.vtd[4]._out.d[1]" "t.be_4.vtd[4]._out.t"
+= "t.be_4.vtd[4].out.d[0]" "t.be_4.vtd[4].out.f"
+= "t.be_4.vtd[4].out.d[1]" "t.be_4.vtd[4].out.t"
+"t.be_4.vtd[5].in"&"t.be_4.vtd[5].d"->"t.be_4.vtd[5]._out.t"-
+~("t.be_4.vtd[5].in"&"t.be_4.vtd[5].d")->"t.be_4.vtd[5]._out.t"+
+"t.be_4.vtd[5]._in"&"t.be_4.vtd[5].d"->"t.be_4.vtd[5]._out.f"-
+~("t.be_4.vtd[5]._in"&"t.be_4.vtd[5].d")->"t.be_4.vtd[5]._out.f"+
+"t.be_4.vtd[5].in"->"t.be_4.vtd[5]._in"-
+~("t.be_4.vtd[5].in")->"t.be_4.vtd[5]._in"+
+"t.be_4.vtd[5]._out.t"->"t.be_4.vtd[5].out.t"-
+~("t.be_4.vtd[5]._out.t")->"t.be_4.vtd[5].out.t"+
+"t.be_4.vtd[5]._out.f"->"t.be_4.vtd[5].out.f"-
+~("t.be_4.vtd[5]._out.f")->"t.be_4.vtd[5].out.f"+
+= "t.be_4.vtd[5]._out.d[0]" "t.be_4.vtd[5]._out.f"
+= "t.be_4.vtd[5]._out.d[1]" "t.be_4.vtd[5]._out.t"
+= "t.be_4.vtd[5].out.d[0]" "t.be_4.vtd[5].out.f"
+= "t.be_4.vtd[5].out.d[1]" "t.be_4.vtd[5].out.t"
+"t.be_4.vtd[6].in"&"t.be_4.vtd[6].d"->"t.be_4.vtd[6]._out.t"-
+~("t.be_4.vtd[6].in"&"t.be_4.vtd[6].d")->"t.be_4.vtd[6]._out.t"+
+"t.be_4.vtd[6]._in"&"t.be_4.vtd[6].d"->"t.be_4.vtd[6]._out.f"-
+~("t.be_4.vtd[6]._in"&"t.be_4.vtd[6].d")->"t.be_4.vtd[6]._out.f"+
+"t.be_4.vtd[6].in"->"t.be_4.vtd[6]._in"-
+~("t.be_4.vtd[6].in")->"t.be_4.vtd[6]._in"+
+"t.be_4.vtd[6]._out.t"->"t.be_4.vtd[6].out.t"-
+~("t.be_4.vtd[6]._out.t")->"t.be_4.vtd[6].out.t"+
+"t.be_4.vtd[6]._out.f"->"t.be_4.vtd[6].out.f"-
+~("t.be_4.vtd[6]._out.f")->"t.be_4.vtd[6].out.f"+
+= "t.be_4.vtd[6]._out.d[0]" "t.be_4.vtd[6]._out.f"
+= "t.be_4.vtd[6]._out.d[1]" "t.be_4.vtd[6]._out.t"
+= "t.be_4.vtd[6].out.d[0]" "t.be_4.vtd[6].out.f"
+= "t.be_4.vtd[6].out.d[1]" "t.be_4.vtd[6].out.t"
+"t.be_4.vtd[7].in"&"t.be_4.vtd[7].d"->"t.be_4.vtd[7]._out.t"-
+~("t.be_4.vtd[7].in"&"t.be_4.vtd[7].d")->"t.be_4.vtd[7]._out.t"+
+"t.be_4.vtd[7]._in"&"t.be_4.vtd[7].d"->"t.be_4.vtd[7]._out.f"-
+~("t.be_4.vtd[7]._in"&"t.be_4.vtd[7].d")->"t.be_4.vtd[7]._out.f"+
+"t.be_4.vtd[7].in"->"t.be_4.vtd[7]._in"-
+~("t.be_4.vtd[7].in")->"t.be_4.vtd[7]._in"+
+"t.be_4.vtd[7]._out.t"->"t.be_4.vtd[7].out.t"-
+~("t.be_4.vtd[7]._out.t")->"t.be_4.vtd[7].out.t"+
+"t.be_4.vtd[7]._out.f"->"t.be_4.vtd[7].out.f"-
+~("t.be_4.vtd[7]._out.f")->"t.be_4.vtd[7].out.f"+
+= "t.be_4.vtd[7]._out.d[0]" "t.be_4.vtd[7]._out.f"
+= "t.be_4.vtd[7]._out.d[1]" "t.be_4.vtd[7]._out.t"
+= "t.be_4.vtd[7].out.d[0]" "t.be_4.vtd[7].out.f"
+= "t.be_4.vtd[7].out.d[1]" "t.be_4.vtd[7].out.t"
+= "t.be_4.out[0].d[0]" "t.be_4.out[0].f"
+= "t.be_4.out[0].d[1]" "t.be_4.out[0].t"
+= "t.be_4.out[1].d[0]" "t.be_4.out[1].f"
+= "t.be_4.out[1].d[1]" "t.be_4.out[1].t"
+= "t.be_4.out[2].d[0]" "t.be_4.out[2].f"
+= "t.be_4.out[2].d[1]" "t.be_4.out[2].t"
+= "t.be_4.out[3].d[0]" "t.be_4.out[3].f"
+= "t.be_4.out[3].d[1]" "t.be_4.out[3].t"
+= "t.be_4.out[4].d[0]" "t.be_4.out[4].f"
+= "t.be_4.out[4].d[1]" "t.be_4.out[4].t"
+= "t.be_4.out[5].d[0]" "t.be_4.out[5].f"
+= "t.be_4.out[5].d[1]" "t.be_4.out[5].t"
+= "t.be_4.out[6].d[0]" "t.be_4.out[6].f"
+= "t.be_4.out[6].d[1]" "t.be_4.out[6].t"
+= "t.be_4.out[7].d[0]" "t.be_4.out[7].f"
+= "t.be_4.out[7].d[1]" "t.be_4.out[7].t"
+= "t.be_4.out[0].f" "t.be_4.vtd[0].out.f"
+= "t.be_4.out[0].d[0]" "t.be_4.vtd[0].out.d[0]"
+= "t.be_4.out[0].d[1]" "t.be_4.vtd[0].out.d[1]"
+= "t.be_4.out[0].t" "t.be_4.vtd[0].out.t"
+= "t.be_4.out[1].f" "t.be_4.vtd[1].out.f"
+= "t.be_4.out[1].d[0]" "t.be_4.vtd[1].out.d[0]"
+= "t.be_4.out[1].d[1]" "t.be_4.vtd[1].out.d[1]"
+= "t.be_4.out[1].t" "t.be_4.vtd[1].out.t"
+= "t.be_4.out[2].f" "t.be_4.vtd[2].out.f"
+= "t.be_4.out[2].d[0]" "t.be_4.vtd[2].out.d[0]"
+= "t.be_4.out[2].d[1]" "t.be_4.vtd[2].out.d[1]"
+= "t.be_4.out[2].t" "t.be_4.vtd[2].out.t"
+= "t.be_4.out[3].f" "t.be_4.vtd[3].out.f"
+= "t.be_4.out[3].d[0]" "t.be_4.vtd[3].out.d[0]"
+= "t.be_4.out[3].d[1]" "t.be_4.vtd[3].out.d[1]"
+= "t.be_4.out[3].t" "t.be_4.vtd[3].out.t"
+= "t.be_4.out[4].f" "t.be_4.vtd[4].out.f"
+= "t.be_4.out[4].d[0]" "t.be_4.vtd[4].out.d[0]"
+= "t.be_4.out[4].d[1]" "t.be_4.vtd[4].out.d[1]"
+= "t.be_4.out[4].t" "t.be_4.vtd[4].out.t"
+= "t.be_4.out[5].f" "t.be_4.vtd[5].out.f"
+= "t.be_4.out[5].d[0]" "t.be_4.vtd[5].out.d[0]"
+= "t.be_4.out[5].d[1]" "t.be_4.vtd[5].out.d[1]"
+= "t.be_4.out[5].t" "t.be_4.vtd[5].out.t"
+= "t.be_4.out[6].f" "t.be_4.vtd[6].out.f"
+= "t.be_4.out[6].d[0]" "t.be_4.vtd[6].out.d[0]"
+= "t.be_4.out[6].d[1]" "t.be_4.vtd[6].out.d[1]"
+= "t.be_4.out[6].t" "t.be_4.vtd[6].out.t"
+= "t.be_4.out[7].f" "t.be_4.vtd[7].out.f"
+= "t.be_4.out[7].d[0]" "t.be_4.vtd[7].out.d[0]"
+= "t.be_4.out[7].d[1]" "t.be_4.vtd[7].out.d[1]"
+= "t.be_4.out[7].t" "t.be_4.vtd[7].out.t"
+"Reset"->"t.tv_1[0].v.t"-
+"t.tv_1[0].v.f"->"t.tv_1[0].v.t"-
+"t.tv_1[0].v.t"->"t.tv_1[0].v.f"-
+weak ~"t.tv_1[0].v.t"->"t.tv_1[0].v.f"+
+weak ~"t.tv_1[0].v.f"->"t.tv_1[0].v.t"+
+= "t.tv_1[0].v.d[0]" "t.tv_1[0].v.f"
+= "t.tv_1[0].v.d[1]" "t.tv_1[0].v.t"
+"Reset"->"t.tv_1[1].v.t"-
+"t.tv_1[1].v.f"->"t.tv_1[1].v.t"-
+"t.tv_1[1].v.t"->"t.tv_1[1].v.f"-
+weak ~"t.tv_1[1].v.t"->"t.tv_1[1].v.f"+
+weak ~"t.tv_1[1].v.f"->"t.tv_1[1].v.t"+
+= "t.tv_1[1].v.d[0]" "t.tv_1[1].v.f"
+= "t.tv_1[1].v.d[1]" "t.tv_1[1].v.t"
+"Reset"->"t.tv_1[2].v.t"-
+"t.tv_1[2].v.f"->"t.tv_1[2].v.t"-
+"t.tv_1[2].v.t"->"t.tv_1[2].v.f"-
+weak ~"t.tv_1[2].v.t"->"t.tv_1[2].v.f"+
+weak ~"t.tv_1[2].v.f"->"t.tv_1[2].v.t"+
+= "t.tv_1[2].v.d[0]" "t.tv_1[2].v.f"
+= "t.tv_1[2].v.d[1]" "t.tv_1[2].v.t"
+"Reset"->"t.tv_1[3].v.t"-
+"t.tv_1[3].v.f"->"t.tv_1[3].v.t"-
+"t.tv_1[3].v.t"->"t.tv_1[3].v.f"-
+weak ~"t.tv_1[3].v.t"->"t.tv_1[3].v.f"+
+weak ~"t.tv_1[3].v.f"->"t.tv_1[3].v.t"+
+= "t.tv_1[3].v.d[0]" "t.tv_1[3].v.f"
+= "t.tv_1[3].v.d[1]" "t.tv_1[3].v.t"
+"Reset"->"t.tv_1[4].v.t"-
+"t.tv_1[4].v.f"->"t.tv_1[4].v.t"-
+"t.tv_1[4].v.t"->"t.tv_1[4].v.f"-
+weak ~"t.tv_1[4].v.t"->"t.tv_1[4].v.f"+
+weak ~"t.tv_1[4].v.f"->"t.tv_1[4].v.t"+
+= "t.tv_1[4].v.d[0]" "t.tv_1[4].v.f"
+= "t.tv_1[4].v.d[1]" "t.tv_1[4].v.t"
+"Reset"->"t.tv_1[5].v.t"-
+"t.tv_1[5].v.f"->"t.tv_1[5].v.t"-
+"t.tv_1[5].v.t"->"t.tv_1[5].v.f"-
+weak ~"t.tv_1[5].v.t"->"t.tv_1[5].v.f"+
+weak ~"t.tv_1[5].v.f"->"t.tv_1[5].v.t"+
+= "t.tv_1[5].v.d[0]" "t.tv_1[5].v.f"
+= "t.tv_1[5].v.d[1]" "t.tv_1[5].v.t"
+"Reset"->"t.tv_1[6].v.t"-
+"t.tv_1[6].v.f"->"t.tv_1[6].v.t"-
+"t.tv_1[6].v.t"->"t.tv_1[6].v.f"-
+weak ~"t.tv_1[6].v.t"->"t.tv_1[6].v.f"+
+weak ~"t.tv_1[6].v.f"->"t.tv_1[6].v.t"+
+= "t.tv_1[6].v.d[0]" "t.tv_1[6].v.f"
+= "t.tv_1[6].v.d[1]" "t.tv_1[6].v.t"
+"Reset"->"t.tv_1[7].v.t"-
+"t.tv_1[7].v.f"->"t.tv_1[7].v.t"-
+"t.tv_1[7].v.t"->"t.tv_1[7].v.f"-
+weak ~"t.tv_1[7].v.t"->"t.tv_1[7].v.f"+
+weak ~"t.tv_1[7].v.f"->"t.tv_1[7].v.t"+
+= "t.tv_1[7].v.d[0]" "t.tv_1[7].v.f"
+= "t.tv_1[7].v.d[1]" "t.tv_1[7].v.t"
+"t.s_0.rec[0].go.a"&"t.s_0.d.out"->"t.s_0._go_a"-
+~("t.s_0.rec[0].go.a"&"t.s_0.d.out")->"t.s_0._go_a"+
+"t.s_0.rec[0].in.a"&"t.s_0.d.out"->"t.s_0._in_a"-
+~("t.s_0.rec[0].in.a"&"t.s_0.d.out")->"t.s_0._in_a"+
+"t.s_0._go_a"->"t.s_0.go.a"-
+~("t.s_0._go_a")->"t.s_0.go.a"+
+"t.s_0._in_a"->"t.s_0.in.a"-
+~("t.s_0._in_a")->"t.s_0.in.a"+
+"t.s_0.d.d[0].in"->"t.s_0.d.d[0]._x"-
+~("t.s_0.d.d[0].in")->"t.s_0.d.d[0]._x"+
+"t.s_0.d.d[0]._x"->"t.s_0.d.d[0].out"-
+~("t.s_0.d.d[0]._x")->"t.s_0.d.d[0].out"+
+"t.s_0.d.d[1].in"->"t.s_0.d.d[1]._x"-
+~("t.s_0.d.d[1].in")->"t.s_0.d.d[1]._x"+
+"t.s_0.d.d[1]._x"->"t.s_0.d.d[1].out"-
+~("t.s_0.d.d[1]._x")->"t.s_0.d.d[1].out"+
+"t.s_0.d.d[2].in"->"t.s_0.d.d[2]._x"-
+~("t.s_0.d.d[2].in")->"t.s_0.d.d[2]._x"+
+"t.s_0.d.d[2]._x"->"t.s_0.d.d[2].out"-
+~("t.s_0.d.d[2]._x")->"t.s_0.d.d[2].out"+
+"t.s_0.d.d[3].in"->"t.s_0.d.d[3]._x"-
+~("t.s_0.d.d[3].in")->"t.s_0.d.d[3]._x"+
+"t.s_0.d.d[3]._x"->"t.s_0.d.d[3].out"-
+~("t.s_0.d.d[3]._x")->"t.s_0.d.d[3].out"+
+"t.s_0.d.d[4].in"->"t.s_0.d.d[4]._x"-
+~("t.s_0.d.d[4].in")->"t.s_0.d.d[4]._x"+
+"t.s_0.d.d[4]._x"->"t.s_0.d.d[4].out"-
+~("t.s_0.d.d[4]._x")->"t.s_0.d.d[4].out"+
+"t.s_0.d.d[5].in"->"t.s_0.d.d[5]._x"-
+~("t.s_0.d.d[5].in")->"t.s_0.d.d[5]._x"+
+"t.s_0.d.d[5]._x"->"t.s_0.d.d[5].out"-
+~("t.s_0.d.d[5]._x")->"t.s_0.d.d[5].out"+
+"t.s_0.d.d[6].in"->"t.s_0.d.d[6]._x"-
+~("t.s_0.d.d[6].in")->"t.s_0.d.d[6]._x"+
+"t.s_0.d.d[6]._x"->"t.s_0.d.d[6].out"-
+~("t.s_0.d.d[6]._x")->"t.s_0.d.d[6].out"+
+"t.s_0.d.d[7].in"->"t.s_0.d.d[7]._x"-
+~("t.s_0.d.d[7].in")->"t.s_0.d.d[7]._x"+
+"t.s_0.d.d[7]._x"->"t.s_0.d.d[7].out"-
+~("t.s_0.d.d[7]._x")->"t.s_0.d.d[7].out"+
+= "t.s_0.d.d[6].out" "t.s_0.d.d[7].in"
+= "t.s_0.d.d[5].out" "t.s_0.d.d[6].in"
+= "t.s_0.d.d[4].out" "t.s_0.d.d[5].in"
+= "t.s_0.d.d[3].out" "t.s_0.d.d[4].in"
+= "t.s_0.d.d[2].out" "t.s_0.d.d[3].in"
+= "t.s_0.d.d[1].out" "t.s_0.d.d[2].in"
+= "t.s_0.d.d[0].out" "t.s_0.d.d[1].in"
+= "t.s_0.d.in" "t.s_0.d.d[0].in"
+= "t.s_0.d.out" "t.s_0.d.d[7].out"
+= "t.s_0.in.d[0].d[0]" "t.s_0.in.d[0].f"
+= "t.s_0.in.d[0].d[1]" "t.s_0.in.d[0].t"
+= "t.s_0.in.d[1].d[0]" "t.s_0.in.d[1].f"
+= "t.s_0.in.d[1].d[1]" "t.s_0.in.d[1].t"
+= "t.s_0.in.d[2].d[0]" "t.s_0.in.d[2].f"
+= "t.s_0.in.d[2].d[1]" "t.s_0.in.d[2].t"
+= "t.s_0.in.d[3].d[0]" "t.s_0.in.d[3].f"
+= "t.s_0.in.d[3].d[1]" "t.s_0.in.d[3].t"
+= "t.s_0.in.d[4].d[0]" "t.s_0.in.d[4].f"
+= "t.s_0.in.d[4].d[1]" "t.s_0.in.d[4].t"
+= "t.s_0.in.d[5].d[0]" "t.s_0.in.d[5].f"
+= "t.s_0.in.d[5].d[1]" "t.s_0.in.d[5].t"
+= "t.s_0.in.d[6].d[0]" "t.s_0.in.d[6].f"
+= "t.s_0.in.d[6].d[1]" "t.s_0.in.d[6].t"
+= "t.s_0.in.d[7].d[0]" "t.s_0.in.d[7].f"
+= "t.s_0.in.d[7].d[1]" "t.s_0.in.d[7].t"
+= "t.s_0.in.d[7].d[0]" "t.s_0.rec[7].in.d[0]"
+= "t.s_0.in.d[7].d[1]" "t.s_0.rec[7].in.d[1]"
+= "t.s_0.in.d[6].d[0]" "t.s_0.rec[6].in.d[0]"
+= "t.s_0.in.d[6].d[1]" "t.s_0.rec[6].in.d[1]"
+= "t.s_0.in.d[5].d[0]" "t.s_0.rec[5].in.d[0]"
+= "t.s_0.in.d[5].d[1]" "t.s_0.rec[5].in.d[1]"
+= "t.s_0.in.d[4].d[0]" "t.s_0.rec[4].in.d[0]"
+= "t.s_0.in.d[4].d[1]" "t.s_0.rec[4].in.d[1]"
+= "t.s_0.in.d[3].d[0]" "t.s_0.rec[3].in.d[0]"
+= "t.s_0.in.d[3].d[1]" "t.s_0.rec[3].in.d[1]"
+= "t.s_0.in.d[2].d[0]" "t.s_0.rec[2].in.d[0]"
+= "t.s_0.in.d[2].d[1]" "t.s_0.rec[2].in.d[1]"
+= "t.s_0.in.d[1].d[0]" "t.s_0.rec[1].in.d[0]"
+= "t.s_0.in.d[1].d[1]" "t.s_0.rec[1].in.d[1]"
+= "t.s_0.in.d[0].d[0]" "t.s_0.rec[0].in.d[0]"
+= "t.s_0.in.d[0].d[1]" "t.s_0.rec[0].in.d[1]"
+= "t.s_0.go.r" "t.s_0.rec[7].go.r"
+= "t.s_0.go.r" "t.s_0.rec[6].go.r"
+= "t.s_0.go.r" "t.s_0.rec[5].go.r"
+= "t.s_0.go.r" "t.s_0.rec[4].go.r"
+= "t.s_0.go.r" "t.s_0.rec[3].go.r"
+= "t.s_0.go.r" "t.s_0.rec[2].go.r"
+= "t.s_0.go.r" "t.s_0.rec[1].go.r"
+= "t.s_0.go.r" "t.s_0.rec[0].go.r"
+= "t.s_0.go.r" "t.s_0.d.in"
+"t.s_0.rec[0].go.r"&"t.s_0.rec[0]._goa"&"t.s_0.rec[0].in.t"->"t.s_0.rec[0].v.f"-
+"t.s_0.rec[0].go.r"&"t.s_0.rec[0]._goa"&"t.s_0.rec[0].in.f"->"t.s_0.rec[0].v.t"-
+"t.s_0.rec[0].go.r"&("t.s_0.rec[0].v.t"&"t.s_0.rec[0].in.t"|"t.s_0.rec[0].v.f"&"t.s_0.rec[0].in.f")->"t.s_0.rec[0]._goa"-
+~"t.s_0.rec[0].in.t"&~"t.s_0.rec[0].in.f"&~"t.s_0.rec[0].go.r"->"t.s_0.rec[0]._goa"+
+"Reset"|"t.s_0.rec[0]._goa"->"t.s_0.rec[0].go.a"-
+~("Reset"|"t.s_0.rec[0]._goa")->"t.s_0.rec[0].go.a"+
+= "t.s_0.rec[0].in.d[0]" "t.s_0.rec[0].in.f"
+= "t.s_0.rec[0].in.d[1]" "t.s_0.rec[0].in.t"
+= "t.s_0.rec[0].go.a" "t.s_0.rec[0].in.a"
+= "t.s_0.rec[0].v.d[0]" "t.s_0.rec[0].v.f"
+= "t.s_0.rec[0].v.d[1]" "t.s_0.rec[0].v.t"
+"t.s_0.rec[1].go.r"&"t.s_0.rec[1]._goa"&"t.s_0.rec[1].in.t"->"t.s_0.rec[1].v.f"-
+"t.s_0.rec[1].go.r"&"t.s_0.rec[1]._goa"&"t.s_0.rec[1].in.f"->"t.s_0.rec[1].v.t"-
+"t.s_0.rec[1].go.r"&("t.s_0.rec[1].v.t"&"t.s_0.rec[1].in.t"|"t.s_0.rec[1].v.f"&"t.s_0.rec[1].in.f")->"t.s_0.rec[1]._goa"-
+~"t.s_0.rec[1].in.t"&~"t.s_0.rec[1].in.f"&~"t.s_0.rec[1].go.r"->"t.s_0.rec[1]._goa"+
+"Reset"|"t.s_0.rec[1]._goa"->"t.s_0.rec[1].go.a"-
+~("Reset"|"t.s_0.rec[1]._goa")->"t.s_0.rec[1].go.a"+
+= "t.s_0.rec[1].in.d[0]" "t.s_0.rec[1].in.f"
+= "t.s_0.rec[1].in.d[1]" "t.s_0.rec[1].in.t"
+= "t.s_0.rec[1].go.a" "t.s_0.rec[1].in.a"
+= "t.s_0.rec[1].v.d[0]" "t.s_0.rec[1].v.f"
+= "t.s_0.rec[1].v.d[1]" "t.s_0.rec[1].v.t"
+"t.s_0.rec[2].go.r"&"t.s_0.rec[2]._goa"&"t.s_0.rec[2].in.t"->"t.s_0.rec[2].v.f"-
+"t.s_0.rec[2].go.r"&"t.s_0.rec[2]._goa"&"t.s_0.rec[2].in.f"->"t.s_0.rec[2].v.t"-
+"t.s_0.rec[2].go.r"&("t.s_0.rec[2].v.t"&"t.s_0.rec[2].in.t"|"t.s_0.rec[2].v.f"&"t.s_0.rec[2].in.f")->"t.s_0.rec[2]._goa"-
+~"t.s_0.rec[2].in.t"&~"t.s_0.rec[2].in.f"&~"t.s_0.rec[2].go.r"->"t.s_0.rec[2]._goa"+
+"Reset"|"t.s_0.rec[2]._goa"->"t.s_0.rec[2].go.a"-
+~("Reset"|"t.s_0.rec[2]._goa")->"t.s_0.rec[2].go.a"+
+= "t.s_0.rec[2].in.d[0]" "t.s_0.rec[2].in.f"
+= "t.s_0.rec[2].in.d[1]" "t.s_0.rec[2].in.t"
+= "t.s_0.rec[2].go.a" "t.s_0.rec[2].in.a"
+= "t.s_0.rec[2].v.d[0]" "t.s_0.rec[2].v.f"
+= "t.s_0.rec[2].v.d[1]" "t.s_0.rec[2].v.t"
+"t.s_0.rec[3].go.r"&"t.s_0.rec[3]._goa"&"t.s_0.rec[3].in.t"->"t.s_0.rec[3].v.f"-
+"t.s_0.rec[3].go.r"&"t.s_0.rec[3]._goa"&"t.s_0.rec[3].in.f"->"t.s_0.rec[3].v.t"-
+"t.s_0.rec[3].go.r"&("t.s_0.rec[3].v.t"&"t.s_0.rec[3].in.t"|"t.s_0.rec[3].v.f"&"t.s_0.rec[3].in.f")->"t.s_0.rec[3]._goa"-
+~"t.s_0.rec[3].in.t"&~"t.s_0.rec[3].in.f"&~"t.s_0.rec[3].go.r"->"t.s_0.rec[3]._goa"+
+"Reset"|"t.s_0.rec[3]._goa"->"t.s_0.rec[3].go.a"-
+~("Reset"|"t.s_0.rec[3]._goa")->"t.s_0.rec[3].go.a"+
+= "t.s_0.rec[3].in.d[0]" "t.s_0.rec[3].in.f"
+= "t.s_0.rec[3].in.d[1]" "t.s_0.rec[3].in.t"
+= "t.s_0.rec[3].go.a" "t.s_0.rec[3].in.a"
+= "t.s_0.rec[3].v.d[0]" "t.s_0.rec[3].v.f"
+= "t.s_0.rec[3].v.d[1]" "t.s_0.rec[3].v.t"
+"t.s_0.rec[4].go.r"&"t.s_0.rec[4]._goa"&"t.s_0.rec[4].in.t"->"t.s_0.rec[4].v.f"-
+"t.s_0.rec[4].go.r"&"t.s_0.rec[4]._goa"&"t.s_0.rec[4].in.f"->"t.s_0.rec[4].v.t"-
+"t.s_0.rec[4].go.r"&("t.s_0.rec[4].v.t"&"t.s_0.rec[4].in.t"|"t.s_0.rec[4].v.f"&"t.s_0.rec[4].in.f")->"t.s_0.rec[4]._goa"-
+~"t.s_0.rec[4].in.t"&~"t.s_0.rec[4].in.f"&~"t.s_0.rec[4].go.r"->"t.s_0.rec[4]._goa"+
+"Reset"|"t.s_0.rec[4]._goa"->"t.s_0.rec[4].go.a"-
+~("Reset"|"t.s_0.rec[4]._goa")->"t.s_0.rec[4].go.a"+
+= "t.s_0.rec[4].in.d[0]" "t.s_0.rec[4].in.f"
+= "t.s_0.rec[4].in.d[1]" "t.s_0.rec[4].in.t"
+= "t.s_0.rec[4].go.a" "t.s_0.rec[4].in.a"
+= "t.s_0.rec[4].v.d[0]" "t.s_0.rec[4].v.f"
+= "t.s_0.rec[4].v.d[1]" "t.s_0.rec[4].v.t"
+"t.s_0.rec[5].go.r"&"t.s_0.rec[5]._goa"&"t.s_0.rec[5].in.t"->"t.s_0.rec[5].v.f"-
+"t.s_0.rec[5].go.r"&"t.s_0.rec[5]._goa"&"t.s_0.rec[5].in.f"->"t.s_0.rec[5].v.t"-
+"t.s_0.rec[5].go.r"&("t.s_0.rec[5].v.t"&"t.s_0.rec[5].in.t"|"t.s_0.rec[5].v.f"&"t.s_0.rec[5].in.f")->"t.s_0.rec[5]._goa"-
+~"t.s_0.rec[5].in.t"&~"t.s_0.rec[5].in.f"&~"t.s_0.rec[5].go.r"->"t.s_0.rec[5]._goa"+
+"Reset"|"t.s_0.rec[5]._goa"->"t.s_0.rec[5].go.a"-
+~("Reset"|"t.s_0.rec[5]._goa")->"t.s_0.rec[5].go.a"+
+= "t.s_0.rec[5].in.d[0]" "t.s_0.rec[5].in.f"
+= "t.s_0.rec[5].in.d[1]" "t.s_0.rec[5].in.t"
+= "t.s_0.rec[5].go.a" "t.s_0.rec[5].in.a"
+= "t.s_0.rec[5].v.d[0]" "t.s_0.rec[5].v.f"
+= "t.s_0.rec[5].v.d[1]" "t.s_0.rec[5].v.t"
+"t.s_0.rec[6].go.r"&"t.s_0.rec[6]._goa"&"t.s_0.rec[6].in.t"->"t.s_0.rec[6].v.f"-
+"t.s_0.rec[6].go.r"&"t.s_0.rec[6]._goa"&"t.s_0.rec[6].in.f"->"t.s_0.rec[6].v.t"-
+"t.s_0.rec[6].go.r"&("t.s_0.rec[6].v.t"&"t.s_0.rec[6].in.t"|"t.s_0.rec[6].v.f"&"t.s_0.rec[6].in.f")->"t.s_0.rec[6]._goa"-
+~"t.s_0.rec[6].in.t"&~"t.s_0.rec[6].in.f"&~"t.s_0.rec[6].go.r"->"t.s_0.rec[6]._goa"+
+"Reset"|"t.s_0.rec[6]._goa"->"t.s_0.rec[6].go.a"-
+~("Reset"|"t.s_0.rec[6]._goa")->"t.s_0.rec[6].go.a"+
+= "t.s_0.rec[6].in.d[0]" "t.s_0.rec[6].in.f"
+= "t.s_0.rec[6].in.d[1]" "t.s_0.rec[6].in.t"
+= "t.s_0.rec[6].go.a" "t.s_0.rec[6].in.a"
+= "t.s_0.rec[6].v.d[0]" "t.s_0.rec[6].v.f"
+= "t.s_0.rec[6].v.d[1]" "t.s_0.rec[6].v.t"
+"t.s_0.rec[7].go.r"&"t.s_0.rec[7]._goa"&"t.s_0.rec[7].in.t"->"t.s_0.rec[7].v.f"-
+"t.s_0.rec[7].go.r"&"t.s_0.rec[7]._goa"&"t.s_0.rec[7].in.f"->"t.s_0.rec[7].v.t"-
+"t.s_0.rec[7].go.r"&("t.s_0.rec[7].v.t"&"t.s_0.rec[7].in.t"|"t.s_0.rec[7].v.f"&"t.s_0.rec[7].in.f")->"t.s_0.rec[7]._goa"-
+~"t.s_0.rec[7].in.t"&~"t.s_0.rec[7].in.f"&~"t.s_0.rec[7].go.r"->"t.s_0.rec[7]._goa"+
+"Reset"|"t.s_0.rec[7]._goa"->"t.s_0.rec[7].go.a"-
+~("Reset"|"t.s_0.rec[7]._goa")->"t.s_0.rec[7].go.a"+
+= "t.s_0.rec[7].in.d[0]" "t.s_0.rec[7].in.f"
+= "t.s_0.rec[7].in.d[1]" "t.s_0.rec[7].in.t"
+= "t.s_0.rec[7].go.a" "t.s_0.rec[7].in.a"
+= "t.s_0.rec[7].v.d[0]" "t.s_0.rec[7].v.f"
+= "t.s_0.rec[7].v.d[1]" "t.s_0.rec[7].v.t"
+= "t.s_0.v[0].d[0]" "t.s_0.v[0].f"
+= "t.s_0.v[0].d[1]" "t.s_0.v[0].t"
+= "t.s_0.v[1].d[0]" "t.s_0.v[1].f"
+= "t.s_0.v[1].d[1]" "t.s_0.v[1].t"
+= "t.s_0.v[2].d[0]" "t.s_0.v[2].f"
+= "t.s_0.v[2].d[1]" "t.s_0.v[2].t"
+= "t.s_0.v[3].d[0]" "t.s_0.v[3].f"
+= "t.s_0.v[3].d[1]" "t.s_0.v[3].t"
+= "t.s_0.v[4].d[0]" "t.s_0.v[4].f"
+= "t.s_0.v[4].d[1]" "t.s_0.v[4].t"
+= "t.s_0.v[5].d[0]" "t.s_0.v[5].f"
+= "t.s_0.v[5].d[1]" "t.s_0.v[5].t"
+= "t.s_0.v[6].d[0]" "t.s_0.v[6].f"
+= "t.s_0.v[6].d[1]" "t.s_0.v[6].t"
+= "t.s_0.v[7].d[0]" "t.s_0.v[7].f"
+= "t.s_0.v[7].d[1]" "t.s_0.v[7].t"
+= "t.s_0.v[0].f" "t.s_0.rec[0].v.f"
+= "t.s_0.v[0].d[0]" "t.s_0.rec[0].v.d[0]"
+= "t.s_0.v[0].d[1]" "t.s_0.rec[0].v.d[1]"
+= "t.s_0.v[0].t" "t.s_0.rec[0].v.t"
+= "t.s_0.v[1].f" "t.s_0.rec[1].v.f"
+= "t.s_0.v[1].d[0]" "t.s_0.rec[1].v.d[0]"
+= "t.s_0.v[1].d[1]" "t.s_0.rec[1].v.d[1]"
+= "t.s_0.v[1].t" "t.s_0.rec[1].v.t"
+= "t.s_0.v[2].f" "t.s_0.rec[2].v.f"
+= "t.s_0.v[2].d[0]" "t.s_0.rec[2].v.d[0]"
+= "t.s_0.v[2].d[1]" "t.s_0.rec[2].v.d[1]"
+= "t.s_0.v[2].t" "t.s_0.rec[2].v.t"
+= "t.s_0.v[3].f" "t.s_0.rec[3].v.f"
+= "t.s_0.v[3].d[0]" "t.s_0.rec[3].v.d[0]"
+= "t.s_0.v[3].d[1]" "t.s_0.rec[3].v.d[1]"
+= "t.s_0.v[3].t" "t.s_0.rec[3].v.t"
+= "t.s_0.v[4].f" "t.s_0.rec[4].v.f"
+= "t.s_0.v[4].d[0]" "t.s_0.rec[4].v.d[0]"
+= "t.s_0.v[4].d[1]" "t.s_0.rec[4].v.d[1]"
+= "t.s_0.v[4].t" "t.s_0.rec[4].v.t"
+= "t.s_0.v[5].f" "t.s_0.rec[5].v.f"
+= "t.s_0.v[5].d[0]" "t.s_0.rec[5].v.d[0]"
+= "t.s_0.v[5].d[1]" "t.s_0.rec[5].v.d[1]"
+= "t.s_0.v[5].t" "t.s_0.rec[5].v.t"
+= "t.s_0.v[6].f" "t.s_0.rec[6].v.f"
+= "t.s_0.v[6].d[0]" "t.s_0.rec[6].v.d[0]"
+= "t.s_0.v[6].d[1]" "t.s_0.rec[6].v.d[1]"
+= "t.s_0.v[6].t" "t.s_0.rec[6].v.t"
+= "t.s_0.v[7].f" "t.s_0.rec[7].v.f"
+= "t.s_0.v[7].d[0]" "t.s_0.rec[7].v.d[0]"
+= "t.s_0.v[7].d[1]" "t.s_0.rec[7].v.d[1]"
+= "t.s_0.v[7].t" "t.s_0.rec[7].v.t"
+= "t.s_0.v[0].f" "t.var_x[0].v.f"
+= "t.s_0.v[0].d[0]" "t.var_x[0].v.d[0]"
+= "t.s_0.v[0].d[1]" "t.var_x[0].v.d[1]"
+= "t.s_0.v[0].t" "t.var_x[0].v.t"
+= "t.s_0.v[1].f" "t.var_x[1].v.f"
+= "t.s_0.v[1].d[0]" "t.var_x[1].v.d[0]"
+= "t.s_0.v[1].d[1]" "t.var_x[1].v.d[1]"
+= "t.s_0.v[1].t" "t.var_x[1].v.t"
+= "t.s_0.v[2].f" "t.var_x[2].v.f"
+= "t.s_0.v[2].d[0]" "t.var_x[2].v.d[0]"
+= "t.s_0.v[2].d[1]" "t.var_x[2].v.d[1]"
+= "t.s_0.v[2].t" "t.var_x[2].v.t"
+= "t.s_0.v[3].f" "t.var_x[3].v.f"
+= "t.s_0.v[3].d[0]" "t.var_x[3].v.d[0]"
+= "t.s_0.v[3].d[1]" "t.var_x[3].v.d[1]"
+= "t.s_0.v[3].t" "t.var_x[3].v.t"
+= "t.s_0.v[4].f" "t.var_x[4].v.f"
+= "t.s_0.v[4].d[0]" "t.var_x[4].v.d[0]"
+= "t.s_0.v[4].d[1]" "t.var_x[4].v.d[1]"
+= "t.s_0.v[4].t" "t.var_x[4].v.t"
+= "t.s_0.v[5].f" "t.var_x[5].v.f"
+= "t.s_0.v[5].d[0]" "t.var_x[5].v.d[0]"
+= "t.s_0.v[5].d[1]" "t.var_x[5].v.d[1]"
+= "t.s_0.v[5].t" "t.var_x[5].v.t"
+= "t.s_0.v[6].f" "t.var_x[6].v.f"
+= "t.s_0.v[6].d[0]" "t.var_x[6].v.d[0]"
+= "t.s_0.v[6].d[1]" "t.var_x[6].v.d[1]"
+= "t.s_0.v[6].t" "t.var_x[6].v.t"
+= "t.s_0.v[7].f" "t.var_x[7].v.f"
+= "t.s_0.v[7].d[0]" "t.var_x[7].v.d[0]"
+= "t.s_0.v[7].d[1]" "t.var_x[7].v.d[1]"
+= "t.s_0.v[7].t" "t.var_x[7].v.t"
+"t.de_3.d[0].in"->"t.de_3.d[0]._x"-
+~("t.de_3.d[0].in")->"t.de_3.d[0]._x"+
+"t.de_3.d[0]._x"->"t.de_3.d[0].out"-
+~("t.de_3.d[0]._x")->"t.de_3.d[0].out"+
+"t.de_3.d[1].in"->"t.de_3.d[1]._x"-
+~("t.de_3.d[1].in")->"t.de_3.d[1]._x"+
+"t.de_3.d[1]._x"->"t.de_3.d[1].out"-
+~("t.de_3.d[1]._x")->"t.de_3.d[1].out"+
+"t.de_3.d[2].in"->"t.de_3.d[2]._x"-
+~("t.de_3.d[2].in")->"t.de_3.d[2]._x"+
+"t.de_3.d[2]._x"->"t.de_3.d[2].out"-
+~("t.de_3.d[2]._x")->"t.de_3.d[2].out"+
+"t.de_3.d[3].in"->"t.de_3.d[3]._x"-
+~("t.de_3.d[3].in")->"t.de_3.d[3]._x"+
+"t.de_3.d[3]._x"->"t.de_3.d[3].out"-
+~("t.de_3.d[3]._x")->"t.de_3.d[3].out"+
+"t.de_3.d[4].in"->"t.de_3.d[4]._x"-
+~("t.de_3.d[4].in")->"t.de_3.d[4]._x"+
+"t.de_3.d[4]._x"->"t.de_3.d[4].out"-
+~("t.de_3.d[4]._x")->"t.de_3.d[4].out"+
+"t.de_3.d[5].in"->"t.de_3.d[5]._x"-
+~("t.de_3.d[5].in")->"t.de_3.d[5]._x"+
+"t.de_3.d[5]._x"->"t.de_3.d[5].out"-
+~("t.de_3.d[5]._x")->"t.de_3.d[5].out"+
+"t.de_3.d[6].in"->"t.de_3.d[6]._x"-
+~("t.de_3.d[6].in")->"t.de_3.d[6]._x"+
+"t.de_3.d[6]._x"->"t.de_3.d[6].out"-
+~("t.de_3.d[6]._x")->"t.de_3.d[6].out"+
+"t.de_3.d[7].in"->"t.de_3.d[7]._x"-
+~("t.de_3.d[7].in")->"t.de_3.d[7]._x"+
+"t.de_3.d[7]._x"->"t.de_3.d[7].out"-
+~("t.de_3.d[7]._x")->"t.de_3.d[7].out"+
+"t.de_3.d[8].in"->"t.de_3.d[8]._x"-
+~("t.de_3.d[8].in")->"t.de_3.d[8]._x"+
+"t.de_3.d[8]._x"->"t.de_3.d[8].out"-
+~("t.de_3.d[8]._x")->"t.de_3.d[8].out"+
+"t.de_3.d[9].in"->"t.de_3.d[9]._x"-
+~("t.de_3.d[9].in")->"t.de_3.d[9]._x"+
+"t.de_3.d[9]._x"->"t.de_3.d[9].out"-
+~("t.de_3.d[9]._x")->"t.de_3.d[9].out"+
+"t.de_3.d[10].in"->"t.de_3.d[10]._x"-
+~("t.de_3.d[10].in")->"t.de_3.d[10]._x"+
+"t.de_3.d[10]._x"->"t.de_3.d[10].out"-
+~("t.de_3.d[10]._x")->"t.de_3.d[10].out"+
+"t.de_3.d[11].in"->"t.de_3.d[11]._x"-
+~("t.de_3.d[11].in")->"t.de_3.d[11]._x"+
+"t.de_3.d[11]._x"->"t.de_3.d[11].out"-
+~("t.de_3.d[11]._x")->"t.de_3.d[11].out"+
+"t.de_3.d[12].in"->"t.de_3.d[12]._x"-
+~("t.de_3.d[12].in")->"t.de_3.d[12]._x"+
+"t.de_3.d[12]._x"->"t.de_3.d[12].out"-
+~("t.de_3.d[12]._x")->"t.de_3.d[12].out"+
+"t.de_3.d[13].in"->"t.de_3.d[13]._x"-
+~("t.de_3.d[13].in")->"t.de_3.d[13]._x"+
+"t.de_3.d[13]._x"->"t.de_3.d[13].out"-
+~("t.de_3.d[13]._x")->"t.de_3.d[13].out"+
+"t.de_3.d[14].in"->"t.de_3.d[14]._x"-
+~("t.de_3.d[14].in")->"t.de_3.d[14]._x"+
+"t.de_3.d[14]._x"->"t.de_3.d[14].out"-
+~("t.de_3.d[14]._x")->"t.de_3.d[14].out"+
+"t.de_3.d[15].in"->"t.de_3.d[15]._x"-
+~("t.de_3.d[15].in")->"t.de_3.d[15]._x"+
+"t.de_3.d[15]._x"->"t.de_3.d[15].out"-
+~("t.de_3.d[15]._x")->"t.de_3.d[15].out"+
+= "t.de_3.d[14].out" "t.de_3.d[15].in"
+= "t.de_3.d[13].out" "t.de_3.d[14].in"
+= "t.de_3.d[12].out" "t.de_3.d[13].in"
+= "t.de_3.d[11].out" "t.de_3.d[12].in"
+= "t.de_3.d[10].out" "t.de_3.d[11].in"
+= "t.de_3.d[9].out" "t.de_3.d[10].in"
+= "t.de_3.d[8].out" "t.de_3.d[9].in"
+= "t.de_3.d[7].out" "t.de_3.d[8].in"
+= "t.de_3.d[6].out" "t.de_3.d[7].in"
+= "t.de_3.d[5].out" "t.de_3.d[6].in"
+= "t.de_3.d[4].out" "t.de_3.d[5].in"
+= "t.de_3.d[3].out" "t.de_3.d[4].in"
+= "t.de_3.d[2].out" "t.de_3.d[3].in"
+= "t.de_3.d[1].out" "t.de_3.d[2].in"
+= "t.de_3.d[0].out" "t.de_3.d[1].in"
+= "t.de_3.in" "t.de_3.d[0].in"
+= "t.de_3.out" "t.de_3.d[15].out"
+= "t.de_3.out" "t.dn_3.in"
+~"t.s_1.x"&~"t.s_1._gor"->"t.s_1.r.r"+
+~"t.s_1._ra"->"t.s_1.x"+
+"Reset"|"t.s_1.x"->"t.s_1.r.r"-
+"t.s_1.x"&"t.s_1._ra"->"t.s_1._goa"-
+"t.s_1._gor"->"t.s_1.x"-
+~"t.s_1.x"->"t.s_1._goa"+
+"t.s_1.go.r"->"t.s_1._gor"-
+~("t.s_1.go.r")->"t.s_1._gor"+
+"t.s_1._goa"->"t.s_1.go.a"-
+~("t.s_1._goa")->"t.s_1.go.a"+
+"t.s_1.r.a"->"t.s_1._ra"-
+~("t.s_1.r.a")->"t.s_1._ra"+
+= "t.s_1.r.r" "t.brtv_1.go.r"
+= "t.s_1.r.a" "t.brtv_1.go.a"

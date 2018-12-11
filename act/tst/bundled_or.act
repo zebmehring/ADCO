@@ -9,31 +9,36 @@ defproc toplevel (a1of1 go)
 
   /* assign */
   syn_var_init_false const_0;
+  syn_var_init_true const_1;
   bundled_expr_vararray<8> be_1;
-  be_1.v[0] = const_0.v.f;
-  be_1.v[1] = const_0.v.f;
-  be_1.v[2] = const_0.v.t;
-  be_1.v[3] = const_0.v.f;
-  be_1.v[4] = const_0.v.t;
-  be_1.v[5] = const_0.v.t;
-  be_1.v[6] = const_0.v.t;
-  be_1.v[7] = const_0.v.t;
+  be_1.v[0] = const_1.v;
+  be_1.v[1] = const_1.v;
+  be_1.v[2] = const_0.v;
+  be_1.v[3] = const_1.v;
+  be_1.v[4] = const_0.v;
+  be_1.v[5] = const_0.v;
+  be_1.v[6] = const_0.v;
+  be_1.v[7] = const_0.v;
   bundled_expr_vararray<8> be_2;
-  be_2.v[0] = const_0.v.f;
-  be_2.v[1] = const_0.v.f;
-  be_2.v[2] = const_0.v.t;
-  be_2.v[3] = const_0.v.t;
-  be_2.v[4] = const_0.v.t;
-  be_2.v[5] = const_0.v.t;
-  be_2.v[6] = const_0.v.t;
-  be_2.v[7] = const_0.v.t;
+  be_2.v[0] = const_1.v;
+  be_2.v[1] = const_1.v;
+  be_2.v[2] = const_0.v;
+  be_2.v[3] = const_0.v;
+  be_2.v[4] = const_0.v;
+  be_2.v[5] = const_0.v;
+  be_2.v[6] = const_0.v;
+  be_2.v[7] = const_0.v;
   bundled_or<8> be_3;
   (i:8: be_3.in1[i] = be_1.out[i];)
   (i:8: be_3.in2[i] = be_2.out[i];)
   a1of1 c_0;
-  delay<16> de_3(c_0.r);
-  delay<16> dn_3(de_3.out);
-  bundled_vararray_to_dualrail<8> be_4(dn_3.out, be_3.out);
+  delay<16> de_3;
+  de_3.in = c_0.r;
+  delay<16> dn_3;
+  dn_3.in = de_3.out;
+  bundled_vararray_to_dualrail<8> be_4;
+  be_4.d = dn_3.out;
+  (i:8: be_4.in[i] = be_3.out[i];)
   syn_expr_vararray<8> e_4;
   e_4.go_r = dn_3.out;
   (i:8: e_4.v[i] = be_4.out[i];)
@@ -42,10 +47,12 @@ defproc toplevel (a1of1 go)
   bundled_recv<8> brtv_1;
   syn_expr_vararray<8> e_5;
   syn_var_init_false tv_1[8];
-  (i:8: e_5.v[i] = tv_1[i].v; e_5.v[i] = brtv_1.v[i];)
+  (i:8: e_5.v[i] = tv_1[i].v;)
+  (i:8: e_5.v[i] = brtv_1.v[i];)
   s_1.r.r = brtv_1.go.r;
   s_1.r.a = brtv_1.go.a;
-  (i:8: e_4.out[i].t = brtv_1.in.d[i].t; e_4.out[i].f = brtv_1.in.d[i].f;)
+  (i:8: e_4.out[i].t = brtv_1.in.d[i].t;
+        e_4.out[i].f = brtv_1.in.d[i].f;)
   s_1.go.a = e_5.go_r;
   bundled_recv<8> s_0;
   s_0.go.r = e_5.go_r;

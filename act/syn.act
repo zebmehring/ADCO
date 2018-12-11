@@ -72,20 +72,28 @@ defproc syn_expr_or (dualrail in1, in2; dualrail out)
   }
 }
 
-/* DUALRAIL XOR GATE */
-defproc syn_expr_xor (dualrail in1, in2; dualrail out)
+/* DUALRAIL NAND GATE */
+defproc syn_expr_nand (dualrail in1, in2; dualrail out)
 {
   _dualrail _out;
   prs
   {
-    (in1.t & in2.f) | (in1.f & in2.t) -> _out.t-
+    in1.t & in2.t -> _out.f-
+    ~in1.t & ~in2.t -> _out.f+
+    (in1.f & (in2.t | in2.f)) | (in1.t & in2.f) -> _out.t-
     ~in1.t & ~in1.f & ~in2.t & ~in2.f -> _out.t+
-    (in1.t & in1.t) | (in1.f & in2.f) -> _out.f-
-    ~in1.f & ~in2.f -> _out.f+
 
     _out.t => out.t-
     _out.f => out.f-
   }
+}
+
+/* DUALRAIL XOR GATE */
+defproc syn_expr_xor (dualrail in1, in2; dualrail out)
+{
+  syn_expr_nand nand (in1, in2);
+  syn_expr_or or (in1, in2);
+  syn_expr_and and (nand.out, or.out, out);
 }
 
 /* DUALRAIL NOT GATE */

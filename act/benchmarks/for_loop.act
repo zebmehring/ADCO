@@ -53,24 +53,27 @@ defproc toplevel (a1of1 go)
   syn_recv rtv_1[32];
   syn_expr_vararray<32> e_2;
   syn_var_init_false tv_1[32];
-  (i:32: e_2.v[i] = tv_1[i].v; e_2.v[i] = rtv_1[i].v;)
+  (i:32: e_2.v[i] = tv_1[i].v;)
+  (i:32: e_2.v[i] = rtv_1[i].v;)
   s_1.r.r = e_1.go_r;
   (i:32: s_1.r.r = rtv_1[i].go.r;)
   syn_ctree<32> ct_1;
   (i:32: ct_1.in[i] = rtv_1[i].go.a;)
   s_1.r.a = ct_1.out;
-  (i:32: e_1.out[i].t = rtv_1[i].in.t; e_1.out[i].f = rtv_1[i].in.f;)
+  (i:32: e_1.out[i].t = rtv_1[i].in.t;
+         e_1.out[i].f = rtv_1[i].in.f;)
   s_1.go.a = e_2.go_r;
   syn_recv s_0[32];
   (i:32: s_0[i].go.r = c_1.r;)
+  (i:32: s_0[i].in.t = e_2.out[i].t;
+         s_0[i].in.f = e_2.out[i].f;
+         s_0[i].v = var_x[i].v;)
   syn_ctree<32> ct_0;
   (i:32: ct_0.in[i] = s_0[i].go.a;)
   ct_0.out = c_1.a;
-  (i:32: s_0[i].in.t = e_2.out[i].t;
-        s_0[i].in.f = e_2.out[i].f;
-        s_0[i].v = var_x[i].v;)
 
-  syn_seq s_2(c_0);
+  syn_seq s_2;
+  s_2.go = c_0;
   s_2.s1 = c_1;
   a1of1 c_2;
   s_2.s2 = c_2;
@@ -115,24 +118,27 @@ defproc toplevel (a1of1 go)
   syn_recv rtv_4[32];
   syn_expr_vararray<32> e_4;
   syn_var_init_false tv_4[32];
-  (i:32: e_4.v[i] = tv_4[i].v; e_4.v[i] = rtv_4[i].v;)
+  (i:32: e_4.v[i] = tv_4[i].v;)
+  (i:32: e_4.v[i] = rtv_4[i].v;)
   s_4.r.r = e_3.go_r;
   (i:32: s_4.r.r = rtv_4[i].go.r;)
   syn_ctree<32> ct_4;
   (i:32: ct_4.in[i] = rtv_4[i].go.a;)
   s_4.r.a = ct_4.out;
-  (i:32: e_3.out[i].t = rtv_4[i].in.t; e_3.out[i].f = rtv_4[i].in.f;)
+  (i:32: e_3.out[i].t = rtv_4[i].in.t;
+         e_3.out[i].f = rtv_4[i].in.f;)
   s_4.go.a = e_4.go_r;
   syn_recv s_3[32];
   (i:32: s_3[i].go.r = c_3.r;)
+  (i:32: s_3[i].in.t = e_4.out[i].t;
+         s_3[i].in.f = e_4.out[i].f;
+         s_3[i].v = var_y[i].v;)
   syn_ctree<32> ct_3;
   (i:32: ct_3.in[i] = s_3[i].go.a;)
   ct_3.out = c_3.a;
-  (i:32: s_3[i].in.t = e_4.out[i].t;
-        s_3[i].in.f = e_4.out[i].f;
-        s_3[i].v = var_y[i].v;)
 
-  syn_seq s_5(c_2);
+  syn_seq s_5;
+  s_5.go = c_2;
   s_5.s1 = c_3;
   a1of1 c_4;
   s_5.s2 = c_4;
@@ -183,7 +189,8 @@ defproc toplevel (a1of1 go)
   gc_0.r = s_6.go.r;
   syn_recv rtv_6;
   syn_expr_var e_8;
-  syn_var_init_false tv_6(rtv_6.v);
+  syn_var_init_false tv_6;
+  tv_6.v = rtv_6.v;
   e_8.v = tv_6.v;
   s_6.r.r = e_5.go_r;
   s_6.r = rtv_6.go;
@@ -239,24 +246,27 @@ defproc toplevel (a1of1 go)
   syn_recv rtv_8[32];
   syn_expr_vararray<32> e_12;
   syn_var_init_false tv_8[32];
-  (i:32: e_12.v[i] = tv_8[i].v; e_12.v[i] = rtv_8[i].v;)
+  (i:32: e_12.v[i] = tv_8[i].v;)
+  (i:32: e_12.v[i] = rtv_8[i].v;)
   s_8.r.r = e_9.go_r;
   (i:32: s_8.r.r = rtv_8[i].go.r;)
   syn_ctree<32> ct_8;
   (i:32: ct_8.in[i] = rtv_8[i].go.a;)
   s_8.r.a = ct_8.out;
-  (i:32: e_11.out[i].t = rtv_8[i].in.t; e_11.out[i].f = rtv_8[i].in.f;)
+  (i:32: e_11.out[i].t = rtv_8[i].in.t;
+         e_11.out[i].f = rtv_8[i].in.f;)
   s_8.go.a = e_12.go_r;
   syn_recv s_7[32];
   (i:32: s_7[i].go.r = c_6.r;)
+  (i:32: s_7[i].in.t = e_12.out[i].t;
+         s_7[i].in.f = e_12.out[i].f;
+         s_7[i].v = var_x[i].v;)
   syn_ctree<32> ct_7;
   (i:32: ct_7.in[i] = s_7[i].go.a;)
   ct_7.out = c_6.a;
-  (i:32: s_7[i].in.t = e_12.out[i].t;
-        s_7[i].in.f = e_12.out[i].f;
-        s_7[i].v = var_x[i].v;)
 
-  syn_par s_9(c_5);
+  syn_par s_9;
+  s_9.go = c_5;
   s_9.s1 = c_6;
 
   /* assign */
@@ -305,22 +315,24 @@ defproc toplevel (a1of1 go)
   syn_recv rtv_11[32];
   syn_expr_vararray<32> e_16;
   syn_var_init_false tv_11[32];
-  (i:32: e_16.v[i] = tv_11[i].v; e_16.v[i] = rtv_11[i].v;)
+  (i:32: e_16.v[i] = tv_11[i].v;)
+  (i:32: e_16.v[i] = rtv_11[i].v;)
   s_11.r.r = e_13.go_r;
   (i:32: s_11.r.r = rtv_11[i].go.r;)
   syn_ctree<32> ct_11;
   (i:32: ct_11.in[i] = rtv_11[i].go.a;)
   s_11.r.a = ct_11.out;
-  (i:32: e_15.out[i].t = rtv_11[i].in.t; e_15.out[i].f = rtv_11[i].in.f;)
+  (i:32: e_15.out[i].t = rtv_11[i].in.t;
+         e_15.out[i].f = rtv_11[i].in.f;)
   s_11.go.a = e_16.go_r;
   syn_recv s_10[32];
   (i:32: s_10[i].go.r = c_7.r;)
+  (i:32: s_10[i].in.t = e_16.out[i].t;
+         s_10[i].in.f = e_16.out[i].f;
+         s_10[i].v = var_y[i].v;)
   syn_ctree<32> ct_10;
   (i:32: ct_10.in[i] = s_10[i].go.a;)
   ct_10.out = c_7.a;
-  (i:32: s_10[i].in.t = e_16.out[i].t;
-        s_10[i].in.f = e_16.out[i].f;
-        s_10[i].v = var_y[i].v;)
 
   s_9.s2 = c_7;
 
@@ -336,7 +348,8 @@ defproc toplevel (a1of1 go)
   gc_0.f = c_8.a;
   /* end of gc (#0) */
 
-  syn_seq s_13(c_4);
+  syn_seq s_13;
+  s_13.go = c_4;
   s_13.s1 = c_8;
 
   /* assign */
@@ -348,22 +361,24 @@ defproc toplevel (a1of1 go)
   syn_recv rtv_15[32];
   syn_expr_vararray<32> e_18;
   syn_var_init_false tv_15[32];
-  (i:32: e_18.v[i] = tv_15[i].v; e_18.v[i] = rtv_15[i].v;)
+  (i:32: e_18.v[i] = tv_15[i].v;)
+  (i:32: e_18.v[i] = rtv_15[i].v;)
   s_15.r.r = e_17.go_r;
   (i:32: s_15.r.r = rtv_15[i].go.r;)
   syn_ctree<32> ct_15;
   (i:32: ct_15.in[i] = rtv_15[i].go.a;)
   s_15.r.a = ct_15.out;
-  (i:32: e_17.out[i].t = rtv_15[i].in.t; e_17.out[i].f = rtv_15[i].in.f;)
+  (i:32: e_17.out[i].t = rtv_15[i].in.t;
+         e_17.out[i].f = rtv_15[i].in.f;)
   s_15.go.a = e_18.go_r;
   syn_recv s_14[32];
   (i:32: s_14[i].go.r = c_9.r;)
+  (i:32: s_14[i].in.t = e_18.out[i].t;
+         s_14[i].in.f = e_18.out[i].f;
+         s_14[i].v = var_z[i].v;)
   syn_ctree<32> ct_14;
   (i:32: ct_14.in[i] = s_14[i].go.a;)
   ct_14.out = c_9.a;
-  (i:32: s_14[i].in.t = e_18.out[i].t;
-        s_14[i].in.f = e_18.out[i].f;
-        s_14[i].v = var_z[i].v;)
 
   s_13.s2 = c_9;
 
