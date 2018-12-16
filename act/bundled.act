@@ -81,17 +81,41 @@ defproc bundled_expr_nand (bool in1, in2; bool out)
   }
 }
 
+/* NOR GATE */
+defproc bundled_expr_nor (bool in1, in2; bool out)
+{
+  prs
+  {
+    in1 | in2 => out-
+  }
+}
+
 /* XOR GATE */
 defproc bundled_expr_xor (bool in1, in2; bool out)
 {
-  bundled_expr_nand nand (in1, in2);
-  bundled_expr_or or (in1, in2);
-  bundled_expr_and and (nand.out, or.out, out);
+  bool _and, _or, or, _out;
+  prs
+  {
+    in1 & in2 => _and-
+    in1 | in2 => _or-
+    _and & or => _out-
+    _or => or-
+    _out => out-
+  }
 }
 
 /* FULL ADDER */
 defproc bundled_full_adder (bool a, b, c; bool s, c_out)
 {
+  bundled_expr_xor xor1 (a, b);
+  bundled_expr_xor xor2 (xor1.out, c, s);
+  bundled_expr_and and1 (a, b);
+  bundled_expr_and and2 (b, c);
+  bundled_expr_and and3 (a, c);
+  bundled_expr_or or1 (and1.out, and2.out);
+  bundled_expr_or or2 (or1.out, and3.out, c_out);
+
+  /*
   bool _a, _b, _c;
   prs
   {
@@ -101,6 +125,30 @@ defproc bundled_full_adder (bool a, b, c; bool s, c_out)
     b => _b-
     c => _c-
   }
+
+  prs
+  {
+    _a & _b & _c -> s-
+    a & b & _c -> s-
+    a & _b & c -> s-
+    _a & b & c -> s-
+    ~_a & ~_b & ~_c -> s+
+    ~a & ~b & ~_c -> s+
+    ~a & ~_b & ~c -> s+
+    ~_a & ~b & ~c -> s+
+  	_a & _b & c -> c_out-
+    _a & b & _c -> c_out-
+    a & _b & _c -> c_out-
+    _a & _b & _c -> c_out-
+    ~_a & ~_b & ~c -> c_out+
+    ~_a & ~b & ~_c -> c_out+
+    ~a & ~_b & ~_c -> c_out+
+    ~_a & ~_b & ~_c -> c_out+
+  	a => _a-
+    b => _b-
+    c => _c-
+  }
+  */
 }
 
 /* MULTIPLICATION CELL */
@@ -140,7 +188,6 @@ defproc bundled_2_to_1_mux (bool a[N], b[N], s; bool o[N])
         mux[i].s = s;
         mux[i].o = o[i];)
 }
-
 
 /* ========================== MISCELLANEOUS BLOCKS ========================== */
 
@@ -256,6 +303,7 @@ defproc bundled_xor (bool in1[N], in2[N]; bool out[N])
         xor[i].out = out[i];)
 }
 
+/* BITWISE NAND */
 template<pint N>
 defproc bundled_nand (bool in1[N], in2[N]; bool out[N])
 {
@@ -263,6 +311,16 @@ defproc bundled_nand (bool in1[N], in2[N]; bool out[N])
   (i:N: nand[i].in1 = in1[i];
         nand[i].in2 = in2[i];
         nand[i].out = out[i];)
+}
+
+/* BITWISE NOR */
+template<pint N>
+defproc bundled_nor (bool in1[N], in2[N]; bool out[N])
+{
+  bundled_expr_nor nor[N];
+  (i:N: nor[i].in1 = in1[i];
+        nor[i].in2 = in2[i];
+        nor[i].out = out[i];)
 }
 
 /* ========================= ARITHMETIC OPERATIONS ========================= */
@@ -278,6 +336,31 @@ defproc bundled_ripple_carry_add (bool in1[N], in2[N], c_in; bool out[N], overfl
   add[0].c = c_in;
   overflow = add[N-1].c_out;
   (i:N-1: add[i+1].c = add[i].c_out;)
+}
+
+/* CARRY-LOOKAHEAD ADDITION */
+template<pint N>
+defproc bundled_cla_add (bool in1[N], in2[N], c_in; bool out[N], overflow)
+{
+  bundled_full_adder add[N];
+  overflow = add[N-1].c_out;
+
+  bundled_or<N> p (in1, in2);
+  bundled_and<N> g (in1, in2);
+
+  bool _c_in[N];
+
+  (i:N: add[i].a = in1[i];
+        add[i].b = in2[i];
+        add[i].s = out[i];)
+
+  prs
+  {
+    c_in => _c_in[0]-
+    ((c_in & p.out[0]) | g.out[0]) => _c_in[1]-
+    (i:N-2: ((c_in & (&j:i+2: p.out[j])) | (|j:i+1: (g.out[j] & (&k:i-j+1: p.out[k+j+1]))) | g.out[i+1]) => _c_in[i+2]-)
+    (i:N: _c_in[i] => add[i].c-)
+  }
 }
 
 /* ADDITION */
@@ -302,6 +385,7 @@ defproc bundled_uminus (bool in[N]; bool out[N])
   bundled_ripple_carry_add<N> r (_in, zero, const_0.v.f, out);
 }
 
+/* SUBTRACTION */
 template<pint N>
 defproc bundled_sub (bool in1[N], in2[N]; bool out[N], overflow)
 {
@@ -440,7 +524,6 @@ defproc bundled_gt (bool in1[N], in2[N]; bool out)
     sub.out[N-1] | eq.out => out-
   }
 }
-
 
 /* ============================= COMMUNICATION ============================= */
 

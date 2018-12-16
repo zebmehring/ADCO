@@ -461,39 +461,23 @@ defproc syn_cla_add (dualrail in1[N], in2[N], c_in; dualrail out[N], overflow)
   syn_or<N> p (in1, in2);
   syn_and<N> g (in1, in2);
 
-  dualrail carry[N];
-  _dualrail _carry[N];
-  /* _dualrail _c_in[N]; */
+  _dualrail _c_in[N];
 
   (i:N: add[i].a = in1[i];
         add[i].b = in2[i];
-        add[i].s = out[i];
-        add[i].c_in = carry[i];)
+        add[i].s = out[i];)
 
   prs
   {
-    (i:N-1: g.out[i].t | (p.out[i].t & carry[i].t) => _carry[i+1].t-
-            g.out[i].f & (p.out[i].f | carry[i].f) => _carry[i+1].f-)
-
-    (i:N: _carry[i].t => carry[i].t-
-          _carry[i].f => carry[i].f-)
-
-    c_in.t => _carry[0].t-
-    c_in.f => _carry[0].f-
-
-    /*
-    add[0].c_in.t => _c_in[0].t-
-    add[0].c_in.f => _c_in[0].f-
-
-    (i:N: (|j:i: (g.out[j].t & (&k:i-j-1: p.out[k+j+1].t))) => _c_in[i].t-
-          (&j:i: (g.out[j].f | (|k:i-j-1: p.out[k+j+1].f))) => _c_in[i].f-)
+    c_in.t => _c_in[0].t-
+    c_in.f => _c_in[0].f-
+    ((c_in.t & p.out[0].t) | g.out[0].t) => _c_in[1].t-
+    ((c_in.f | p.out[0].f) & g.out[0].f) => _c_in[1].f-
+    (i:N-2: ((c_in.t & (&j:i+2: p.out[j].t)) | (|j:i+1: (g.out[j].t & (&k:i-j+1: p.out[k+j+1].t))) | g.out[i+1].t) => _c_in[i+2].t-
+      			((c_in.f | (|j:i+2: p.out[j].f)) & (&j:i+1: (g.out[j].f | (|k:i-j+1: p.out[k+j+1].f))) & g.out[i+1].f) => _c_in[i+2].f-)
 
     (i:N: _c_in[i].t => add[i].c_in.t-
           _c_in[i].f => add[i].c_in.f-)
-
-    c_in.t => _c_in[0].t-
-    c_in.f => _c_in[0].f-
-    */
   }
 }
 

@@ -43,7 +43,7 @@ int main (int argc, char **argv)
 
   if (argc > 5)
   {
-    fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n", argv[0]);
+    fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <file>] [-s | --smiley] <chp>\n", argv[0]);
     return 1;
   }
   else if (argc > 2)
@@ -53,7 +53,7 @@ int main (int argc, char **argv)
     {
       if (!strcmp (argv[i], "-h") || !strcmp (argv[i], "--help"))
       {
-        printf ("Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n\n", argv[0]);
+        printf ("Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <file>] [-s | --smiley] <chp>\n\n", argv[0]);
         printf ("Options:\n");
         printf ("  -h, --help\tdisplay this message\n");
         printf ("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
@@ -83,7 +83,7 @@ int main (int argc, char **argv)
       }
       else
       {
-        fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n", argv[0]);
+        fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <file>] [-s | --smiley] <chp>\n", argv[0]);
         return 1;
       }
     }
@@ -92,7 +92,7 @@ int main (int argc, char **argv)
   {
     if (!strcmp (argv[1], "-h") || !strcmp (argv[1], "--help"))
     {
-      printf ("Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n\n", argv[0]);
+      printf ("Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <file>] [-s | --smiley] <chp>\n\n", argv[0]);
       printf ("Options:\n");
       printf ("  -h, --help\tdisplay this message\n");
       printf ("  -b, --bundle_data\tenable the bundle data protocol for multi-bit expressions\n");
@@ -103,7 +103,7 @@ int main (int argc, char **argv)
   }
   else
   {
-    fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <flie>] [-s | --smiley] <chp>\n", argv[0]);
+    fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <file>] [-s | --smiley] <chp>\n", argv[0]);
     return 1;
   }
 

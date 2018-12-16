@@ -55,7 +55,7 @@ int get_bitwidth_expr (Expr *e)
       // do a basic check for division by zero
       else if ((e->type == E_DIV) && (e->u.e.r->type == E_INT) && (e->u.e.r->u.v == 0))
       {
-        fprintf (stderr, "Error: Attempted division by 0\n");
+        fprintf (stderr, "check_types error: Attempted division by 0\n");
         exit (-1);
       }
       // if the bitwidths of both expressions match, return that value
@@ -89,13 +89,17 @@ int get_bitwidth_expr (Expr *e)
       // ensure variable declaration
       if (!s)
       {
-        fprintf (stderr, "Error: Symbol not found: %s\n", (char *) e->u.e.l);
+        fprintf (stderr, "check_types error: Symbol not found: %s\n", (char *) e->u.e.l);
         exit (-1);
       }
       // ensure _valid_ variable declaration
+      else if (s->ischan)
+      {
+        fprintf (stderr, "check_types error: Channel expression used as variable: %s", (char *)s->name);
+      }
       else if (s->bitwidth < 1)
       {
-        fprintf (stderr, "Error: Invalid variable bitwidth (%d): %s\n", s->bitwidth, (char *)s->name);
+        fprintf (stderr, "check_types error: Invalid variable bitwidth (%d): %s\n", s->bitwidth, (char *)s->name);
         exit (-1);
       }
       // base case: bitwidth for an expression is determined by its constituent variables
@@ -112,7 +116,7 @@ int get_bitwidth_expr (Expr *e)
       // ensure the probed channel exists
       if (!s)
       {
-        fprintf (stderr, "Error: Symbol not found: %s\n", (char *) e->u.e.l);
+        fprintf (stderr, "check_types error: Symbol not found: %s\n", (char *) e->u.e.l);
         exit (-1);
       }
       // ensure the probed channel is a channel
@@ -127,7 +131,7 @@ int get_bitwidth_expr (Expr *e)
         {
           if (*t != '_')
           {
-            fprintf (stderr, "Error: functions must be of the form <name>_<bitwidth>\n");
+            fprintf (stderr, "check_types error: functions must be of the form <name>_<bitwidth>\n");
             exit (1);
           }
           ret = atoi (t+1);
@@ -137,7 +141,7 @@ int get_bitwidth_expr (Expr *e)
       }
       if (t == e->u.fn.s)
       {
-        fprintf (stderr, "Error: functions must be of the form <name>_<bitwidth>\n");
+        fprintf (stderr, "check_types error: functions must be of the form <name>_<bitwidth>\n");
         exit (1);
       }
       // ensure the funciton only takes variable parameters
@@ -146,13 +150,13 @@ int get_bitwidth_expr (Expr *e)
       {
         if (tmp->u.e.l->type != E_VAR)
         {
-          fprintf (stderr, "Error: functions must take variable parameters\n");
+          fprintf (stderr, "check_types error: functions must take variable parameters\n");
           exit (-1);
         }
         symbol *v = find_symbol (__chp, (char *)tmp->u.e.l->u.e.l);
         if (!v)
         {
-          fprintf (stderr, "Error: no such variable '%s'\n", (char *)tmp->u.e.l->u.e.l);
+          fprintf (stderr, "check_types error: no such variable '%s'\n", (char *)tmp->u.e.l->u.e.l);
           exit (1);
         }
         tmp = tmp->u.e.r;
@@ -160,7 +164,7 @@ int get_bitwidth_expr (Expr *e)
       return ret;
 
     default:
-      fprintf (stderr, "Error: Unsupported token: %d\n", e->type);
+      fprintf (stderr, "check_types error: Unsupported token: %d\n", e->type);
       exit (-1);
   }
   return -1;
@@ -258,7 +262,7 @@ void check_types_cmd (chp_lang_t *c)
             // ensure valid receiving variable
             if (!ls)
             {
-            	fprintf (stderr, "check_types error: variable %s not found\n", name);
+            	fprintf (stderr, "check_types error: Variable %s not found\n", name);
             	exit (1);
             }
             // ensure channel bitwidth is equal to the variable bitwidth
@@ -290,7 +294,7 @@ void check_types_cmd (chp_lang_t *c)
         chp_gc_t *gc = c->u.gc;
         if (!gc)
         {
-          fprintf (stderr, "check_types error: empty loop/selection statment\n");
+          fprintf (stderr, "check_types error: Empty loop/selection statment\n");
           exit (-1);
         }
         while (gc)
