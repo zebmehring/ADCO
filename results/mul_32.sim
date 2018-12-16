@@ -1466,6 +1466,38 @@ WARNING: weak-interference `t.s_1.x'
 	        10 t.s_6[13].v.t : 0  [by Reset:=1] vec tz32 [0XX00000000000000000000000000000]  -undefined-
 	        10 t.s_6[30].v.t : 0  [by Reset:=1] vec tz32 [00X00000000000000000000000000000]  -undefined-
 	        10 t.s_6[29].v.t : 0  [by Reset:=1] vec tz32 [00000000000000000000000000000000] 0
+	        30 t.e_6.v[23].f : 1  [by t.e_6.v[23].t:=0] vec fx32 [XXXXXXXX1XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[24].f : 1  [by t.e_6.v[24].t:=0] vec fx32 [XXXXXXX11XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[31].f : 1  [by t.e_6.v[31].t:=0] vec fx32 [1XXXXXX11XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[30].f : 1  [by t.e_6.v[30].t:=0] vec fx32 [11XXXXX11XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[29].f : 1  [by t.e_6.v[29].t:=0] vec fx32 [111XXXX11XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[27].f : 1  [by t.e_6.v[27].t:=0] vec fx32 [111X1XX11XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[28].f : 1  [by t.e_6.v[28].t:=0] vec fx32 [11111XX11XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[25].f : 1  [by t.e_6.v[25].t:=0] vec fx32 [11111X111XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[26].f : 1  [by t.e_6.v[26].t:=0] vec fx32 [111111111XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[21].f : 1  [by t.e_6.v[21].t:=0] vec fx32 [111111111X1XXXXXXXXXXXXXXXXXXXXX]  -undefined-
+	        30 t.e_6.v[8].f : 1  [by t.e_6.v[8].t:=0] vec fx32 [111111111X1XXXXXXXXXXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[22].f : 1  [by t.e_6.v[22].t:=0] vec fx32 [11111111111XXXXXXXXXXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[19].f : 1  [by t.e_6.v[19].t:=0] vec fx32 [11111111111X1XXXXXXXXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[20].f : 1  [by t.e_6.v[20].t:=0] vec fx32 [1111111111111XXXXXXXXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[17].f : 1  [by t.e_6.v[17].t:=0] vec fx32 [1111111111111X1XXXXXXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[18].f : 1  [by t.e_6.v[18].t:=0] vec fx32 [111111111111111XXXXXXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[16].f : 1  [by t.e_6.v[16].t:=0] vec fx32 [1111111111111111XXXXXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[15].f : 1  [by t.e_6.v[15].t:=0] vec fx32 [11111111111111111XXXXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[14].f : 1  [by t.e_6.v[14].t:=0] vec fx32 [111111111111111111XXXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[13].f : 1  [by t.e_6.v[13].t:=0] vec fx32 [1111111111111111111XXXX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[11].f : 1  [by t.e_6.v[11].t:=0] vec fx32 [1111111111111111111X1XX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[12].f : 1  [by t.e_6.v[12].t:=0] vec fx32 [111111111111111111111XX1XXXXXXXX]  -undefined-
+	        30 t.e_6.v[9].f : 1  [by t.e_6.v[9].t:=0] vec fx32 [111111111111111111111X11XXXXXXXX]  -undefined-
+	        30 t.e_6.v[10].f : 1  [by t.e_6.v[10].t:=0] vec fx32 [111111111111111111111111XXXXXXXX]  -undefined-
+	        30 t.e_6.v[7].f : 1  [by t.e_6.v[7].t:=0] vec fx32 [1111111111111111111111111XXXXXXX]  -undefined-
+	        30 t.e_6.v[5].f : 1  [by t.e_6.v[5].t:=0] vec fx32 [1111111111111111111111111X1XXXXX]  -undefined-
+	        30 t.e_6.v[3].f : 1  [by t.e_6.v[3].t:=0] vec fx32 [1111111111111111111111111X1X1XXX]  -undefined-
+	        30 t.e_6.v[4].f : 1  [by t.e_6.v[4].t:=0] vec fx32 [1111111111111111111111111X111XXX]  -undefined-
+	        30 t.e_6.v[1].f : 1  [by t.e_6.v[1].t:=0] vec fx32 [1111111111111111111111111X111X1X]  -undefined-
+	        30 t.e_6.v[2].f : 1  [by t.e_6.v[2].t:=0] vec fx32 [1111111111111111111111111X11111X]  -undefined-
+	        30 t.e_6.v[6].f : 1  [by t.e_6.v[6].t:=0] vec fx32 [1111111111111111111111111111111X]  -undefined-
+	        30 t.e_6.v[0].f : 1  [by t.e_6.v[0].t:=0] vec fx32 [11111111111111111111111111111111] 4294967295
 	        50 t.s_6[23].v.f : 1  [by t.s_6[23].in.t:=0] vec fz32 [XXXXXXXX1XXXXXXXXXXXXXXXXXXXXXXX]  -undefined-
 	        50 t.s_6[22].v.f : 1  [by t.s_6[22].in.t:=0] vec fz32 [XXXXXXXX11XXXXXXXXXXXXXXXXXXXXXX]  -undefined-
 	        50 t.s_6[13].v.f : 1  [by t.s_6[13].in.t:=0] vec fz32 [XXXXXXXX11XXXXXXXX1XXXXXXXXXXXXX]  -undefined-
@@ -1533,6 +1565,13 @@ WARNING: weak-interference `t.s_1.x'
 WARNING: weak-interference `t.s_4.x'
 >> cause: t.s_4._gor (val: 1)
 >> time:         80
+	       700 t.e_6.v[5].f : 0  [by t.s_0[5].in.t:=1] vec fx32 [11111111111111111111111111011111] 4294967263
+	       700 t.e_6.v[0].f : 0  [by t.s_0[0].in.t:=1] vec fx32 [11111111111111111111111111011110] 4294967262
+	       700 t.e_6.v[4].f : 0  [by t.s_0[4].in.t:=1] vec fx32 [11111111111111111111111111001110] 4294967246
+	       700 t.e_6.v[13].f : 0  [by t.s_0[13].in.t:=1] vec fx32 [11111111111111111101111111001110] 4294959054
+	       700 t.e_6.v[7].f : 0  [by t.s_0[7].in.t:=1] vec fx32 [11111111111111111101111101001110] 4294958926
+	       700 t.e_6.v[10].f : 0  [by t.s_0[10].in.t:=1] vec fx32 [11111111111111111101101101001110] 4294957902
+	       700 t.e_6.v[11].f : 0  [by t.s_0[11].in.t:=1] vec fx32 [11111111111111111101001101001110] 4294955854
 	       720 t.e_6.v[4].t : 1  [by t.e_6.v[4].f:=0] vec tx32 [00000000000000000000000000010000] 16
 	       720 t.e_6.v[5].t : 1  [by t.e_6.v[5].f:=0] vec tx32 [00000000000000000000000000110000] 48
 	       720 t.e_6.v[0].t : 1  [by t.e_6.v[0].f:=0] vec tx32 [00000000000000000000000000110001] 49

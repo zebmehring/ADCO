@@ -1,6 +1,7 @@
 Node `t.var_x[31].v.t' not found
 Vector `tx32' not found
 Node `t.var_x[31].v.f' not found
+Vector `fx32' not found
 Node `t.var_y[31].v.t' not found
 Vector `ty32' not found
 Node `t.var_y[31].v.f' not found
@@ -334,40 +335,58 @@ WARNING: weak-interference `t.e_2.ev[7]._out.f'
 	        10 t.s_6.v[1].t : 0  [by Reset:=1] vec tz8 [0XX00000]  -undefined-
 	        10 t.s_6.v[6].t : 0  [by Reset:=1] vec tz8 [00X00000]  -undefined-
 	        10 t.s_6.v[5].t : 0  [by Reset:=1] vec tz8 [00000000] 0
+	        50 t.s_3.v[3].f : 1  [by t.e_6.out[3].t:=0] vec fy8 [XXXX1XXX]  -undefined-
+	        50 t.s_3.v[2].f : 1  [by t.e_6.out[2].t:=0] vec fy8 [XXXX11XX]  -undefined-
 	        50 t.s_0.v[3].f : 1  [by t.e_3.out[3].t:=0] vec fx8 [XXXX1XXX]  -undefined-
-	        50 t.s_3.v[1].f : 1  [by t.e_6.out[1].t:=0] vec fy8 [XXXXXX1X]  -undefined-
-	        50 t.s_3.v[5].f : 1  [by t.e_6.out[5].t:=0] vec fy8 [XX1XXX1X]  -undefined-
-	        50 t.s_6.v[7].f : 1  [by t.e_11.out[7].t:=0] vec fz8 [1XXXXXXX]  -undefined-
-	        50 t.s_3.v[0].f : 1  [by t.e_6.out[0].t:=0] vec fy8 [XX1XXX11]  -undefined-
-	        50 t.s_0.v[1].f : 1  [by t.e_3.out[1].t:=0] vec fx8 [XXXX1X1X]  -undefined-
-	        50 t.s_0.v[2].f : 1  [by t.e_3.out[2].t:=0] vec fx8 [XXXX111X]  -undefined-
-	        50 t.s_6.v[6].f : 1  [by t.e_11.out[6].t:=0] vec fz8 [11XXXXXX]  -undefined-
-	        50 t.s_6.v[4].f : 1  [by t.e_11.out[4].t:=0] vec fz8 [11X1XXXX]  -undefined-
-	        50 t.s_0.v[4].f : 1  [by t.e_3.out[4].t:=0] vec fx8 [XXX1111X]  -undefined-
-	        50 t.s_0.v[7].f : 1  [by t.e_3.out[7].t:=0] vec fx8 [1XX1111X]  -undefined-
-	        50 t.s_6.v[5].f : 1  [by t.e_11.out[5].t:=0] vec fz8 [1111XXXX]  -undefined-
-	        50 t.s_6.v[2].f : 1  [by t.e_11.out[2].t:=0] vec fz8 [1111X1XX]  -undefined-
-	        50 t.s_3.v[2].f : 1  [by t.e_6.out[2].t:=0] vec fy8 [XX1XX111]  -undefined-
-	        50 t.s_3.v[4].f : 1  [by t.e_6.out[4].t:=0] vec fy8 [XX11X111]  -undefined-
-	        50 t.s_6.v[1].f : 1  [by t.e_11.out[1].t:=0] vec fz8 [1111X11X]  -undefined-
-	        50 t.s_0.v[0].f : 1  [by t.e_3.out[0].t:=0] vec fx8 [1XX11111]  -undefined-
-	        50 t.s_6.v[3].f : 1  [by t.e_11.out[3].t:=0] vec fz8 [1111111X]  -undefined-
-	        50 t.s_3.v[7].f : 1  [by t.e_6.out[7].t:=0] vec fy8 [1X11X111]  -undefined-
-	        50 t.s_3.v[3].f : 1  [by t.e_6.out[3].t:=0] vec fy8 [1X111111]  -undefined-
-	        50 t.s_0.v[6].f : 1  [by t.e_3.out[6].t:=0] vec fx8 [11X11111]  -undefined-
-	        50 t.s_6.v[0].f : 1  [by t.e_11.out[0].t:=0] vec fz8 [11111111] 255
-	        50 t.s_3.v[6].f : 1  [by t.e_6.out[6].t:=0] vec fy8 [11111111] 255
-	        50 t.s_0.v[5].f : 1  [by t.e_3.out[5].t:=0] vec fx8 [11111111] 255
+	        50 t.s_3.v[6].f : 1  [by t.e_6.out[6].t:=0] vec fy8 [X1XX11XX]  -undefined-
+	        50 t.s_6.v[2].f : 1  [by t.e_11.out[2].t:=0] vec fz8 [XXXXX1XX]  -undefined-
+	        50 t.s_6.v[5].f : 1  [by t.e_11.out[5].t:=0] vec fz8 [XX1XX1XX]  -undefined-
+	        50 t.s_0.v[2].f : 1  [by t.e_3.out[2].t:=0] vec fx8 [XXXX11XX]  -undefined-
+	        50 t.s_3.v[0].f : 1  [by t.e_6.out[0].t:=0] vec fy8 [X1XX11X1]  -undefined-
+	        50 t.s_0.v[7].f : 1  [by t.e_3.out[7].t:=0] vec fx8 [1XXX11XX]  -undefined-
+	        50 t.s_0.v[1].f : 1  [by t.e_3.out[1].t:=0] vec fx8 [1XXX111X]  -undefined-
+	        50 t.s_0.v[5].f : 1  [by t.e_3.out[5].t:=0] vec fx8 [1X1X111X]  -undefined-
+	        50 t.s_6.v[3].f : 1  [by t.e_11.out[3].t:=0] vec fz8 [XX1X11XX]  -undefined-
+	        50 t.s_6.v[4].f : 1  [by t.e_11.out[4].t:=0] vec fz8 [XX1111XX]  -undefined-
+	        50 t.s_3.v[7].f : 1  [by t.e_6.out[7].t:=0] vec fy8 [11XX11X1]  -undefined-
+	        50 t.s_3.v[5].f : 1  [by t.e_6.out[5].t:=0] vec fy8 [111X11X1]  -undefined-
+	        50 t.s_0.v[0].f : 1  [by t.e_3.out[0].t:=0] vec fx8 [1X1X1111]  -undefined-
+	        50 t.s_0.v[4].f : 1  [by t.e_3.out[4].t:=0] vec fx8 [1X111111]  -undefined-
+	        50 t.s_3.v[4].f : 1  [by t.e_6.out[4].t:=0] vec fy8 [111111X1]  -undefined-
+	        50 t.s_6.v[0].f : 1  [by t.e_11.out[0].t:=0] vec fz8 [XX1111X1]  -undefined-
+	        50 t.s_0.v[6].f : 1  [by t.e_3.out[6].t:=0] vec fx8 [11111111] 255
+	        50 t.s_3.v[1].f : 1  [by t.e_6.out[1].t:=0] vec fy8 [11111111] 255
+	        50 t.s_6.v[7].f : 1  [by t.e_11.out[7].t:=0] vec fz8 [1X1111X1]  -undefined-
+	        50 t.s_6.v[1].f : 1  [by t.e_11.out[1].t:=0] vec fz8 [1X111111]  -undefined-
+	        50 t.s_6.v[6].f : 1  [by t.e_11.out[6].t:=0] vec fz8 [11111111] 255
 	      3900 t.s_0.v[2].f : 0  [by t.e_3.out[2].t:=1] vec fx8 [11111011] 251
 	      3900 t.s_0.v[1].f : 0  [by t.e_3.out[1].t:=1] vec fx8 [11111001] 249
 	      3900 t.s_0.v[3].f : 0  [by t.e_3.out[3].t:=1] vec fx8 [11110001] 241
 	      3920 t.be_8.out[3] : 1  [by t.s_0.v[3].f:=0] vec tx8 [00001000] 8
 	      3920 t.be_8.out[1] : 1  [by t.s_0.v[1].f:=0] vec tx8 [00001010] 10
 	      3920 t.be_8.out[2] : 1  [by t.s_0.v[2].f:=0] vec tx8 [00001110] 14
+WARNING: unstable `t.be_9.u2.r.add[3].xor2._out'-
+>> cause: t.be_9.u2.r.add[3].xor2.or (val: 0)
+>> time:       3990
+WARNING: weak-interference `t.be_9._in2[3]'
+>> cause: t.be_9.u2.r.add[3].xor2._out (val: X)
+>> time:       3990
+WARNING: weak-interference `t.be_9.mux2.mux[3]._b'
+>> cause: t.be_9._in2[3] (val: X)
+>> time:       4000
 	      4840 t.s_3.v[0].f : 0  [by t.e_6.out[0].t:=1] vec fy8 [11111110] 254
 	      4840 t.s_3.v[3].f : 0  [by t.e_6.out[3].t:=1] vec fy8 [11110110] 246
 	      4860 t.be_7.out[0] : 1  [by t.s_3.v[0].f:=0] vec ty8 [00000001] 1
 	      4860 t.be_7.out[3] : 1  [by t.s_3.v[3].f:=0] vec ty8 [00001001] 9
+WARNING: unstable `t.be_9.uo.r.add[5].xor2._out'-
+>> cause: t.be_9.uo.r.add[5].xor2.or (val: 0)
+>> time:       5330
+WARNING: weak-interference `t.be_9._out[5]'
+>> cause: t.be_9.uo.r.add[5].xor2._out (val: X)
+>> time:       5330
+WARNING: weak-interference `t.be_9.muxo.mux[5]._b'
+>> cause: t.be_9._out[5] (val: X)
+>> time:       5340
 	      8340 t.s_6.v[3].f : 0  [by t.e_11.out[3].t:=1] vec fz8 [11110111] 247
 	      8340 t.s_6.v[6].f : 0  [by t.e_11.out[6].t:=1] vec fz8 [10110111] 183
 	      8340 t.s_6.v[5].f : 0  [by t.e_11.out[5].t:=1] vec fz8 [10010111] 151

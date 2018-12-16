@@ -9,10 +9,14 @@ bundled_mul_32: 93320
 bundled_mul_8: 8360
 bundled_sub_32: 16520
 bundled_sub_8: 4520
+cla_add_32: 1470
+cla_add_8: 1290
 comm: 940
 comparison: 8110
+cse: 1350
 for_loop: 22100
 mul_32: 2710
 mul_8: 1820
+o1_cse: 1350
 sub_32: 2060
 sub_8: 1400

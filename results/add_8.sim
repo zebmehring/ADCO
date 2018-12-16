@@ -1,6 +1,7 @@
 Node `t.var_x[31].v.t' not found
 Vector `tx32' not found
 Node `t.var_x[31].v.f' not found
+Vector `fx32' not found
 Node `t.var_y[31].v.t' not found
 Vector `ty32' not found
 Node `t.var_y[31].v.f' not found

@@ -1,6 +1,7 @@
 Node `t.var_x[31].v.t' not found
 Vector `tx32' not found
 Node `t.var_x[31].v.f' not found
+Vector `fx32' not found
 Node `t.var_y[31].v.t' not found
 Vector `ty32' not found
 Node `t.var_y[31].v.f' not found
@@ -334,30 +335,30 @@ WARNING: weak-interference `t.e_2.ev[7]._out.f'
 	        10 t.s_6.v[1].t : 0  [by Reset:=1] vec tz8 [0XX00000]  -undefined-
 	        10 t.s_6.v[6].t : 0  [by Reset:=1] vec tz8 [00X00000]  -undefined-
 	        10 t.s_6.v[5].t : 0  [by Reset:=1] vec tz8 [00000000] 0
-	        50 t.s_3.v[2].f : 1  [by t.e_6.out[2].t:=0] vec fy8 [XXXXX1XX]  -undefined-
-	        50 t.s_3.v[7].f : 1  [by t.e_6.out[7].t:=0] vec fy8 [1XXXX1XX]  -undefined-
-	        50 t.s_0.v[4].f : 1  [by t.e_3.out[4].t:=0] vec fx8 [XXX1XXXX]  -undefined-
-	        50 t.s_3.v[3].f : 1  [by t.e_6.out[3].t:=0] vec fy8 [1XXX11XX]  -undefined-
-	        50 t.s_0.v[0].f : 1  [by t.e_3.out[0].t:=0] vec fx8 [XXX1XXX1]  -undefined-
-	        50 t.s_3.v[1].f : 1  [by t.e_6.out[1].t:=0] vec fy8 [1XXX111X]  -undefined-
-	        50 t.s_0.v[2].f : 1  [by t.e_3.out[2].t:=0] vec fx8 [XXX1X1X1]  -undefined-
-	        50 t.s_6.v[7].f : 1  [by t.e_11.out[7].t:=0] vec fz8 [1XXXXXXX]  -undefined-
-	        50 t.s_3.v[4].f : 1  [by t.e_6.out[4].t:=0] vec fy8 [1XX1111X]  -undefined-
-	        50 t.s_0.v[7].f : 1  [by t.e_3.out[7].t:=0] vec fx8 [1XX1X1X1]  -undefined-
-	        50 t.s_0.v[6].f : 1  [by t.e_3.out[6].t:=0] vec fx8 [11X1X1X1]  -undefined-
-	        50 t.s_6.v[0].f : 1  [by t.e_11.out[0].t:=0] vec fz8 [1XXXXXX1]  -undefined-
-	        50 t.s_3.v[0].f : 1  [by t.e_6.out[0].t:=0] vec fy8 [1XX11111]  -undefined-
-	        50 t.s_6.v[4].f : 1  [by t.e_11.out[4].t:=0] vec fz8 [1XX1XXX1]  -undefined-
-	        50 t.s_6.v[3].f : 1  [by t.e_11.out[3].t:=0] vec fz8 [1XX11XX1]  -undefined-
-	        50 t.s_6.v[2].f : 1  [by t.e_11.out[2].t:=0] vec fz8 [1XX111X1]  -undefined-
-	        50 t.s_0.v[5].f : 1  [by t.e_3.out[5].t:=0] vec fx8 [1111X1X1]  -undefined-
-	        50 t.s_0.v[1].f : 1  [by t.e_3.out[1].t:=0] vec fx8 [1111X111]  -undefined-
-	        50 t.s_6.v[1].f : 1  [by t.e_11.out[1].t:=0] vec fz8 [1XX11111]  -undefined-
-	        50 t.s_0.v[3].f : 1  [by t.e_3.out[3].t:=0] vec fx8 [11111111] 255
-	        50 t.s_6.v[6].f : 1  [by t.e_11.out[6].t:=0] vec fz8 [11X11111]  -undefined-
+	        50 t.s_3.v[1].f : 1  [by t.e_6.out[1].t:=0] vec fy8 [XXXXXX1X]  -undefined-
+	        50 t.s_3.v[3].f : 1  [by t.e_6.out[3].t:=0] vec fy8 [XXXX1X1X]  -undefined-
+	        50 t.s_3.v[4].f : 1  [by t.e_6.out[4].t:=0] vec fy8 [XXX11X1X]  -undefined-
+	        50 t.s_0.v[7].f : 1  [by t.e_3.out[7].t:=0] vec fx8 [1XXXXXXX]  -undefined-
+	        50 t.s_6.v[6].f : 1  [by t.e_11.out[6].t:=0] vec fz8 [X1XXXXXX]  -undefined-
+	        50 t.s_3.v[0].f : 1  [by t.e_6.out[0].t:=0] vec fy8 [XXX11X11]  -undefined-
+	        50 t.s_3.v[5].f : 1  [by t.e_6.out[5].t:=0] vec fy8 [XX111X11]  -undefined-
+	        50 t.s_0.v[2].f : 1  [by t.e_3.out[2].t:=0] vec fx8 [1XXXX1XX]  -undefined-
+	        50 t.s_6.v[1].f : 1  [by t.e_11.out[1].t:=0] vec fz8 [X1XXXX1X]  -undefined-
+	        50 t.s_3.v[2].f : 1  [by t.e_6.out[2].t:=0] vec fy8 [XX111111]  -undefined-
+	        50 t.s_0.v[1].f : 1  [by t.e_3.out[1].t:=0] vec fx8 [1XXXX11X]  -undefined-
+	        50 t.s_3.v[6].f : 1  [by t.e_6.out[6].t:=0] vec fy8 [X1111111]  -undefined-
+	        50 t.s_6.v[3].f : 1  [by t.e_11.out[3].t:=0] vec fz8 [X1XX1X1X]  -undefined-
+	        50 t.s_0.v[4].f : 1  [by t.e_3.out[4].t:=0] vec fx8 [1XX1X11X]  -undefined-
+	        50 t.s_6.v[7].f : 1  [by t.e_11.out[7].t:=0] vec fz8 [11XX1X1X]  -undefined-
+	        50 t.s_0.v[0].f : 1  [by t.e_3.out[0].t:=0] vec fx8 [1XX1X111]  -undefined-
+	        50 t.s_0.v[3].f : 1  [by t.e_3.out[3].t:=0] vec fx8 [1XX11111]  -undefined-
+	        50 t.s_6.v[2].f : 1  [by t.e_11.out[2].t:=0] vec fz8 [11XX111X]  -undefined-
+	        50 t.s_0.v[6].f : 1  [by t.e_3.out[6].t:=0] vec fx8 [11X11111]  -undefined-
+	        50 t.s_0.v[5].f : 1  [by t.e_3.out[5].t:=0] vec fx8 [11111111] 255
+	        50 t.s_6.v[4].f : 1  [by t.e_11.out[4].t:=0] vec fz8 [11X1111X]  -undefined-
+	        50 t.s_3.v[7].f : 1  [by t.e_6.out[7].t:=0] vec fy8 [11111111] 255
+	        50 t.s_6.v[0].f : 1  [by t.e_11.out[0].t:=0] vec fz8 [11X11111]  -undefined-
 	        50 t.s_6.v[5].f : 1  [by t.e_11.out[5].t:=0] vec fz8 [11111111] 255
-	        50 t.s_3.v[6].f : 1  [by t.e_6.out[6].t:=0] vec fy8 [11X11111]  -undefined-
-	        50 t.s_3.v[5].f : 1  [by t.e_6.out[5].t:=0] vec fy8 [11111111] 255
 	      1980 t.s_0.v[2].f : 0  [by t.e_3.out[2].t:=1] vec fx8 [11111011] 251
 	      1980 t.s_0.v[5].f : 0  [by t.e_3.out[5].t:=1] vec fx8 [11011011] 219
 	      1980 t.s_0.v[4].f : 0  [by t.e_3.out[4].t:=1] vec fx8 [11001011] 203
@@ -366,6 +367,102 @@ WARNING: weak-interference `t.e_2.ev[7]._out.f'
 	      2000 t.be_8.out[4] : 1  [by t.s_0.v[4].f:=0] vec tx8 [00010100] 20
 	      2000 t.be_8.out[3] : 1  [by t.s_0.v[3].f:=0] vec tx8 [00011100] 28
 	      2000 t.be_8.out[5] : 1  [by t.s_0.v[5].f:=0] vec tx8 [00111100] 60
+WARNING: unstable `t.be_9.u.r.add[5].xor2._out'-
+>> cause: t.be_9.u.r.add[5].xor2.or (val: 0)
+>> time:       2070
+WARNING: unstable `t.be_9.u.r.add[4].xor2._out'-
+>> cause: t.be_9.u.r.add[4].xor2.or (val: 0)
+>> time:       2070
+WARNING: weak-interference `t.be_9._in2[4]'
+>> cause: t.be_9.u.r.add[4].xor2._out (val: X)
+>> time:       2070
+WARNING: weak-interference `t.be_9._in2[5]'
+>> cause: t.be_9.u.r.add[5].xor2._out (val: X)
+>> time:       2070
+WARNING: unstable `t.be_9._in2[3]'+
+>> cause: t.be_9.u.r.add[3].xor2._out (val: 1)
+>> time:       2080
+WARNING: weak-interference `t.be_9.s.add.add[3].xor1._or'
+>> cause: t.be_9._in2[3] (val: X)
+>> time:       2080
+WARNING: weak-interference `t.be_9.s.add.add[5].xor1._or'
+>> cause: t.be_9._in2[5] (val: X)
+>> time:       2080
+WARNING: weak-interference `t.be_9.s.add.add[4].xor1._or'
+>> cause: t.be_9._in2[4] (val: X)
+>> time:       2080
+WARNING: weak-interference `t.be_9.s.add.add[4].xor1.or'
+>> cause: t.be_9.s.add.add[4].xor1._or (val: X)
+>> time:       2090
+WARNING: weak-interference `t.be_9.s.add.add[3].xor1.or'
+>> cause: t.be_9.s.add.add[3].xor1._or (val: X)
+>> time:       2090
+WARNING: weak-interference `t.be_9.s.add.add[5].xor1.or'
+>> cause: t.be_9.s.add.add[5].xor1._or (val: X)
+>> time:       2090
+WARNING: weak-interference `t.be_9.s.add.add[5].xor1._out'
+>> cause: t.be_9.s.add.add[5].xor1.or (val: X)
+>> time:       2100
+WARNING: weak-interference `t.be_9.s.add.add[4].xor1._out'
+>> cause: t.be_9.s.add.add[4].xor1.or (val: X)
+>> time:       2100
+WARNING: weak-interference `t.be_9.s.add.add[3].xor1._out'
+>> cause: t.be_9.s.add.add[3].xor1.or (val: X)
+>> time:       2100
+WARNING: weak-interference `t.be_9.s.add.add[4].xor1.out'
+>> cause: t.be_9.s.add.add[4].xor1._out (val: X)
+>> time:       2110
+WARNING: weak-interference `t.be_9.s.add.add[5].xor1.out'
+>> cause: t.be_9.s.add.add[5].xor1._out (val: X)
+>> time:       2110
+WARNING: weak-interference `t.be_9.s.add.add[3].xor1.out'
+>> cause: t.be_9.s.add.add[3].xor1._out (val: X)
+>> time:       2110
+WARNING: weak-interference `t.be_9.s.add.add[3].xor2._or'
+>> cause: t.be_9.s.add.add[3].xor1.out (val: X)
+>> time:       2120
+WARNING: weak-interference `t.be_9.s.add.add[4].xor2._or'
+>> cause: t.be_9.s.add.add[4].xor1.out (val: X)
+>> time:       2120
+WARNING: weak-interference `t.be_9.s.add.add[5].xor2._or'
+>> cause: t.be_9.s.add.add[5].xor1.out (val: X)
+>> time:       2120
+WARNING: weak-interference `t.be_9.s.add.add[5].xor2.or'
+>> cause: t.be_9.s.add.add[5].xor2._or (val: X)
+>> time:       2130
+WARNING: weak-interference `t.be_9.s.add.add[4].xor2.or'
+>> cause: t.be_9.s.add.add[4].xor2._or (val: X)
+>> time:       2130
+WARNING: weak-interference `t.be_9.s.add.add[3].xor2.or'
+>> cause: t.be_9.s.add.add[3].xor2._or (val: X)
+>> time:       2130
+WARNING: weak-interference `t.be_9.s.add.add[4].xor2._out'
+>> cause: t.be_9.s.add.add[4].xor2.or (val: X)
+>> time:       2140
+WARNING: weak-interference `t.be_9.s.add.add[5].xor2._out'
+>> cause: t.be_9.s.add.add[5].xor2.or (val: X)
+>> time:       2140
+WARNING: weak-interference `t.be_9.s.add.add[3].xor2._out'
+>> cause: t.be_9.s.add.add[3].xor2.or (val: X)
+>> time:       2140
+WARNING: weak-interference `t.be_10.in[3]'
+>> cause: t.be_9.s.add.add[3].xor2._out (val: X)
+>> time:       2150
+WARNING: weak-interference `t.be_10.in[4]'
+>> cause: t.be_9.s.add.add[4].xor2._out (val: X)
+>> time:       2150
+WARNING: weak-interference `t.be_10.in[5]'
+>> cause: t.be_9.s.add.add[5].xor2._out (val: X)
+>> time:       2150
+WARNING: weak-interference `t.be_10.vtd[3]._in'
+>> cause: t.be_10.in[3] (val: X)
+>> time:       2160
+WARNING: weak-interference `t.be_10.vtd[5]._in'
+>> cause: t.be_10.in[5] (val: X)
+>> time:       2160
+WARNING: weak-interference `t.be_10.vtd[4]._in'
+>> cause: t.be_10.in[4] (val: X)
+>> time:       2160
 	      2920 t.s_3.v[4].f : 0  [by t.e_6.out[4].t:=1] vec fy8 [11101111] 239
 	      2920 t.s_3.v[0].f : 0  [by t.e_6.out[0].t:=1] vec fy8 [11101110] 238
 	      2940 t.be_7.out[0] : 1  [by t.s_3.v[0].f:=0] vec ty8 [00000001] 1
