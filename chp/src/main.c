@@ -6,6 +6,9 @@ extern bool benchmark;
 extern char *output_file;
 extern int optimization;
 
+/*
+ * Summary: :)
+ */
 void print_smiley ()
 {
   fprintf (stdout, "/*************************************************************\n");
@@ -41,7 +44,7 @@ int main (int argc, char **argv)
   int chp = 1;
   bool smiley = false;
 
-  if (argc > 5)
+  if (argc > 6)
   {
     fprintf (stderr, "Usage: %s [-h | --help] [[-b | --bundle_data] | [-O[1]]] [-o | --output <file>] [-s | --smiley] <chp>\n", argv[0]);
     return 1;
@@ -107,16 +110,16 @@ int main (int argc, char **argv)
     return 1;
   }
 
+  // signal output to a different directory in the case of benchmarking programs
   if (strstr (argv[chp], "benchmarks")) benchmark = true;
-
+  // parse the CHP program
   c = read_chp (argv[chp]);
-
   // check that variables are used properly
   __chp = c;
   check_types (c);
   // print the CHP program
   print_chp_structure (c);
-
+  // :)
   if (smiley) print_smiley();
 
   return 0;

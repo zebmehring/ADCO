@@ -14,7 +14,7 @@ FILE *output_stream;
 int optimization = 0;
 struct Hashtable *evaluated_exprs;
 
-#define ACT_PATH "/home/user/Documents/ADCO/act"
+#define ACT_PATH "/home/user/Documents/ADCO/act" // replace according to filesystem configuration
 
 #define max(a,b) (((a) > (b)) ? (a) : (b))
 
@@ -196,6 +196,24 @@ int get_max_bits (const char *s, int lbits, int rbits)
   }
 }
 
+/*
+ * int get_bundle_delay (int n, int type)
+ *
+ * Summary:
+ *
+ *    Returns the delay for a bundle_data module of type type on operand(s) of
+ *    bitwidth n. The total delay must be even for delays implemented as an
+ *    inverter chain, so the result is computed by multiplying the asymptotic
+ *    runtime of the module by two. Variable and integer primitives require no
+ *    delay, since they are connected direclty to registers. The result is the
+ *    number of inverters required, to a [large] factor of saftey, to implement
+ *    the delay line of the specified bundle_data operation.
+ *
+ * Parameters: n - the bitwidth of the operand(s)
+ *             type - the type of operation, as defined in expr.h
+ *
+ * Return Value: double the asymptotic delay for the module
+ */
 int get_bundle_delay (int n, int type)
 {
   switch (type)
@@ -237,14 +255,14 @@ int get_bundle_delay (int n, int type)
  *
  * Summary:
  *
- *    Prints to buf a string representing the ACT module for e. If e is a
- *    primitive variable, the string is of the form "<var_name>", if it is
- *    a primitive integer, the string is of the form "<decimal_value>".
- *    Otherwise, the string is of the form "e_<expr_count>" where expr_count
- *    is the integer specified for the module in the ACT file.
+ *    Prints to buf a string representing the ACT module instance for e. If e is
+ *    a primitive variable, the string is of the form "<var_name>", if it is a
+ *    primitive integer, the string is of the form "<decimal_value>". Otherwise,
+ *    the string is of the form "e_<expr_count>" where expr_count is the integer
+ *    specified for the module instance in the compilation.
  *
  * Parameters: e - an Expr object containing the expression
- *             v - integer value of expr_count for e
+ *             v - integer value of expr_count for e in the compilation
  *             buf - buffer in which to store the result
  */
 void get_expr (Expr *e, int v, char *buf)
@@ -295,6 +313,7 @@ void get_expr (Expr *e, int v, char *buf)
  */
 void hash_add_expr (struct Hashtable *h, const char *expr)
 {
+  if (!expr || strlen (expr) == 0) return;
   hash_bucket_t *b = hash_add (h, expr);
   b->v = calloc (MAX_EXPR_SIZE, sizeof(char));
   snprintf (b->v, MAX_EXPR_SIZE, "e_%d", expr_count);
@@ -335,7 +354,7 @@ void hash_remove_expr (struct Hashtable *h, const char *expr)
 void _hash_remove_expr (struct Hashtable *h, const char *expr, hash_bucket_t *b)
 {
   if (!b) return;
-  // recursively remove the rest of the entries in the chain
+  // recursively search each entry in the chain
   _hash_remove_expr (h, expr, b->next);
   if (strstr (b->key, expr))
   {
@@ -362,7 +381,8 @@ void _hash_remove_expr (struct Hashtable *h, const char *expr, hash_bucket_t *b)
  *             r - an Expr object containing the RHS of the expression
  *             nl - the (previous) value of expr_count for the left expression
  *             nr - the (previous) value of expr_count for the right expression
- *             commutative - boolean representing the commutativity of s
+ *             commutative - boolean representing the commutativity of s, false
+ *                           for unary operations
  *
  * Return Value: the value of expr_count when the expression was evaluated, or
  *               -1 if the expression is not in the table
@@ -373,7 +393,7 @@ int hash_get_or_add (struct Hashtable *h, const char* s, Expr *l, Expr *r, int n
   char *left_expr, *right_expr, *k, *_k;
   int ret;
 
-  // get the strings "e_<expr_count> | <var_name>" for the expression(s)
+  // get the string(s) "[e_<expr_count> | <var_name>]" for the expression(s)
   left_expr = calloc (MAX_EXPR_SIZE, sizeof(char));
   if (r) right_expr = calloc (MAX_EXPR_SIZE, sizeof(char));
   get_expr (l, nl, left_expr);
@@ -427,7 +447,7 @@ int hash_get_or_add (struct Hashtable *h, const char* s, Expr *l, Expr *r, int n
  * Parameters: s - a string representing the operation
  *             e - an Expr object containing the expression
  *             bitwidth - reference to an integer containing the bitwidth of the
- *                        current expression, as defined by its variables
+ *                        current expression, as defined by its operands
  *             base_var - reference to the expr_count value to connect the go
  *                        signal to
  *
@@ -451,6 +471,7 @@ int unop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay)
   // print ACT module for multi-bit unary operations with the bundle data protocol
   else if (bundle_data)
   {
+    // accumulate delay
     *delay += get_bundle_delay (*bitwidth, e->u.e.l->type);
     fprintf (output_stream, "  bundled_%s<%d> be_%d;\n", s, *bitwidth, expr_count);
     fprintf (output_stream, "  (i:%d: be_%d.in[i] = be_%d.out[i];)\n", *bitwidth, expr_count, l);
@@ -482,7 +503,7 @@ int unop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay)
  * Parameters: s - a string representing the operation
  *             e - an Expr object containing the expression
  *             bitwidth - reference to an integer containing the bitwidth of the
- *                        current expression, as defined by its variables
+ *                        current expression, as defined by its operands
  *             base_var - reference to the expr_count value to connect the go
  *                        signal to
  *             commutative - boolean representing the commutativity of e
@@ -511,6 +532,7 @@ int binop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay, boo
   {
     int dl = get_bundle_delay (*bitwidth, e->u.e.l->type);
     int dr = get_bundle_delay (*bitwidth, e->u.e.r->type);
+    // accumulate the maximum delay of this level
     *delay += max (dl, dr);
     fprintf (output_stream, "  bundled_%s<%d> be_%d;\n", s, *bitwidth, expr_count);
     fprintf (output_stream, "  (i:%d: be_%d.in1[i] = be_%d.out[i];)\n", *bitwidth, expr_count, l);
@@ -543,7 +565,7 @@ int binop (const char *s, Expr *e, int *bitwidth, int *base_var, int *delay, boo
  *
  * Parameters: e - an Expr object containing the expression
  *             bitwidth - reference to an integer containing the bitwidth of the
- *                        current expression, as defined by its variables
+ *                        current expression, as defined by its operands
  *             base_var - reference to the expr_count value to connect the go
  *                        signal to
  *
@@ -600,47 +622,38 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
     case E_VAR:
       {
         symbol *v = find_symbol (__chp, (char *)e->u.e.l);
-        // if (optimization > 0)
-        // {
-        //   char *k = calloc (100, sizeof(char));
-        //   sprintf (k, "var(%s)", v->name);
-        //   hash_bucket_t *h;
-        //   if ((h = hash_lookup (evaluated_exprs, k)))
-        //   {
-        //     free (k);
-        //     // TODO: fix this
-        //     if (*base_var == -1)
-        //     {
-      	//        *base_var = *((int *) h->v);
-        //     }
-        //     return *((int *) h->v);
-        //   }
-        //   else
-        //   {
-        //     h = hash_add (evaluated_exprs, k);
-        //     int *count = calloc (1, sizeof(int));
-        //     *count = expr_count;
-        //     h->v = count;
-        //   }
-        // }
+        *bitwidth = v->bitwidth;
+        // requires modification of "go" signals to avoid deadlock
+        /*
+        if (optimization > 0)
+        {
+          ret = hash_get_or_add (evaluated_exprs, "var", e, NULL, -1, -1, false);
+          if (ret > 0) return ret;
+        }
+        */
+        // receive variable into a boolean latch
         if (v->bitwidth == 1)
         {
           fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
           fprintf (output_stream, "  e_%d.v = var_%s.v;\n", expr_count, (char *)e->u.e.l);
+          // the current expression becomes the base go signal, if none is set
           if (*base_var == -1)
           {
     	       *base_var = expr_count;
           }
+          // otherwise, the current expression is connected to the base go signal
           else
           {
     	       fprintf (output_stream, "  e_%d.go_r = e_%d.go.r;\n", expr_count, *base_var);
           }
         }
+        // recieve variable into a mult-bit bundled latch
         else if (bundle_data)
         {
           fprintf (output_stream, "  bundled_expr_vararray<%d> be_%d;\n", v->bitwidth, expr_count);
         	fprintf (output_stream, "  (i:%d: be_%d.v[i] = var_%s[i].v;)\n", v->bitwidth, expr_count, v->name);
         }
+        // receive variable into a multi-bit delay-insensitive latch
         else
         {
         	fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", v->bitwidth, expr_count);
@@ -656,33 +669,19 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
     	       fprintf (output_stream, "  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
           }
         }
-  	    *bitwidth = v->bitwidth;
         ret = expr_count++;
       }
       break;
     case E_INT:
-      // if (optimization > 0)
-      // {
-      //   char *k = calloc (100, sizeof(char));
-      //   sprintf (k, "int(%d)", e->u.v);
-      //   hash_bucket_t *h;
-      //   if ((h = hash_lookup (evaluated_exprs, k)))
-      //   {
-      //     free (k);
-      //     if (*base_var == -1)
-      //     {
-      //        *base_var = *((int *) h->v);
-      //     }
-      //     return *((int *) h->v);
-      //   }
-      //   else
-      //   {
-      //     h = hash_add (evaluated_exprs, k);
-      //     int *count = calloc (1, sizeof(int));
-      //     *count = expr_count;
-      //     h->v = count;
-      //   }
-      // }
+      // requires modification of "go" signals to avoid deadlock
+      /*
+      if (optimization > 0)
+      {
+        ret = hash_get_or_add (evaluated_exprs, "int", e, NULL, -1, -1, false);
+        if (ret > 0) return ret;
+      }
+      */
+      // receive a boolean value into a latch
       if (*bitwidth == 1)
       {
         if (e->u.v == 0)
@@ -697,20 +696,24 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
           fprintf (output_stream, "  syn_expr_var e_%d;\n", expr_count);
           fprintf (output_stream, "  e_%d.v = const_1.v;\n", expr_count);
         }
+        // the current expression becomes the base go signal, if none is set
         if (*base_var == -1)
         {
   	       *base_var = expr_count;
         }
+        // otherwise, the current expression is connected to the base go signal
         else
         {
   	       fprintf (output_stream, "  e_%d.go_r = e_%d.go.r;\n", expr_count, *base_var);
         }
       }
+      // initialize a multi-bit bundled latch
       else if (bundle_data)
       {
         emit_const_0 ();
         emit_const_1 ();
         fprintf (output_stream, "  bundled_expr_vararray<%d> be_%d;\n", *bitwidth, expr_count);
+        // set each bit individually
         int t = e->u.v;
         for (int i = *bitwidth; i > 0; i--, t >>= 1)
         {
@@ -724,11 +727,13 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
           }
         }
       }
+      // initialize a multi-bit delay-insensitive latch
       else
       {
         emit_const_0 ();
         emit_const_1 ();
         fprintf (output_stream, "  syn_expr_vararray<%d> e_%d;\n", *bitwidth, expr_count);
+        // set each bit individually
         int t = e->u.v;
         for (int i = *bitwidth; i > 0; i--, t >>= 1)
         {
@@ -763,7 +768,7 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
       {
         *base_var = expr_count;
       }
-      // the current expression becomes the base go signal, if none is set
+      // otherwise, the current expression is connected to the base go signal
       else
       {
         fprintf (output_stream, "  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
@@ -779,7 +784,7 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
       {
         *base_var = expr_count;
       }
-      // the current expression becomes the base go signal, if none is set
+      // otherwise, the current expression is connected to the base go signal
       else
       {
         fprintf (output_stream, "  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
@@ -807,7 +812,7 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
         {
           *base_var = expr_count;
         }
-        // the current expression becomes the base go signal, if none is set
+        // otherwise, the current expression is connected to the base go signal
         else
         {
           fprintf (output_stream, "  e_%d.go_r = e_%d.go_r;\n", expr_count, *base_var);
@@ -834,10 +839,12 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
         	}
         	tmp = tmp->u.e.r;
         }
+        // the current expression becomes the base go signal, if none is set
         if (*base_var == -1)
         {
   	       *base_var = expr_count;
         }
+        // otherwise, the current expression is connected to the base go signal
         else
         {
   	       fprintf (output_stream, "  e_%d.go_r = e_%d.go.r;\n", expr_count, *base_var);
@@ -858,7 +865,7 @@ int _print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
  * Summary:
  *
  *    Prints the ACT for an expression tree rooted at e. Resets base_var, which
- *    stores the go signal for the expression.
+ *    stores the instance integer of the go signal for the expression block.
  *
  *    All lines of ACT are printed to the location specified by output_stream.
  *
@@ -887,9 +894,9 @@ int print_expr (Expr *e, int *bitwidth, int *base_var, int *delay)
  *    signals are connected, so a master "go" signal triggers the following:
  *        - inputs to e_<eout> are evaluated when the request to the sequencer
  *          goes high
- *        - e_<eout> is received into a receiving buffer
- *        - the receiving buffer is closed by a completion tree
- *        - the receiving buffer is copied into a temporary variable e_<evar>
+ *        - e_<eout> is received into a buffer
+ *        - the buffer is closed by a completion tree
+ *        - the buffer is copied into a temporary variable e_<evar>
  *
  *    All lines of ACT are printed to the location specified by output_stream.
  *
@@ -985,16 +992,20 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
 
     if (bundle_data && *bitwidth > 1)
     {
+      // accumulate delay of the last operation
       delay += get_bundle_delay (*bitwidth, gc->g->type);
+      // add a delay wire for the guard statement
       if (delay > 0)
       {
         fprintf (output_stream, "  delay<%d> de_%d;\n", delay, a);
         fprintf (output_stream, "  de_%d.in = %s;\n", a, buf);
         snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
       }
+      // add a delay wire to invert the output of the guard statement
       delay = get_bundle_delay (1, E_NOT);
       fprintf (output_stream, "  delay<%d> dn_%d;\n", delay, a);
       fprintf (output_stream, "  dn_%d.in = %s;\n", a, buf);
+      // receive the guard output into a dualrail node
       fprintf (output_stream, "  bundled_var_to_dualrail be_%d;\n", expr_count);
       fprintf (output_stream, "  be_%d.d = dn_%d.out;\n", expr_count, a);
       fprintf (output_stream, "  be_%d.in = be_%d.out;\n", expr_count, a);
@@ -1030,7 +1041,6 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
     b = print_chp_stmt (gc->s, bitwidth, base_var);
     fprintf (output_stream, "  gc_%d.r = c_%d.r;\n", ret, b);
     fprintf (output_stream, "  gc_%d.t = c_%d.a;\n", ret, b);
-    //fprintf (output_stream, "  prs { Reset|~Reset -> gc_%d.f- }\n", ret);
     fprintf (output_stream, "  gc_%d.f = GND;\n", ret);
   }
   return ret;
@@ -1041,7 +1051,7 @@ int print_one_gc (chp_gc_t *gc, int *bitwidth, int *base_var)
  *
  * Summary:
  *
- *    Prints a collection of guarded commands by calling print_one_gc().
+ *    Prints a sequence of guarded commands by iteratively calling print_one_gc().
  *
  *    All lines of ACT are printed to the location specified by output_stream.
  *
@@ -1071,7 +1081,7 @@ int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var)
   fprintf (output_stream, "  a1of1 c_%d;\n", ret);
   fprintf (output_stream, "  /* gc cascade, start = %d, end = %d */\n", start_gc_chan, end_gc_chan);
 
-  // cascade guards for deterministic selection
+  // cascade guards to evaluate serially
   for (int i = start_gc_chan; i < end_gc_chan; i++)
   {
     fprintf (output_stream, "  gc_%d.f = gc_%d.r;\n", i, i+1);
@@ -1145,8 +1155,8 @@ int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var)
  *    Prints a CHP statement specified by c. Returns an integer corresponding to
  *    the master request channel for the statement. CHP operations are
  *    constructed in the following manner:
- *        - ASSIGNMENT:  LHS is evaluated and received into a temporary variable,
- *                       then received into the RHS variable
+ *        - ASSIGNMENT:  RHS is evaluated and received into a temporary variable,
+ *                       then received into the LHS variable
  *        - SEND:        data is evaluated and received into a temporary variable,
  *                       then connected to the send channel
  *        - RECEIVE:     data from channel is received into the specified variable
@@ -1166,9 +1176,7 @@ int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var)
  */
 int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
 {
-  int ret;
-  int a, b;
-  int delay;
+  int ret, a, b, delay;
   symbol *v, *u;
   char buf[MAX_EXPR_SIZE];
   if (!c) return -1;
@@ -1181,28 +1189,33 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       stmt_count++;
       ret = chan_count++;
       break;
-
     case CHP_ASSIGN:
       fprintf (output_stream, "  /* assign */\n");
       v = find_symbol (__chp, c->u.assign.id);
       *bitwidth = v->bitwidth;
+      // evaluate the RHS statement
       a = print_expr (c->u.assign.e, bitwidth, base_var, &delay);
       ret = chan_count++;
       b = stmt_count++;
+      // create request/acknowledge channel for the statement
       fprintf (output_stream, "  a1of1 c_%d;\n", ret);
       snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
       if (bundle_data && v->bitwidth > 1)
       {
+        // accumulate delay of the last operation
         delay += get_bundle_delay (*bitwidth, c->u.assign.e->type);
+        // add a delay wire for the RHS statement
         if (delay > 0)
         {
           fprintf (output_stream, "  delay<%d> de_%d;\n", delay, a);
           fprintf (output_stream, "  de_%d.in = %s;\n", a, buf);
           snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
         }
+        // add a delay wire to invert the output of the RHS statement
         delay = get_bundle_delay (*bitwidth, E_NOT);
         fprintf (output_stream, "  delay<%d> dn_%d;\n", delay, a);
         fprintf (output_stream, "  dn_%d.in = %s;\n", a, buf);
+        // receive the RHS output into a dualrail node
         fprintf (output_stream, "  bundled_vararray_to_dualrail<%d> be_%d;\n", v->bitwidth, expr_count);
         fprintf (output_stream, "  be_%d.d = dn_%d.out;\n", expr_count, a);
         fprintf (output_stream, "  (i:%d: be_%d.in[i] = be_%d.out[i];)\n", v->bitwidth, expr_count, a);
@@ -1212,9 +1225,9 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         snprintf (buf, MAX_EXPR_SIZE, "e_%d.go_r", expr_count);
         a = expr_count++;
       }
-
+      // receive statement output into a latched value
       a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
-      // fprintf (output_stream, "  e_%d.go_r = c_%d.r;\n", go_r, ret);
+      // receive latched value into assignment variable
       if (v->bitwidth == 1)
       {
         fprintf (output_stream, "  syn_recv s_%d;\n", b);
@@ -1244,31 +1257,37 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         fprintf (output_stream, "  ct_%d.out = c_%d.a;\n", b, ret);
       }
       fprintf (output_stream, "\n");
+      // clear assigned entry from the list of evaluated expressions
       if (optimization > 0) hash_remove_expr (evaluated_exprs, c->u.assign.id);
       break;
-
     case CHP_SEND:
       fprintf (output_stream, "  /* send */\n");
       if (list_length (c->u.comm.rhs) == 1)
       {
         v = find_symbol (__chp, c->u.comm.chan);
         *bitwidth = v->bitwidth;
+        // evaluate the expression to be sent
         a = print_expr ((Expr *)list_value (list_first (c->u.comm.rhs)), bitwidth, base_var, &delay);
         ret = chan_count++;
+        // create request/acknowledge channel for the statement
         fprintf (output_stream, "  a1of1 c_%d;\n", ret);
         snprintf (buf, MAX_EXPR_SIZE, "c_%d.r", ret);
         if (bundle_data && v->bitwidth > 1)
         {
+          // accumulate delay of the last operation
           delay += get_bundle_delay (*bitwidth, ((Expr *)list_value (list_first (c->u.comm.rhs)))->type);
+          // add a delay wire for the statement to be sent
           if (delay > 0)
           {
             fprintf (output_stream, "  delay<%d> de_%d;\n", delay, a);
             fprintf (output_stream, "  de_%d.in = %s;\n", a, buf);
             snprintf (buf, MAX_EXPR_SIZE, "de_%d.out", a);
           }
+          // add a delay wire to invert the output of the statement to be sent
           delay = get_bundle_delay (*bitwidth, E_NOT);
           fprintf (output_stream, "  delay<%d> dn_%d;\n", delay, a);
           fprintf (output_stream, "  dn_%d.in = %s;\n", a, buf);
+          // receive the statement output into a dualrail node
           fprintf (output_stream, "  bundled_vararray_to_dualrail<%d> be_%d;\n", v->bitwidth, expr_count);
           fprintf (output_stream, "  be_%d.d = dn_%d.out;\n", expr_count, a);
           fprintf (output_stream, "  (i:%d: be_%d.in = be_%d.out;)\n", v->bitwidth, expr_count, a);
@@ -1278,10 +1297,10 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
           snprintf (buf, MAX_EXPR_SIZE, "e_%d.go_r", expr_count);
           a = expr_count++;
         }
-
+        // receive statement output into a latched value
         a = print_expr_tmpvar (buf, *base_var, a, *bitwidth);
-        // fprintf (output_stream, "  e_%d.go_r = c_%d.r;\n", go_r, ret);
         fprintf (output_stream, "  c_%d.a = e_%d.go_r;\n", ret, a);
+        // connect latched value to channel
         if (*bitwidth == 1)
         {
   	       fprintf (output_stream, "  chan_%s.t = e_%d.out.t;\n", c->u.comm.chan, a);
@@ -1298,7 +1317,6 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
       }
       fprintf (output_stream, "\n");
       break;
-
     case CHP_RECV:
       fprintf (output_stream, "  /* recv */\n");
       if (list_length (c->u.comm.rhs) == 1)
@@ -1308,7 +1326,9 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         *bitwidth = v->bitwidth;
         ret = chan_count++;
         a = stmt_count++;
+        // create request/acknowledge channel for the statement
         fprintf (output_stream, "  a1of1 c_%d;\n", ret);
+        // receive channel value into receiving variable
         if (v->bitwidth == 1)
         {
           fprintf (output_stream, "  syn_recv s_%d;\n", a);
@@ -1336,11 +1356,11 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
           fprintf (output_stream, "  (i:%d: ct_%d.in[i] = s_%d[i].go.a;)\n", v->bitwidth, a, a);
           fprintf (output_stream, "  ct_%d.out = c_%d.a; c_%d.a = chan_%s.a;\n", a, ret, ret, v->name);
         }
+        // clear received entry from the list of evaluated expressions
         if (optimization > 0) hash_remove_expr (evaluated_exprs, u->name);
       }
       fprintf (output_stream, "\n");
       break;
-
     case CHP_COMMA:
     case CHP_SEMI:
       {
@@ -1353,6 +1373,7 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         fprintf (output_stream, "  /* %s */\n", c->type == CHP_COMMA ? "comma" : "semicolon");
         a = chan_count++;
         ret = a;
+        // create request/acknowledge channel for the sequencer
         fprintf (output_stream, "  a1of1 c_%d;\n", ret);
         fprintf (output_stream, "\n");
         // iterate through all composite statements
@@ -1366,6 +1387,8 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
           fprintf (output_stream, "  syn_%s s_%d;\n", c->type == CHP_COMMA ? "par" : "seq", s);
           fprintf (output_stream, "  s_%d.go = c_%d;\n", s, a);
           fprintf (output_stream, "  s_%d.s1 = c_%d;\n", s, b);
+          // clear the list of evaluated expressions between sequential statements
+          // to be removed once deadlock can be avoided
           if (optimization > 0 && c->type == CHP_SEMI)
           {
             hash_bucket_t *b;
@@ -1397,16 +1420,13 @@ int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var)
         fprintf (output_stream, "\n");
       }
       break;
-
     case CHP_LOOP:
     case CHP_SELECT:
       ret = print_gc ((c->type == CHP_LOOP) ? true : false, c->u.gc, bitwidth, base_var);
       break;
-
     default:
       fprintf (stderr, "Error: unsupported token: %d\n", c->type);
       exit (1);
-      break;
   }
   return ret;
 }
@@ -1471,7 +1491,7 @@ void print_chp_structure (Chp *c)
     hash_free (evaluated_exprs);
   }
 
-  // connect master "go" signal and print wrapper process instantiation
+  // connect toplevel "go" signal and print wrapper process instantiation
   fprintf (output_stream, "  go = c_%d;\n", i);
   fprintf (output_stream, "}\n\n");
   fprintf (output_stream, "toplevel t;\n");

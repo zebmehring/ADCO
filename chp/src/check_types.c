@@ -63,12 +63,10 @@ int get_bitwidth_expr (Expr *e)
       {
         return left_bitwidth == right_bitwidth ? left_bitwidth : -1;
       }
-
     case E_NOT:
     case E_COMPLEMENT:
     case E_UMINUS:
       return get_bitwidth_expr (e->u.e.l);
-
     case E_EQ:
     case E_GT:
     case E_LT:
@@ -79,11 +77,9 @@ int get_bitwidth_expr (Expr *e)
       right_bitwidth = get_bitwidth_expr (e->u.e.r);
       // comparison operators produce a boolean result
       return (left_bitwidth == 0) || (right_bitwidth == 0) || (left_bitwidth == right_bitwidth) ? 1 : -1;
-
     case E_INT:
       // base case: integers can be arbitrarily expanded/truncated (as in C)
       return 0;
-
     case E_VAR:
       s = find_symbol (__chp, (char *) e->u.e.l);
       // ensure variable declaration
@@ -104,13 +100,11 @@ int get_bitwidth_expr (Expr *e)
       }
       // base case: bitwidth for an expression is determined by its constituent variables
       return s->bitwidth;
-
     case E_TRUE:
     case E_FALSE:
       left_bitwidth = get_bitwidth_expr (e->u.e.l);
       // E_TRUE/E_FALSE are only valid operations on boolean variables
       return left_bitwidth == 1 ? 1 : -1;
-
     case E_PROBE:
       s = find_symbol (__chp, (char *) e->u.e.l);
       // ensure the probed channel exists
@@ -121,7 +115,6 @@ int get_bitwidth_expr (Expr *e)
       }
       // ensure the probed channel is a channel
       return s->ischan ? 1 : -1;
-
     case E_FUNCTION:
       // ensure the function is of the form <name>_<bitwidth>
       t = e->u.fn.s + strlen (e->u.fn.s) - 1;
@@ -162,7 +155,6 @@ int get_bitwidth_expr (Expr *e)
         tmp = tmp->u.e.r;
       }
       return ret;
-
     default:
       fprintf (stderr, "check_types error: Unsupported token: %d\n", e->type);
       exit (-1);
@@ -217,7 +209,6 @@ void check_types_cmd (chp_lang_t *c)
         exit (-1);
       }
       break;
-
     case CHP_SEND:
     case CHP_RECV:
       s = find_symbol (__chp, c->u.comm.chan);
@@ -275,7 +266,6 @@ void check_types_cmd (chp_lang_t *c)
         }
       }
       break;
-
     case CHP_SEMI:
     case CHP_COMMA:
       {
@@ -287,7 +277,6 @@ void check_types_cmd (chp_lang_t *c)
         }
       }
       break;
-
     case CHP_SELECT:
     case CHP_LOOP:
       {

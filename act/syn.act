@@ -172,8 +172,8 @@ defproc syn_mux (dualrail a, b, s; dualrail o)
   _dualrail _o;
   prs
   {
-    (a.t & b.f & s.f) | (a.f & b.t & s.t) | (a.t & b.t & (s.t | s.f)) => _o.t-
-    (a.f & b.t & s.f) | (a.t & b.f & s.t) | (a.f & b.f & (s.t | s.f)) => _o.f-
+    (a.t & (b.t | b.f) & s.f) | ((a.t | a.f) & b.t & s.t) | (a.t & b.t & (s.t | s.f)) => _o.t-
+    (a.f & (b.t | b.f) & s.f) | ((a.t | a.f) & b.f & s.t) | (a.f & b.f & (s.t | s.f)) => _o.f-
 
     _o.t => o.t-
     _o.f => o.f-
