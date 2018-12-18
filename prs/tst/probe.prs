@@ -118,6 +118,7 @@
 = "t.e_8.v.d[0]" "t.tv_8.v.d[0]"
 = "t.e_8.v.d[1]" "t.tv_8.v.d[1]"
 = "t.e_8.v.t" "t.tv_8.v.t"
+= "t.e_8.out.d[0]" "t.na_10.in2"
 = "t.e_8.out.d[0]" "t.gc_0.f"
 = "t.s_4.s1.a" "t.s_4.s2.r"
 = "t.s_4.go.r" "t.s_4.s1.r"
@@ -534,8 +535,7 @@ weak ~"t.tv_6[7].v.f"->"t.tv_6[7].v.t"+
 = "t.tv_6[7].v.d[1]" "t.tv_6[7].v.t"
 = "t.c_7.a" "t.s_7.s2.a"
 = "t.c_7.r" "t.s_7.s2.r"
-= "t.c_7.r" "t.gc_0.r"
-= "t.c_7.r" "t.s_8.go.r"
+= "t.c_7.r" "t.na_10.in1"
 = "t.c_7.a" "t.gc_0.t"
 = "t.c_7.a" "t.e_7.c.a"
 = "t.c_7.a" "t.ct_9.out"
@@ -1213,6 +1213,10 @@ weak ~"t.var_y[7].v.t"->"t.var_y[7].v.f"+
 weak ~"t.var_y[7].v.f"->"t.var_y[7].v.t"+
 = "t.var_y[7].v.d[0]" "t.var_y[7].v.f"
 = "t.var_y[7].v.d[1]" "t.var_y[7].v.t"
+"t.na_10._in1"|"t.na_10.in2"->"t.na_10.out"-
+~("t.na_10._in1"|"t.na_10.in2")->"t.na_10.out"+
+"t.na_10.in1"->"t.na_10._in1"-
+~("t.na_10.in1")->"t.na_10._in1"+
 = "t.c_6.r" "t.e_8.out.d[1]"
 = "t.c_6.r" "t.s_9[7].go.r"
 = "t.c_6.r" "t.s_9[6].go.r"
@@ -2852,6 +2856,8 @@ weak ~"t.var_x[7].v.f"->"t.var_x[7].v.t"+
 ~("t.s_8.r.a")->"t.s_8._ra"+
 = "t.s_8.r.a" "t.rtv_8.go.a"
 = "t.s_8.r.r" "t.rtv_8.go.r"
+= "t.s_8.go.r" "t.na_10.out"
+= "t.s_8.go.r" "t.gc_0.r"
 = "t.s_2.s1.a" "t.s_2.s2.r"
 = "t.s_2.go.r" "t.s_2.s1.r"
 = "t.s_2.go.a" "t.s_2.s2.a"

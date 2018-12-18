@@ -154,8 +154,11 @@ defproc toplevel (a1of1 go)
   gc_0.f = e_8.out.f;
   a1of1 c_7;
   /* gc cascade, start = 0, end = 0 */
-  gc_0.r = c_7.r;
+  syn_bool_notand na_10;
+  na_10.in1 = c_7.r;
+  na_10.out = gc_0.r;
   gc_0.t = c_7.a;
+  gc_0.f = na_10.in2;
   /* end of gc (#0) */
 
   s_7.s2 = c_7;

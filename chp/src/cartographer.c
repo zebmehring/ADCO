@@ -1088,17 +1088,10 @@ int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var)
   }
 
   // connect statment request to first guard
-  if (!loop)
-  {
-    fprintf (output_stream, "  gc_%d.r = c_%d.r;\n", start_gc_chan, ret);
-  }
-  else
-  {
-    na = stmt_count++;
-    fprintf (output_stream, "  syn_bool_notand na_%d;\n", na);
-    fprintf (output_stream, "  na_%d.in1 = c_%d.r;\n", na, ret);
-    fprintf (output_stream, "  na_%d.out = gc_%d.r;\n", na, start_gc_chan);
-  }
+  na = stmt_count++;
+  fprintf (output_stream, "  syn_bool_notand na_%d;\n", na);
+  fprintf (output_stream, "  na_%d.in1 = c_%d.r;\n", na, ret);
+  fprintf (output_stream, "  na_%d.out = gc_%d.r;\n", na, start_gc_chan);
 
   // single guard case
   if (start_gc_chan == end_gc_chan)
@@ -1106,6 +1099,7 @@ int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var)
     if (!loop)
     {
       fprintf (output_stream, "  gc_%d.t = c_%d.a;\n", start_gc_chan, ret);
+      fprintf (output_stream, "  gc_%d.f = na_%d.in2;\n", start_gc_chan, na);
     }
     else
     {
@@ -1135,6 +1129,7 @@ int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var)
     if (!loop)
     {
       fprintf (output_stream, "  or_%d.out = c_%d.a;\n", a, ret);
+      fprintf (output_stream, "  gc_%d.f = na_%d.in2;\n", end_gc_chan, na);
     }
     else
     {

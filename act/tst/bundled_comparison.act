@@ -318,18 +318,21 @@ defproc toplevel (a1of1 go)
   /* gc cascade, start = 0, end = 2 */
   gc_0.f = gc_1.r;
   gc_1.f = gc_2.r;
-  gc_0.r = c_8.r;
-  syn_bool_or or_15;
-  or_15.in1 = gc_0.t;
-  or_15.in2 = gc_1.t;
-  or_15.out = c_8.a;
+  syn_bool_notand na_15;
+  na_15.in1 = c_8.r;
+  na_15.out = gc_0.r;
+  syn_bool_or or_16;
+  or_16.in1 = gc_0.t;
+  or_16.in2 = gc_1.t;
+  or_16.out = c_8.a;
+  gc_2.f = na_15.in2;
   /* end of gc (#0) */
 
-  syn_seq s_16;
-  s_16.go = c_4;
-  s_16.s1 = c_8;
+  syn_seq s_17;
+  s_17.go = c_4;
+  s_17.s1 = c_8;
   a1of1 c_9;
-  s_16.s2 = c_9;
+  s_17.s2 = c_9;
 
   /* assign */
   bundled_expr_vararray<8> be_31;
@@ -350,30 +353,30 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_32;
   e_32.go_r = dn_31.out;
   (i:8: e_32.v[i] = be_32.out[i];)
-  syn_fullseq s_18;
-  e_32.go_r = s_18.go.r;
-  bundled_recv<8> brtv_18;
+  syn_fullseq s_19;
+  e_32.go_r = s_19.go.r;
+  bundled_recv<8> brtv_19;
   syn_expr_vararray<8> e_33;
-  syn_var_init_false tv_18[8];
-  (i:8: e_33.v[i] = tv_18[i].v;)
-  (i:8: e_33.v[i] = brtv_18.v[i];)
-  s_18.r.r = brtv_18.go.r;
-  s_18.r.a = brtv_18.go.a;
-  (i:8: e_32.out[i].t = brtv_18.in.d[i].t;
-        e_32.out[i].f = brtv_18.in.d[i].f;)
-  s_18.go.a = e_33.go_r;
-  bundled_recv<8> s_17;
-  s_17.go.r = e_33.go_r;
-  s_17.go.a = c_10.a;
-  (i:8: s_17.in.d[i].t = e_33.out[i].t;
-        s_17.in.d[i].f = e_33.out[i].f;
-        s_17.v[i] = var_x[i].v;)
+  syn_var_init_false tv_19[8];
+  (i:8: e_33.v[i] = tv_19[i].v;)
+  (i:8: e_33.v[i] = brtv_19.v[i];)
+  s_19.r.r = brtv_19.go.r;
+  s_19.r.a = brtv_19.go.a;
+  (i:8: e_32.out[i].t = brtv_19.in.d[i].t;
+        e_32.out[i].f = brtv_19.in.d[i].f;)
+  s_19.go.a = e_33.go_r;
+  bundled_recv<8> s_18;
+  s_18.go.r = e_33.go_r;
+  s_18.go.a = c_10.a;
+  (i:8: s_18.in.d[i].t = e_33.out[i].t;
+        s_18.in.d[i].f = e_33.out[i].f;
+        s_18.v[i] = var_x[i].v;)
 
-  syn_seq s_19;
-  s_19.go = c_9;
-  s_19.s1 = c_10;
+  syn_seq s_20;
+  s_20.go = c_9;
+  s_20.s1 = c_10;
   a1of1 c_11;
-  s_19.s2 = c_11;
+  s_20.s2 = c_11;
 
 
   /* emit individual gc (#1) [selection] */
@@ -394,18 +397,18 @@ defproc toplevel (a1of1 go)
   be_37.in = be_36.out;
   syn_expr_var e_37;
   e_37.v = be_37.out;
-  syn_fullseq s_20;
-  dn_36.out = s_20.go.r;
-  syn_recv rtv_20;
+  syn_fullseq s_21;
+  dn_36.out = s_21.go.r;
+  syn_recv rtv_21;
   syn_expr_var e_38;
-  syn_var_init_false tv_20;
-  tv_20.v = rtv_20.v;
-  e_38.v = tv_20.v;
-  s_20.r.r = e_37.go_r;
-  s_20.r = rtv_20.go;
-  e_37.out.t = rtv_20.in.t;
-  e_37.out.f = rtv_20.in.f;
-  s_20.go.a = e_38.go_r;
+  syn_var_init_false tv_21;
+  tv_21.v = rtv_21.v;
+  e_38.v = tv_21.v;
+  s_21.r.r = e_37.go_r;
+  s_21.r = rtv_21.go;
+  e_37.out.t = rtv_21.in.t;
+  e_37.out.f = rtv_21.in.f;
+  s_21.go.a = e_38.go_r;
   /* assign */
   bundled_expr_vararray<8> be_39;
   be_39.v[0] = const_1.v;
@@ -425,24 +428,24 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_40;
   e_40.go_r = dn_39.out;
   (i:8: e_40.v[i] = be_40.out[i];)
-  syn_fullseq s_22;
-  e_40.go_r = s_22.go.r;
-  bundled_recv<8> brtv_22;
+  syn_fullseq s_23;
+  e_40.go_r = s_23.go.r;
+  bundled_recv<8> brtv_23;
   syn_expr_vararray<8> e_41;
-  syn_var_init_false tv_22[8];
-  (i:8: e_41.v[i] = tv_22[i].v;)
-  (i:8: e_41.v[i] = brtv_22.v[i];)
-  s_22.r.r = brtv_22.go.r;
-  s_22.r.a = brtv_22.go.a;
-  (i:8: e_40.out[i].t = brtv_22.in.d[i].t;
-        e_40.out[i].f = brtv_22.in.d[i].f;)
-  s_22.go.a = e_41.go_r;
-  bundled_recv<8> s_21;
-  s_21.go.r = e_41.go_r;
-  s_21.go.a = c_12.a;
-  (i:8: s_21.in.d[i].t = e_41.out[i].t;
-        s_21.in.d[i].f = e_41.out[i].f;
-        s_21.v[i] = var_z[i].v;)
+  syn_var_init_false tv_23[8];
+  (i:8: e_41.v[i] = tv_23[i].v;)
+  (i:8: e_41.v[i] = brtv_23.v[i];)
+  s_23.r.r = brtv_23.go.r;
+  s_23.r.a = brtv_23.go.a;
+  (i:8: e_40.out[i].t = brtv_23.in.d[i].t;
+        e_40.out[i].f = brtv_23.in.d[i].f;)
+  s_23.go.a = e_41.go_r;
+  bundled_recv<8> s_22;
+  s_22.go.r = e_41.go_r;
+  s_22.go.a = c_12.a;
+  (i:8: s_22.in.d[i].t = e_41.out[i].t;
+        s_22.in.d[i].f = e_41.out[i].f;
+        s_22.v[i] = var_z[i].v;)
 
   e_38.out.t = c_12.r;
   gc_3.t = c_12.a;
@@ -464,18 +467,18 @@ defproc toplevel (a1of1 go)
   be_45.in = be_44.out;
   syn_expr_var e_45;
   e_45.v = be_45.out;
-  syn_fullseq s_23;
-  dn_44.out = s_23.go.r;
-  syn_recv rtv_23;
+  syn_fullseq s_24;
+  dn_44.out = s_24.go.r;
+  syn_recv rtv_24;
   syn_expr_var e_46;
-  syn_var_init_false tv_23;
-  tv_23.v = rtv_23.v;
-  e_46.v = tv_23.v;
-  s_23.r.r = e_45.go_r;
-  s_23.r = rtv_23.go;
-  e_45.out.t = rtv_23.in.t;
-  e_45.out.f = rtv_23.in.f;
-  s_23.go.a = e_46.go_r;
+  syn_var_init_false tv_24;
+  tv_24.v = rtv_24.v;
+  e_46.v = tv_24.v;
+  s_24.r.r = e_45.go_r;
+  s_24.r = rtv_24.go;
+  e_45.out.t = rtv_24.in.t;
+  e_45.out.f = rtv_24.in.f;
+  s_24.go.a = e_46.go_r;
   /* assign */
   bundled_expr_vararray<8> be_47;
   be_47.v[0] = const_0.v;
@@ -495,24 +498,24 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_48;
   e_48.go_r = dn_47.out;
   (i:8: e_48.v[i] = be_48.out[i];)
-  syn_fullseq s_25;
-  e_48.go_r = s_25.go.r;
-  bundled_recv<8> brtv_25;
+  syn_fullseq s_26;
+  e_48.go_r = s_26.go.r;
+  bundled_recv<8> brtv_26;
   syn_expr_vararray<8> e_49;
-  syn_var_init_false tv_25[8];
-  (i:8: e_49.v[i] = tv_25[i].v;)
-  (i:8: e_49.v[i] = brtv_25.v[i];)
-  s_25.r.r = brtv_25.go.r;
-  s_25.r.a = brtv_25.go.a;
-  (i:8: e_48.out[i].t = brtv_25.in.d[i].t;
-        e_48.out[i].f = brtv_25.in.d[i].f;)
-  s_25.go.a = e_49.go_r;
-  bundled_recv<8> s_24;
-  s_24.go.r = e_49.go_r;
-  s_24.go.a = c_13.a;
-  (i:8: s_24.in.d[i].t = e_49.out[i].t;
-        s_24.in.d[i].f = e_49.out[i].f;
-        s_24.v[i] = var_z[i].v;)
+  syn_var_init_false tv_26[8];
+  (i:8: e_49.v[i] = tv_26[i].v;)
+  (i:8: e_49.v[i] = brtv_26.v[i];)
+  s_26.r.r = brtv_26.go.r;
+  s_26.r.a = brtv_26.go.a;
+  (i:8: e_48.out[i].t = brtv_26.in.d[i].t;
+        e_48.out[i].f = brtv_26.in.d[i].f;)
+  s_26.go.a = e_49.go_r;
+  bundled_recv<8> s_25;
+  s_25.go.r = e_49.go_r;
+  s_25.go.a = c_13.a;
+  (i:8: s_25.in.d[i].t = e_49.out[i].t;
+        s_25.in.d[i].f = e_49.out[i].f;
+        s_25.v[i] = var_z[i].v;)
 
   e_46.out.t = c_13.r;
   gc_4.t = c_13.a;
@@ -534,18 +537,18 @@ defproc toplevel (a1of1 go)
   be_53.in = be_52.out;
   syn_expr_var e_53;
   e_53.v = be_53.out;
-  syn_fullseq s_26;
-  dn_52.out = s_26.go.r;
-  syn_recv rtv_26;
+  syn_fullseq s_27;
+  dn_52.out = s_27.go.r;
+  syn_recv rtv_27;
   syn_expr_var e_54;
-  syn_var_init_false tv_26;
-  tv_26.v = rtv_26.v;
-  e_54.v = tv_26.v;
-  s_26.r.r = e_53.go_r;
-  s_26.r = rtv_26.go;
-  e_53.out.t = rtv_26.in.t;
-  e_53.out.f = rtv_26.in.f;
-  s_26.go.a = e_54.go_r;
+  syn_var_init_false tv_27;
+  tv_27.v = rtv_27.v;
+  e_54.v = tv_27.v;
+  s_27.r.r = e_53.go_r;
+  s_27.r = rtv_27.go;
+  e_53.out.t = rtv_27.in.t;
+  e_53.out.f = rtv_27.in.f;
+  s_27.go.a = e_54.go_r;
   /* assign */
   bundled_expr_vararray<8> be_55;
   be_55.v[0] = const_1.v;
@@ -565,24 +568,24 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_56;
   e_56.go_r = dn_55.out;
   (i:8: e_56.v[i] = be_56.out[i];)
-  syn_fullseq s_28;
-  e_56.go_r = s_28.go.r;
-  bundled_recv<8> brtv_28;
+  syn_fullseq s_29;
+  e_56.go_r = s_29.go.r;
+  bundled_recv<8> brtv_29;
   syn_expr_vararray<8> e_57;
-  syn_var_init_false tv_28[8];
-  (i:8: e_57.v[i] = tv_28[i].v;)
-  (i:8: e_57.v[i] = brtv_28.v[i];)
-  s_28.r.r = brtv_28.go.r;
-  s_28.r.a = brtv_28.go.a;
-  (i:8: e_56.out[i].t = brtv_28.in.d[i].t;
-        e_56.out[i].f = brtv_28.in.d[i].f;)
-  s_28.go.a = e_57.go_r;
-  bundled_recv<8> s_27;
-  s_27.go.r = e_57.go_r;
-  s_27.go.a = c_14.a;
-  (i:8: s_27.in.d[i].t = e_57.out[i].t;
-        s_27.in.d[i].f = e_57.out[i].f;
-        s_27.v[i] = var_z[i].v;)
+  syn_var_init_false tv_29[8];
+  (i:8: e_57.v[i] = tv_29[i].v;)
+  (i:8: e_57.v[i] = brtv_29.v[i];)
+  s_29.r.r = brtv_29.go.r;
+  s_29.r.a = brtv_29.go.a;
+  (i:8: e_56.out[i].t = brtv_29.in.d[i].t;
+        e_56.out[i].f = brtv_29.in.d[i].f;)
+  s_29.go.a = e_57.go_r;
+  bundled_recv<8> s_28;
+  s_28.go.r = e_57.go_r;
+  s_28.go.a = c_14.a;
+  (i:8: s_28.in.d[i].t = e_57.out[i].t;
+        s_28.in.d[i].f = e_57.out[i].f;
+        s_28.v[i] = var_z[i].v;)
 
   e_54.out.t = c_14.r;
   gc_5.t = c_14.a;
@@ -591,18 +594,21 @@ defproc toplevel (a1of1 go)
   /* gc cascade, start = 3, end = 5 */
   gc_3.f = gc_4.r;
   gc_4.f = gc_5.r;
-  gc_3.r = c_15.r;
-  syn_bool_or or_29;
-  or_29.in1 = gc_3.t;
-  or_29.in2 = gc_4.t;
-  or_29.out = c_15.a;
+  syn_bool_notand na_30;
+  na_30.in1 = c_15.r;
+  na_30.out = gc_3.r;
+  syn_bool_or or_31;
+  or_31.in1 = gc_3.t;
+  or_31.in2 = gc_4.t;
+  or_31.out = c_15.a;
+  gc_5.f = na_30.in2;
   /* end of gc (#1) */
 
-  syn_seq s_30;
-  s_30.go = c_11;
-  s_30.s1 = c_15;
+  syn_seq s_32;
+  s_32.go = c_11;
+  s_32.s1 = c_15;
   a1of1 c_16;
-  s_30.s2 = c_16;
+  s_32.s2 = c_16;
 
   /* assign */
   bundled_expr_vararray<8> be_58;
@@ -623,28 +629,28 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_59;
   e_59.go_r = dn_58.out;
   (i:8: e_59.v[i] = be_59.out[i];)
-  syn_fullseq s_32;
-  e_59.go_r = s_32.go.r;
-  bundled_recv<8> brtv_32;
+  syn_fullseq s_34;
+  e_59.go_r = s_34.go.r;
+  bundled_recv<8> brtv_34;
   syn_expr_vararray<8> e_60;
-  syn_var_init_false tv_32[8];
-  (i:8: e_60.v[i] = tv_32[i].v;)
-  (i:8: e_60.v[i] = brtv_32.v[i];)
-  s_32.r.r = brtv_32.go.r;
-  s_32.r.a = brtv_32.go.a;
-  (i:8: e_59.out[i].t = brtv_32.in.d[i].t;
-        e_59.out[i].f = brtv_32.in.d[i].f;)
-  s_32.go.a = e_60.go_r;
-  bundled_recv<8> s_31;
-  s_31.go.r = e_60.go_r;
-  s_31.go.a = c_17.a;
-  (i:8: s_31.in.d[i].t = e_60.out[i].t;
-        s_31.in.d[i].f = e_60.out[i].f;
-        s_31.v[i] = var_x[i].v;)
+  syn_var_init_false tv_34[8];
+  (i:8: e_60.v[i] = tv_34[i].v;)
+  (i:8: e_60.v[i] = brtv_34.v[i];)
+  s_34.r.r = brtv_34.go.r;
+  s_34.r.a = brtv_34.go.a;
+  (i:8: e_59.out[i].t = brtv_34.in.d[i].t;
+        e_59.out[i].f = brtv_34.in.d[i].f;)
+  s_34.go.a = e_60.go_r;
+  bundled_recv<8> s_33;
+  s_33.go.r = e_60.go_r;
+  s_33.go.a = c_17.a;
+  (i:8: s_33.in.d[i].t = e_60.out[i].t;
+        s_33.in.d[i].f = e_60.out[i].f;
+        s_33.v[i] = var_x[i].v;)
 
-  syn_seq s_33;
-  s_33.go = c_16;
-  s_33.s1 = c_17;
+  syn_seq s_35;
+  s_35.go = c_16;
+  s_35.s1 = c_17;
 
 
   /* emit individual gc (#2) [selection] */
@@ -665,18 +671,18 @@ defproc toplevel (a1of1 go)
   be_64.in = be_63.out;
   syn_expr_var e_64;
   e_64.v = be_64.out;
-  syn_fullseq s_34;
-  dn_63.out = s_34.go.r;
-  syn_recv rtv_34;
+  syn_fullseq s_36;
+  dn_63.out = s_36.go.r;
+  syn_recv rtv_36;
   syn_expr_var e_65;
-  syn_var_init_false tv_34;
-  tv_34.v = rtv_34.v;
-  e_65.v = tv_34.v;
-  s_34.r.r = e_64.go_r;
-  s_34.r = rtv_34.go;
-  e_64.out.t = rtv_34.in.t;
-  e_64.out.f = rtv_34.in.f;
-  s_34.go.a = e_65.go_r;
+  syn_var_init_false tv_36;
+  tv_36.v = rtv_36.v;
+  e_65.v = tv_36.v;
+  s_36.r.r = e_64.go_r;
+  s_36.r = rtv_36.go;
+  e_64.out.t = rtv_36.in.t;
+  e_64.out.f = rtv_36.in.f;
+  s_36.go.a = e_65.go_r;
   /* assign */
   bundled_expr_vararray<8> be_66;
   be_66.v[0] = const_1.v;
@@ -696,24 +702,24 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_67;
   e_67.go_r = dn_66.out;
   (i:8: e_67.v[i] = be_67.out[i];)
-  syn_fullseq s_36;
-  e_67.go_r = s_36.go.r;
-  bundled_recv<8> brtv_36;
+  syn_fullseq s_38;
+  e_67.go_r = s_38.go.r;
+  bundled_recv<8> brtv_38;
   syn_expr_vararray<8> e_68;
-  syn_var_init_false tv_36[8];
-  (i:8: e_68.v[i] = tv_36[i].v;)
-  (i:8: e_68.v[i] = brtv_36.v[i];)
-  s_36.r.r = brtv_36.go.r;
-  s_36.r.a = brtv_36.go.a;
-  (i:8: e_67.out[i].t = brtv_36.in.d[i].t;
-        e_67.out[i].f = brtv_36.in.d[i].f;)
-  s_36.go.a = e_68.go_r;
-  bundled_recv<8> s_35;
-  s_35.go.r = e_68.go_r;
-  s_35.go.a = c_18.a;
-  (i:8: s_35.in.d[i].t = e_68.out[i].t;
-        s_35.in.d[i].f = e_68.out[i].f;
-        s_35.v[i] = var_z[i].v;)
+  syn_var_init_false tv_38[8];
+  (i:8: e_68.v[i] = tv_38[i].v;)
+  (i:8: e_68.v[i] = brtv_38.v[i];)
+  s_38.r.r = brtv_38.go.r;
+  s_38.r.a = brtv_38.go.a;
+  (i:8: e_67.out[i].t = brtv_38.in.d[i].t;
+        e_67.out[i].f = brtv_38.in.d[i].f;)
+  s_38.go.a = e_68.go_r;
+  bundled_recv<8> s_37;
+  s_37.go.r = e_68.go_r;
+  s_37.go.a = c_18.a;
+  (i:8: s_37.in.d[i].t = e_68.out[i].t;
+        s_37.in.d[i].f = e_68.out[i].f;
+        s_37.v[i] = var_z[i].v;)
 
   e_65.out.t = c_18.r;
   gc_6.t = c_18.a;
@@ -735,18 +741,18 @@ defproc toplevel (a1of1 go)
   be_72.in = be_71.out;
   syn_expr_var e_72;
   e_72.v = be_72.out;
-  syn_fullseq s_37;
-  dn_71.out = s_37.go.r;
-  syn_recv rtv_37;
+  syn_fullseq s_39;
+  dn_71.out = s_39.go.r;
+  syn_recv rtv_39;
   syn_expr_var e_73;
-  syn_var_init_false tv_37;
-  tv_37.v = rtv_37.v;
-  e_73.v = tv_37.v;
-  s_37.r.r = e_72.go_r;
-  s_37.r = rtv_37.go;
-  e_72.out.t = rtv_37.in.t;
-  e_72.out.f = rtv_37.in.f;
-  s_37.go.a = e_73.go_r;
+  syn_var_init_false tv_39;
+  tv_39.v = rtv_39.v;
+  e_73.v = tv_39.v;
+  s_39.r.r = e_72.go_r;
+  s_39.r = rtv_39.go;
+  e_72.out.t = rtv_39.in.t;
+  e_72.out.f = rtv_39.in.f;
+  s_39.go.a = e_73.go_r;
   /* assign */
   bundled_expr_vararray<8> be_74;
   be_74.v[0] = const_0.v;
@@ -766,24 +772,24 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_75;
   e_75.go_r = dn_74.out;
   (i:8: e_75.v[i] = be_75.out[i];)
-  syn_fullseq s_39;
-  e_75.go_r = s_39.go.r;
-  bundled_recv<8> brtv_39;
+  syn_fullseq s_41;
+  e_75.go_r = s_41.go.r;
+  bundled_recv<8> brtv_41;
   syn_expr_vararray<8> e_76;
-  syn_var_init_false tv_39[8];
-  (i:8: e_76.v[i] = tv_39[i].v;)
-  (i:8: e_76.v[i] = brtv_39.v[i];)
-  s_39.r.r = brtv_39.go.r;
-  s_39.r.a = brtv_39.go.a;
-  (i:8: e_75.out[i].t = brtv_39.in.d[i].t;
-        e_75.out[i].f = brtv_39.in.d[i].f;)
-  s_39.go.a = e_76.go_r;
-  bundled_recv<8> s_38;
-  s_38.go.r = e_76.go_r;
-  s_38.go.a = c_19.a;
-  (i:8: s_38.in.d[i].t = e_76.out[i].t;
-        s_38.in.d[i].f = e_76.out[i].f;
-        s_38.v[i] = var_z[i].v;)
+  syn_var_init_false tv_41[8];
+  (i:8: e_76.v[i] = tv_41[i].v;)
+  (i:8: e_76.v[i] = brtv_41.v[i];)
+  s_41.r.r = brtv_41.go.r;
+  s_41.r.a = brtv_41.go.a;
+  (i:8: e_75.out[i].t = brtv_41.in.d[i].t;
+        e_75.out[i].f = brtv_41.in.d[i].f;)
+  s_41.go.a = e_76.go_r;
+  bundled_recv<8> s_40;
+  s_40.go.r = e_76.go_r;
+  s_40.go.a = c_19.a;
+  (i:8: s_40.in.d[i].t = e_76.out[i].t;
+        s_40.in.d[i].f = e_76.out[i].f;
+        s_40.v[i] = var_z[i].v;)
 
   e_73.out.t = c_19.r;
   gc_7.t = c_19.a;
@@ -805,18 +811,18 @@ defproc toplevel (a1of1 go)
   be_80.in = be_79.out;
   syn_expr_var e_80;
   e_80.v = be_80.out;
-  syn_fullseq s_40;
-  dn_79.out = s_40.go.r;
-  syn_recv rtv_40;
+  syn_fullseq s_42;
+  dn_79.out = s_42.go.r;
+  syn_recv rtv_42;
   syn_expr_var e_81;
-  syn_var_init_false tv_40;
-  tv_40.v = rtv_40.v;
-  e_81.v = tv_40.v;
-  s_40.r.r = e_80.go_r;
-  s_40.r = rtv_40.go;
-  e_80.out.t = rtv_40.in.t;
-  e_80.out.f = rtv_40.in.f;
-  s_40.go.a = e_81.go_r;
+  syn_var_init_false tv_42;
+  tv_42.v = rtv_42.v;
+  e_81.v = tv_42.v;
+  s_42.r.r = e_80.go_r;
+  s_42.r = rtv_42.go;
+  e_80.out.t = rtv_42.in.t;
+  e_80.out.f = rtv_42.in.f;
+  s_42.go.a = e_81.go_r;
   /* assign */
   bundled_expr_vararray<8> be_82;
   be_82.v[0] = const_1.v;
@@ -836,24 +842,24 @@ defproc toplevel (a1of1 go)
   syn_expr_vararray<8> e_83;
   e_83.go_r = dn_82.out;
   (i:8: e_83.v[i] = be_83.out[i];)
-  syn_fullseq s_42;
-  e_83.go_r = s_42.go.r;
-  bundled_recv<8> brtv_42;
+  syn_fullseq s_44;
+  e_83.go_r = s_44.go.r;
+  bundled_recv<8> brtv_44;
   syn_expr_vararray<8> e_84;
-  syn_var_init_false tv_42[8];
-  (i:8: e_84.v[i] = tv_42[i].v;)
-  (i:8: e_84.v[i] = brtv_42.v[i];)
-  s_42.r.r = brtv_42.go.r;
-  s_42.r.a = brtv_42.go.a;
-  (i:8: e_83.out[i].t = brtv_42.in.d[i].t;
-        e_83.out[i].f = brtv_42.in.d[i].f;)
-  s_42.go.a = e_84.go_r;
-  bundled_recv<8> s_41;
-  s_41.go.r = e_84.go_r;
-  s_41.go.a = c_20.a;
-  (i:8: s_41.in.d[i].t = e_84.out[i].t;
-        s_41.in.d[i].f = e_84.out[i].f;
-        s_41.v[i] = var_z[i].v;)
+  syn_var_init_false tv_44[8];
+  (i:8: e_84.v[i] = tv_44[i].v;)
+  (i:8: e_84.v[i] = brtv_44.v[i];)
+  s_44.r.r = brtv_44.go.r;
+  s_44.r.a = brtv_44.go.a;
+  (i:8: e_83.out[i].t = brtv_44.in.d[i].t;
+        e_83.out[i].f = brtv_44.in.d[i].f;)
+  s_44.go.a = e_84.go_r;
+  bundled_recv<8> s_43;
+  s_43.go.r = e_84.go_r;
+  s_43.go.a = c_20.a;
+  (i:8: s_43.in.d[i].t = e_84.out[i].t;
+        s_43.in.d[i].f = e_84.out[i].f;
+        s_43.v[i] = var_z[i].v;)
 
   e_81.out.t = c_20.r;
   gc_8.t = c_20.a;
@@ -862,14 +868,17 @@ defproc toplevel (a1of1 go)
   /* gc cascade, start = 6, end = 8 */
   gc_6.f = gc_7.r;
   gc_7.f = gc_8.r;
-  gc_6.r = c_21.r;
-  syn_bool_or or_43;
-  or_43.in1 = gc_6.t;
-  or_43.in2 = gc_7.t;
-  or_43.out = c_21.a;
+  syn_bool_notand na_45;
+  na_45.in1 = c_21.r;
+  na_45.out = gc_6.r;
+  syn_bool_or or_46;
+  or_46.in1 = gc_6.t;
+  or_46.in2 = gc_7.t;
+  or_46.out = c_21.a;
+  gc_8.f = na_45.in2;
   /* end of gc (#2) */
 
-  s_33.s2 = c_21;
+  s_35.s2 = c_21;
 
   go = c_0;
 }

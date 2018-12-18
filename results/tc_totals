@@ -3,7 +3,7 @@ add_8: 4792
 bundled_add_32: 22704
 bundled_add_8: 5789
 bundled_comm: 13379
-bundled_comparison: 138409
+bundled_comp: 138430
 bundled_for_loop: 320478
 bundled_mul_32: 115880
 bundled_mul_8: 12198
@@ -12,11 +12,11 @@ bundled_sub_8: 6621
 cla_add_32: 22892
 cla_add_8: 5544
 comm: 10446
-comparison: 126249
-cse: 6980
+comp: 126270
+cse: 29612
 for_loop: 1103663
 mul_32: 226148
 mul_8: 20324
-o1_cse: 6128
+opt_cse: 26264
 sub_32: 25228
 sub_8: 6152

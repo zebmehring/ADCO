@@ -126,7 +126,7 @@ defproc syn_bool_or (bool in1, in2, out)
   }
 }
 
-/* BOOLEAN NAND GATE */
+/* BOOLEAN NOTAND GATE */
 defproc syn_bool_notand (bool in1, in2, out)
 {
   bool _in1;
@@ -134,6 +134,15 @@ defproc syn_bool_notand (bool in1, in2, out)
   {
     _in1 | in2 => out-
     in1 => _in1-
+  }
+}
+
+/* BOOLEAN NOT GATE */
+defproc syn_bool_not (bool in, out)
+{
+  prs
+  {
+    in => out-
   }
 }
 

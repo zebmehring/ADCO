@@ -3,7 +3,7 @@ add_8: 1360
 bundled_add_32: 13960
 bundled_add_8: 3880
 bundled_comm: 8040
-bundled_comparison: 52710
+bundled_comp: 52790
 bundled_for_loop: 976620
 bundled_mul_32: 93320
 bundled_mul_8: 8360
@@ -12,11 +12,11 @@ bundled_sub_8: 4520
 cla_add_32: 1470
 cla_add_8: 1290
 comm: 940
-comparison: 8110
-cse: 1350
+comp: 8190
+cse: 2020
 for_loop: 22100
 mul_32: 2710
 mul_8: 1820
-o1_cse: 1350
+opt_cse: 2020
 sub_32: 2060
 sub_8: 1400

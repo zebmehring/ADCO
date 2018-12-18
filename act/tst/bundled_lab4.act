@@ -200,11 +200,14 @@ defproc toplevel (a1of1 go)
   a1of1 c_11;
   /* gc cascade, start = 1, end = 2 */
   gc_1.f = gc_2.r;
-  gc_1.r = c_11.r;
-  syn_bool_or or_13;
-  or_13.in1 = gc_1.t;
-  or_13.in2 = gc_2.t;
-  or_13.out = c_11.a;
+  syn_bool_notand na_13;
+  na_13.in1 = c_11.r;
+  na_13.out = gc_1.r;
+  syn_bool_or or_14;
+  or_14.in1 = gc_1.t;
+  or_14.in2 = gc_2.t;
+  or_14.out = c_11.a;
+  gc_2.f = na_13.in2;
   /* end of gc (#1) */
 
   s_8.s2 = c_11;
@@ -214,72 +217,72 @@ defproc toplevel (a1of1 go)
   gc_0.f = GND;
   a1of1 c_12;
   /* gc cascade, start = 0, end = 0 */
-  syn_bool_notand na_14;
-  na_14.in1 = c_12.r;
-  na_14.out = gc_0.r;
-  gc_0.t = na_14.in2;
+  syn_bool_notand na_15;
+  na_15.in1 = c_12.r;
+  na_15.out = gc_0.r;
+  gc_0.t = na_15.in2;
   gc_0.f = c_12.a;
   /* end of gc (#0) */
 
-  syn_par s_15;
-  s_15.go = c_0;
-  s_15.s1 = c_12;
+  syn_par s_16;
+  s_16.go = c_0;
+  s_16.s1 = c_12;
   a1of1 c_13;
-  s_15.s2 = c_13;
+  s_16.s2 = c_13;
 
 
   /* emit individual gc (#2) [loop] */
   r1of2 gc_3;
   /* recv */
   a1of1 c_14;
-  bundled_recv<8> s_16;
-  s_16.go.r = c_14.r;
-  s_16.go.a = c_14.a; c_14.a = chan_S.a;
-  (i:8: s_16.in.d[i].t = chan_S.d[i].t;
-        s_16.in.d[i].f = chan_S.d[i].f;
-        s_16.v[i] = var_xx[i].v;)
+  bundled_recv<8> s_17;
+  s_17.go.r = c_14.r;
+  s_17.go.a = c_14.a; c_14.a = chan_S.a;
+  (i:8: s_17.in.d[i].t = chan_S.d[i].t;
+        s_17.in.d[i].f = chan_S.d[i].f;
+        s_17.v[i] = var_xx[i].v;)
 
   gc_3.r = c_14.r;
   gc_3.t = c_14.a;
   gc_3.f = GND;
   a1of1 c_15;
   /* gc cascade, start = 3, end = 3 */
-  syn_bool_notand na_17;
-  na_17.in1 = c_15.r;
-  na_17.out = gc_3.r;
-  gc_3.t = na_17.in2;
+  syn_bool_notand na_18;
+  na_18.in1 = c_15.r;
+  na_18.out = gc_3.r;
+  gc_3.t = na_18.in2;
   gc_3.f = c_15.a;
   /* end of gc (#2) */
 
-  syn_par s_18;
-  s_18.go = c_13;
-  s_18.s1 = c_15;
+  syn_par s_19;
+  s_19.go = c_13;
+  s_19.s1 = c_15;
 
 
   /* emit individual gc (#3) [loop] */
   r1of2 gc_4;
   /* recv */
   a1of1 c_16;
-  bundled_recv<8> s_19;
-  s_19.go.r = c_16.r;
-  s_19.go.a = c_16.a; c_16.a = chan_F.a;
-  (i:8: s_19.in.d[i].t = chan_F.d[i].t;
-        s_19.in.d[i].f = chan_F.d[i].f;
-        s_19.v[i] = var_yy[i].v;)
+  bundled_recv<8> s_20;
+  s_20.go.r = c_16.r;
+  s_20.go.a = c_16.a; c_16.a = chan_F.a;
+  (i:8: s_20.in.d[i].t = chan_F.d[i].t;
+        s_20.in.d[i].f = chan_F.d[i].f;
+        s_20.v[i] = var_yy[i].v;)
 
   gc_4.r = c_16.r;
   gc_4.t = c_16.a;
   gc_4.f = GND;
   a1of1 c_17;
   /* gc cascade, start = 4, end = 4 */
-  syn_bool_notand na_20;
-  na_20.in1 = c_17.r;
-  na_20.out = gc_4.r;
-  gc_4.t = na_20.in2;
+  syn_bool_notand na_21;
+  na_21.in1 = c_17.r;
+  na_21.out = gc_4.r;
+  gc_4.t = na_21.in2;
   gc_4.f = c_17.a;
   /* end of gc (#3) */
 
-  s_18.s2 = c_17;
+  s_19.s2 = c_17;
 
   go = c_0;
 }
