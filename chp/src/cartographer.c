@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdbool.h>
+#include "chp.h"
+#include "hash.h"
 #include "cartographer.h"
 
 int expr_count = 1;

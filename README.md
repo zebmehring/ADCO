@@ -3,9 +3,10 @@
 1. Replace the `ACT_PATH` string `#define`'d on line 17 of `~/chp/src/cartographer.c` with the complete path to `~/act`.
 2. Replace the arguments to the import statements at the top of `~/act/bundled.act` and `~/act/syn.act` with the complete path to `~/act/<filename>`.
 3. Edit the variables defined at the top of all scripts in the `~/scripts` directory to use the path to this directory (`~`). These include: `benchmark.sh`, `chp2prs.sh`, and `test.sh`.
+4. Change the macros defined at the top of the `Makefile` to the appropriate paths for the filesystem.
 
 # Usage
-	
+
 * The compiler binary is `~/chp/bin/zcc`. It is made according to the Makefile in `~/chp`.
   * For further information, use the `-h` or `--help` flags, or see the source code.
 * Both the compiler and `aflat` can be run in one command using the shell script `~/scripts/chp2prs.sh`.

@@ -1,4 +1,7 @@
-#include "check_types.h"
+#ifndef CARTOGRAPHER_H
+#define CARTOGRAPHER_H
+
+#include "hash.h"
 
 extern int expr_count;
 extern int stmt_count;
@@ -39,3 +42,5 @@ int print_gc (bool loop, chp_gc_t *gc, int *bitwidth, int *base_var);
 int print_chp_stmt (chp_lang_t *c, int *bitwidth, int *base_var);
 
 void print_chp_structure (Chp *c);
+
+#endif
